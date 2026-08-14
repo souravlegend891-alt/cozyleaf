@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cozyleaf — Every tool, one place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --ink:#14161A;
+    --ink-soft:#6B6F76;
+    --paper:#F5F4F0;
+    --card:#FFFFFF;
+    --line:#E6E4DD;
+    --header:#1B1D29;
+    --header-soft:#262A3B;
+    --cta:#FF6B4A;
+    --cta-dark:#E85436;
+    --radius:12px;
+    --c-image:#FF6B4A;
+    --c-calc:#2EC4B6;
+    --c-convert:#F4A527;
+    --c-fun:#8676FF;
+    --c-doc:#4CA8FF;
+    --c-qr:#9AA0AC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
+  header{position:sticky;top:0;z-index:50;background:var(--header);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:16px;}
+  .icon-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#fff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:.15s;}
+  .icon-btn:hover{background:var(--header-soft);}
+  .logo{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:7px;flex-shrink:0;}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--cta);display:inline-block;}
+  .search-wrap{flex:1;position:relative;max-width:640px;}
+  .search-wrap input{width:100%;padding:11px 16px 11px 40px;border-radius:10px;border:none;background:rgba(255,255,255,0.08);color:#fff;font-size:14.5px;font-family:'Inter',sans-serif;outline:none;transition:.15s;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.45);}
+  .search-wrap input:focus{background:#fff;color:var(--ink);}
+  .search-wrap input:focus::placeholder{color:var(--ink-soft);}
+  .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.6;font-size:15px;}
+  .signup-btn{background:var(--cta);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;border:none;white-space:nowrap;transition:.15s;}
+  .signup-btn:hover{background:var(--cta-dark);}
+  #search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.22);max-height:360px;overflow-y:auto;display:none;z-index:60;}
+  #search-results.show{display:block;}
+  .sr-item{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:var(--ink);border-bottom:1px solid var(--line);font-size:14px;}
+  .sr-item:last-child{border-bottom:none;}
+  .sr-item:hover{background:var(--paper);}
+  .sr-cat{color:var(--ink-soft);font-size:12px;}
+  .sr-empty{padding:16px;color:var(--ink-soft);font-size:14px;}
+  .overlay{position:fixed;inset:0;background:rgba(10,10,14,.5);z-index:80;opacity:0;pointer-events:none;transition:.2s;}
+  .overlay.show{opacity:1;pointer-events:auto;}
+  .drawer{position:fixed;top:0;left:0;height:100%;width:350px;max-width:88vw;background:var(--header);color:#fff;z-index:90;transform:translateX(-105%);transition:.25s ease;display:flex;flex-direction:column;}
+  .drawer.show{transform:translateX(0);}
+  .drawer-head{padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);}
+  .drawer-head h2{font-size:18px;font-weight:600;}
+  .drawer-body{overflow-y:auto;padding:10px 0 26px;}
+  .drawer-cat{padding:16px 20px 8px;font-size:11.5px;letter-spacing:.07em;color:rgba(255,255,255,.45);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px;}
+  .drawer-cat .chip{width:8px;height:8px;border-radius:50%;}
+  .drawer-link{display:flex;align-items:center;justify-content:space-between;padding:9px 20px 9px 32px;font-size:14px;color:rgba(255,255,255,.85);}
+  .drawer-link:hover{background:var(--header-soft);}
+  .drawer-count{font-size:11px;color:rgba(255,255,255,.4);}
+  .close-x{background:none;border:none;color:#fff;font-size:22px;line-height:1;}
+  .hero{padding:52px 24px 34px;max-width:1100px;margin:0 auto;}
+  .hero .eyebrow{color:var(--cta-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:block;}
+  .hero h1{font-size:clamp(28px,4.6vw,46px);font-weight:700;line-height:1.15;color:var(--ink);max-width:760px;margin-bottom:12px;}
+  .hero p{color:var(--ink-soft);font-size:15.5px;max-width:520px;}
+  .jumpnav{max-width:1100px;margin:0 auto 8px;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap;}
+  .jumpnav a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:20px;background:var(--card);border:1px solid var(--line);color:var(--ink-soft);display:flex;align-items:center;gap:6px;transition:.15s;}
+  .jumpnav a:hover{border-color:var(--ink); color:var(--ink);}
+  .jumpnav .chip{width:7px;height:7px;border-radius:50%;}
+  main{max-width:1100px;margin:0 auto;padding:28px 24px 90px;}
+  .cat-section{margin-bottom:40px;}
+  .cat-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .cat-head .bar{width:5px;height:24px;border-radius:3px;flex-shrink:0;}
+  .cat-head h2{font-size:20px;font-weight:600;color:var(--ink);}
+  .tool-list{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  .tool-row{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);transition:.12s;cursor:pointer;}
+  .tool-row:last-child{border-bottom:none;}
+  .tool-row:hover{background:var(--paper);}
+  .row-num{width:26px;height:26px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#fff;box-shadow:0 2px 5px rgba(20,22,26,.2);}
+  .row-main{flex:1;min-width:0;}
+  .row-name{font-weight:600;font-size:15px;color:var(--ink);}
+  .row-formats{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+  .row-arrow{color:var(--ink-soft);flex-shrink:0;font-size:16px;}
+  footer{background:var(--header);color:rgba(255,255,255,.6);padding:34px 24px;text-align:center;font-size:13.5px;}
+  footer a{color:var(--cta);font-weight:600;}
+  @media (max-width:640px){
+    header{padding:12px 14px;gap:10px;}
+    .logo{font-size:18px;}
+    .search-wrap input{font-size:14px;padding:10px 14px 10px 36px;}
+    .signup-btn{padding:9px 13px;font-size:13px;}
+    .hero{padding:34px 16px 24px;}
+    .hero h1{font-size:clamp(22px,7vw,30px);}
+    .hero p{font-size:14px;}
+    .jumpnav{padding:0 16px;}
+    main{padding:20px 16px 70px;}
+    .tool-row{padding:12px 14px;gap:10px;}
+    .row-name{font-size:14px;}
+    .row-formats{font-size:11.5px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="icon-btn" id="drawerBtn" aria-label="Browse all categories">☰</button>
+  <a class="logo" href="index.html"><span class="dot"></span><span class="text">Cozyleaf</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input id="searchInput" type="text" placeholder="Search any tool — resize, bmi, mp3..."/>
+    <div id="search-results"></div>
+  </div>
+  <button class="signup-btn">Sign up</button>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h2>All Categories</h2>
+    <button class="close-x" id="closeDrawer">×</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<section class="hero">
+  <span class="eyebrow">100+ free tools, one clean home</span>
+  <h1>Everything organized by category — scroll to find it</h1>
+  <p>The most-used tools are listed first in every category. Keep scrolling — nothing is hidden behind extra clicks.</p>
+</section>
+
+<nav class="jumpnav" id="jumpnav"></nav>
+
+<main id="main"></main>
+
+<footer>
+  Cozyleaf.in — every tool, one place. &#160; <a href="#" id="footerAll">Browse all categories →</a>
+</footer>
+
+<script>
+const MAIN_TOOLS = [
+  {name:"Remove Background", cat:"Image Tools", formats:"", usage:10000000, url:"#"},
+  {name:"Compress Image",    cat:"Image Tools", formats:"JPG, PNG, SVG, GIF", usage:0, url:"#"},
+  {name:"Resize Image",      cat:"Image Tools", formats:"JPG, PNG, SVG, GIF", usage:0, url:"#"},
+  {name:"Crop Image",        cat:"Image Tools", formats:"JPG, PNG, GIF", usage:0, url:"#"},
+  {name:"Convert to JPG",    cat:"Image Tools", formats:"PNG, GIF, TIF, PSD, SVG, WEBP, HEIC, RAW", usage:0, url:"#"},
+  {name:"Convert from JPG",  cat:"Image Tools", formats:"To PNG, GIF, or animated GIF", usage:0, url:"#"},
+  {name:"Upscale Image",     cat:"Image Tools", formats:"", usage:700000, url:"#"},
+  {name:"Watermark Image",   cat:"Image Tools", formats:"", usage:0, url:"#"},
+  {name:"HTML to Image",     cat:"Image Tools", formats:"", usage:0, url:"#"},
+  {name:"BMI Calculator",     cat:"Calculators", formats:"", usage:9000000, url:"bmi-calculator.html"},
+  {name:"Calorie Calculator", cat:"Calculators", formats:"", usage:5000000, url:"#"},
+  {name:"BMR Calculator",     cat:"Calculators", formats:"", usage:0, url:"#"},
+  {name:"MP3 Convert", cat:"Converters & Media", formats:"", usage:5000000, url:"#"},
+  {name:"Typing Speed Test", cat:"Fun & Text Tools", formats:"", usage:3000000, url:"#"},
+  {name:"Meme Generator",    cat:"Fun & Text Tools", formats:"", usage:1000000, url:"#"},
+  {name:"Name Style",        cat:"Fun & Text Tools", formats:"", usage:1000000, url:"#"},
+  {name:"Image Translator", cat:"Document & Translate", formats:"", usage:140000, url:"#"}
+];
+
+const DRAWER_CATEGORIES = {
+  "Document & PDF Tools": [
+    {name:"All Documents Reader (PDF, DOC, XLS)", url:"#"},
+    {name:"Merge PDF", url:"#"},
+    {name:"PDF to Word", url:"#"},
+    {name:"Word to PDF", url:"#"},
+    {name:"PDF to JPG", url:"#"},
+    {name:"JPG to Word", url:"#"},
+    {name:"JPG to Excel", url:"#"},
+    {name:"PDF to Excel", url:"#"},
+    {name:"Excel to JPG", url:"#"},
+    {name:"Word to JPG", url:"#"},
+    {name:"Image to PDF", url:"#"},
+    {name:"PDF to HTML", url:"#"},
+    {name:"HTML to PDF", url:"#"},
+    {name:"PDF to CSV", url:"#"},
+    {name:"PDF to Text", url:"#"},
+    {name:"Text to PDF", url:"#"},
+    {name:"Text to Word", url:"#"},
+    {name:"Text to Image", url:"#"},
+    {name:"Invert Image", url:"#"}
+  ],
+  "QR & Barcode Tools": [
+    {name:"QR Code Generator", url:"#"},
+    {name:"QR Code Scanner", url:"#"},
+    {name:"Barcode Scanner", url:"#"}
+  ]
+};
+
+const CATEGORY_META = {
+  "Image Tools": "var(--c-image)",
+  "Calculators": "var(--c-calc)",
+  "Converters & Media": "var(--c-convert)",
+  "Fun & Text Tools": "var(--c-fun)",
+  "Document & Translate": "var(--c-doc)",
+  "Document & PDF Tools": "var(--c-doc)",
+  "QR & Barcode Tools": "var(--c-qr)"
+};
+
+const CATEGORY_HEX = {
+  "Image Tools": "#FF6B4A",
+  "Calculators": "#2EC4B6",
+  "Converters & Media": "#F4A527",
+  "Fun & Text Tools": "#8676FF",
+  "Document & Translate": "#4CA8FF",
+  "Document & PDF Tools": "#4CA8FF",
+  "QR & Barcode Tools": "#9AA0AC"
+};
+
+function shade(hex, percent){
+  const n = parseInt(hex.slice(1),16);
+  const r = Math.max(0, Math.min(255, ((n>>16)&255) + percent));
+  const g = Math.max(0, Math.min(255, ((n>>8)&255) + percent));
+  const b = Math.max(0, Math.min(255, (n&255) + percent));
+  return `#${((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)}`;
+}
+
+const main = document.getElementById('main');
+const jumpnav = document.getElementById('jumpnav');
+
+const MAIN_CATS_ORDER = [...new Set(MAIN_TOOLS.map(t=>t.cat))]
+  .sort((a,b)=> Math.max(...MAIN_TOOLS.filter(t=>t.cat===b).map(t=>t.usage))
+              - Math.max(...MAIN_TOOLS.filter(t=>t.cat===a).map(t=>t.usage)));
+
+MAIN_CATS_ORDER.forEach(cat=>{
+  const tools = MAIN_TOOLS.filter(t=>t.cat===cat).sort((a,b)=>b.usage-a.usage);
+  const color = CATEGORY_META[cat] || 'var(--ink-soft)';
+  const hex = CATEGORY_HEX[cat] || '#6B6F76';
+  const id = slug(cat);
+  jumpnav.innerHTML += `<a href="#${id}"><span class="chip" style="background:${color}"></span>${cat}</a>`;
+  const section = document.createElement('section');
+  section.className = 'cat-section';
+  section.id = id;
+  section.innerHTML = `
+    <div class="cat-head">
+      <span class="bar" style="background:${color}"></span>
+      <h2>${cat}</h2>
+    </div>
+    <div class="tool-list">
+      ${tools.map((t,i)=>rowHTML(t,i+1,hex)).join('')}
+    </div>
+  `;
+  main.appendChild(section);
+});
+
+function rowHTML(t, num, hex){
+  const dark = shade(hex, -40);
+  return `
+    <a class="tool-row" href="${t.url || '#'}">
+      <div class="row-num" style="background:linear-gradient(135deg, ${hex}, ${dark})">${num}</div>
+      <div class="row-main">
+        <div class="row-name">${t.name}</div>
+        ${t.formats ? `<div class="row-formats">${t.formats}</div>` : ''}
+      </div>
+      <div class="row-arrow">→</div>
+    </a>`;
+}
+
+function slug(str){ return str.toLowerCase().replace(/[^a-z0-9]+/g,'-'); }
+
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+const drawerBody = document.getElementById('drawerBody');
+
+MAIN_CATS_ORDER.forEach(cat=>{
+  const tools = MAIN_TOOLS.filter(t=>t.cat===cat);
+  const color = CATEGORY_META[cat] || '#9AA0AC';
+  drawerBody.innerHTML += `<div class="drawer-cat"><span class="chip" style="background:${color}"></span>${cat}</div>` +
+    tools.map(t=>`<a class="drawer-link" href="${t.url || '#'}"><span>${t.name}</span></a>`).join('');
+});
+
+Object.entries(DRAWER_CATEGORIES).forEach(([cat, tools])=>{
+  const color = CATEGORY_META[cat] || '#9AA0AC';
+  drawerBody.innerHTML += `<div class="drawer-cat"><span class="chip" style="background:${color}"></span>${cat}</div>` +
+    tools.map(t=>`<a class="drawer-link" href="${t.url || '#'}"><span>${t.name}</span></a>`).join('');
+});
+
+function openDrawer(){ drawer.classList.add('show'); overlay.classList.add('show'); }
+function closeDrawer(){ drawer.classList.remove('show'); overlay.classList.remove('show'); }
+document.getElementById('drawerBtn').onclick = openDrawer;
+document.getElementById('closeDrawer').onclick = closeDrawer;
+document.getElementById('footerAll').onclick = (e)=>{e.preventDefault(); openDrawer();};
+overlay.onclick = closeDrawer;
+drawerBody.addEventListener('click', e=>{ if(e.target.closest('.drawer-link')) closeDrawer(); });
+
+const ALL_SEARCHABLE = [
+  ...MAIN_TOOLS.map(t=>({name:t.name, cat:t.cat, url:t.url})),
+  ...Object.entries(DRAWER_CATEGORIES).flatMap(([cat, tools])=>tools.map(t=>({name:t.name, cat, url:t.url})))
+];
+const input = document.getElementById('searchInput');
+const results = document.getElementById('search-results');
+input.addEventListener('input', ()=>{
+  const q = input.value.trim().toLowerCase();
+  if(!q){ results.classList.remove('show'); return; }
+  const matches = ALL_SEARCHABLE.filter(t=>t.name.toLowerCase().includes(q));
+  results.innerHTML = matches.length
+    ? matches.map(t=>`<a class="sr-item" href="${t.url || '#'}"><span>${t.name}</span><span class="sr-cat">${t.cat}</span></a>`).join('')
+    : `<div class="sr-empty">No tool found for "${q}"</div>`;
+  results.classList.add('show');
+});
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.search-wrap')) results.classList.remove('show');
+});
+</script>
+</body>
+</html>
