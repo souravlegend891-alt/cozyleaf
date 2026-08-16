@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -651,20 +651,20 @@ function buildStyles(name){
   // the same plain letters. (Non-Latin names pass through
   // unchanged in the font step, but still get the frame.)
   const frameThemes = {
-    Royal:  {fonts:["frakturBold","bold"], list:"Crown Duo","👑","👑"],["Emblem","⚜","⚜"],["Jewel Crown","💍","💍"],["Medal","🎖","🎖"},
-    Love:   {fonts:["script","italic"], list:"Sparkle Heart","💖","💖"],["Cupid Arrow","💘","💘"],["Kiss Mark","💋","💋"],["Ring Duo","💍","💍"},
-    Nature: {fonts:["boldItalic","scriptBold"], list:"Leaf Wrap","🌿","🌿"],["Blossom","🌸","🌸"],["Sunflower","🌻","🌻"],["Maple","🍁","🍁"},
-    Space:  {fonts:["doublestruck","sansBoldItalic"], list:"Galaxy","🌌","🌌"],["Shooting Star","🌠","🌠"],["Planet Ring","🪐","🪐"],["Comet","☄️","☄️"},
-    Music:  {fonts:["sansBold","monospace"], list:"Notes","🎶","🎶"],["Mic Wrap","🎤","🎤"],["Guitar","🎸","🎸"],["Piano","🎹","🎹"},
-    Food:   {fonts:["circled","smallcaps"], list:"Pizza","🍕","🍕"],["Donut","🍩","🍩"],["Cake","🍰","🍰"],["IceCream","🍦","🍦"},
-    Ocean:  {fonts:["fraktur","doublestruck"], list:"Wave","🌊","🌊"],["Dolphin","🐬","🐬"],["Anchor","⚓","⚓"],["Sailboat","⛵","⛵"},
-    Party:  {fonts:["scriptBold","bold"], list:"Confetti","🎉","🎉"],["Celebrate","🥳","🥳"],["Balloon","🎈","🎈"],["Fireworks","🎆","🎆"},
-    Weather:{fonts:["italic","sansItalic"], list:"Rainbow","🌈","🌈"],["Snowflake","❄️","❄️"],["Sunshine","☀️","☀️"],["Night Moon","🌙","🌙"},
-    Sports: {fonts:["sansItalic","sansBold"], list:"Soccer","⚽","⚽"],["Basketball","🏀","🏀"],["Trophy","🏆","🏆"],["Boxing","🥊","🥊"},
-    Tech:   {fonts:["monospace","doublestruck"], list:"Robot","🤖","🤖"],["Laptop","💻","💻"],["Gear","⚙️","⚙️"],["Battery","🔋","🔋"},
-    Flowers:{fonts:["sansBoldItalic","script"], list:"Rose","🌹","🌹"],["Bouquet","💐","💐"],["Cherry Blossom","🌸","🌸"],["Lotus","🪷","🪷"},
-    Animals:{fonts:["bold","boldItalic"], list:"Lion","🦁","🦁"],["Fox","🦊","🦊"],["Owl","🦉","🦉"],["Panda Duo","🐼","🐼"},
-    Travel: {fonts:["smallcaps","fullwidth"], list:"Airplane","✈️","✈️"],["Globe","🌍","🌍"],["Compass","🧭","🧭"],["Camera","📷","📷"}
+    Royal:  {fonts:["frakturBold","bold"], list:[["Crown Duo","👑","👑"],["Emblem","⚜","⚜"],["Jewel Crown","💍","💍"],["Medal","🎖","🎖"]]},
+    Love:   {fonts:["script","italic"], list:[["Sparkle Heart","💖","💖"],["Cupid Arrow","💘","💘"],["Kiss Mark","💋","💋"],["Ring Duo","💍","💍"]]},
+    Nature: {fonts:["boldItalic","scriptBold"], list:[["Leaf Wrap","🌿","🌿"],["Blossom","🌸","🌸"],["Sunflower","🌻","🌻"],["Maple","🍁","🍁"]]},
+    Space:  {fonts:["doublestruck","sansBoldItalic"], list:[["Galaxy","🌌","🌌"],["Shooting Star","🌠","🌠"],["Planet Ring","🪐","🪐"],["Comet","☄️","☄️"]]},
+    Music:  {fonts:["sansBold","monospace"], list:[["Notes","🎶","🎶"],["Mic Wrap","🎤","🎤"],["Guitar","🎸","🎸"],["Piano","🎹","🎹"]]},
+    Food:   {fonts:["circled","smallcaps"], list:[["Pizza","🍕","🍕"],["Donut","🍩","🍩"],["Cake","🍰","🍰"],["IceCream","🍦","🍦"]]},
+    Ocean:  {fonts:["fraktur","doublestruck"], list:[["Wave","🌊","🌊"],["Dolphin","🐬","🐬"],["Anchor","⚓","⚓"],["Sailboat","⛵","⛵"]]},
+    Party:  {fonts:["scriptBold","bold"], list:[["Confetti","🎉","🎉"],["Celebrate","🥳","🥳"],["Balloon","🎈","🎈"],["Fireworks","🎆","🎆"]]},
+    Weather:{fonts:["italic","sansItalic"], list:[["Rainbow","🌈","🌈"],["Snowflake","❄️","❄️"],["Sunshine","☀️","☀️"],["Night Moon","🌙","🌙"]]},
+    Sports: {fonts:["sansItalic","sansBold"], list:[["Soccer","⚽","⚽"],["Basketball","🏀","🏀"],["Trophy","🏆","🏆"],["Boxing","🥊","🥊"]]},
+    Tech:   {fonts:["monospace","doublestruck"], list:[["Robot","🤖","🤖"],["Laptop","💻","💻"],["Gear","⚙️","⚙️"],["Battery","🔋","🔋"]]},
+    Flowers:{fonts:["sansBoldItalic","script"], list:[["Rose","🌹","🌹"],["Bouquet","💐","💐"],["Cherry Blossom","🌸","🌸"],["Lotus","🪷","🪷"]]},
+    Animals:{fonts:["bold","boldItalic"], list:[["Lion","🦁","🦁"],["Fox","🦊","🦊"],["Owl","🦉","🦉"],["Panda Duo","🐼","🐼"]]},
+    Travel: {fonts:["smallcaps","fullwidth"], list:[["Airplane","✈️","✈️"],["Globe","🌍","🌍"],["Compass","🧭","🧭"],["Camera","📷","📷"]]}
   };
   Object.entries(frameThemes).forEach(([cat, {fonts, list}])=>{
     list.forEach(([tag,l,r], i)=>{
@@ -685,11 +685,11 @@ function buildStyles(name){
 
   // ---- Extra font-map + frame combos for popular categories ----
   const comboSets = [
-    {cat:"Script", mapKey:"script", wraps:"🕊","🕊"],["🌷","🌷"},
-    {cat:"Gothic", mapKey:"fraktur", wraps:"🦇","🦇"],["🖤","🖤"},
-    {cat:"Gaming", mapKey:"doublestruck", wraps:"⚔","⚔"],["🎮","🎮"},
-    {cat:"Royal", mapKey:"frakturBold", wraps:"👑","👑"],["♛","♛"},
-    {cat:"Retro", mapKey:"monospace", wraps:"[","]"],["<",">"},
+    {cat:"Script", mapKey:"script", wraps:[["🕊","🕊"],["🌷","🌷"]]},
+    {cat:"Gothic", mapKey:"fraktur", wraps:[["🦇","🦇"],["🖤","🖤"]]},
+    {cat:"Gaming", mapKey:"doublestruck", wraps:[["⚔","⚔"],["🎮","🎮"]]},
+    {cat:"Royal", mapKey:"frakturBold", wraps:[["👑","👑"],["♛","♛"]]},
+    {cat:"Retro", mapKey:"monospace", wraps:[["[","]"],["<",">"]]},
   ];
   comboSets.forEach(({cat,mapKey,wraps})=>{
     wraps.forEach(([l,r])=>{
@@ -796,3 +796,4 @@ render();
 </script>
 </body>
 </html>
+             
