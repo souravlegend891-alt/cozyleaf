@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewportli" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stylish Name Generator - Fancy Fonts & Symbols for Bio, Gaming ID | NameTag</title>
 <meta name="description" content="Free stylish name generator with 90+ fancy fonts, unicode symbols and cool text styles. Create stylish names for Instagram bio, Facebook, Free Fire, PUBG, gaming ID instantly. Copy and paste, no signup needed.">
 <meta name="keywords" content="stylish name generator, fancy text generator, nickname generator, free fire name style, unicode font generator, cool name for bio, stylish font">
@@ -35,19 +35,25 @@
   @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Symbols+2&family=Noto+Sans:wght@400;600&display=swap');
 
   :root{
-    --ink:#1A1425;
-    --paper:#F2ECDD;
-    --hot:#FF4D7D;
+    /* ---- Deep emerald / arcade palette ---- */
+    --ink:#0A1F1B;
+    --ink-2:#0F2E27;
+    --paper:#FBF5E6;
+    --hot:#FF6B4A;
     --gold:#FFC24B;
-    --mint:#5EEAD4;
-    --violet:#8B7CF6;
-    --card:#241C33;
-    --card-line:rgba(242,236,221,0.14);
+    --mint:#3ED6A3;
+    --teal:#17B6A8;
+    --card:#123028;
+    --card-line:rgba(251,245,230,0.12);
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--ink);
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, var(--ink-2) 0%, transparent 60%),
+      var(--ink);
+    background-attachment:fixed;
     color:var(--paper);
     font-family:'Space Grotesk','Noto Sans','Noto Sans Symbols 2',sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -71,7 +77,7 @@
   h1{
     font-family:'Bungee',sans-serif;
     font-weight:400;
-    font-size:clamp(28px,8vw,44px);
+    font-size:clamp(28px,8vw,52px);
     line-height:1.05;
     margin:10px 0 6px;
     background:linear-gradient(90deg,var(--hot),var(--gold));
@@ -81,14 +87,24 @@
   }
   .sub{
     font-size:14px;
-    color:rgba(242,236,221,0.65);
+    color:rgba(251,245,230,0.65);
     max-width:420px;
     margin:0 auto;
   }
 
+  /* =========================================================
+     LAYOUT — mobile: single stacked column (sidebar, then main)
+     desktop (>=1000px): sticky left sidebar + scrolling results
+     ========================================================= */
+  .layout{
+    max-width:480px;
+    margin:0 auto;
+  }
+  .sidebar{ }
+  .main-col{ }
+
   /* ---- badge / input hero ---- */
   .badge-wrap{
-    max-width:480px;
     margin:26px auto 8px;
     padding:0 18px;
   }
@@ -100,7 +116,7 @@
     position:relative;
     box-shadow:0 18px 0 -8px rgba(0,0,0,0.35), 0 24px 40px -10px rgba(0,0,0,0.5);
     transform:rotate(-1.2deg);
-    border:2px dashed rgba(26,20,37,0.18);
+    border:2px dashed rgba(10,31,27,0.18);
   }
   .badge::before{
     content:"";
@@ -116,13 +132,13 @@
     font-size:10px;
     letter-spacing:.18em;
     text-transform:uppercase;
-    color:rgba(26,20,37,0.5);
+    color:rgba(10,31,27,0.5);
     display:flex;
     justify-content:space-between;
   }
   .badge-preview{
     font-family:'Bungee','Noto Sans','Noto Sans Symbols 2',sans-serif;
-    font-size:clamp(22px,7vw,34px);
+    font-size:clamp(22px,7vw,32px);
     margin:10px 0 14px;
     min-height:44px;
     word-break:break-word;
@@ -131,7 +147,7 @@
   #nameInput{
     width:100%;
     border:none;
-    border-top:2px solid rgba(26,20,37,0.15);
+    border-top:2px solid rgba(10,31,27,0.15);
     background:transparent;
     font-family:'Space Grotesk',sans-serif;
     font-size:17px;
@@ -140,11 +156,12 @@
     color:var(--ink);
     outline:none;
   }
-  #nameInput::placeholder{color:rgba(26,20,37,0.35);}
+  #nameInput::placeholder{color:rgba(10,31,27,0.35);}
+  #nameInput:focus-visible{outline:2px solid var(--teal); outline-offset:3px; border-radius:4px;}
   .count{
     font-family:'JetBrains Mono',monospace;
     font-size:11px;
-    color:rgba(26,20,37,0.4);
+    color:rgba(10,31,27,0.4);
     text-align:right;
     margin-top:4px;
   }
@@ -155,8 +172,6 @@
     gap:8px;
     overflow-x:auto;
     padding:18px 18px 6px;
-    max-width:480px;
-    margin:0 auto;
     scrollbar-width:none;
   }
   .chip-row::-webkit-scrollbar{display:none;}
@@ -173,17 +188,17 @@
     cursor:pointer;
     white-space:nowrap;
   }
+  .chip:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
   .chip.active{
-    background:var(--violet);
-    border-color:var(--violet);
-    color:#fff;
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#08201B;
+    font-weight:600;
   }
 
   /* ---- results ---- */
   #results{
-    max-width:480px;
-    margin:10px auto 60px;
-    padding:0 18px;
+    padding:10px 18px 0;
     display:flex;
     flex-direction:column;
     gap:12px;
@@ -202,7 +217,9 @@
     color:var(--gold);
     display:flex;
     justify-content:space-between;
+    gap:10px;
   }
+  .result-tag span:last-child{color:rgba(251,245,230,0.4);}
   .result-text{
     font-size:20px;
     margin:10px 0 14px;
@@ -226,19 +243,21 @@
     gap:6px;
   }
   .btn.copy{
-    background:rgba(242,236,221,0.08);
+    background:rgba(251,245,230,0.08);
     color:var(--paper);
     flex:1;
+    transition:background .15s ease, color .15s ease;
   }
   .btn.copy:active, .btn.copy.copied{
     background:var(--mint);
     color:var(--ink);
   }
   .btn.heart{
-    background:rgba(242,236,221,0.08);
+    background:rgba(251,245,230,0.08);
     color:var(--hot);
     width:40px;
     justify-content:center;
+    transition:background .15s ease, color .15s ease;
   }
   .btn.heart.on{
     background:var(--hot);
@@ -250,13 +269,12 @@
     padding:0 20px 40px;
     font-family:'JetBrains Mono',monospace;
     font-size:11px;
-    color:rgba(242,236,221,0.35);
+    color:rgba(251,245,230,0.35);
     line-height:1.7;
   }
   footer a{color:var(--mint);}
 
   .seo-content{
-    max-width:480px;
     margin:20px auto 30px;
     padding:0 18px;
   }
@@ -270,13 +288,71 @@
   .seo-content p{
     font-size:13px;
     line-height:1.7;
-    color:rgba(242,236,221,0.7);
+    color:rgba(251,245,230,0.7);
     margin:0 0 10px;
   }
 
   @media (prefers-reduced-motion:no-preference){
     .badge{transition:transform .25s ease;}
     .badge:active{transform:rotate(0deg) scale(0.995);}
+    .result-card{transition:border-color .15s ease, transform .15s ease;}
+  }
+  @media (hover:hover){
+    .chip:hover{border-color:var(--teal);}
+    .result-card:hover{border-color:rgba(62,214,163,0.4);}
+    .btn.copy:hover{background:rgba(251,245,230,0.14);}
+  }
+
+  /* =========================================================
+     TABLET — widen the single column, results become a grid
+     ========================================================= */
+  @media (min-width:700px){
+    .layout{ max-width:680px; }
+    .sub{ max-width:520px; }
+    .badge-wrap{ max-width:420px; margin-left:auto; margin-right:auto; }
+    #results{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      align-items:start;
+    }
+  }
+
+  /* =========================================================
+     DESKTOP — sticky sidebar (badge + filters) beside a
+     scrolling results column. This is the shape that keeps the
+     page from turning into one long thin strip on a big screen.
+     ========================================================= */
+  @media (min-width:1000px){
+    header{ padding-top:48px; }
+    .sub{ max-width:600px; }
+    .layout{
+      max-width:1120px;
+      display:grid;
+      grid-template-columns:340px 1fr;
+      gap:36px;
+      align-items:start;
+      padding:0 32px;
+    }
+    .sidebar{
+      position:sticky;
+      top:28px;
+    }
+    .badge-wrap{ padding:0; margin-top:0; }
+    .chip-row{
+      flex-wrap:wrap;
+      overflow:visible;
+      padding:16px 0 0;
+    }
+    #results{
+      grid-template-columns:repeat(2,1fr);
+      padding:0;
+      margin-top:34px;
+    }
+    .seo-content{ padding:0; max-width:760px; }
+  }
+  @media (min-width:1300px){
+    .layout{ grid-template-columns:360px 1fr; max-width:1240px; }
+    #results{ grid-template-columns:repeat(3,1fr); }
   }
 
 </style>
@@ -290,42 +366,45 @@
   <p class="sub">Type your name and see 170+ genuinely different, hand-picked stylish fonts and symbol styles — perfect for Facebook, Instagram bio and gaming IDs. Works with English, Bengali, Hindi, Arabic and more.</p>
 </header>
 
-<div class="badge-wrap">
-  <div class="badge">
-    <div class="badge-label"><span>LIVE PREVIEW</span><span id="charCountTop">0/30</span></div>
-    <div class="badge-preview" id="livePreview">Your Name</div>
-    <input id="nameInput" type="text" maxlength="30" placeholder="Type a name here..." />
-  </div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="badge-wrap">
+      <div class="badge">
+        <div class="badge-label"><span>LIVE PREVIEW</span><span id="charCountTop">0/30</span></div>
+        <div class="badge-preview" id="livePreview">Your Name</div>
+        <input id="nameInput" type="text" maxlength="30" placeholder="Type a name here..." />
+      </div>
+    </div>
+    <div class="chip-row" id="chipRow"></div>
+  </aside>
+
+  <main class="main-col">
+    <div id="results"></div>
+
+    <section class="seo-content">
+      <h2>What is a Stylish Name Generator?</h2>
+      <p>A stylish name generator turns a plain name into eye-catching text using special Unicode characters — bubble letters, gothic fonts, script fonts, symbols and more. These aren't new fonts; they're special Unicode characters that look like styled letters, so they work anywhere you can paste text: Instagram bio, Facebook name, WhatsApp status, Free Fire, PUBG Mobile, and other gaming usernames.</p>
+
+      <h2>300+ Styles Across 25+ Categories</h2>
+      <p>NameTag offers over 300 styles — bubble, square, gothic, script, gaming tags, universal brackets, and themed symbol frames like Royal, Love, Nature, Space, Music, Food, Ocean, Sports, Tech, Flowers, Animals, Travel and more. Browse by category using the chips above the results.</p>
+
+      <h2>Works in Any Language</h2>
+      <p>Font-transform styles (bubble, gothic, script, bold, etc.) are built on the Latin alphabet, so they look best with English names. But the symbol, bracket and themed frame styles wrap your name exactly as typed — so they work beautifully with names in Bengali, Hindi, Arabic, Chinese, or any other language.</p>
+
+      <h2>How to Use NameTag</h2>
+      <p>Type your name in the box above the results update instantly. Browse by category, tap Copy on any style, and paste it wherever you want. Everything runs directly in your browser, so it works instantly with no sign-up and no waiting.</p>
+
+      <h2>Why Use Stylish Fonts for Gaming IDs?</h2>
+      <p>In games like Free Fire and PUBG Mobile, a unique stylish name helps your profile stand out on leaderboards and in-game chat. Clan tags, symbol frames and decorative Unicode styles are a simple way to make a gaming ID look distinct without needing any design skill.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <p><strong>Is this free to use?</strong> Yes, NameTag is completely free with no account required.</p>
+      <p><strong>Does it work with non-English names?</strong> Yes — bracket, symbol and themed frame styles work with any language. Latin-letter font styles (bubble, gothic, script) work best with English names.</p>
+      <p><strong>Will these styles work everywhere?</strong> Most modern apps and platforms support Unicode, so these styles display correctly on Instagram, Facebook, WhatsApp, Free Fire, Discord and more. A few very old apps may not render every symbol.</p>
+      <p><strong>Does this store or upload my name?</strong> No — everything is generated locally in your browser. Nothing is sent to any server.</p>
+    </section>
+  </main>
 </div>
-
-<!-- INSTANT MODE -->
-<div id="instantMode">
-  <div class="chip-row" id="chipRow"></div>
-  <div id="results"></div>
-</div>
-
-<section class="seo-content">
-  <h2>What is a Stylish Name Generator?</h2>
-  <p>A stylish name generator turns a plain name into eye-catching text using special Unicode characters — bubble letters, gothic fonts, script fonts, symbols and more. These aren't new fonts; they're special Unicode characters that look like styled letters, so they work anywhere you can paste text: Instagram bio, Facebook name, WhatsApp status, Free Fire, PUBG Mobile, and other gaming usernames.</p>
-
-  <h2>300+ Styles Across 25+ Categories</h2>
-  <p>NameTag offers over 300 styles — bubble, square, gothic, script, gaming tags, universal brackets, and themed symbol frames like Royal, Love, Nature, Space, Music, Food, Ocean, Sports, Tech, Flowers, Animals, Travel and more. Browse by category using the chips above the results.</p>
-
-  <h2>Works in Any Language</h2>
-  <p>Font-transform styles (bubble, gothic, script, bold, etc.) are built on the Latin alphabet, so they look best with English names. But the symbol, bracket and themed frame styles wrap your name exactly as typed — so they work beautifully with names in Bengali, Hindi, Arabic, Chinese, or any other language.</p>
-
-  <h2>How to Use NameTag</h2>
-  <p>Type your name in the box above the results update instantly. Browse by category, tap Copy on any style, and paste it wherever you want. Everything runs directly in your browser, so it works instantly with no sign-up and no waiting.</p>
-
-  <h2>Why Use Stylish Fonts for Gaming IDs?</h2>
-  <p>In games like Free Fire and PUBG Mobile, a unique stylish name helps your profile stand out on leaderboards and in-game chat. Clan tags, symbol frames and decorative Unicode styles are a simple way to make a gaming ID look distinct without needing any design skill.</p>
-
-  <h2>Frequently Asked Questions</h2>
-  <p><strong>Is this free to use?</strong> Yes, NameTag is completely free with no account required.</p>
-  <p><strong>Does it work with non-English names?</strong> Yes — bracket, symbol and themed frame styles work with any language. Latin-letter font styles (bubble, gothic, script) work best with English names.</p>
-  <p><strong>Will these styles work everywhere?</strong> Most modern apps and platforms support Unicode, so these styles display correctly on Instagram, Facebook, WhatsApp, Free Fire, Discord and more. A few very old apps may not render every symbol.</p>
-  <p><strong>Does this store or upload my name?</strong> No — everything is generated locally in your browser. Nothing is sent to any server.</p>
-</section>
 
 <footer>
   Unicode styles run 100% in your browser — no data goes anywhere.<br>
@@ -572,20 +651,20 @@ function buildStyles(name){
   // the same plain letters. (Non-Latin names pass through
   // unchanged in the font step, but still get the frame.)
   const frameThemes = {
-    Royal:  {fonts:["frakturBold","bold"], list:[["Crown Duo","👑","👑"],["Emblem","⚜","⚜"],["Jewel Crown","💍","💍"],["Medal","🎖","🎖"]]},
-    Love:   {fonts:["script","italic"], list:[["Sparkle Heart","💖","💖"],["Cupid Arrow","💘","💘"],["Kiss Mark","💋","💋"],["Ring Duo","💍","💍"]]},
-    Nature: {fonts:["boldItalic","scriptBold"], list:[["Leaf Wrap","🌿","🌿"],["Blossom","🌸","🌸"],["Sunflower","🌻","🌻"],["Maple","🍁","🍁"]]},
-    Space:  {fonts:["doublestruck","sansBoldItalic"], list:[["Galaxy","🌌","🌌"],["Shooting Star","🌠","🌠"],["Planet Ring","🪐","🪐"],["Comet","☄️","☄️"]]},
-    Music:  {fonts:["sansBold","monospace"], list:[["Notes","🎶","🎶"],["Mic Wrap","🎤","🎤"],["Guitar","🎸","🎸"],["Piano","🎹","🎹"]]},
-    Food:   {fonts:["circled","smallcaps"], list:[["Pizza","🍕","🍕"],["Donut","🍩","🍩"],["Cake","🍰","🍰"],["IceCream","🍦","🍦"]]},
-    Ocean:  {fonts:["fraktur","doublestruck"], list:[["Wave","🌊","🌊"],["Dolphin","🐬","🐬"],["Anchor","⚓","⚓"],["Sailboat","⛵","⛵"]]},
-    Party:  {fonts:["scriptBold","bold"], list:[["Confetti","🎉","🎉"],["Celebrate","🥳","🥳"],["Balloon","🎈","🎈"],["Fireworks","🎆","🎆"]]},
-    Weather:{fonts:["italic","sansItalic"], list:[["Rainbow","🌈","🌈"],["Snowflake","❄️","❄️"],["Sunshine","☀️","☀️"],["Night Moon","🌙","🌙"]]},
-    Sports: {fonts:["sansItalic","sansBold"], list:[["Soccer","⚽","⚽"],["Basketball","🏀","🏀"],["Trophy","🏆","🏆"],["Boxing","🥊","🥊"]]},
-    Tech:   {fonts:["monospace","doublestruck"], list:[["Robot","🤖","🤖"],["Laptop","💻","💻"],["Gear","⚙️","⚙️"],["Battery","🔋","🔋"]]},
-    Flowers:{fonts:["sansBoldItalic","script"], list:[["Rose","🌹","🌹"],["Bouquet","💐","💐"],["Cherry Blossom","🌸","🌸"],["Lotus","🪷","🪷"]]},
-    Animals:{fonts:["bold","boldItalic"], list:[["Lion","🦁","🦁"],["Fox","🦊","🦊"],["Owl","🦉","🦉"],["Panda Duo","🐼","🐼"]]},
-    Travel: {fonts:["smallcaps","fullwidth"], list:[["Airplane","✈️","✈️"],["Globe","🌍","🌍"],["Compass","🧭","🧭"],["Camera","📷","📷"]]}
+    Royal:  {fonts:["frakturBold","bold"], list:"Crown Duo","👑","👑"],["Emblem","⚜","⚜"],["Jewel Crown","💍","💍"],["Medal","🎖","🎖"},
+    Love:   {fonts:["script","italic"], list:"Sparkle Heart","💖","💖"],["Cupid Arrow","💘","💘"],["Kiss Mark","💋","💋"],["Ring Duo","💍","💍"},
+    Nature: {fonts:["boldItalic","scriptBold"], list:"Leaf Wrap","🌿","🌿"],["Blossom","🌸","🌸"],["Sunflower","🌻","🌻"],["Maple","🍁","🍁"},
+    Space:  {fonts:["doublestruck","sansBoldItalic"], list:"Galaxy","🌌","🌌"],["Shooting Star","🌠","🌠"],["Planet Ring","🪐","🪐"],["Comet","☄️","☄️"},
+    Music:  {fonts:["sansBold","monospace"], list:"Notes","🎶","🎶"],["Mic Wrap","🎤","🎤"],["Guitar","🎸","🎸"],["Piano","🎹","🎹"},
+    Food:   {fonts:["circled","smallcaps"], list:"Pizza","🍕","🍕"],["Donut","🍩","🍩"],["Cake","🍰","🍰"],["IceCream","🍦","🍦"},
+    Ocean:  {fonts:["fraktur","doublestruck"], list:"Wave","🌊","🌊"],["Dolphin","🐬","🐬"],["Anchor","⚓","⚓"],["Sailboat","⛵","⛵"},
+    Party:  {fonts:["scriptBold","bold"], list:"Confetti","🎉","🎉"],["Celebrate","🥳","🥳"],["Balloon","🎈","🎈"],["Fireworks","🎆","🎆"},
+    Weather:{fonts:["italic","sansItalic"], list:"Rainbow","🌈","🌈"],["Snowflake","❄️","❄️"],["Sunshine","☀️","☀️"],["Night Moon","🌙","🌙"},
+    Sports: {fonts:["sansItalic","sansBold"], list:"Soccer","⚽","⚽"],["Basketball","🏀","🏀"],["Trophy","🏆","🏆"],["Boxing","🥊","🥊"},
+    Tech:   {fonts:["monospace","doublestruck"], list:"Robot","🤖","🤖"],["Laptop","💻","💻"],["Gear","⚙️","⚙️"],["Battery","🔋","🔋"},
+    Flowers:{fonts:["sansBoldItalic","script"], list:"Rose","🌹","🌹"],["Bouquet","💐","💐"],["Cherry Blossom","🌸","🌸"],["Lotus","🪷","🪷"},
+    Animals:{fonts:["bold","boldItalic"], list:"Lion","🦁","🦁"],["Fox","🦊","🦊"],["Owl","🦉","🦉"],["Panda Duo","🐼","🐼"},
+    Travel: {fonts:["smallcaps","fullwidth"], list:"Airplane","✈️","✈️"],["Globe","🌍","🌍"],["Compass","🧭","🧭"],["Camera","📷","📷"}
   };
   Object.entries(frameThemes).forEach(([cat, {fonts, list}])=>{
     list.forEach(([tag,l,r], i)=>{
@@ -606,11 +685,11 @@ function buildStyles(name){
 
   // ---- Extra font-map + frame combos for popular categories ----
   const comboSets = [
-    {cat:"Script", mapKey:"script", wraps:[["🕊","🕊"],["🌷","🌷"]]},
-    {cat:"Gothic", mapKey:"fraktur", wraps:[["🦇","🦇"],["🖤","🖤"]]},
-    {cat:"Gaming", mapKey:"doublestruck", wraps:[["⚔","⚔"],["🎮","🎮"]]},
-    {cat:"Royal", mapKey:"frakturBold", wraps:[["👑","👑"],["♛","♛"]]},
-    {cat:"Retro", mapKey:"monospace", wraps:[["[","]"],["<",">"]]},
+    {cat:"Script", mapKey:"script", wraps:"🕊","🕊"],["🌷","🌷"},
+    {cat:"Gothic", mapKey:"fraktur", wraps:"🦇","🦇"],["🖤","🖤"},
+    {cat:"Gaming", mapKey:"doublestruck", wraps:"⚔","⚔"],["🎮","🎮"},
+    {cat:"Royal", mapKey:"frakturBold", wraps:"👑","👑"],["♛","♛"},
+    {cat:"Retro", mapKey:"monospace", wraps:"[","]"],["<",">"},
   ];
   comboSets.forEach(({cat,mapKey,wraps})=>{
     wraps.forEach(([l,r])=>{
