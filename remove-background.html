@@ -145,7 +145,7 @@
   button:focus-visible{outline:2px solid var(--orange); outline-offset:2px;}
 
   .note{margin-top:18px;font-size:13px;color:var(--gray);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
-  .error{margin-top:16px;background:#fdeceb;border:1px solid #f5c2bc;color:#a1301f;padding:12px 14px;border-radius:10px;font-size:14px;display:none;}
+  .error{margin-top:16px;background:#fdeceb;border:1px solid #f5c2bc;color:#a1301f;padding:12px 14px;border-radius:10px;font-size:14px;display:none;white-space:pre-line;word-break:break-word;}
   .error.active{display:block;}
 
   section.info{max-width:760px;margin:0 auto;padding:36px 20px;}
@@ -376,9 +376,13 @@
     }catch(err){
       console.error(err);
       const isNetworkIssue = err && /fetch|network|load/i.test(err.message || '');
-      showError(isNetworkIssue
-        ? 'Sorry, the AI model could not be downloaded — this usually means a weak or unstable internet connection. Please try again on WiFi or a stronger signal.'
-        : 'Sorry, this image could not be processed. Please try again, or use a different image.');
+      const debugMsg = (err && err.message) ? err.message : String(err);
+      showError(
+        (isNetworkIssue
+          ? 'Sorry, the AI model could not be downloaded — this usually means a weak or unstable internet connection. Please try again on WiFi or a stronger signal.'
+          : 'Sorry, this image could not be processed. Please try again, or use a different image.')
+        + '\n\nTechnical detail: ' + debugMsg
+      );
     }finally{
       overlay.classList.remove('active');
       removeBtn.disabled = false;
