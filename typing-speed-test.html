@@ -385,19 +385,34 @@
   }
 
   /* When the on-screen keyboard is open (body gets .kb-open via JS),
-     shrink the top padding and compact the passage box so the
-     timer row, passage and input all stay reachable above the keyboard. */
+     hide everything that isn't essential and compact what's left so the
+     timer row, accuracy, passage and input box all stay fully visible
+     above the keyboard — nothing should get clipped by the address bar. */
   body.kb-open{
-    padding-top:12px;
-    padding-bottom:12px;
+    padding-top:8px;
+    padding-bottom:8px;
     align-items:flex-start;
   }
+  body.kb-open .eyebrow{ display:none; }
+  body.kb-open h1{ display:none; }
   body.kb-open .sub{ display:none; }
-  body.kb-open .dials{ margin-bottom:10px; }
-  body.kb-open .dial{ padding:8px 6px; }
-  body.kb-open .text-display{ max-height:22vh; min-height:0; }
-  body.kb-open .paper{ padding:16px 16px 14px; }
-  body.kb-open .controls{ margin-bottom:10px; }
+  body.kb-open .controls{ display:none; }
+  body.kb-open footer.credit{ display:none; }
+  body.kb-open .hint{ display:none; }
+  body.kb-open .dials{
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-bottom:8px;
+    scroll-margin-top:8px;
+  }
+  body.kb-open .dial{ padding:6px 4px; }
+  body.kb-open .dial .num{ font-size:16px; }
+  body.kb-open .dial .num.time{ font-size:18px; }
+  body.kb-open .dial .lbl{ font-size:8.5px; }
+  body.kb-open .text-display{ max-height:16vh; min-height:0; }
+  body.kb-open .paper{ padding:12px 14px 12px; }
+  body.kb-open .progress-track{ margin-bottom:10px; }
+  body.kb-open .type-input{ margin-top:10px; }
 
   @media (prefers-reduced-motion: reduce){
     .char-current{ animation:none; border-left-color:var(--ribbon); }
@@ -439,7 +454,7 @@
   <div class="paper" id="paper">
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     <div class="text-display" id="textDisplay"></div>
-    <input type="text" class="type-input" id="hiddenInput" placeholder="Click here and start typing…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <input type="text" class="type-input" id="hiddenInput" placeholder="Click here and start typing…" autocomplete="off" autocorrect="off" spellcheck="false">
     <div class="hint">
       <span>Type into the box above — the passage highlights as you go.</span>
       <span class="tag" id="stateTag">Ready</span>
@@ -680,6 +695,15 @@
     }, 1000);
   }
 
+  function recomputeTypedFull(val, len){
+    typedChars = [];
+    errorKeystrokes = 0;
+    for(var j=0;j<len;j++){
+      if(val[j].toLowerCase() === currentText[j].toLowerCase()){ typedChars.push("correct"); }
+      else { typedChars.push("incorrect"); errorKeystrokes++; }
+    }
+  }
+
   var prevVal = "";
   function recomputeTyped(val){
     // make sure there's enough generated text ahead of what's been typed
@@ -693,10 +717,13 @@
     // that actually changed instead of rescanning from the start every
     // keystroke. Falls back to a full recompute for anything unusual
     // (e.g. mobile autocorrect rewriting a whole word).
+    // Comparisons are case-insensitive: mobile keyboards auto-capitalize
+    // the first letter of sentences on their own, so a correctly-typed
+    // letter should never get flagged as wrong just because of casing.
     if(prevVal && val.length > prevVal.length && val.indexOf(prevVal) === 0){
       // pure append
       for(var i=prevVal.length;i<val.length && i<currentText.length;i++){
-        if(val[i] === currentText[i]){ typedChars.push("correct"); }
+        if(val[i].toLowerCase() === currentText[i].toLowerCase()){ typedChars.push("correct"); }
         else { typedChars.push("incorrect"); errorKeystrokes++; }
       }
     } else if(prevVal && val.length < prevVal.length && prevVal.indexOf(val) === 0){
@@ -706,12 +733,7 @@
     } else {
       // full recompute (self-correcting fallback)
       var len = Math.min(val.length, currentText.length);
-      typedChars = [];
-      errorKeystrokes = 0;
-      for(var j=0;j<len;j++){
-        if(val[j] === currentText[j]){ typedChars.push("correct"); }
-        else { typedChars.push("incorrect"); errorKeystrokes++; }
-      }
+      recomputeTypedFull(val, len);
     }
 
     totalKeystrokes = typedChars.length;
@@ -806,10 +828,17 @@
   //    has finished animating in, instead of relying on default browser
   //    behavior (which is inconsistent, especially inside address-bar
   //    heavy mobile browser UIs).
+  var dialsEl = document.querySelector('.dials');
+
   function scrollInputIntoView(){
     // Give the keyboard time to finish opening before measuring/scrolling.
     setTimeout(function(){
-      hiddenInput.scrollIntoView({ behavior:'smooth', block:'center' });
+      // Bring the whole compact block (dials down to input) to the top
+      // of the visible area, so nothing is hidden above the fold behind
+      // the browser's address bar, and the input is guaranteed visible
+      // right below the shrunk passage.
+      if(dialsEl){ dialsEl.scrollIntoView({ block:'start' }); }
+      window.scrollTo(0, Math.max(window.scrollY - 8, 0));
     }, 250);
   }
 
