@@ -359,6 +359,7 @@
 
     try{
       const config = {
+        model: 'isnet_quint8', // smaller, quantized model — far less data to download, better for slow connections
         progress: (key, current, total) => {
           const pct = total ? Math.round((current/total)*100) : 0;
           progressFill.style.width = pct + '%';
@@ -374,7 +375,10 @@
       removeBtn.style.display = 'none';
     }catch(err){
       console.error(err);
-      showError('Sorry, this image could not be processed. Check your internet connection and try again, or use a different image.');
+      const isNetworkIssue = err && /fetch|network|load/i.test(err.message || '');
+      showError(isNetworkIssue
+        ? 'Sorry, the AI model could not be downloaded — this usually means a weak or unstable internet connection. Please try again on WiFi or a stronger signal.'
+        : 'Sorry, this image could not be processed. Please try again, or use a different image.');
     }finally{
       overlay.classList.remove('active');
       removeBtn.disabled = false;
