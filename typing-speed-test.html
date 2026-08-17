@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Typing Speed Test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,10 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
+  html{
+    /* fallback for browsers without dvh */
+    height:100%;
+  }
   body{
     font-family:'Work Sans', sans-serif;
     background:
@@ -34,6 +38,7 @@
       var(--ink);
     color:var(--paper);
     min-height:100vh;
+    min-height:100dvh; /* actual visible height on mobile, shrinks correctly when keyboard opens */
     padding:32px 16px 60px;
     display:flex;
     justify-content:center;
@@ -178,6 +183,8 @@
     box-shadow:var(--shadow);
     padding:26px 26px 20px;
     overflow:hidden;
+    scroll-margin-top:16px;
+    scroll-margin-bottom:16px;
   }
   .paper::before{
     content:"";
@@ -206,6 +213,8 @@
     letter-spacing:.2px;
     user-select:none;
     min-height:150px;
+    max-height:min(38vh, 260px);
+    overflow-y:auto;
   }
   .text-display span{ position:relative; }
   .char-pending{ color:#8a8067; }
@@ -222,7 +231,7 @@
     width:100%;
     margin-top:16px;
     font-family:'JetBrains Mono', monospace;
-    font-size:16px;
+    font-size:16px; /* keep >=16px: prevents iOS Safari auto-zoom on focus */
     padding:14px 16px;
     border-radius:10px;
     border:2px solid var(--paper-2);
@@ -230,6 +239,8 @@
     color:#2a2620;
     outline:none;
     transition:border-color .15s ease;
+    scroll-margin-top:16px;
+    scroll-margin-bottom:16px;
   }
   .type-input::placeholder{ color:#a79f88; }
   .type-input:focus{ border-color:var(--ribbon); }
@@ -373,6 +384,21 @@
     .paper{ padding:20px 16px 16px; }
   }
 
+  /* When the on-screen keyboard is open (body gets .kb-open via JS),
+     shrink the top padding and compact the passage box so the
+     timer row, passage and input all stay reachable above the keyboard. */
+  body.kb-open{
+    padding-top:12px;
+    padding-bottom:12px;
+    align-items:flex-start;
+  }
+  body.kb-open .sub{ display:none; }
+  body.kb-open .dials{ margin-bottom:10px; }
+  body.kb-open .dial{ padding:8px 6px; }
+  body.kb-open .text-display{ max-height:22vh; min-height:0; }
+  body.kb-open .paper{ padding:16px 16px 14px; }
+  body.kb-open .controls{ margin-bottom:10px; }
+
   @media (prefers-reduced-motion: reduce){
     .char-current{ animation:none; border-left-color:var(--ribbon); }
     .results.show{ animation:none; }
@@ -396,6 +422,8 @@
       <button class="chip" data-time="120">120s</button>
       <button class="chip" data-time="300">5m</button>
       <button class="chip" data-time="600">10m</button>
+      <button class="chip" data-time="1800">30m</button>
+      <button class="chip" data-time="3600">1h</button>
     </div>
     <div class="spacer"></div>
     <button class="btn" id="restartBtn">&#8635; New text</button>
@@ -440,21 +468,68 @@
 <script>
 (function(){
   var PASSAGES = [
+    // everyday / general
     "The quick brown fox jumps over the lazy dog while the morning sun rises slowly over the quiet hills and fields.",
     "Learning to type quickly takes practice, patience, and a steady rhythm that your fingers remember over time.",
     "A good typist keeps their eyes on the screen, their fingers on the home row, and their mind calm and focused.",
-    "Technology has changed the way people work, communicate, and share ideas across every corner of the world today.",
     "Every journey begins with a single step, and every fast typist began by typing one slow and careful word at a time.",
     "Reading a little every day builds vocabulary, and typing a little every day builds speed and confidence together.",
     "The library was silent except for the soft sound of pages turning and the distant hum of the old air conditioner.",
     "Coffee shops in the early morning have a certain charm, filled with quiet conversation and the smell of fresh bread.",
-    "Programmers often say that clean code is easier to read than clever code, and clarity matters more than speed.",
-    "The mountain trail wound upward through pine trees, past a cold stream, and finally opened onto a wide green meadow.",
     "Good habits are built slowly through small daily choices, not through occasional bursts of great effort.",
     "The old clock on the wall ticked steadily, marking each second as the students bent over their test papers.",
     "Practice does not make perfect, but consistent and mindful practice makes real and lasting improvement possible.",
     "A calm mind and relaxed hands will almost always type faster than a tense mind and rigid, stiff fingers.",
-    "The train pulled slowly into the station as passengers gathered their bags and waited for the doors to open."
+    "The train pulled slowly into the station as passengers gathered their bags and waited for the doors to open.",
+    "On a quiet Sunday morning, the smell of fresh bread drifting from the bakery drew a small line of customers outside.",
+    "A cluttered desk can quietly drain focus, while a few minutes of tidying often clears the mind as much as the space.",
+    // technology
+    "Technology has changed the way people work, communicate, and share ideas across every corner of the world today.",
+    "Programmers often say that clean code is easier to read than clever code, and clarity matters more than speed.",
+    "Artificial intelligence systems learn patterns from large amounts of data rather than following rigid, hand written rules.",
+    "A strong password is long, unpredictable, and unique to each account, which makes it far harder for attackers to guess.",
+    "Cloud storage lets people save files on remote servers so they can access their work from almost any device, anywhere.",
+    "Open source software is built and improved by volunteers around the world who share their code freely with everyone.",
+    // science
+    "Photosynthesis allows plants to convert sunlight, water, and carbon dioxide into the energy they need to grow.",
+    "The human heart beats roughly one hundred thousand times a day, pumping blood through a vast network of vessels.",
+    "Gravity is the invisible force that keeps planets orbiting the sun and objects firmly resting on the ground.",
+    "Bacteria are microscopic organisms that exist almost everywhere, including soil, water, and the human body itself.",
+    "A rainbow forms when sunlight passes through raindrops and splits into the familiar spectrum of visible colors.",
+    "Volcanoes form when molten rock beneath the surface finds a path upward and erupts through cracks in the crust.",
+    // history
+    "Ancient civilizations along great rivers like the Nile and the Indus built early cities that shaped human history.",
+    "The printing press, invented in the fifteenth century, made books far cheaper and helped literacy spread widely.",
+    "Explorers once relied on the stars and simple instruments to navigate vast oceans without any modern technology.",
+    "Many historical treaties were signed not to end conflict entirely, but to pause it long enough for diplomacy to work.",
+    // nature and geography
+    "The Amazon rainforest produces a significant share of the world's oxygen and is home to countless unique species.",
+    "Deserts can be freezing at night and scorching during the day because dry air holds onto very little heat.",
+    "Coral reefs, though they cover a small fraction of the ocean floor, support an extraordinary variety of marine life.",
+    "Migratory birds travel thousands of miles each year, guided by instinct, memory, and the position of the sun.",
+    // health and wellbeing
+    "Getting enough sleep each night supports memory, mood, and the body's ability to repair and recover itself.",
+    "Drinking enough water throughout the day helps regulate body temperature and keeps the mind alert and clear.",
+    "Regular exercise, even a short daily walk, can meaningfully improve both physical health and mental wellbeing.",
+    "Balanced meals that include vegetables, protein, and whole grains tend to provide steadier energy through the day.",
+    // business and finance
+    "A well written business plan outlines not just an idea, but the market, the costs, and the path to profit.",
+    "Compound interest rewards patience, since even small amounts saved regularly can grow substantially over time.",
+    "Good customer service often turns a single purchase into years of loyalty, referrals, and repeat business.",
+    "Negotiation works best when both sides understand what the other truly values, not just what they initially ask for.",
+    // psychology and self-improvement
+    "Small, consistent habits tend to shape a person's life far more than rare bursts of motivation ever could.",
+    "Curiosity, more than raw talent, often determines how far someone goes when learning a difficult new skill.",
+    "Listening carefully, without immediately planning a reply, is one of the simplest ways to strengthen a friendship.",
+    "Setting realistic goals, broken into small steps, makes long term progress feel achievable instead of overwhelming.",
+    // literature and language
+    "A well chosen word can carry more weight than an entire paragraph of vague and unfocused explanation.",
+    "Many idioms make little literal sense, yet native speakers use and understand them without a second thought.",
+    "Great storytellers often show a character's feelings through small actions rather than simply stating them outright.",
+    // space and astronomy
+    "The moon has no atmosphere of its own, so its surface experiences extreme swings between heat and cold.",
+    "Light from distant stars can take thousands or even millions of years to finally reach our eyes on Earth.",
+    "A single day on Venus is longer than its entire year, because the planet rotates unusually slowly on its axis."
   ];
 
   var textDisplay = document.getElementById('textDisplay');
@@ -483,41 +558,79 @@
   var errorKeystrokes = 0;
   var startTime = null;
 
+  // --- shuffle-bag so the same passage doesn't keep repeating ---
+  var passageBag = [];
+  var lastPassage = null;
+  function refillBag(){
+    passageBag = PASSAGES.slice();
+    for(var i=passageBag.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp = passageBag[i]; passageBag[i]=passageBag[j]; passageBag[j]=tmp;
+    }
+    // avoid the same passage showing twice back-to-back across a refill
+    if(passageBag.length > 1 && passageBag[0] === lastPassage){
+      passageBag.push(passageBag.shift());
+    }
+  }
+  function nextPassage(){
+    if(passageBag.length === 0){ refillBag(); }
+    var p = passageBag.shift();
+    lastPassage = p;
+    return p;
+  }
+
+  // --- streamed text generation: keep a buffer of untyped text ahead of
+  // the cursor instead of building the whole (possibly huge, for 30m/1h
+  // tests) passage up front ---
+  var GEN_BUFFER = 3000; // keep at least this many un-typed chars generated
+  function ensureBuffer(){
+    while(currentText.length - typedChars.length < GEN_BUFFER){
+      currentText += (currentText ? " " : "") + nextPassage();
+    }
+  }
+
   function formatTime(sec){
     sec = Math.max(sec,0);
-    if(sec < 60) return String(sec);
-    var m = Math.floor(sec/60);
-    var s = sec % 60;
-    return m + ":" + (s < 10 ? "0" : "") + s;
-  }
-
-  function pickPassage(){
-    // build a text long enough that even a fast typist won't run out
-    // before the timer ends, regardless of how long the test is
-    var targetLen = duration * 12;
-    var text = "";
-    var last = null;
-    while(text.length < targetLen){
-      var p;
-      do { p = PASSAGES[Math.floor(Math.random()*PASSAGES.length)]; } while(p === last && PASSAGES.length > 1);
-      text += (text ? " " : "") + p;
-      last = p;
+    if(sec < 3600){
+      if(sec < 60) return String(sec);
+      var m = Math.floor(sec/60);
+      var s = sec % 60;
+      return m + ":" + (s < 10 ? "0" : "") + s;
     }
-    return text;
+    var h = Math.floor(sec/3600);
+    var mm = Math.floor((sec%3600)/60);
+    var ss = sec%60;
+    return h + ":" + (mm<10?"0":"") + mm + ":" + (ss<10?"0":"") + ss;
   }
 
+  // --- windowed rendering: only render a chunk of characters around the
+  // cursor so the DOM stays small even during very long tests ---
+  var RENDER_BEHIND = 80;
+  var RENDER_AHEAD = 900;
   function renderText(){
+    var typedLen = typedChars.length;
+    var start = Math.max(0, typedLen - RENDER_BEHIND);
+    var end = Math.min(currentText.length, typedLen + RENDER_AHEAD);
     var html = "";
-    for(var i=0;i<currentText.length;i++){
+    var cursorMarker = "";
+    for(var i=start;i<end;i++){
       var ch = currentText[i];
       var display = ch === " " ? " " : ch;
       var cls = "char-pending";
       if(typedChars[i] === "correct") cls = "char-correct";
       else if(typedChars[i] === "incorrect") cls = "char-incorrect" + (ch === " " ? " is-space" : "");
-      if(i === typedChars.length) cls += " char-current";
-      html += '<span class="'+cls+'">'+ escapeHtml(display) +'</span>';
+      var isCursor = (i === typedLen);
+      if(isCursor) cls += " char-current";
+      html += '<span'+(isCursor?' id="cursorChar"':'')+' class="'+cls+'">'+ escapeHtml(display) +'</span>';
     }
     textDisplay.innerHTML = html;
+    // keep the cursor in view as typing progresses
+    var cursorEl = document.getElementById('cursorChar');
+    if(cursorEl){
+      cursorEl.scrollIntoView({ block:'center' });
+    } else {
+      textDisplay.scrollTop = textDisplay.scrollHeight;
+    }
   }
 
   function escapeHtml(s){
@@ -534,7 +647,11 @@
     totalKeystrokes = 0;
     errorKeystrokes = 0;
     startTime = null;
-    if(newText !== false){ currentText = pickPassage(); }
+    prevVal = "";
+    if(newText !== false){
+      currentText = "";
+      ensureBuffer();
+    }
     hiddenInput.disabled = false;
     hiddenInput.value = "";
     hiddenInput.classList.remove('input-correct','input-incorrect');
@@ -563,21 +680,42 @@
     }, 1000);
   }
 
+  var prevVal = "";
   function recomputeTyped(val){
-    // recomputed fresh from the input value every time — self-correcting,
-    // so it never gets out of sync even with mobile autocorrect/backspace.
-    var len = Math.min(val.length, currentText.length);
-    typedChars = [];
-    errorKeystrokes = 0;
-    for(var i=0;i<len;i++){
-      if(val[i] === currentText[i]){
-        typedChars.push("correct");
-      } else {
-        typedChars.push("incorrect");
-        errorKeystrokes++;
+    // make sure there's enough generated text ahead of what's been typed
+    if(val.length + GEN_BUFFER > currentText.length){
+      while(currentText.length < val.length + GEN_BUFFER){
+        currentText += (currentText ? " " : "") + nextPassage();
       }
     }
+
+    // Fast paths so long (30m/1h) tests stay smooth: only diff the part
+    // that actually changed instead of rescanning from the start every
+    // keystroke. Falls back to a full recompute for anything unusual
+    // (e.g. mobile autocorrect rewriting a whole word).
+    if(prevVal && val.length > prevVal.length && val.indexOf(prevVal) === 0){
+      // pure append
+      for(var i=prevVal.length;i<val.length && i<currentText.length;i++){
+        if(val[i] === currentText[i]){ typedChars.push("correct"); }
+        else { typedChars.push("incorrect"); errorKeystrokes++; }
+      }
+    } else if(prevVal && val.length < prevVal.length && prevVal.indexOf(val) === 0){
+      // pure backspace/truncate
+      var removed = typedChars.splice(val.length);
+      for(var r=0;r<removed.length;r++){ if(removed[r]==="incorrect") errorKeystrokes--; }
+    } else {
+      // full recompute (self-correcting fallback)
+      var len = Math.min(val.length, currentText.length);
+      typedChars = [];
+      errorKeystrokes = 0;
+      for(var j=0;j<len;j++){
+        if(val[j] === currentText[j]){ typedChars.push("correct"); }
+        else { typedChars.push("incorrect"); errorKeystrokes++; }
+      }
+    }
+
     totalKeystrokes = typedChars.length;
+    prevVal = val;
   }
 
   function updateLiveStats(){
@@ -656,6 +794,45 @@
 
   restartBtn.addEventListener('click', function(){ resetTest(); hiddenInput.focus(); });
   retryBtn.addEventListener('click', function(){ resetTest(); hiddenInput.focus(); paperEl.scrollIntoView({behavior:'smooth', block:'center'}); });
+
+  // ---- Mobile on-screen keyboard handling ----
+  // When the keyboard opens on phones, the visible viewport shrinks (or, on
+  // some Android browsers, the layout viewport doesn't shrink at all and the
+  // keyboard just overlaps content). Two things fix that:
+  // 1) Use visualViewport to detect the keyboard opening and add a
+  //    body.kb-open class that compacts the layout (hides subtitle, shrinks
+  //    dials/passage box) so everything still fits above the keyboard.
+  // 2) Explicitly scroll the input + passage into view once the keyboard
+  //    has finished animating in, instead of relying on default browser
+  //    behavior (which is inconsistent, especially inside address-bar
+  //    heavy mobile browser UIs).
+  function scrollInputIntoView(){
+    // Give the keyboard time to finish opening before measuring/scrolling.
+    setTimeout(function(){
+      hiddenInput.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 250);
+  }
+
+  hiddenInput.addEventListener('focus', function(){
+    document.body.classList.add('kb-open');
+    scrollInputIntoView();
+  });
+  hiddenInput.addEventListener('blur', function(){
+    document.body.classList.remove('kb-open');
+  });
+
+  if(window.visualViewport){
+    var initialVvHeight = window.visualViewport.height;
+    window.visualViewport.addEventListener('resize', function(){
+      var shrunk = window.visualViewport.height < initialVvHeight * 0.75;
+      if(shrunk){
+        document.body.classList.add('kb-open');
+      } else if(document.activeElement !== hiddenInput){
+        document.body.classList.remove('kb-open');
+        initialVvHeight = window.visualViewport.height;
+      }
+    });
+  }
 
   // init
   resetTest();
