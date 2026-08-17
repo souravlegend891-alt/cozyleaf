@@ -147,6 +147,13 @@
   .note{margin-top:18px;font-size:13px;color:var(--gray);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
   .error{margin-top:16px;background:#fdeceb;border:1px solid #f5c2bc;color:#a1301f;padding:12px 14px;border-radius:10px;font-size:14px;display:none;white-space:pre-line;word-break:break-word;}
   .error.active{display:block;}
+  .error .retry-btn{
+    margin-top:10px;background:#a1301f;color:#fff;border:none;border-radius:8px;
+    padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;
+  }
+
+  .unsupported{margin-top:16px;background:#fff8e6;border:1px solid #f0dca0;color:#8a6900;padding:12px 14px;border-radius:10px;font-size:14px;display:none;}
+  .unsupported.active{display:block;}
 
   section.info{max-width:760px;margin:0 auto;padding:36px 20px;}
   section.info h2{font-size:22px;margin:0 0 14px;font-weight:800;}
@@ -193,6 +200,8 @@
   <h1>Remove Background</h1>
   <p class="sub">Remove the background from any image in seconds and get a clean transparent PNG — completely free, no sign-up or software install needed. Everything runs right in your browser, so your photo is never uploaded to a server.</p>
 
+  <div id="unsupportedBox" class="unsupported">Your browser doesn't support the technology needed for this tool (WebAssembly). Please update your browser or try a different one, such as the latest Chrome or Safari.</div>
+
   <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload an image">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ee5a35" stroke-width="1.8">
       <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -204,7 +213,10 @@
     <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp">
   </div>
 
-  <div id="errorBox" class="error" role="alert"></div>
+  <div id="errorBox" class="error" role="alert">
+    <div id="errorText"></div>
+    <button class="retry-btn" id="retryBtn" style="display:none;">Try Again</button>
+  </div>
 
   <div id="workspace" class="workspace">
     <div class="canvas-wrap">
@@ -269,51 +281,102 @@
 <footer>© Cozyleaf — Free Online Tools</footer>
 
 <script type="module">
-  import { removeBackground } from "https://cdn.jsdelivr.net/npm/@imgly/background-removal/+esm";
+  import { removeBackground } from "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.6/dist/index.js";
 
-  const dropzone   = document.getElementById('dropzone');
-  const fileInput  = document.getElementById('fileInput');
-  const workspace  = document.getElementById('workspace');
-  const previewImg = document.getElementById('previewImg');
-  const overlay    = document.getElementById('overlay');
-  const progressText = document.getElementById('progressText');
-  const progressFill = document.getElementById('progressFill');
-  const removeBtn  = document.getElementById('removeBtn');
-  const downloadBtn= document.getElementById('downloadBtn');
-  const resetBtn   = document.getElementById('resetBtn');
-  const errorBox   = document.getElementById('errorBox');
+  const dropzone     = document.getElementById('dropzone');
+  const fileInput    = document.getElementById('fileInput');
+  const workspace     = document.getElementById('workspace');
+  const previewImg    = document.getElementById('previewImg');
+  const overlay        = document.getElementById('overlay');
+  const progressText  = document.getElementById('progressText');
+  const progressFill  = document.getElementById('progressFill');
+  const removeBtn      = document.getElementById('removeBtn');
+  const downloadBtn    = document.getElementById('downloadBtn');
+  const resetBtn        = document.getElementById('resetBtn');
+  const errorBox        = document.getElementById('errorBox');
+  const errorText       = document.getElementById('errorText');
+  const retryBtn         = document.getElementById('retryBtn');
+  const unsupportedBox  = document.getElementById('unsupportedBox');
 
-  const MAX_SIZE = 15 * 1024 * 1024; // 15MB
-  let currentFile = null;
+  const MAX_SIZE = 15 * 1024 * 1024; // 15MB upload cap
+  const MAX_DIMENSION = 1600;         // downscale before processing — keeps memory use predictable on all devices
+  const MAX_RETRIES = 2;
+
+  let currentFile = null;  // the (possibly resized) file actually sent to the model
   let resultBlob  = null;
   let objectUrls  = [];
+  let attempt     = 0;
 
   function trackUrl(url){ objectUrls.push(url); return url; }
   function revokeAllUrls(){ objectUrls.forEach(u => URL.revokeObjectURL(u)); objectUrls = []; }
 
-  function showError(msg){
-    errorBox.textContent = msg;
+  function showError(msg, allowRetry){
+    errorText.textContent = msg;
     errorBox.classList.add('active');
+    retryBtn.style.display = allowRetry ? 'inline-block' : 'none';
   }
   function clearError(){
     errorBox.classList.remove('active');
-    errorBox.textContent = '';
+    errorText.textContent = '';
+    retryBtn.style.display = 'none';
+  }
+
+  // Basic capability check — the model needs WebAssembly to run at all.
+  if (typeof WebAssembly === 'undefined') {
+    unsupportedBox.classList.add('active');
+    dropzone.style.display = 'none';
+  }
+
+  // Downscale large images on a canvas before handing them to the model.
+  // This is the main fix for "could not be processed" errors on phones —
+  // full-resolution camera photos (4000px+) can exhaust mobile browser memory.
+  function resizeImageFile(file, maxDim){
+    return new Promise((resolve, reject)=>{
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = ()=>{
+        let { width, height } = img;
+        if (width <= maxDim && height <= maxDim) {
+          URL.revokeObjectURL(url);
+          resolve(file); // already small enough, no need to touch it
+          return;
+        }
+        const scale = maxDim / Math.max(width, height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        URL.revokeObjectURL(url);
+
+        canvas.toBlob(blob=>{
+          if (!blob) { reject(new Error('Could not prepare the image for processing.')); return; }
+          resolve(new File([blob], file.name || 'image.jpg', { type: 'image/jpeg' }));
+        }, 'image/jpeg', 0.92);
+      };
+      img.onerror = ()=>{ URL.revokeObjectURL(url); reject(new Error('This file could not be read as an image.')); };
+      img.src = url;
+    });
   }
 
   function openFile(file){
     if(!file) return;
     if(!['image/jpeg','image/png','image/webp'].includes(file.type)){
-      showError('Only JPG, PNG, or WEBP files are supported.');
+      showError('Only JPG, PNG, or WEBP files are supported.', false);
       return;
     }
     if(file.size > MAX_SIZE){
-      showError('File size exceeds 15MB. Please try a smaller image.');
+      showError('File size exceeds 15MB. Please try a smaller image.', false);
       return;
     }
     clearError();
     revokeAllUrls();
     currentFile = file;
     resultBlob = null;
+    attempt = 0;
     previewImg.src = trackUrl(URL.createObjectURL(file));
     workspace.classList.add('active');
     downloadBtn.style.display = 'none';
@@ -343,23 +406,32 @@
   resetBtn.addEventListener('click', ()=>{
     currentFile = null;
     resultBlob = null;
+    attempt = 0;
     fileInput.value = '';
     revokeAllUrls();
     workspace.classList.remove('active');
     clearError();
   });
 
-  removeBtn.addEventListener('click', async ()=>{
+  async function runRemoval(){
     if(!currentFile) return;
     clearError();
     overlay.classList.add('active');
     removeBtn.disabled = true;
-    progressText.textContent = 'Loading model…';
+    progressText.textContent = 'Preparing image…';
     progressFill.style.width = '0%';
 
     try{
+      // Step 1 — shrink oversized photos first, so the model never has to
+      // handle a huge image (this is what fixes most mobile failures).
+      const inputFile = await resizeImageFile(currentFile, MAX_DIMENSION);
+
+      progressText.textContent = 'Loading model…';
+
       const config = {
-        model: 'isnet_quint8', // smaller, quantized model — far less data to download, better for slow connections
+        model: 'isnet_quint8', // smallest quantized model — least data, least memory
+        device: 'cpu',          // force CPU: avoids WebGPU crashes on phones/browsers with buggy GPU support
+        output: { format: 'image/png', quality: 0.9 },
         progress: (key, current, total) => {
           const pct = total ? Math.round((current/total)*100) : 0;
           progressFill.style.width = pct + '%';
@@ -368,26 +440,44 @@
             : `Processing… ${pct}%`;
         }
       };
-      const blob = await removeBackground(currentFile, config);
+
+      const blob = await removeBackground(inputFile, config);
       resultBlob = blob;
       previewImg.src = trackUrl(URL.createObjectURL(blob));
       downloadBtn.style.display = 'inline-block';
       removeBtn.style.display = 'none';
+      attempt = 0;
     }catch(err){
       console.error(err);
-      const isNetworkIssue = err && /fetch|network|load/i.test(err.message || '');
       const debugMsg = (err && err.message) ? err.message : String(err);
+      const isNetworkIssue = /fetch|network|load|timeout/i.test(debugMsg);
+
+      if (attempt < MAX_RETRIES) {
+        // Automatically retry once or twice before bothering the user —
+        // most transient failures (a dropped chunk of the model download,
+        // a slow connection) succeed on a second attempt.
+        attempt++;
+        progressText.textContent = `Retrying… (${attempt}/${MAX_RETRIES})`;
+        overlay.classList.remove('active');
+        removeBtn.disabled = false;
+        setTimeout(runRemoval, 800);
+        return;
+      }
+
       showError(
         (isNetworkIssue
-          ? 'Sorry, the AI model could not be downloaded — this usually means a weak or unstable internet connection. Please try again on WiFi or a stronger signal.'
-          : 'Sorry, this image could not be processed. Please try again, or use a different image.')
-        + '\n\nTechnical detail: ' + debugMsg
+          ? 'The AI model could not be downloaded — this usually means a weak or unstable internet connection. Please check your connection and try again.'
+          : 'Sorry, this image could not be processed. Try a smaller or simpler photo, or use a different browser (latest Chrome or Safari work best).'),
+        true
       );
     }finally{
       overlay.classList.remove('active');
       removeBtn.disabled = false;
     }
-  });
+  }
+
+  removeBtn.addEventListener('click', ()=>{ attempt = 0; runRemoval(); });
+  retryBtn.addEventListener('click', ()=>{ attempt = 0; runRemoval(); });
 
   downloadBtn.addEventListener('click', ()=>{
     if(!resultBlob) return;
