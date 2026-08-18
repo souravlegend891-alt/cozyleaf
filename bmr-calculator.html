@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMR Calculator — Cozyleaf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161A;
+    --ink-soft:#6B6F76;
+    --paper:#F5F4F0;
+    --card:#FFFFFF;
+    --line:#E6E4DD;
+    --calc:#2EC4B6;
+    --calc-dark:#1F9E93;
+    --calc-soft:#E4F7F5;
+    --gold:#F4A527;
+    --gold-soft:#FCEFD6;
+    --coral:#FF6B4A;
+    --coral-soft:#FFE7E0;
+    --radius:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:26px 16px 60px;}
+  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:640px;margin:0 auto;}
+
+  .eyebrow{color:var(--calc-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--calc);}
+  h1{font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;}
+  .hero-p{color:var(--ink-soft);font-size:14.5px;max-width:58ch;line-height:1.55;margin-bottom:26px;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+  .card-head .bar{width:5px;height:20px;border-radius:3px;background:var(--calc);flex-shrink:0;}
+  .card-head h2{font-size:16.5px;font-weight:600;}
+  .card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
+
+  label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
+  input[type=number], select{
+    width:100%;padding:11px 12px;border-radius:9px;border:1.5px solid var(--line);
+    background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
+  }
+  select:focus, input:focus{border-color:var(--calc);background:#fff;}
+
+  .field-row{display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
+  .field{flex:1; min-width:100px;}
+
+  .unit-toggle{display:flex; border:1.5px solid var(--line); border-radius:9px; overflow:hidden;}
+  .unit-toggle button{flex:1; border:none; background:#FBFAF7; padding:11px 8px; font-size:13.5px; font-weight:600; color:var(--ink-soft); cursor:pointer;}
+  .unit-toggle button.active{background:var(--calc); color:#fff;}
+
+  .gender-pill{display:flex; gap:8px; margin-bottom:14px;}
+  .gender-pill div{flex:1; text-align:center; padding:11px; border-radius:9px; border:1.5px solid var(--line); font-size:14px; font-weight:600; cursor:pointer; background:#FBFAF7; color:var(--ink-soft);}
+  .gender-pill div.active{border-color:var(--calc); background:var(--calc-soft); color:var(--calc-dark);}
+
+  .pill-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .pill{border:1.5px solid var(--line); border-radius:11px; padding:10px 12px; cursor:pointer; font-size:13px; background:#FBFAF7;}
+  .pill b{display:block; font-family:'Space Grotesk',sans-serif; font-size:13.5px;}
+  .pill small{color:var(--ink-soft); font-size:11px;}
+  .pill.active{border-color:var(--calc); background:var(--calc-soft);}
+  .pill.active small{color:var(--calc-dark);}
+
+  .calc-btn{
+    width:100%; padding:16px; border:none; border-radius:14px;
+    background:var(--calc); color:#fff; font-family:'Space Grotesk',sans-serif;
+    font-size:16px; font-weight:700; cursor:pointer; margin-top:4px;
+  }
+  .calc-btn:hover{background:var(--calc-dark);}
+  .error{color:var(--coral); font-size:12.5px; margin-top:10px; display:none;}
+
+  /* Results */
+  #results{display:none;}
+  .stat-hero{
+    background:linear-gradient(135deg, var(--calc), var(--calc-dark)); color:#fff;
+    border-radius:16px; padding:22px 20px; margin-bottom:14px;
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px;
+  }
+  .stat-hero .label{font-size:11.5px; text-transform:uppercase; letter-spacing:.07em; opacity:.85; font-weight:600;}
+  .stat-hero .value{font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:700; line-height:1;}
+  .stat-hero .value span{font-size:15px; font-weight:500; opacity:.85;}
+  .stat-hero .sub{font-size:12px; opacity:.85; text-align:right;}
+
+  .metric-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:6px;}
+  .metric{background:#FBFAF7; border:1px solid var(--line); border-radius:12px; padding:12px 14px;}
+  .metric .m-label{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; font-weight:600;}
+  .metric .m-value{font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:700; margin-top:3px;}
+  .metric .m-value span{font-size:12.5px; font-weight:500; color:var(--ink-soft);}
+
+  .goal-tabs{display:flex; gap:6px; margin:18px 0 12px;}
+  .goal-tab{flex:1; text-align:center; padding:10px 6px; border-radius:9px; border:1.5px solid var(--line); font-size:12.5px; font-weight:600; cursor:pointer; background:#FBFAF7; color:var(--ink-soft);}
+  .goal-tab.active{border-color:var(--calc); background:var(--calc-soft); color:var(--calc-dark);}
+
+  .goal-cal{
+    text-align:center; padding:16px; border-radius:12px; background:var(--calc-soft);
+    margin-bottom:14px;
+  }
+  .goal-cal .num{font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--calc-dark);}
+  .goal-cal .lbl{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+
+  .macro-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
+  .macro-card{border-radius:11px; padding:12px 10px; text-align:center;}
+  .macro-card.protein{background:var(--coral-soft);}
+  .macro-card.carb{background:var(--gold-soft);}
+  .macro-card.fat{background:var(--calc-soft);}
+  .macro-card .mc-label{font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+  .macro-card.protein .mc-label{color:var(--coral);}
+  .macro-card.carb .mc-label{color:#B9800F;}
+  .macro-card.fat .mc-label{color:var(--calc-dark);}
+  .macro-card .mc-grams{font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; margin-top:4px;}
+  .macro-card .mc-pct{font-size:11px; color:var(--ink-soft); margin-top:1px;}
+
+  .timeline-box{
+    margin-top:14px; padding:14px 16px; border-radius:12px; background:#FBFAF7; border:1px solid var(--line);
+    font-size:13.5px; color:var(--ink-soft); line-height:1.6;
+  }
+  .timeline-box b{color:var(--ink); font-family:'Space Grotesk',sans-serif;}
+
+  .divider{height:1px; background:var(--line); margin:18px 0;}
+  .note{font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:6px;}
+
+  @media(max-width:420px){
+    .stat-hero .value{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
+  <h1>BMR Calculator</h1>
+  <p class="hero-p">Find your Basal Metabolic Rate, daily calorie burn (TDEE), and a calorie target for losing, maintaining, or gaining weight — with a macro breakdown to match.</p>
+
+  <div class="card">
+    <div class="card-head"><div class="bar"></div><h2>Your details</h2></div>
+
+    <div class="gender-pill" id="gender-pill">
+      <div class="active" data-g="male">Male</div>
+      <div data-g="female">Female</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="small">Age</label>
+        <input type="number" id="age" min="10" max="100" placeholder="e.g. 24">
+      </div>
+      <div class="field">
+        <label class="small">Weight unit</label>
+        <div class="unit-toggle">
+          <button id="unit-kg" class="active">kg</button>
+          <button id="unit-lbs">lbs</button>
+        </div>
+      </div>
+      <div class="field">
+        <label class="small">Weight</label>
+        <input type="number" id="weight" min="1" step="0.1" placeholder="e.g. 68">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="small">Height unit</label>
+        <div class="unit-toggle">
+          <button id="unit-cm" class="active">cm</button>
+          <button id="unit-ftin">ft/in</button>
+        </div>
+      </div>
+      <div class="field" id="height-cm-field">
+        <label class="small">Height (cm)</label>
+        <input type="number" id="height-cm" min="1" placeholder="e.g. 172">
+      </div>
+      <div class="field" id="height-ft-field" style="display:none;">
+        <label class="small">Feet</label>
+        <input type="number" id="height-ft" min="0" placeholder="5">
+      </div>
+      <div class="field" id="height-in-field" style="display:none;">
+        <label class="small">Inches</label>
+        <input type="number" id="height-in" min="0" max="11" placeholder="8">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="small">Body fat % (optional, for a more precise BMR)</label>
+        <input type="number" id="bodyfat" min="3" max="60" step="0.1" placeholder="leave blank if unknown">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="bar"></div><h2>Activity level</h2></div>
+    <div class="pill-grid" id="activity-grid">
+      <div class="pill active" data-mult="1.2"><b>Sedentary</b><small>Little to no exercise</small></div>
+      <div class="pill" data-mult="1.375"><b>Light</b><small>1–3 days/week</small></div>
+      <div class="pill" data-mult="1.55"><b>Moderate</b><small>3–5 days/week</small></div>
+      <div class="pill" data-mult="1.725"><b>Very active</b><small>6–7 days/week</small></div>
+      <div class="pill" data-mult="1.9"><b>Extra active</b><small>Hard daily training / physical job</small></div>
+    </div>
+    <div class="error" id="err">Fill in age, weight, and height to calculate.</div>
+    <button class="calc-btn" id="calc-btn">Calculate BMR &amp; calories</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+
+    <div class="stat-hero">
+      <div>
+        <div class="label">Basal Metabolic Rate</div>
+        <div class="value" id="bmr-out">— <span>kcal/day</span></div>
+      </div>
+      <div class="sub" id="formula-note">Calories burned at complete rest</div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="m-label">Sedentary burn</div>
+        <div class="m-value" id="tdee-sed">— <span>kcal</span></div>
+      </div>
+      <div class="metric">
+        <div class="m-label">TDEE (your activity)</div>
+        <div class="m-value" id="tdee-out">— <span>kcal</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-head"><div class="bar"></div><h2>Calorie goal</h2></div>
+      <div class="card-sub">Choose a goal to see your daily target and macro split</div>
+
+      <div class="goal-tabs" id="goal-tabs">
+        <div class="goal-tab" data-goal="lose">Lose weight</div>
+        <div class="goal-tab active" data-goal="maintain">Maintain</div>
+        <div class="goal-tab" data-goal="gain">Gain weight</div>
+      </div>
+
+      <div class="goal-cal">
+        <div class="num" id="goal-cal-out">—</div>
+        <div class="lbl" id="goal-cal-label">kcal / day</div>
+      </div>
+
+      <div class="macro-grid">
+        <div class="macro-card protein">
+          <div class="mc-label">Protein</div>
+          <div class="mc-grams" id="protein-g">—</div>
+          <div class="mc-pct" id="protein-pct">—</div>
+        </div>
+        <div class="macro-card carb">
+          <div class="mc-label">Carbs</div>
+          <div class="mc-grams" id="carb-g">—</div>
+          <div class="mc-pct" id="carb-pct">—</div>
+        </div>
+        <div class="macro-card fat">
+          <div class="mc-label">Fat</div>
+          <div class="mc-grams" id="fat-g">—</div>
+          <div class="mc-pct" id="fat-pct">—</div>
+        </div>
+      </div>
+
+      <div class="timeline-box" id="timeline-box"></div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="note" id="method-note"></p>
+  </div>
+
+</div>
+
+<script>
+let unitWeight = 'kg';
+let unitHeight = 'cm';
+let gender = 'male';
+let activityMult = 1.2;
+let currentGoal = 'maintain';
+let lastResult = null;
+
+document.getElementById('unit-kg').onclick = ()=> setWeightUnit('kg');
+document.getElementById('unit-lbs').onclick = ()=> setWeightUnit('lbs');
+function setWeightUnit(u){
+  unitWeight = u;
+  document.getElementById('unit-kg').classList.toggle('active', u==='kg');
+  document.getElementById('unit-lbs').classList.toggle('active', u==='lbs');
+}
+document.getElementById('unit-cm').onclick = ()=> setHeightUnit('cm');
+document.getElementById('unit-ftin').onclick = ()=> setHeightUnit('ftin');
+function setHeightUnit(u){
+  unitHeight = u;
+  document.getElementById('unit-cm').classList.toggle('active', u==='cm');
+  document.getElementById('unit-ftin').classList.toggle('active', u==='ftin');
+  document.getElementById('height-cm-field').style.display = u==='cm' ? '' : 'none';
+  document.getElementById('height-ft-field').style.display = u==='ftin' ? '' : 'none';
+  document.getElementById('height-in-field').style.display = u==='ftin' ? '' : 'none';
+}
+
+document.querySelectorAll('#gender-pill div').forEach(d=>{
+  d.onclick = ()=>{
+    document.querySelectorAll('#gender-pill div').forEach(x=>x.classList.remove('active'));
+    d.classList.add('active');
+    gender = d.dataset.g;
+  };
+});
+
+document.querySelectorAll('#activity-grid .pill').forEach(p=>{
+  p.onclick = ()=>{
+    document.querySelectorAll('#activity-grid .pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    activityMult = parseFloat(p.dataset.mult);
+  };
+});
+
+document.querySelectorAll('#goal-tabs .goal-tab').forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll('#goal-tabs .goal-tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    currentGoal = t.dataset.goal;
+    renderGoal();
+  };
+});
+
+function toKg(v){ return unitWeight==='kg' ? v : v*0.453592; }
+function toCm(){
+  if(unitHeight==='cm') return parseFloat(document.getElementById('height-cm').value);
+  const ft = parseFloat(document.getElementById('height-ft').value)||0;
+  const inch = parseFloat(document.getElementById('height-in').value)||0;
+  return (ft*12 + inch) * 2.54;
+}
+
+document.getElementById('calc-btn').onclick = calculate;
+
+function calculate(){
+  const age = parseFloat(document.getElementById('age').value);
+  const wRaw = parseFloat(document.getElementById('weight').value);
+  const heightCm = toCm();
+  const bodyfat = parseFloat(document.getElementById('bodyfat').value);
+  const err = document.getElementById('err');
+
+  if(!age || age<=0 || !wRaw || wRaw<=0 || !heightCm || heightCm<=0){
+    err.style.display='block';
+    return;
+  }
+  err.style.display='none';
+
+  const weightKg = toKg(wRaw);
+  let bmr, method;
+
+  if(!isNaN(bodyfat) && bodyfat>0){
+    // Katch-McArdle using lean body mass
+    const lbm = weightKg * (1 - bodyfat/100);
+    bmr = 370 + (21.6 * lbm);
+    method = 'Katch–McArdle formula (uses lean body mass from your body fat %)';
+  } else {
+    // Mifflin-St Jeor
+    if(gender==='male'){
+      bmr = (10*weightKg) + (6.25*heightCm) - (5*age) + 5;
+    } else {
+      bmr = (10*weightKg) + (6.25*heightCm) - (5*age) - 161;
+    }
+    method = 'Mifflin–St Jeor formula (the modern standard, more accurate than Harris–Benedict for most people)';
+  }
+
+  const tdeeSed = bmr * 1.2;
+  const tdee = bmr * activityMult;
+
+  document.getElementById('bmr-out').innerHTML = Math.round(bmr) + ' <span>kcal/day</span>';
+  document.getElementById('tdee-sed').innerHTML = Math.round(tdeeSed) + ' <span>kcal</span>';
+  document.getElementById('tdee-out').innerHTML = Math.round(tdee) + ' <span>kcal</span>';
+  document.getElementById('method-note').textContent = 'Calculated using the ' + method + '. Individual metabolism can vary ±10–15% from these estimates.';
+
+  lastResult = { bmr, tdee, weightKg };
+  document.getElementById('results').style.display = 'block';
+  renderGoal();
+  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function renderGoal(){
+  if(!lastResult) return;
+  const { tdee } = lastResult;
+  let target, label, deltaKcalPerDay;
+
+  if(currentGoal==='lose'){
+    deltaKcalPerDay = -500;
+    target = tdee - 500;
+    label = 'kcal / day · about 0.45 kg (1 lb) loss per week';
+  } else if(currentGoal==='gain'){
+    deltaKcalPerDay = 350;
+    target = tdee + 350;
+    label = 'kcal / day · about 0.3 kg (0.7 lb) gain per week';
+  } else {
+    deltaKcalPerDay = 0;
+    target = tdee;
+    label = 'kcal / day · holds your current weight';
+  }
+  target = Math.max(1000, Math.round(target));
+
+  document.getElementById('goal-cal-out').textContent = target;
+  document.getElementById('goal-cal-label').textContent = label;
+
+  // Macro split: protein by bodyweight-ish (30%), fat 25-30%, rest carbs — adjusted slightly by goal
+  let proteinPct, fatPct, carbPct;
+  if(currentGoal==='lose'){ proteinPct=0.35; fatPct=0.30; carbPct=0.35; }
+  else if(currentGoal==='gain'){ proteinPct=0.25; fatPct=0.25; carbPct=0.50; }
+  else { proteinPct=0.30; fatPct=0.30; carbPct=0.40; }
+
+  const proteinG = Math.round((target*proteinPct)/4);
+  const carbG = Math.round((target*carbPct)/4);
+  const fatG = Math.round((target*fatPct)/9);
+
+  document.getElementById('protein-g').textContent = proteinG + 'g';
+  document.getElementById('protein-pct').textContent = Math.round(proteinPct*100) + '%';
+  document.getElementById('carb-g').textContent = carbG + 'g';
+  document.getElementById('carb-pct').textContent = Math.round(carbPct*100) + '%';
+  document.getElementById('fat-g').textContent = fatG + 'g';
+  document.getElementById('fat-pct').textContent = Math.round(fatPct*100) + '%';
+
+  const timeline = document.getElementById('timeline-box');
+  if(currentGoal==='maintain'){
+    timeline.innerHTML = `At <b>${target} kcal/day</b>, your weight should stay roughly stable over time — this is your TDEE.`;
+  } else {
+    const weeksPerKg = 7700 / Math.abs(deltaKcalPerDay*7);
+    const dir = currentGoal==='lose' ? 'lose' : 'gain';
+    timeline.innerHTML = `At this rate, expect to ${dir} roughly <b>1 kg every ${weeksPerKg.toFixed(1)} weeks</b> — adjust the target if progress is faster or slower than expected after 2–3 weeks of tracking.`;
+  }
+}
+</script>
+</body>
+</html>
