@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Calculator — Cozyleaf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161A;
+    --ink-soft:#6B6F76;
+    --paper:#F5F4F0;
+    --card:#FFFFFF;
+    --line:#E6E4DD;
+    --love:#E8486B;
+    --love-dark:#C9345A;
+    --love-soft:#FCE6EB;
+    --gold:#F4A527;
+    --radius:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:26px 16px 60px;}
+  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:560px;margin:0 auto;}
+
+  .eyebrow{color:var(--love-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--love);}
+  h1{font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;}
+  .hero-p{color:var(--ink-soft);font-size:14.5px;max-width:56ch;line-height:1.55;margin-bottom:26px;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;margin-bottom:16px;}
+  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+  .card-head .bar{width:5px;height:20px;border-radius:3px;background:var(--love);flex-shrink:0;}
+  .card-head h2{font-size:16.5px;font-weight:600;}
+  .card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
+
+  label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
+  input[type=text], input[type=date]{
+    width:100%;padding:12px 13px;border-radius:10px;border:1.5px solid var(--line);
+    background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
+  }
+  input:focus{border-color:var(--love);background:#fff;}
+
+  .name-pair{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .name-pair .field{flex:1;}
+  .heart-sep{font-size:20px;color:var(--love);flex-shrink:0;margin-top:18px;}
+
+  .toggle-birthdates{
+    display:flex; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:4px;
+    font-size:13px; color:var(--ink-soft); cursor:pointer; user-select:none;
+  }
+  .toggle-birthdates .chev{transition:.2s;}
+  .toggle-birthdates.open .chev{transform:rotate(90deg);}
+  .bd-row{display:flex; gap:10px; max-height:0; overflow:hidden; transition:.25s; margin-top:0;}
+  .bd-row.open{max-height:100px; margin-top:12px;}
+  .bd-row .field{flex:1;}
+
+  .calc-btn{
+    width:100%; padding:16px; border:none; border-radius:14px;
+    background:linear-gradient(135deg, var(--love), var(--love-dark)); color:#fff;
+    font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; cursor:pointer;
+    letter-spacing:.01em; margin-top:6px; box-shadow:0 6px 16px rgba(232,72,107,.28);
+  }
+  .calc-btn:hover{filter:brightness(1.05);}
+  .error{color:var(--love-dark);font-size:12.5px;margin-top:10px;display:none;}
+
+  /* Results */
+  #results{display:none;}
+  .meter-wrap{display:flex; flex-direction:column; align-items:center; padding:8px 0 6px;}
+  .heart-svg{width:150px; height:135px; position:relative;}
+  .score-big{
+    font-family:'Space Grotesk',sans-serif; font-size:42px; font-weight:700; color:var(--love-dark);
+    margin-top:10px; line-height:1;
+  }
+  .score-big span{font-size:18px; font-weight:600; color:var(--ink-soft);}
+  .names-line{font-size:14.5px; color:var(--ink-soft); margin-top:4px; text-align:center;}
+  .verdict{
+    font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; text-align:center;
+    margin-top:12px; color:var(--ink);
+  }
+  .verdict-sub{font-size:13px; color:var(--ink-soft); text-align:center; margin-top:4px; max-width:40ch; margin-left:auto; margin-right:auto; line-height:1.5;}
+
+  .breakdown{margin-top:22px;}
+  .bd-item{margin-bottom:14px;}
+  .bd-label{display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:6px;}
+  .bd-label span.pct{color:var(--love-dark); font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .bd-bar-track{height:8px; border-radius:5px; background:var(--love-soft); overflow:hidden;}
+  .bd-bar-fill{height:100%; border-radius:5px; background:linear-gradient(90deg, var(--gold), var(--love)); width:0%; transition:width 1s cubic-bezier(.22,1,.36,1);}
+
+  .zodiac-box{
+    margin-top:18px; padding:14px 16px; border-radius:12px; background:var(--love-soft);
+    color:var(--love-dark); font-size:13.5px; line-height:1.6; display:none;
+  }
+
+  .actions{display:flex; gap:10px; margin-top:20px;}
+  .actions button{
+    flex:1; padding:12px; border-radius:11px; font-size:13.5px; font-weight:600; cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .btn-again{background:none; border:1.5px solid var(--line); color:var(--ink);}
+  .btn-again:hover{border-color:var(--love);}
+  .btn-copy{background:var(--ink); border:none; color:#fff;}
+  .btn-copy:hover{background:#000;}
+
+  .note{font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="dot"></span>Fun Tools</div>
+  <h1>Love Calculator</h1>
+  <p class="hero-p">Type in two names and get a compatibility score, a category-by-category breakdown, and — if you add birth dates — a bit of zodiac flavor. Purely for fun, not a real relationship predictor.</p>
+
+  <div class="card" id="form-card">
+    <div class="card-head"><div class="bar"></div><h2>Enter two names</h2></div>
+    <div class="card-sub">First names work best, but full names are fine too</div>
+
+    <div class="name-pair">
+      <div class="field">
+        <label class="small">Your name</label>
+        <input type="text" id="name1" placeholder="e.g. Alex">
+      </div>
+      <div class="heart-sep">♥</div>
+      <div class="field">
+        <label class="small">Their name</label>
+        <input type="text" id="name2" placeholder="e.g. Jordan">
+      </div>
+    </div>
+
+    <div class="toggle-birthdates" id="bd-toggle">
+      <span>+ Add birth dates for a zodiac bonus (optional)</span>
+      <span class="chev">›</span>
+    </div>
+    <div class="bd-row" id="bd-row">
+      <div class="field">
+        <label class="small">Your birth date</label>
+        <input type="date" id="bday1">
+      </div>
+      <div class="field">
+        <label class="small">Their birth date</label>
+        <input type="date" id="bday2">
+      </div>
+    </div>
+
+    <div class="error" id="err">Enter both names to calculate.</div>
+    <button class="calc-btn" id="calc-btn">Calculate compatibility</button>
+  </div>
+
+  <div class="card" id="results">
+    <div class="meter-wrap">
+      <svg class="heart-svg" viewBox="0 0 150 135">
+        <defs>
+          <clipPath id="heartClip">
+            <path d="M75 130 C20 95 5 60 5 38 C5 15 22 2 42 2 C58 2 70 12 75 25 C80 12 92 2 108 2 C128 2 145 15 145 38 C145 60 130 95 75 130 Z"/>
+          </clipPath>
+        </defs>
+        <path d="M75 130 C20 95 5 60 5 38 C5 15 22 2 42 2 C58 2 70 12 75 25 C80 12 92 2 108 2 C128 2 145 15 145 38 C145 60 130 95 75 130 Z" fill="#FBEFEF" stroke="#EFD9DD" stroke-width="2"/>
+        <rect id="heartFill" x="0" y="130" width="150" height="0" fill="url(#heartGrad)" clip-path="url(#heartClip)"/>
+        <defs>
+          <linearGradient id="heartGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#F4A527"/>
+            <stop offset="100%" stop-color="#E8486B"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="score-big" id="score-out">0<span>%</span></div>
+      <div class="names-line" id="names-out"></div>
+      <div class="verdict" id="verdict-out"></div>
+      <div class="verdict-sub" id="verdict-sub"></div>
+    </div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="zodiac-box" id="zodiac-box"></div>
+
+    <div class="actions">
+      <button class="btn-again" id="btn-again">Try another pair</button>
+      <button class="btn-copy" id="btn-copy">Copy result</button>
+    </div>
+  </div>
+
+  <p class="note">This calculator uses a playful letter-and-numerology based formula (not psychology or science) — treat it as entertainment. Results are deterministic: the same two names will always give the same score.</p>
+</div>
+
+<script>
+const bdToggle = document.getElementById('bd-toggle');
+const bdRow = document.getElementById('bd-row');
+bdToggle.onclick = ()=>{
+  bdToggle.classList.toggle('open');
+  bdRow.classList.toggle('open');
+};
+
+// --- Core scoring algorithm: letters-of-LOVES pairwise reduction ---
+function cleanName(s){ return s.toLowerCase().replace(/[^a-z]/g,''); }
+
+function loveScore(n1, n2){
+  const combined = cleanName(n1) + cleanName(n2);
+  let counts = [...'loves'].map(ch => (combined.split(ch).length - 1));
+  while(counts.length > 2){
+    const next = [];
+    for(let i=0; i<counts.length-1; i++){
+      next.push((counts[i] + counts[i+1]) % 10);
+    }
+    counts = next;
+  }
+  let score = counts[0]*10 + counts[1];
+  if(score > 100) score = 100;
+  if(score < 2) score = 2 + (combined.length % 10); // avoid dull all-zero results
+  return Math.min(score, 100);
+}
+
+// simple deterministic hash for sub-scores / variety, seeded from names
+function seededHash(str, salt){
+  let h = 0;
+  const s = str + '|' + salt;
+  for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) >>> 0; }
+  return h;
+}
+function subScore(n1, n2, label, base){
+  const h = seededHash(cleanName(n1)+cleanName(n2), label);
+  // blend the base score with a hash-derived offset so categories differ but stay related
+  const offset = (h % 41) - 20; // -20..20
+  let v = base + offset;
+  return Math.max(4, Math.min(99, v));
+}
+
+const CATEGORIES = ['Communication','Trust','Passion','Fun & Humor','Long-term stability'];
+
+function verdictFor(score){
+  if(score >= 90) return ["Written in the stars", "A rare, high match — communication and chemistry both score well here."];
+  if(score >= 75) return ["Strong match", "This pairing scores well overall — worth exploring further."];
+  if(score >= 55) return ["Good potential", "A solid foundation is there, with room to grow with effort."];
+  if(score >= 35) return ["Mixed signals", "Some categories shine, others need work — check the breakdown below."];
+  return ["Needs work", "Low score here doesn't mean much on its own — it's just for fun."];
+}
+
+const ZODIAC = [
+  {name:"Capricorn", start:[12,22], end:[1,19], element:"Earth"},
+  {name:"Aquarius", start:[1,20], end:[2,18], element:"Air"},
+  {name:"Pisces", start:[2,19], end:[3,20], element:"Water"},
+  {name:"Aries", start:[3,21], end:[4,19], element:"Fire"},
+  {name:"Taurus", start:[4,20], end:[5,20], element:"Earth"},
+  {name:"Gemini", start:[5,21], end:[6,20], element:"Air"},
+  {name:"Cancer", start:[6,21], end:[7,22], element:"Water"},
+  {name:"Leo", start:[7,23], end:[8,22], element:"Fire"},
+  {name:"Virgo", start:[8,23], end:[9,22], element:"Earth"},
+  {name:"Libra", start:[9,23], end:[10,22], element:"Air"},
+  {name:"Scorpio", start:[10,23], end:[11,21], element:"Water"},
+  {name:"Sagittarius", start:[11,22], end:[12,21], element:"Fire"}
+];
+function zodiacFor(dateStr){
+  const d = new Date(dateStr);
+  const m = d.getMonth()+1, day = d.getDate();
+  for(const z of ZODIAC){
+    const [sm,sd] = z.start, [em,ed] = z.end;
+    if(sm===em){ if(m===sm && day>=sd && day<=ed) return z; }
+    else if(m===sm && day>=sd) return z;
+    else if(m===em && day<=ed) return z;
+  }
+  return ZODIAC[0];
+}
+const ELEMENT_PAIRS = {
+  "Fire-Fire":"Two Fire signs together means passion and energy — just watch for both wanting the spotlight.",
+  "Fire-Air":"Air feeds Fire — this combination tends to be lively and mutually encouraging.",
+  "Fire-Earth":"Fire and Earth can clash on pace — Fire wants speed, Earth wants steadiness.",
+  "Fire-Water":"Fire and Water can be intense — either steam (great chemistry) or conflict, depending on the day.",
+  "Earth-Earth":"Two Earth signs build something stable and dependable together.",
+  "Earth-Water":"Earth and Water is a classically nurturing, grounded pairing.",
+  "Earth-Air":"Earth wants stability, Air wants freedom — this pairing takes some balancing.",
+  "Air-Air":"Two Air signs means great conversation, but may need someone to keep things grounded.",
+  "Air-Water":"Air and Water can struggle to speak the same emotional language, but curiosity helps bridge it.",
+  "Water-Water":"Two Water signs share deep emotional understanding, sometimes overwhelmingly so.",
+};
+function elementCompat(e1, e2){
+  const key = e1+"-"+e2;
+  const rev = e2+"-"+e1;
+  return ELEMENT_PAIRS[key] || ELEMENT_PAIRS[rev] || "An interesting mix — every pairing has its own dynamic.";
+}
+
+document.getElementById('calc-btn').onclick = () => {
+  const n1 = document.getElementById('name1').value.trim();
+  const n2 = document.getElementById('name2').value.trim();
+  const err = document.getElementById('err');
+  if(!n1 || !n2){ err.style.display='block'; return; }
+  err.style.display='none';
+
+  const score = loveScore(n1, n2);
+
+  document.getElementById('score-out').innerHTML = score + '<span>%</span>';
+  document.getElementById('names-out').textContent = n1 + ' + ' + n2;
+
+  const [title, sub] = verdictFor(score);
+  document.getElementById('verdict-out').textContent = title;
+  document.getElementById('verdict-sub').textContent = sub;
+
+  // animate heart fill
+  const fill = document.getElementById('heartFill');
+  const fullH = 130;
+  const h = fullH * (score/100);
+  requestAnimationFrame(()=>{
+    fill.style.transition = 'height 1.1s cubic-bezier(.22,1,.36,1), y 1.1s cubic-bezier(.22,1,.36,1)';
+    fill.setAttribute('height', h);
+    fill.setAttribute('y', fullH - h);
+  });
+
+  // breakdown
+  const bdWrap = document.getElementById('breakdown');
+  bdWrap.innerHTML = '';
+  CATEGORIES.forEach(cat=>{
+    const v = subScore(n1, n2, cat, score);
+    const row = document.createElement('div');
+    row.className = 'bd-item';
+    row.innerHTML = `
+      <div class="bd-label"><span>${cat}</span><span class="pct">${v}%</span></div>
+      <div class="bd-bar-track"><div class="bd-bar-fill" data-w="${v}"></div></div>
+    `;
+    bdWrap.appendChild(row);
+  });
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.bd-bar-fill').forEach(el=>{
+      el.style.width = el.dataset.w + '%';
+    });
+  });
+
+  // zodiac bonus
+  const bday1 = document.getElementById('bday1').value;
+  const bday2 = document.getElementById('bday2').value;
+  const zbox = document.getElementById('zodiac-box');
+  if(bday1 && bday2){
+    const z1 = zodiacFor(bday1);
+    const z2 = zodiacFor(bday2);
+    zbox.style.display = 'block';
+    zbox.innerHTML = `<b>${z1.name} (${z1.element}) &amp; ${z2.name} (${z2.element})</b><br>${elementCompat(z1.element, z2.element)}`;
+  } else {
+    zbox.style.display = 'none';
+  }
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'nearest'});
+};
+
+document.getElementById('btn-again').onclick = ()=>{
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('form-card').scrollIntoView({behavior:'smooth', block:'start'});
+};
+
+document.getElementById('btn-copy').onclick = ()=>{
+  const n1 = document.getElementById('name1').value.trim();
+  const n2 = document.getElementById('name2').value.trim();
+  const score = document.getElementById('score-out').textContent;
+  const title = document.getElementById('verdict-out').textContent;
+  const text = `${n1} + ${n2} = ${score} love match (${title}) — via Cozyleaf Love Calculator`;
+  navigator.clipboard?.writeText(text).then(()=>{
+    const btn = document.getElementById('btn-copy');
+    const original = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>{ btn.textContent = original; }, 1500);
+  });
+};
+</script>
+</body>
+</html>
