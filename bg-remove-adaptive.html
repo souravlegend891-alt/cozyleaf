@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remove Background — Cozyleaf</title>
+<style>
+  :root{
+    --orange:#f0592a;
+    --dark:#151b16;
+    --cream:#f4efe4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--cream);
+    color:var(--dark);
+  }
+  header{
+    background:var(--dark);
+    color:#fff;
+    padding:14px 20px;
+    font-weight:700;
+    font-size:18px;
+  }
+  header span{color:var(--orange);}
+  .wrap{
+    max-width:520px;
+    margin:0 auto;
+    padding:20px 16px 60px;
+  }
+  .dropzone{
+    border:2px dashed var(--orange);
+    border-radius:16px;
+    padding:34px 16px;
+    text-align:center;
+    background:#fff;
+    cursor:pointer;
+  }
+  .dropzone p.title{font-weight:700;font-size:18px;margin:8px 0 4px;}
+  .dropzone p.sub{color:#666;font-size:14px;margin:0 0 16px;}
+  input[type=file]{display:none;}
+  .btn{
+    display:inline-block;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    border:none;
+    font-size:15px;
+    width:100%;
+    margin-top:8px;
+  }
+  .btn-primary{background:var(--orange);color:#fff;}
+  .btn-dark{background:var(--dark);color:#fff;}
+  .btn-outline{background:#fff;color:var(--dark);border:1px solid #ccc;}
+  .status{
+    margin-top:18px;
+    padding:14px 16px;
+    border-radius:12px;
+    font-size:14px;
+    line-height:1.5;
+    display:none;
+  }
+  .status.info{background:#eef3ff;color:#1d3a8a;display:block;}
+  .status.error{background:#fde7e2;color:#9c2b12;display:block;}
+  .status.success{background:#e8f7ec;color:#136c34;display:block;}
+  .progress-bar{
+    height:6px;
+    background:#e2ddcf;
+    border-radius:4px;
+    overflow:hidden;
+    margin-top:10px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--orange);
+    width:0%;
+    transition:width .2s;
+  }
+  .preview{
+    margin-top:18px;
+    border-radius:12px;
+    overflow:hidden;
+    background:
+      linear-gradient(45deg,#ddd 25%,transparent 25%),
+      linear-gradient(-45deg,#ddd 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#ddd 75%),
+      linear-gradient(-45deg,transparent 75%,#ddd 75%);
+    background-size:20px 20px;
+    background-position:0 0,0 10px,10px -10px,-10px 0px;
+  }
+  .preview img{width:100%;display:block;}
+  .tier-note{
+    margin-top:10px;
+    font-size:12px;
+    color:#888;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<header>Cozy<span>leaf</span> — Background Remover</header>
+
+<div class="wrap">
+
+  <div class="dropzone" id="dropzone">
+    <div style="font-size:34px;">✂️</div>
+    <p class="title">Choose your image</p>
+    <p class="sub">JPG, PNG or WEBP</p>
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp">
+    <button class="btn btn-primary" id="chooseBtn" type="button">Choose from Gallery</button>
+  </div>
+
+  <div class="tier-note" id="tierNote"></div>
+
+  <div class="status" id="status"></div>
+
+  <div class="preview" id="previewWrap" style="display:none;">
+    <img id="previewImg" alt="Result">
+  </div>
+
+  <button class="btn btn-dark" id="downloadBtn" style="display:none;">Download PNG</button>
+  <button class="btn btn-outline" id="retryBtn" style="display:none;">Try another image</button>
+
+</div>
+
+<!-- MediaPipe Selfie Segmentation: small model (~a few MB), built for exactly this kind of
+     on-device, low-memory segmentation work — much lighter than a general-purpose
+     background-removal net. -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/selfie_segmentation.js" crossorigin="anonymous"></script>
+
+<script>
+(function(){
+
+  const dropzone   = document.getElementById('dropzone');
+  const fileInput  = document.getElementById('fileInput');
+  const chooseBtn  = document.getElementById('chooseBtn');
+  const statusEl   = document.getElementById('status');
+  const tierNote   = document.getElementById('tierNote');
+  const previewWrap= document.getElementById('previewWrap');
+  const previewImg = document.getElementById('previewImg');
+  const downloadBtn= document.getElementById('downloadBtn');
+  const retryBtn   = document.getElementById('retryBtn');
+  const progressBarTemplate = () => {
+    const p = document.createElement('div');
+    p.className = 'progress-bar';
+    p.innerHTML = '<div class="progress-fill" id="progressFill"></div>';
+    return p;
+  };
+
+  // ---------------------------------------------------------------
+  // STEP 1: Figure out how much the device can safely handle.
+  // navigator.deviceMemory is approximate and not supported on all
+  // browsers (notably iOS Safari). When it's missing we assume the
+  // worst case (low-end) rather than the best case, so we never
+  // over-promise and crash.
+  // ---------------------------------------------------------------
+  function getDeviceTier(){
+    const mem = navigator.deviceMemory; // in GB, or undefined
+    if (mem === undefined) return { tier: 'unknown', maxDim: 1280 };
+    if (mem <= 2)  return { tier: 'low',    maxDim: 900  };
+    if (mem <= 4)  return { tier: 'medium', maxDim: 1400 };
+    return              { tier: 'high',   maxDim: 2000 };
+  }
+
+  const deviceTier = getDeviceTier();
+  tierNote.textContent =
+    deviceTier.tier === 'unknown'
+      ? 'Optimizing automatically for your device'
+      : `Optimized for your device (${deviceTier.tier} memory mode)`;
+
+  // A ladder of fallback sizes. If processing fails at one size
+  // (memory error), we retry at the next smaller size automatically,
+  // instead of just showing an error to the user.
+  function fallbackLadder(startDim){
+    const steps = [startDim, 1000, 700, 500, 350];
+    const seen = new Set();
+    return steps.filter(d => {
+      if (d > startDim) return false;
+      if (seen.has(d)) return false;
+      seen.add(d);
+      return true;
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // STEP 2: UI wiring
+  // ---------------------------------------------------------------
+  chooseBtn.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('click', (e) => {
+    if (e.target !== chooseBtn) fileInput.click();
+  });
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); });
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  });
+  fileInput.addEventListener('change', e => {
+    if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+  });
+  retryBtn.addEventListener('click', () => {
+    fileInput.value = '';
+    previewWrap.style.display = 'none';
+    downloadBtn.style.display = 'none';
+    retryBtn.style.display = 'none';
+    statusEl.className = 'status';
+    statusEl.style.display = 'none';
+  });
+
+  function setStatus(kind, html){
+    statusEl.className = 'status ' + kind;
+    statusEl.innerHTML = html;
+    statusEl.style.display = 'block';
+  }
+
+  // ---------------------------------------------------------------
+  // STEP 3: Load the source image into an <img>
+  // ---------------------------------------------------------------
+  function loadImage(file){
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error('Could not read this image file.'));
+      img.src = url;
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // STEP 4: Downscale onto a canvas at a given max dimension,
+  // preserving aspect ratio. This is what actually keeps memory
+  // usage bounded on weak devices.
+  // ---------------------------------------------------------------
+  function downscale(img, maxDim){
+    let { width, height } = img;
+    if (width > height && width > maxDim) {
+      height = Math.round(height * (maxDim / width));
+      width = maxDim;
+    } else if (height >= width && height > maxDim) {
+      width = Math.round(width * (maxDim / height));
+      height = maxDim;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+    return canvas;
+  }
+
+  // ---------------------------------------------------------------
+  // STEP 5: Run MediaPipe Selfie Segmentation on a canvas, and
+  // composite a transparent-background PNG using the returned mask.
+  // ---------------------------------------------------------------
+  let segmenter = null;
+  function getSegmenter(){
+    if (segmenter) return segmenter;
+    segmenter = new SelfieSegmentation({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/${file}`
+    });
+    segmenter.setOptions({ modelSelection: 1 }); // 1 = "landscape" model, better general accuracy
+    return segmenter;
+  }
+
+  function runSegmentation(sourceCanvas){
+    return new Promise((resolve, reject) => {
+      const seg = getSegmenter();
+      const timeout = setTimeout(() => {
+        reject(new Error('Processing timed out.'));
+      }, 20000);
+
+      seg.onResults((results) => {
+        clearTimeout(timeout);
+        try {
+          const { width, height } = sourceCanvas;
+          const outCanvas = document.createElement('canvas');
+          outCanvas.width = width;
+          outCanvas.height = height;
+          const outCtx = outCanvas.getContext('2d');
+
+          // Draw the segmentation mask, then use it to keep only the
+          // subject from the original image (source-in), producing a
+          // transparent background PNG.
+          outCtx.drawImage(results.segmentationMask, 0, 0, width, height);
+          outCtx.globalCompositeOperation = 'source-in';
+          outCtx.drawImage(sourceCanvas, 0, 0, width, height);
+          outCtx.globalCompositeOperation = 'source-over';
+
+          resolve(outCanvas);
+        } catch (err) {
+          reject(err);
+        }
+      });
+
+      seg.send({ image: sourceCanvas }).catch(reject);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // STEP 6: Orchestration — try at the device's recommended size,
+  // and if it fails for a memory-shaped reason, automatically retry
+  // smaller instead of just showing the user an error.
+  // ---------------------------------------------------------------
+  async function processWithFallback(img){
+    const sizes = fallbackLadder(deviceTier.maxDim);
+
+    for (let i = 0; i < sizes.length; i++) {
+      const dim = sizes[i];
+      setStatus('info',
+        `Removing background… ${i > 0 ? '(retrying at a smaller size to fit your device\'s memory)' : ''}`
+      );
+      try {
+        const smallCanvas = downscale(img, dim);
+        const resultCanvas = await runSegmentation(smallCanvas);
+        return resultCanvas; // success
+      } catch (err) {
+        const msg = (err && err.message || '').toLowerCase();
+        const looksLikeMemoryIssue =
+          msg.includes('memory') || msg.includes('alloc') || msg.includes('buffer') ||
+          msg.includes('timed out') || err instanceof RangeError;
+
+        const isLastAttempt = i === sizes.length - 1;
+        if (!looksLikeMemoryIssue || isLastAttempt) {
+          throw err;
+        }
+        // otherwise: loop continues, tries the next smaller size
+      }
+    }
+    throw new Error('Could not process this image on this device.');
+  }
+
+  // ---------------------------------------------------------------
+  // STEP 7: Main handler
+  // ---------------------------------------------------------------
+  async function handleFile(file){
+    previewWrap.style.display = 'none';
+    downloadBtn.style.display = 'none';
+    retryBtn.style.display = 'none';
+
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
+      setStatus('error', 'Please choose a JPG, PNG, or WEBP image.');
+      retryBtn.style.display = 'block';
+      return;
+    }
+
+    setStatus('info', 'Loading image…');
+
+    try {
+      const img = await loadImage(file);
+      const resultCanvas = await processWithFallback(img);
+
+      const dataUrl = resultCanvas.toDataURL('image/png');
+      previewImg.src = dataUrl;
+      previewWrap.style.display = 'block';
+
+      downloadBtn.style.display = 'block';
+      downloadBtn.onclick = () => {
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'background-removed.png';
+        a.click();
+      };
+
+      retryBtn.style.display = 'block';
+      setStatus('success', 'Background removed successfully.');
+    } catch (err) {
+      console.error(err);
+      setStatus('error',
+        'Sorry, this image could not be processed on your device. ' +
+        'Try a smaller/simpler photo, or free up some memory by closing other browser tabs.'
+      );
+      retryBtn.style.display = 'block';
+    }
+  }
+
+})();
+</script>
+
+</body>
+</html>
