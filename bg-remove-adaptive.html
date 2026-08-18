@@ -374,7 +374,7 @@
   // though the module loaded fine. We check every plausible shape.
   let removeBackground;
   try {
-    const mod = await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/dist/index.mjs");
+    const mod = await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/+esm");
     const candidate = mod.removeBackground || mod.default?.removeBackground || mod.default || mod;
     if (typeof candidate !== 'function') {
       throw new Error('removeBackground export not found in module (unexpected module shape)');
