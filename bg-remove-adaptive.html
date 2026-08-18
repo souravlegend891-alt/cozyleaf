@@ -584,7 +584,7 @@
     await processImage(file);
   });
 
-  async function runRemoval(sourceBlob, model, maxDim, outputQuality) {
+  async function runRemoval(sourceBlob, model, maxDim, outputQuality, proxyToWorker) {
     if (typeof removeBackground !== 'function') {
       throw new Error('removeBackground is not available (library failed to initialize)');
     }
@@ -592,6 +592,7 @@
     return removeBackground(scaled, {
       model,
       device: 'cpu', // avoids WebGPU/WebGL driver crashes on cheap GPUs
+      proxyToWorker, // false = skip worker message-copy overhead on very low RAM
       output: { format: 'image/png', quality: outputQuality },
       progress: (key, current, total) => {
         const pct = Math.round((current / total) * 100);
@@ -603,13 +604,17 @@
 
   // Ordered lightest → heaviest, used both for the initial pick and for
   // stepping down automatically if a heavier tier fails on this device.
+  // "minimal" is the true floor: smallest model, no worker-copy overhead,
+  // no edge-refine pass — for devices where even the light model's WASM
+  // session can't be allocated normally.
   const TIER_PRESETS = {
-    low:    { model: 'isnet_quint8', maxDim: 1000, outputQuality: 0.82, skipCleanup: true,  erodePixels: 1, featherRadius: 1 },
-    medium: { model: 'isnet_fp16',   maxDim: 1600, outputQuality: 0.9,  skipCleanup: false, erodePixels: 1, featherRadius: 1.2 },
-    high:   { model: 'isnet',        maxDim: 2200, outputQuality: 0.93, skipCleanup: false, erodePixels: 1, featherRadius: 1.5 },
-    ultra:  { model: 'isnet',        maxDim: 3000, outputQuality: 0.97, skipCleanup: false, erodePixels: 1, featherRadius: 2 },
+    minimal:{ model: 'isnet_quint8', maxDim: 768,  outputQuality: 0.78, skipCleanup: true,  erodePixels: 1, featherRadius: 1, proxyToWorker: false },
+    low:    { model: 'isnet_quint8', maxDim: 1000, outputQuality: 0.82, skipCleanup: true,  erodePixels: 1, featherRadius: 1, proxyToWorker: true },
+    medium: { model: 'isnet_fp16',   maxDim: 1600, outputQuality: 0.9,  skipCleanup: false, erodePixels: 1, featherRadius: 1.2, proxyToWorker: true },
+    high:   { model: 'isnet',        maxDim: 2200, outputQuality: 0.93, skipCleanup: false, erodePixels: 1, featherRadius: 1.5, proxyToWorker: true },
+    ultra:  { model: 'isnet',        maxDim: 3000, outputQuality: 0.97, skipCleanup: false, erodePixels: 1, featherRadius: 2, proxyToWorker: true },
   };
-  const TIER_STEP_DOWN = { ultra: 'high', high: 'medium', medium: 'low', low: null };
+  const TIER_STEP_DOWN = { ultra: 'high', high: 'medium', medium: 'low', low: 'minimal', minimal: null };
 
   async function processImage(file) {
     setStep(2);
@@ -626,16 +631,20 @@
     // Try the detected tier, then automatically step down through
     // progressively lighter presets if the device can't handle it —
     // instead of just failing outright.
-    for (let attempt = 0; attempt < 4 && currentTierName; attempt++) {
+    for (let attempt = 0; attempt < 5 && currentTierName; attempt++) {
       const preset = TIER_PRESETS[currentTierName];
       try {
         if (attempt > 0) {
           processTitle.textContent = 'Retrying with a lighter setting…';
           processDetail.textContent = 'Your device struggled with the previous attempt';
           modeChip.textContent = `${currentTierName} (fallback)`;
+          // Give the browser a brief moment to release memory from the
+          // failed attempt before trying again — helps on very low-RAM
+          // devices where GC is slow to reclaim the failed WASM buffer.
+          await new Promise(r => setTimeout(r, 400));
         }
 
-        const rawBlob = await runRemoval(file, preset.model, preset.maxDim, preset.outputQuality);
+        const rawBlob = await runRemoval(file, preset.model, preset.maxDim, preset.outputQuality, preset.proxyToWorker);
 
         let finalOut = rawBlob;
         if (!preset.skipCleanup) {
@@ -664,7 +673,7 @@
     // Both attempts failed — show what actually went wrong.
     const msg = (lastErr && (lastErr.message || String(lastErr))) || 'Unknown error';
     if (/memory|oom|allocat/i.test(msg)) {
-      errorDetail.textContent = 'Your device ran out of memory processing this image. Try a smaller photo, or close other apps/tabs and try again.';
+      errorDetail.textContent = "This device couldn't spare enough memory for on-device AI processing, even at the lightest setting. Close other browser tabs and apps, then try again — or try right after restarting your browser.";
     } else if (/network|fetch|resource|not found|failed to load/i.test(msg)) {
       errorDetail.textContent = 'Could not download the AI model. Check your internet connection and try again.';
     } else if (/wasm|webassembly/i.test(msg)) {
