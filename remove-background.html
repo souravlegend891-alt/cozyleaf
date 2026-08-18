@@ -412,10 +412,11 @@
     try{
       const removeBackground = await loadEngine();
       let blob;
+      const CORRECT_PUBLIC_PATH = 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/';
       try{
         // First attempt: default (medium) model.
         blob = await removeBackground(file, {
-          publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.7.0/dist/',
+          publicPath: CORRECT_PUBLIC_PATH,
           progress: onProgress
         });
       }catch(firstErr){
@@ -424,7 +425,7 @@
         // Fallback: smaller, lighter model — more reliable on phones and slow connections.
         blob = await removeBackground(file, {
           model: 'small',
-          publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.7.0/dist/',
+          publicPath: CORRECT_PUBLIC_PATH,
           progress: onProgress
         });
       }
