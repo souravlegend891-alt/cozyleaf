@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bowl Math — Advanced Dog Food Calculator</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #F5F1E6;
+    --card: #FFFFFF;
+    --ink: #2A2620;
+    --ink-soft: #6B6357;
+    --moss: #3F5A3A;
+    --moss-dark: #2C4128;
+    --ochre: #C7813D;
+    --ochre-soft: #F0DCC0;
+    --line: #E3DACB;
+    --danger: #B24B3C;
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 12% 8%, rgba(63,90,58,0.07), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(199,129,61,0.10), transparent 45%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+
+  header.hero{margin-bottom:28px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:8px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--moss); font-weight:600; margin-bottom:10px;
+  }
+  .eyebrow .paw{width:16px;height:16px;fill:var(--ochre);}
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,7vw,42px);
+    line-height:1.05; margin:0 0 10px; font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  h1 span{color:var(--moss);}
+  header p{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; max-width:52ch;}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 20px;
+    margin-bottom:16px;
+    box-shadow:0 1px 2px rgba(42,38,32,0.04);
+  }
+  .step-label{
+    display:flex; align-items:baseline; gap:8px; margin-bottom:16px;
+  }
+  .step-num{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px;
+    color:var(--card); background:var(--moss);
+    width:22px;height:22px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .step-title{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16.5px;}
+  .step-sub{color:var(--ink-soft); font-size:13px; margin:2px 0 0 30px;}
+
+  .field-row{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;}
+  .field{flex:1; min-width:120px;}
+  label.small{
+    display:block; font-size:12.5px; color:var(--ink-soft);
+    margin-bottom:6px; font-weight:500;
+  }
+  input[type=number], select{
+    width:100%; padding:12px 13px; border-radius:11px;
+    border:1.5px solid var(--line); background:#FBFAF6;
+    font-size:16px; font-family:'Inter',sans-serif; color:var(--ink);
+    outline:none; transition:border-color .15s, background .15s;
+  }
+  input[type=number]:focus, select:focus{
+    border-color:var(--moss); background:#fff;
+  }
+  .unit-toggle{
+    display:flex; border:1.5px solid var(--line); border-radius:11px; overflow:hidden;
+  }
+  .unit-toggle button{
+    flex:1; border:none; background:#FBFAF6; padding:12px 10px;
+    font-family:'Inter',sans-serif; font-size:14px; font-weight:600; color:var(--ink-soft);
+    cursor:pointer; transition:.15s;
+  }
+  .unit-toggle button.active{background:var(--moss); color:#fff;}
+
+  .pill-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px;}
+  .pill{
+    border:1.5px solid var(--line); border-radius:12px; padding:11px 12px;
+    cursor:pointer; font-size:13.5px; color:var(--ink); background:#FBFAF6;
+    transition:.15s; line-height:1.3; user-select:none;
+  }
+  .pill b{display:block; font-family:'Space Grotesk',sans-serif; font-size:14px; margin-bottom:1px;}
+  .pill small{color:var(--ink-soft); font-size:11.5px;}
+  .pill.active{border-color:var(--moss); background:var(--ochre-soft);}
+  .pill.active small{color:var(--moss-dark);}
+
+  .bcs-row{display:flex; gap:5px; margin-top:14px;}
+  .bcs-dot{
+    flex:1; text-align:center; padding:9px 2px; border-radius:9px;
+    border:1.5px solid var(--line); font-size:12px; font-weight:600; cursor:pointer;
+    color:var(--ink-soft); background:#FBFAF6;
+  }
+  .bcs-dot.active{background:var(--moss); border-color:var(--moss); color:#fff;}
+  .bcs-caption{display:flex; justify-content:space-between; font-size:11px; color:var(--ink-soft); margin-top:6px;}
+
+  .toggle-row{display:flex; align-items:center; justify-content:space-between; margin-top:14px;}
+  .toggle-row .step-sub{margin:2px 0 0 0;}
+  .switch{
+    position:relative; width:46px; height:26px; border-radius:20px;
+    background:var(--line); cursor:pointer; flex-shrink:0; transition:.2s;
+  }
+  .switch.on{background:var(--moss);}
+  .switch::after{
+    content:''; position:absolute; top:3px; left:3px; width:20px; height:20px;
+    border-radius:50%; background:#fff; transition:.2s; box-shadow:0 1px 2px rgba(0,0,0,.2);
+  }
+  .switch.on::after{left:23px;}
+
+  .calc-btn{
+    width:100%; padding:16px; border:none; border-radius:14px;
+    background:var(--moss); color:#fff; font-family:'Space Grotesk',sans-serif;
+    font-size:16px; font-weight:700; cursor:pointer; letter-spacing:.01em;
+    transition:.15s; margin-top:6px;
+  }
+  .calc-btn:hover{background:var(--moss-dark);}
+  .calc-btn:disabled{background:#c9c2b3; cursor:not-allowed;}
+
+  .error{color:var(--danger); font-size:12.5px; margin-top:10px; display:none;}
+
+  /* Results */
+  #results{display:none;}
+  .bowl-wrap{display:flex; align-items:center; gap:18px; margin-bottom:18px;}
+  .bowl-svg{width:100px; height:100px; flex-shrink:0;}
+  .result-headline{font-family:'Space Grotesk',sans-serif; font-size:15px; color:var(--ink-soft); margin-bottom:2px;}
+  .result-number{font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:700; line-height:1.05;}
+  .result-number small{font-size:16px; font-weight:600; color:var(--ink-soft);}
+
+  .metric-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px;}
+  .metric{
+    background:#FBFAF6; border:1px solid var(--line); border-radius:12px; padding:12px 14px;
+  }
+  .metric .m-label{font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em; font-weight:600;}
+  .metric .m-value{font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; margin-top:3px;}
+  .metric .m-value span{font-size:13px; font-weight:500; color:var(--ink-soft);}
+
+  .divider{height:1px; background:var(--line); margin:18px 0;}
+
+  .goal-box{
+    background:var(--ochre-soft); border-radius:12px; padding:14px 16px; font-size:13.5px;
+    color:var(--moss-dark); line-height:1.5; display:none;
+  }
+
+  .note{font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:16px;}
+
+  footer{text-align:center; font-size:12px; color:var(--ink-soft); margin-top:26px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">
+      <svg class="paw" viewBox="0 0 24 24"><path d="M12 15c-3 0-6 2.5-6 5.5 0 1.5 1.2 2.5 2.7 2.5 1.4 0 2-.8 3.3-.8s1.9.8 3.3.8c1.5 0 2.7-1 2.7-2.5 0-3-3-5.5-6-5.5zM5 12.5c1.4 0 2.5-1.4 2.5-3S6.4 6.5 5 6.5 2.5 7.9 2.5 9.5 3.6 12.5 5 12.5zm14 0c1.4 0 2.5-1.4 2.5-3s-1.1-3-2.5-3-2.5 1.4-2.5 3 1.1 3 2.5 3zM9 8c1.4 0 2.5-1.6 2.5-3.5S10.4 1 9 1 6.5 2.6 6.5 4.5 7.6 8 9 8zm6 0c1.4 0 2.5-1.6 2.5-3.5S16.4 1 15 1s-2.5 1.6-2.5 3.5S13.6 8 15 8z"/></svg>
+      Bowl Math
+    </div>
+    <h1>How much should <span>your dog</span> actually eat?</h1>
+    <p>A vet-formula portion calculator — built on resting energy requirement (RER), not just a flat lookup table. Factors in life stage, body condition, and spay/neuter status.</p>
+  </header>
+
+  <!-- Step 1: Weight -->
+  <div class="card">
+    <div class="step-label"><div class="step-num">1</div><div class="step-title">Weight</div></div>
+    <div class="step-sub">Use current weight, or ideal weight if your dog needs to gain or lose.</div>
+    <div class="field-row">
+      <div class="field" style="flex:2;">
+        <label class="small">Weight</label>
+        <input type="number" id="weight" min="0" step="0.1" placeholder="e.g. 24">
+      </div>
+      <div class="field">
+        <label class="small">Unit</label>
+        <div class="unit-toggle">
+          <button id="unit-lbs" class="active">lbs</button>
+          <button id="unit-kg">kg</button>
+        </div>
+      </div>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="step-title" style="font-size:14px;">This is a goal weight, not current</div>
+        <div class="step-sub" style="margin-left:0;">Turns on gain/loss timeline in the results</div>
+      </div>
+      <div class="switch" id="goal-switch"></div>
+    </div>
+    <div class="field-row" id="current-weight-row" style="display:none;">
+      <div class="field">
+        <label class="small">Current weight (same unit)</label>
+        <input type="number" id="current-weight" min="0" step="0.1" placeholder="e.g. 28">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Life stage -->
+  <div class="card">
+    <div class="step-label"><div class="step-num">2</div><div class="step-title">Life stage</div></div>
+    <div class="pill-grid" id="stage-grid">
+      <div class="pill" data-stage="puppy"><b>Puppy</b><small>Under 12 months</small></div>
+      <div class="pill active" data-stage="adult"><b>Adult</b><small>1–7 years</small></div>
+      <div class="pill" data-stage="senior"><b>Senior</b><small>7+ years</small></div>
+      <div class="pill" data-stage="pregnant"><b>Pregnant / nursing</b><small>Higher demand</small></div>
+    </div>
+  </div>
+
+  <!-- Step 3: Activity level -->
+  <div class="card">
+    <div class="step-label"><div class="step-num">3</div><div class="step-title">Activity level</div></div>
+    <div class="pill-grid" id="activity-grid">
+      <div class="pill" data-mult="1.2"><b>Weight loss</b><small>×1.2 — active reduction</small></div>
+      <div class="pill" data-mult="1.4"><b>Overweight-prone</b><small>×1.4 — low activity</small></div>
+      <div class="pill active" data-mult="1.6"><b>Typical / neutered</b><small>×1.6 — average pet</small></div>
+      <div class="pill" data-mult="1.8"><b>Intact / active</b><small>×1.8 — not spayed/neutered</small></div>
+      <div class="pill" data-mult="2.0"><b>Highly active</b><small>×2.0 — daily hard exercise</small></div>
+      <div class="pill" data-mult="3.0"><b>Working dog</b><small>×3.0 — heavy working duty</small></div>
+    </div>
+  </div>
+
+  <!-- Step 4: Body condition -->
+  <div class="card">
+    <div class="step-label"><div class="step-num">4</div><div class="step-title">Body condition score</div></div>
+    <div class="step-sub">Rib visibility &amp; waist shape, 1 (very thin) to 9 (obese)</div>
+    <div class="bcs-row" id="bcs-row"></div>
+    <div class="bcs-caption"><span>Too thin</span><span>Ideal</span><span>Obese</span></div>
+  </div>
+
+  <!-- Step 5: Food -->
+  <div class="card">
+    <div class="step-label"><div class="step-num">5</div><div class="step-title">Food &amp; serving</div></div>
+    <div class="field-row">
+      <div class="field">
+        <label class="small">Calories per serving</label>
+        <input type="number" id="kcal" min="1" step="1" placeholder="e.g. 350">
+      </div>
+      <div class="field">
+        <label class="small">Serving unit</label>
+        <select id="serving-unit">
+          <option value="cup">kcal / cup</option>
+          <option value="can">kcal / can</option>
+          <option value="100g">kcal / 100g</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label class="small">Meals per day</label>
+        <select id="meals">
+          <option value="1">1 meal</option>
+          <option value="2" selected>2 meals</option>
+          <option value="3">3 meals</option>
+          <option value="4">4 meals (puppy)</option>
+        </select>
+      </div>
+    </div>
+    <div class="error" id="err">Fill in weight and calories per serving to calculate.</div>
+    <button class="calc-btn" id="calc-btn">Calculate daily portion</button>
+  </div>
+
+  <!-- Results -->
+  <div class="card" id="results">
+    <div class="bowl-wrap">
+      <svg class="bowl-svg" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="72" rx="38" ry="10" fill="#E3DACB"/>
+        <path d="M14 45 Q14 78 50 78 Q86 78 86 45 Z" fill="#FBFAF6" stroke="#C9BFA9" stroke-width="2"/>
+        <clipPath id="bowlClip"><path d="M14 45 Q14 78 50 78 Q86 78 86 45 Z"/></clipPath>
+        <rect id="fillRect" x="10" y="45" width="80" height="33" fill="var(--ochre)" clip-path="url(#bowlClip)"/>
+        <ellipse cx="50" cy="45" rx="36" ry="8" fill="#E9E2D2" stroke="#C9BFA9" stroke-width="2"/>
+      </svg>
+      <div>
+        <div class="result-headline">Daily calorie target</div>
+        <div class="result-number" id="mer-out">— <small>kcal / day</small></div>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="m-label">Daily portion</div>
+        <div class="m-value" id="portion-out">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">Per meal</div>
+        <div class="m-value" id="meal-out">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">RER (baseline)</div>
+        <div class="m-value" id="rer-out">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">Treat allowance</div>
+        <div class="m-value" id="treat-out">—</div>
+      </div>
+    </div>
+
+    <div class="goal-box" id="goal-box"></div>
+
+    <div class="divider"></div>
+    <div class="note">
+      RER = 70 × (weight in kg)<sup>0.75</sup>. Daily target = RER × life-stage &amp; activity multiplier. Treat allowance follows the 10% rule — treats shouldn't exceed a tenth of daily calories. This is a starting estimate; check with your vet for dogs with medical conditions, extreme sizes, or when body condition score sits outside 4–5.
+    </div>
+  </div>
+
+  <footer>Built with Bowl Math · not a substitute for veterinary advice</footer>
+</div>
+
+<script>
+let unit = 'lbs';
+let isGoal = false;
+let stage = 'adult';
+let activityMult = 1.6;
+let bcs = 5;
+
+document.getElementById('unit-lbs').onclick = () => setUnit('lbs');
+document.getElementById('unit-kg').onclick = () => setUnit('kg');
+function setUnit(u){
+  unit = u;
+  document.getElementById('unit-lbs').classList.toggle('active', u==='lbs');
+  document.getElementById('unit-kg').classList.toggle('active', u==='kg');
+}
+
+document.getElementById('goal-switch').onclick = function(){
+  isGoal = !isGoal;
+  this.classList.toggle('on', isGoal);
+  document.getElementById('current-weight-row').style.display = isGoal ? 'flex' : 'none';
+};
+
+document.querySelectorAll('#stage-grid .pill').forEach(p=>{
+  p.onclick = ()=>{
+    document.querySelectorAll('#stage-grid .pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    stage = p.dataset.stage;
+  };
+});
+
+document.querySelectorAll('#activity-grid .pill').forEach(p=>{
+  p.onclick = ()=>{
+    document.querySelectorAll('#activity-grid .pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    activityMult = parseFloat(p.dataset.mult);
+  };
+});
+
+const bcsRow = document.getElementById('bcs-row');
+for(let i=1;i<=9;i++){
+  const d = document.createElement('div');
+  d.className = 'bcs-dot' + (i===5?' active':'');
+  d.textContent = i;
+  d.onclick = ()=>{
+    document.querySelectorAll('.bcs-dot').forEach(x=>x.classList.remove('active'));
+    d.classList.add('active');
+    bcs = i;
+  };
+  bcsRow.appendChild(d);
+}
+
+document.getElementById('calc-btn').onclick = calculate;
+
+function toKg(v){ return unit==='lbs' ? v*0.453592 : v; }
+
+function stageMultiplier(){
+  // stage-based baseline; activity pill still applies for adult/senior primarily
+  if(stage==='puppy') return 2.5;
+  if(stage==='pregnant') return 2.2;
+  if(stage==='senior') return Math.min(activityMult, 1.4);
+  return activityMult;
+}
+
+function calculate(){
+  const wVal = parseFloat(document.getElementById('weight').value);
+  const kcalPer = parseFloat(document.getElementById('kcal').value);
+  const err = document.getElementById('err');
+
+  if(!wVal || wVal<=0 || !kcalPer || kcalPer<=0){
+    err.style.display='block';
+    return;
+  }
+  err.style.display='none';
+
+  // BCS adjustment: each point away from ideal (4-5) shifts target ~10%
+  const idealBcs = 4.5;
+  const bcsAdjust = 1 - ((bcs - idealBcs) * 0.08);
+  const bcsClamped = Math.max(0.75, Math.min(1.15, bcsAdjust));
+
+  const weightKg = toKg(wVal);
+  const rer = 70 * Math.pow(weightKg, 0.75);
+  const mult = stageMultiplier();
+  const mer = rer * mult * bcsClamped;
+
+  const servingUnit = document.getElementById('serving-unit').value;
+  const unitLabel = servingUnit==='cup' ? 'cups' : servingUnit==='can' ? 'cans' : '× 100g';
+  const servings = mer / kcalPer;
+  const meals = parseInt(document.getElementById('meals').value);
+  const perMeal = servings / meals;
+
+  document.getElementById('mer-out').innerHTML = Math.round(mer) + ' <small>kcal / day</small>';
+  document.getElementById('rer-out').innerHTML = Math.round(rer) + ' <span>kcal</span>';
+  document.getElementById('portion-out').innerHTML = servings.toFixed(2) + ' <span>' + unitLabel + '</span>';
+  document.getElementById('meal-out').innerHTML = perMeal.toFixed(2) + ' <span>' + unitLabel + ' × ' + meals + '</span>';
+  document.getElementById('treat-out').innerHTML = Math.round(mer*0.1) + ' <span>kcal max</span>';
+
+  // bowl fill animation based on portion size relative to a 4-cup visual cap
+  const fillFrac = Math.max(0.15, Math.min(1, servings/4));
+  const rect = document.getElementById('fillRect');
+  const fullH = 33, fullY = 45;
+  const h = fullH * fillFrac;
+  rect.setAttribute('y', fullY + (fullH - h));
+  rect.setAttribute('height', h);
+
+  // Goal box
+  const goalBox = document.getElementById('goal-box');
+  if(isGoal){
+    const curVal = parseFloat(document.getElementById('current-weight').value);
+    if(curVal && curVal>0){
+      const diff = curVal - wVal; // positive = needs to lose
+      const diffKg = Math.abs(toKg(diff));
+      // ~7700 kcal per kg of body fat, deficit/surplus roughly 20% of MER
+      const dailyDelta = mer * 0.2;
+      const totalKcal = diffKg * 7700;
+      const days = Math.round(totalKcal / dailyDelta);
+      const weeks = Math.round(days/7);
+      goalBox.style.display = 'block';
+      if(diff > 0.01){
+        goalBox.innerHTML = `<b>Weight loss plan:</b> ${diff.toFixed(1)} ${unit} to lose. At this calorie target, that's roughly <b>${weeks} weeks</b> (~${days} days) at a safe rate. Re-weigh every 2 weeks and adjust.`;
+      } else if(diff < -0.01){
+        goalBox.innerHTML = `<b>Weight gain plan:</b> ${Math.abs(diff).toFixed(1)} ${unit} to gain. At this calorie target, expect roughly <b>${weeks} weeks</b> (~${days} days). Re-weigh every 2 weeks and adjust.`;
+      } else {
+        goalBox.innerHTML = `Current and goal weight match — this target is a maintenance portion.`;
+      }
+    } else {
+      goalBox.style.display='none';
+    }
+  } else {
+    goalBox.style.display='none';
+  }
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+</body>
+</html>
