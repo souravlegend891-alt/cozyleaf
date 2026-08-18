@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA / CGPA Calculator — Cozyleaf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161A;
+    --ink-soft:#6B6F76;
+    --paper:#F5F4F0;
+    --card:#FFFFFF;
+    --line:#E6E4DD;
+    --calc:#2EC4B6;
+    --calc-dark:#1F9E93;
+    --calc-soft:#E4F7F5;
+    --cta:#FF6B4A;
+    --danger:#C0503F;
+    --radius:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:26px 16px 60px;}
+  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:680px;margin:0 auto;}
+
+  .eyebrow{color:var(--calc-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--calc);}
+  h1{font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;}
+  .hero-p{color:var(--ink-soft);font-size:14.5px;max-width:58ch;line-height:1.55;margin-bottom:26px;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+  .card-head .bar{width:5px;height:20px;border-radius:3px;background:var(--calc);flex-shrink:0;}
+  .card-head h2{font-size:16.5px;font-weight:600;}
+  .card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
+
+  label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
+  select, input[type=text], input[type=number]{
+    width:100%;padding:11px 12px;border-radius:9px;border:1.5px solid var(--line);
+    background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
+  }
+  select:focus, input:focus{border-color:var(--calc);background:#fff;}
+
+  .scale-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .scale-pill{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;cursor:pointer;background:#FBFAF7;}
+  .scale-pill b{display:block;font-family:'Space Grotesk',sans-serif;font-size:13.5px;}
+  .scale-pill small{color:var(--ink-soft);font-size:11px;line-height:1.4;}
+  .scale-pill.active{border-color:var(--calc);background:var(--calc-soft);}
+
+  .sem-card{border:1.5px solid var(--line);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;}
+  .sem-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#FBFAF7;border-bottom:1px solid var(--line);}
+  .sem-head input.sem-name{border:none;background:transparent;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:0;width:auto;max-width:60%;}
+  .sem-head input.sem-name:focus{border:none;background:#fff;padding:2px 6px;border-radius:6px;}
+  .sem-gpa-badge{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--calc-dark);background:var(--calc-soft);padding:4px 10px;border-radius:20px;}
+  .sem-remove{background:none;border:none;color:var(--ink-soft);font-size:18px;cursor:pointer;padding:2px 6px;}
+  .sem-remove:hover{color:var(--danger);}
+
+  .course-row{display:grid;grid-template-columns:1fr 62px 90px 30px;gap:8px;padding:10px 14px;align-items:center;border-bottom:1px solid var(--line);}
+  .course-row:last-child{border-bottom:none;}
+  .course-row input, .course-row select{padding:9px 10px;font-size:13.5px;}
+  .course-row .rm-course{background:none;border:none;color:var(--ink-soft);font-size:17px;cursor:pointer;}
+  .course-row .rm-course:hover{color:var(--danger);}
+  .col-labels{display:grid;grid-template-columns:1fr 62px 90px 30px;gap:8px;padding:8px 14px 4px;font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+
+  .add-row-btn{width:calc(100% - 28px);margin:10px 14px 14px;padding:9px;border-radius:8px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;}
+  .add-row-btn:hover{border-color:var(--calc);color:var(--calc-dark);}
+
+  .add-sem-btn{width:100%;padding:13px;border-radius:11px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-weight:600;font-size:14px;cursor:pointer;margin-bottom:16px;}
+  .add-sem-btn:hover{border-color:var(--calc);color:var(--calc-dark);background:var(--calc-soft);}
+
+  .cgpa-result{
+    background:linear-gradient(135deg, var(--calc), var(--calc-dark));
+    color:#fff;border-radius:16px;padding:24px 22px;margin-bottom:16px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  }
+  .cgpa-result .label{font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;opacity:.85;font-weight:600;}
+  .cgpa-result .value{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;line-height:1;}
+  .cgpa-result .value span{font-size:16px;font-weight:500;opacity:.85;}
+  .cgpa-mini{text-align:right;font-size:12.5px;opacity:.9;line-height:1.6;}
+
+  .target-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .target-grid .field{flex:1;min-width:130px;}
+  .target-out{
+    margin-top:14px;padding:14px 16px;border-radius:11px;background:var(--calc-soft);
+    color:var(--calc-dark);font-size:13.5px;line-height:1.6;display:none;
+  }
+  .target-out.warn{background:#FBE7E2;color:var(--danger);}
+  .target-out b{font-family:'Space Grotesk',sans-serif;font-size:15px;}
+
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:6px;}
+
+  @media(max-width:480px){
+    .course-row{grid-template-columns:1fr 50px 78px 24px;gap:5px;padding:9px 10px;}
+    .col-labels{grid-template-columns:1fr 50px 78px 24px;gap:5px;padding:8px 10px 4px;}
+    .course-row input, .course-row select{font-size:12.5px;padding:8px 6px;}
+    .cgpa-result{padding:20px 18px;}
+    .cgpa-result .value{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
+  <h1>GPA / CGPA Calculator</h1>
+  <p class="hero-p">Works with the grading system your university actually uses. Add courses per semester, pick a scale, and get a running CGPA across every semester — plus a target-GPA planner so you know exactly what you need next term.</p>
+
+  <!-- Grading scale -->
+  <div class="card">
+    <div class="card-head"><div class="bar"></div><h2>Grading system</h2></div>
+    <div class="card-sub">Changes the grade options in every course row below</div>
+    <div class="scale-grid" id="scale-grid">
+      <div class="scale-pill active" data-scale="us4"><b>4.0 Scale</b><small>A+ to F, the most widely used GPA scale</small></div>
+      <div class="scale-pill" data-scale="in10"><b>10-Point Scale</b><small>O to F</small></div>
+      <div class="scale-pill" data-scale="ects"><b>Letter Grade (A–F)</b><small>Converted to a 4.0-equivalent for CGPA</small></div>
+      <div class="scale-pill" data-scale="pct"><b>Percentage</b><small>Enter marks 0–100 directly</small></div>
+    </div>
+  </div>
+
+  <!-- Semesters -->
+  <div id="semesters-wrap"></div>
+  <button class="add-sem-btn" id="add-sem">+ Add another semester</button>
+
+  <!-- CGPA result -->
+  <div class="cgpa-result">
+    <div>
+      <div class="label" id="cgpa-label">Overall CGPA</div>
+      <div class="value" id="cgpa-out">0.00 <span id="cgpa-scale-label">/ 4.00</span></div>
+    </div>
+    <div class="cgpa-mini" id="cgpa-mini">0 semesters · 0 credit hours</div>
+  </div>
+
+  <!-- Target GPA planner -->
+  <div class="card">
+    <div class="card-head"><div class="bar"></div><h2>Target CGPA planner</h2></div>
+    <div class="card-sub">What score do you need next semester to hit a goal?</div>
+    <div class="target-grid">
+      <div class="field">
+        <label class="small" id="target-cgpa-label">Target CGPA</label>
+        <input type="number" id="target-cgpa" step="0.01" placeholder="e.g. 3.50">
+      </div>
+      <div class="field">
+        <label class="small">Next semester's credit hours</label>
+        <input type="number" id="target-credits" step="0.5" placeholder="e.g. 15">
+      </div>
+    </div>
+    <div class="target-out" id="target-out"></div>
+  </div>
+
+  <p class="note">Grade-point values follow the conventions most commonly used for each scale and may vary slightly by institution — check your university's official grading policy for exact cutoffs. CGPA is credit-weighted across every semester entered above.</p>
+</div>
+
+<script>
+// Each scale: max = top of the numeric range, label = shown next to the CGPA figure,
+// grades = [displayLabel, numericPoint] pairs for dropdown-based systems, or null for freeform entry.
+const SCALES = {
+  us4: { max:4.00, label:"/ 4.00", grades:[
+    ["A+",4.00],["A",4.00],["A-",3.70],["B+",3.30],["B",3.00],["B-",2.70],["C+",2.30],["C",2.00],["C-",1.70],["D+",1.30],["D",1.00],["F",0.00]
+  ]},
+  in10: { max:10.00, label:"/ 10.00", grades:[
+    ["O (Outstanding)",10.00],["A+",9.00],["A",8.00],["B+",7.00],["B",6.00],["C",5.00],["P (Pass)",4.00],["F",0.00]
+  ]},
+  ects: { max:4.00, label:"/ 4.00 (letter-grade equivalent)", grades:[
+    ["A — Excellent",4.00],["B — Very Good",3.30],["C — Good",2.70],["D — Satisfactory",2.00],["E — Sufficient",1.00],["FX/F — Fail",0.00]
+  ]},
+  pct: { max:100, label:"% average", grades:null }
+};
+let currentScale = 'us4';
+let semCounter = 0;
+let courseCounter = 0;
+const semesters = []; // {id, card, rowsWrap, courses:[{id,row,gradeEl,pctEl,creditEl}]}
+
+document.querySelectorAll('.scale-pill').forEach(p=>{
+  p.onclick = ()=>{
+    document.querySelectorAll('.scale-pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    currentScale = p.dataset.scale;
+    document.getElementById('cgpa-scale-label').textContent = SCALES[currentScale].label;
+    document.getElementById('cgpa-label').textContent = SCALES[currentScale].grades ? 'Overall CGPA' : 'Overall average';
+    document.getElementById('target-cgpa-label').textContent = SCALES[currentScale].grades ? 'Target CGPA' : 'Target average (%)';
+    semesters.forEach(s=> s.courses.forEach(c=> rebuildGradeSelect(c.gradeEl)) );
+    recalcAll();
+  };
+});
+
+function gradeOptions(){
+  const s = SCALES[currentScale];
+  if(s.grades) return s.grades.map(g=>`<option value="${g[1]}">${g[0]}</option>`).join('');
+  return '';
+}
+function rebuildGradeSelect(selectEl){
+  const s = SCALES[currentScale];
+  const pctEl = selectEl.nextElementSibling;
+  if(s.grades){
+    selectEl.style.display='';
+    pctEl.style.display='none';
+    selectEl.innerHTML = gradeOptions();
+  } else {
+    selectEl.style.display='none';
+    pctEl.style.display='';
+  }
+}
+
+function addSemester(){
+  semCounter++;
+  const id = 'sem'+semCounter;
+  const card = document.createElement('div');
+  card.className = 'sem-card';
+  card.innerHTML = `
+    <div class="sem-head">
+      <input class="sem-name" value="Semester ${semCounter}">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="sem-gpa-badge" id="${id}-badge">— 0.00</span>
+        <button class="sem-remove" title="Remove semester">×</button>
+      </div>
+    </div>
+    <div class="col-labels"><span>Course</span><span>Credit</span><span>Grade</span><span></span></div>
+    <div class="rows-wrap" id="${id}-rows"></div>
+    <button class="add-row-btn">+ Add course</button>
+  `;
+  document.getElementById('semesters-wrap').appendChild(card);
+
+  const semObj = { id, card, rowsWrap: card.querySelector('.rows-wrap'), courses: [] };
+  semesters.push(semObj);
+
+  card.querySelector('.sem-remove').onclick = ()=>{
+    card.remove();
+    const idx = semesters.findIndex(s=>s.id===id);
+    if(idx>-1) semesters.splice(idx,1);
+    recalcAll();
+  };
+  card.querySelector('.add-row-btn').onclick = ()=> addCourse(semObj);
+  card.querySelector('.sem-name').addEventListener('input', recalcAll);
+
+  addCourse(semObj);
+  addCourse(semObj);
+}
+
+function addCourse(semObj){
+  courseCounter++;
+  const cid = 'c'+courseCounter;
+  const row = document.createElement('div');
+  row.className = 'course-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Course name" class="course-name">
+    <input type="number" placeholder="3" step="0.5" min="0" class="course-credit">
+    <select class="course-grade">${gradeOptions()}</select>
+    <input type="number" placeholder="85" min="0" max="100" class="course-pct" style="display:none;">
+    <button class="rm-course" title="Remove course">×</button>
+  `;
+  semObj.rowsWrap.appendChild(row);
+  const gradeEl = row.querySelector('.course-grade');
+  rebuildGradeSelect(gradeEl);
+
+  const courseObj = { id:cid, row, gradeEl, pctEl: row.querySelector('.course-pct'), creditEl: row.querySelector('.course-credit') };
+  semObj.courses.push(courseObj);
+
+  row.querySelector('.rm-course').onclick = ()=>{
+    row.remove();
+    const idx = semObj.courses.findIndex(c=>c.id===cid);
+    if(idx>-1) semObj.courses.splice(idx,1);
+    recalcAll();
+  };
+  row.querySelectorAll('input, select').forEach(el=> el.addEventListener('input', recalcAll));
+}
+
+function semesterAverage(semObj){
+  // Returns {value, credits, weighted} where value is on the current scale
+  let totalPoints = 0, totalCredits = 0;
+  semObj.courses.forEach(c=>{
+    const credit = parseFloat(c.creditEl.value);
+    if(!credit || credit<=0) return;
+    let point;
+    if(SCALES[currentScale].grades){
+      point = parseFloat(c.gradeEl.value);
+    } else {
+      const pct = parseFloat(c.pctEl.value);
+      if(isNaN(pct)) return;
+      point = pct;
+    }
+    if(isNaN(point)) return;
+    totalPoints += point*credit;
+    totalCredits += credit;
+  });
+  return { value: totalCredits ? totalPoints/totalCredits : 0, credits: totalCredits, points: totalPoints };
+}
+
+function recalcAll(){
+  let grandPoints = 0, grandCredits = 0;
+  semesters.forEach(s=>{
+    const r = semesterAverage(s);
+    const badge = document.getElementById(s.id+'-badge');
+    const suffix = currentScale==='pct' ? '%' : '';
+    if(badge) badge.textContent = '— ' + r.value.toFixed(2) + suffix;
+    grandPoints += r.points;
+    grandCredits += r.credits;
+  });
+  const overall = grandCredits ? grandPoints/grandCredits : 0;
+  const scaleInfo = SCALES[currentScale];
+  let display = overall.toFixed(2) + ' <span>' + scaleInfo.label + '</span>';
+  document.getElementById('cgpa-out').innerHTML = display;
+
+  let miniText = `${semesters.length} semester${semesters.length!==1?'s':''} · ${grandCredits} credit hours`;
+  document.getElementById('cgpa-mini').textContent = miniText;
+
+  updateTarget(grandPoints, grandCredits);
+}
+
+function updateTarget(grandPoints, grandCredits){
+  const targetCgpa = parseFloat(document.getElementById('target-cgpa').value);
+  const nextCredits = parseFloat(document.getElementById('target-credits').value);
+  const out = document.getElementById('target-out');
+  if(!targetCgpa || !nextCredits || nextCredits<=0){
+    out.style.display='none';
+    return;
+  }
+  const max = SCALES[currentScale].max;
+  const unit = currentScale==='pct' ? '%' : '';
+  const neededTotalPoints = targetCgpa * (grandCredits + nextCredits);
+  const neededPointsNext = neededTotalPoints - grandPoints;
+  const neededGPA = neededPointsNext / nextCredits;
+
+  out.style.display='block';
+  if(neededGPA > max){
+    out.classList.add('warn');
+    out.innerHTML = `Not reachable next semester alone — you'd need <b>${neededGPA.toFixed(2)}${unit}</b>, above the ${max.toFixed(2)}${unit} maximum. Spreading the improvement over more semesters will help.`;
+  } else if(neededGPA <= 0){
+    out.classList.remove('warn');
+    out.innerHTML = `You're already on track — even <b>0.00${unit}</b> next semester would still meet or beat your target of ${targetCgpa.toFixed(2)}${unit}.`;
+  } else {
+    out.classList.remove('warn');
+    out.innerHTML = `You need <b>${neededGPA.toFixed(2)}${unit}</b> over ${nextCredits} credit hours next semester to reach ${targetCgpa.toFixed(2)}${unit}.`;
+  }
+}
+
+document.getElementById('target-cgpa').addEventListener('input', recalcAll);
+document.getElementById('target-credits').addEventListener('input', recalcAll);
+document.getElementById('add-sem').onclick = ()=>{ addSemester(); recalcAll(); };
+
+// init
+addSemester();
+recalcAll();
+</script>
+</body>
+</html>
