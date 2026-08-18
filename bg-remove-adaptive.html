@@ -1,384 +1,335 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Remove Background — Cozyleaf</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Background Remover | Cozyleaf.in</title>
 <style>
-  :root{
-    --orange:#f0592a;
-    --dark:#151b16;
-    --cream:#f4efe4;
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    background: #f4f1ea;
+    margin: 0;
+    padding: 20px;
+    color: #1a1a1a;
   }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    background:var(--cream);
-    color:var(--dark);
+  .wrap { max-width: 520px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: #666; font-size: 14px; margin-bottom: 20px; }
+
+  .drop {
+    border: 2px dashed #ccc;
+    border-radius: 14px;
+    padding: 30px 16px;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
   }
-  header{
-    background:var(--dark);
-    color:#fff;
-    padding:14px 20px;
-    font-weight:700;
-    font-size:18px;
+  .drop input { display: none; }
+  .drop-btn {
+    display: inline-block;
+    background: #e8541e;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    margin-top: 10px;
   }
-  header span{color:var(--orange);}
-  .wrap{
-    max-width:520px;
-    margin:0 auto;
-    padding:20px 16px 60px;
+  .hint { font-size: 13px; color: #888; margin-top: 8px; }
+
+  .status-box {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    display: none;
   }
-  .dropzone{
-    border:2px dashed var(--orange);
-    border-radius:16px;
-    padding:34px 16px;
-    text-align:center;
-    background:#fff;
-    cursor:pointer;
+  .status-box.show { display: block; }
+  .status-info { background: #eaf2ff; color: #1a4d8f; }
+  .status-success { background: #e6f7ee; color: #1a7a4c; }
+  .status-error { background: #fdecea; color: #a33; }
+
+  .progress-track {
+    width: 100%;
+    height: 8px;
+    background: #eee;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+    display: none;
   }
-  .dropzone p.title{font-weight:700;font-size:18px;margin:8px 0 4px;}
-  .dropzone p.sub{color:#666;font-size:14px;margin:0 0 16px;}
-  input[type=file]{display:none;}
-  .btn{
-    display:inline-block;
-    padding:12px 22px;
-    border-radius:10px;
-    font-weight:700;
-    cursor:pointer;
-    border:none;
-    font-size:15px;
-    width:100%;
-    margin-top:8px;
+  .progress-track.show { display: block; }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #e8541e;
+    transition: width 0.2s;
   }
-  .btn-primary{background:var(--orange);color:#fff;}
-  .btn-dark{background:var(--dark);color:#fff;}
-  .btn-outline{background:#fff;color:var(--dark);border:1px solid #ccc;}
-  .status{
-    margin-top:18px;
-    padding:14px 16px;
-    border-radius:12px;
-    font-size:14px;
-    line-height:1.5;
-    display:none;
-  }
-  .status.info{background:#eef3ff;color:#1d3a8a;display:block;}
-  .status.error{background:#fde7e2;color:#9c2b12;display:block;}
-  .status.success{background:#e8f7ec;color:#136c34;display:block;}
-  .progress-bar{
-    height:6px;
-    background:#e2ddcf;
-    border-radius:4px;
-    overflow:hidden;
-    margin-top:10px;
-  }
-  .progress-fill{
-    height:100%;
-    background:var(--orange);
-    width:0%;
-    transition:width .2s;
-  }
-  .preview{
-    margin-top:18px;
-    border-radius:12px;
-    overflow:hidden;
+
+  .preview {
+    margin-top: 20px;
+    border-radius: 14px;
+    overflow: hidden;
     background:
-      linear-gradient(45deg,#ddd 25%,transparent 25%),
-      linear-gradient(-45deg,#ddd 25%,transparent 25%),
-      linear-gradient(45deg,transparent 75%,#ddd 75%),
-      linear-gradient(-45deg,transparent 75%,#ddd 75%);
-    background-size:20px 20px;
-    background-position:0 0,0 10px,10px -10px,-10px 0px;
+      linear-gradient(45deg, #ddd 25%, transparent 25%),
+      linear-gradient(-45deg, #ddd 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ddd 75%),
+      linear-gradient(-45deg, transparent 75%, #ddd 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    display: none;
   }
-  .preview img{width:100%;display:block;}
-  .tier-note{
-    margin-top:10px;
-    font-size:12px;
-    color:#888;
-    text-align:center;
+  .preview.show { display: block; }
+  .preview img { width: 100%; display: block; }
+
+  .btn-row { display: flex; gap: 10px; margin-top: 14px; }
+  .btn {
+    flex: 1;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .btn-primary { background: #111; color: #fff; }
+  .btn-secondary { background: #fff; color: #111; border: 1px solid #ccc; }
+
+  .model-tag {
+    display: inline-block;
+    font-size: 12px;
+    background: #111;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 6px;
   }
 </style>
 </head>
 <body>
 
-<header>Cozy<span>leaf</span> — Background Remover</header>
-
 <div class="wrap">
+  <h1>Background Remover</h1>
+  <div class="sub">Cozyleaf.in — ছবি থেকে ব্যাকগ্রাউন্ড সরান, একদম ফ্রি</div>
 
-  <div class="dropzone" id="dropzone">
-    <div style="font-size:34px;">✂️</div>
-    <p class="title">Choose your image</p>
-    <p class="sub">JPG, PNG or WEBP</p>
-    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp">
-    <button class="btn btn-primary" id="chooseBtn" type="button">Choose from Gallery</button>
+  <label class="drop" id="dropZone">
+    <div>📷 ছবি সিলেক্ট করুন</div>
+    <div class="drop-btn">Choose from Gallery</div>
+    <div class="hint">JPG, PNG বা WEBP</div>
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" />
+  </label>
+
+  <div class="status-box status-info" id="statusInfo">
+    <span id="statusText">প্রসেসিং হচ্ছে...</span>
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
   </div>
 
-  <div class="tier-note" id="tierNote"></div>
-
-  <div class="status" id="status"></div>
-
-  <div class="preview" id="previewWrap" style="display:none;">
-    <img id="previewImg" alt="Result">
+  <div class="status-box status-success" id="statusSuccess">
+    ✅ Background removed successfully.
   </div>
 
-  <button class="btn btn-dark" id="downloadBtn" style="display:none;">Download PNG</button>
-  <button class="btn btn-outline" id="retryBtn" style="display:none;">Try another image</button>
+  <div class="status-box status-error" id="statusError">
+    ❌ <span id="errorText">একটা সমস্যা হয়েছে।</span>
+  </div>
 
+  <div class="preview" id="preview">
+    <img id="resultImg" alt="Result" />
+  </div>
+
+  <div class="btn-row" id="btnRow" style="display:none;">
+    <button class="btn btn-primary" id="downloadBtn">⬇ Download PNG</button>
+    <button class="btn btn-secondary" id="retryBtn">Try another image</button>
+  </div>
 </div>
 
-<!-- MediaPipe Selfie Segmentation: small model (~a few MB), built for exactly this kind of
-     on-device, low-memory segmentation work — much lighter than a general-purpose
-     background-removal net. -->
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/selfie_segmentation.js" crossorigin="anonymous"></script>
+<script type="module">
+  import removeBackground from "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/dist/browser.mjs";
 
-<script>
-(function(){
+  const fileInput = document.getElementById('fileInput');
+  const statusInfo = document.getElementById('statusInfo');
+  const statusText = document.getElementById('statusText');
+  const statusSuccess = document.getElementById('statusSuccess');
+  const statusError = document.getElementById('statusError');
+  const errorText = document.getElementById('errorText');
+  const progressTrack = document.getElementById('progressTrack');
+  const progressFill = document.getElementById('progressFill');
+  const preview = document.getElementById('preview');
+  const resultImg = document.getElementById('resultImg');
+  const btnRow = document.getElementById('btnRow');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const retryBtn = document.getElementById('retryBtn');
 
-  const dropzone   = document.getElementById('dropzone');
-  const fileInput  = document.getElementById('fileInput');
-  const chooseBtn  = document.getElementById('chooseBtn');
-  const statusEl   = document.getElementById('status');
-  const tierNote   = document.getElementById('tierNote');
-  const previewWrap= document.getElementById('previewWrap');
-  const previewImg = document.getElementById('previewImg');
-  const downloadBtn= document.getElementById('downloadBtn');
-  const retryBtn   = document.getElementById('retryBtn');
-  const progressBarTemplate = () => {
-    const p = document.createElement('div');
-    p.className = 'progress-bar';
-    p.innerHTML = '<div class="progress-fill" id="progressFill"></div>';
-    return p;
-  };
+  let finalBlob = null;
 
-  // ---------------------------------------------------------------
-  // STEP 1: Figure out how much the device can safely handle.
-  // navigator.deviceMemory is approximate and not supported on all
-  // browsers (notably iOS Safari). When it's missing we assume the
-  // worst case (low-end) rather than the best case, so we never
-  // over-promise and crash.
-  // ---------------------------------------------------------------
-  function getDeviceTier(){
-    const mem = navigator.deviceMemory; // in GB, or undefined
-    if (mem === undefined) return { tier: 'unknown', maxDim: 1280 };
-    if (mem <= 2)  return { tier: 'low',    maxDim: 900  };
-    if (mem <= 4)  return { tier: 'medium', maxDim: 1400 };
-    return              { tier: 'high',   maxDim: 2000 };
-  }
+  // ---------------------------------------------------------
+  // ধাপ ১: ডিভাইসের মেমরি ও নেটওয়ার্ক স্পিড দেখে সেরা মডেল বাছাই
+  // ---------------------------------------------------------
+  function detectBestModel() {
+    const ram = navigator.deviceMemory || 4; // না পেলে ৪GB ধরে নেওয়া হলো
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const effectiveType = conn?.effectiveType || '4g';
+    const saveData = conn?.saveData === true;
 
-  const deviceTier = getDeviceTier();
-  tierNote.textContent =
-    deviceTier.tier === 'unknown'
-      ? 'Optimizing automatically for your device'
-      : `Optimized for your device (${deviceTier.tier} memory mode)`;
+    const isSlowNetwork = ['slow-2g', '2g'].includes(effectiveType) || saveData;
+    const isMediumNetwork = effectiveType === '3g';
 
-  // A ladder of fallback sizes. If processing fails at one size
-  // (memory error), we retry at the next smaller size automatically,
-  // instead of just showing an error to the user.
-  function fallbackLadder(startDim){
-    const steps = [startDim, 1000, 700, 500, 350];
-    const seen = new Set();
-    return steps.filter(d => {
-      if (d > startDim) return false;
-      if (seen.has(d)) return false;
-      seen.add(d);
-      return true;
-    });
-  }
-
-  // ---------------------------------------------------------------
-  // STEP 2: UI wiring
-  // ---------------------------------------------------------------
-  chooseBtn.addEventListener('click', () => fileInput.click());
-  dropzone.addEventListener('click', (e) => {
-    if (e.target !== chooseBtn) fileInput.click();
-  });
-  dropzone.addEventListener('dragover', e => { e.preventDefault(); });
-  dropzone.addEventListener('drop', e => {
-    e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
+    let model, label;
+    if (ram <= 1 || isSlowNetwork) {
+      model = 'isnet_quint8';
+      label = 'ফাস্ট মোড (হালকা মডেল)';
+    } else if (ram <= 3 || isMediumNetwork) {
+      model = 'isnet_fp16';
+      label = 'ব্যালান্সড মোড';
+    } else if (ram >= 6) {
+      model = 'isnet';
+      label = 'হাই কোয়ালিটি মোড';
+    } else {
+      model = 'isnet_fp16';
+      label = 'ব্যালান্সড মোড';
     }
-  });
-  fileInput.addEventListener('change', e => {
-    if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
-  });
-  retryBtn.addEventListener('click', () => {
-    fileInput.value = '';
-    previewWrap.style.display = 'none';
-    downloadBtn.style.display = 'none';
-    retryBtn.style.display = 'none';
-    statusEl.className = 'status';
-    statusEl.style.display = 'none';
-  });
-
-  function setStatus(kind, html){
-    statusEl.className = 'status ' + kind;
-    statusEl.innerHTML = html;
-    statusEl.style.display = 'block';
+    return { model, label, ram, effectiveType };
   }
 
-  // ---------------------------------------------------------------
-  // STEP 3: Load the source image into an <img>
-  // ---------------------------------------------------------------
-  function loadImage(file){
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      const url = URL.createObjectURL(file);
-      img.onload = () => resolve(img);
-      img.onerror = () => reject(new Error('Could not read this image file.'));
-      img.src = url;
-    });
-  }
+  // ---------------------------------------------------------
+  // ধাপ ২: এজ ক্লিনআপ (ghost pixel/hair-edge রেশ দূর করা)
+  // ---------------------------------------------------------
+  async function cleanupEdges(blob, options = {}) {
+    const {
+      alphaThreshold = 60,
+      erodePixels = 1,
+      featherRadius = 1.2,
+    } = options;
 
-  // ---------------------------------------------------------------
-  // STEP 4: Downscale onto a canvas at a given max dimension,
-  // preserving aspect ratio. This is what actually keeps memory
-  // usage bounded on weak devices.
-  // ---------------------------------------------------------------
-  function downscale(img, maxDim){
-    let { width, height } = img;
-    if (width > height && width > maxDim) {
-      height = Math.round(height * (maxDim / width));
-      width = maxDim;
-    } else if (height >= width && height > maxDim) {
-      width = Math.round(width * (maxDim / height));
-      height = maxDim;
-    }
+    const img = await createImageBitmap(blob);
     const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = img.width;
+    canvas.height = img.height;
     const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, width, height);
-    return canvas;
-  }
+    ctx.drawImage(img, 0, 0);
 
-  // ---------------------------------------------------------------
-  // STEP 5: Run MediaPipe Selfie Segmentation on a canvas, and
-  // composite a transparent-background PNG using the returned mask.
-  // ---------------------------------------------------------------
-  let segmenter = null;
-  function getSegmenter(){
-    if (segmenter) return segmenter;
-    segmenter = new SelfieSegmentation({
-      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/${file}`
-    });
-    segmenter.setOptions({ modelSelection: 1 }); // 1 = "landscape" model, better general accuracy
-    return segmenter;
-  }
+    const { width, height } = canvas;
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const data = imageData.data;
 
-  function runSegmentation(sourceCanvas){
-    return new Promise((resolve, reject) => {
-      const seg = getSegmenter();
-      const timeout = setTimeout(() => {
-        reject(new Error('Processing timed out.'));
-      }, 20000);
+    for (let i = 3; i < data.length; i += 4) {
+      if (data[i] < alphaThreshold) data[i] = 0;
+    }
 
-      seg.onResults((results) => {
-        clearTimeout(timeout);
-        try {
-          const { width, height } = sourceCanvas;
-          const outCanvas = document.createElement('canvas');
-          outCanvas.width = width;
-          outCanvas.height = height;
-          const outCtx = outCanvas.getContext('2d');
+    const alphaCopy = new Uint8ClampedArray(data.length / 4);
+    for (let i = 0, j = 3; i < alphaCopy.length; i++, j += 4) {
+      alphaCopy[i] = data[j];
+    }
 
-          // Draw the segmentation mask, then use it to keep only the
-          // subject from the original image (source-in), producing a
-          // transparent background PNG.
-          outCtx.drawImage(results.segmentationMask, 0, 0, width, height);
-          outCtx.globalCompositeOperation = 'source-in';
-          outCtx.drawImage(sourceCanvas, 0, 0, width, height);
-          outCtx.globalCompositeOperation = 'source-over';
-
-          resolve(outCanvas);
-        } catch (err) {
-          reject(err);
+    for (let pass = 0; pass < erodePixels; pass++) {
+      const before = alphaCopy.slice();
+      for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+          const idx = y * width + x;
+          if (before[idx] === 0) continue;
+          const neighbors = [
+            before[idx - 1], before[idx + 1],
+            before[idx - width], before[idx + width],
+          ];
+          if (neighbors.some(a => a === 0)) {
+            alphaCopy[idx] = Math.max(0, before[idx] - 180);
+          }
         }
-      });
-
-      seg.send({ image: sourceCanvas }).catch(reject);
-    });
-  }
-
-  // ---------------------------------------------------------------
-  // STEP 6: Orchestration — try at the device's recommended size,
-  // and if it fails for a memory-shaped reason, automatically retry
-  // smaller instead of just showing the user an error.
-  // ---------------------------------------------------------------
-  async function processWithFallback(img){
-    const sizes = fallbackLadder(deviceTier.maxDim);
-
-    for (let i = 0; i < sizes.length; i++) {
-      const dim = sizes[i];
-      setStatus('info',
-        `Removing background… ${i > 0 ? '(retrying at a smaller size to fit your device\'s memory)' : ''}`
-      );
-      try {
-        const smallCanvas = downscale(img, dim);
-        const resultCanvas = await runSegmentation(smallCanvas);
-        return resultCanvas; // success
-      } catch (err) {
-        const msg = (err && err.message || '').toLowerCase();
-        const looksLikeMemoryIssue =
-          msg.includes('memory') || msg.includes('alloc') || msg.includes('buffer') ||
-          msg.includes('timed out') || err instanceof RangeError;
-
-        const isLastAttempt = i === sizes.length - 1;
-        if (!looksLikeMemoryIssue || isLastAttempt) {
-          throw err;
-        }
-        // otherwise: loop continues, tries the next smaller size
       }
     }
-    throw new Error('Could not process this image on this device.');
-  }
 
-  // ---------------------------------------------------------------
-  // STEP 7: Main handler
-  // ---------------------------------------------------------------
-  async function handleFile(file){
-    previewWrap.style.display = 'none';
-    downloadBtn.style.display = 'none';
-    retryBtn.style.display = 'none';
-
-    if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
-      setStatus('error', 'Please choose a JPG, PNG, or WEBP image.');
-      retryBtn.style.display = 'block';
-      return;
+    const r = Math.max(1, Math.round(featherRadius));
+    const feathered = alphaCopy.slice();
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const idx = y * width + x;
+        if (alphaCopy[idx] === 0 || alphaCopy[idx] === 255) continue;
+        let sum = 0, count = 0;
+        for (let dy = -r; dy <= r; dy++) {
+          for (let dx = -r; dx <= r; dx++) {
+            const ny = y + dy, nx = x + dx;
+            if (ny < 0 || ny >= height || nx < 0 || nx >= width) continue;
+            sum += alphaCopy[ny * width + nx];
+            count++;
+          }
+        }
+        feathered[idx] = Math.round(sum / count);
+      }
     }
 
-    setStatus('info', 'Loading image…');
+    for (let i = 0, j = 3; i < feathered.length; i++, j += 4) {
+      data[j] = feathered[i];
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  }
+
+  // ---------------------------------------------------------
+  // ধাপ ৩: মূল প্রসেস — ফাইল সিলেক্ট হলে চলবে
+  // ---------------------------------------------------------
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // UI রিসেট
+    statusSuccess.classList.remove('show');
+    statusError.classList.remove('show');
+    preview.classList.remove('show');
+    btnRow.style.display = 'none';
+    statusInfo.classList.add('show');
+    progressTrack.classList.add('show');
+    progressFill.style.width = '0%';
+
+    const { model, label, ram, effectiveType } = detectBestModel();
+    statusText.innerHTML = `প্রসেসিং হচ্ছে... <span class="model-tag">${label}</span>`;
 
     try {
-      const img = await loadImage(file);
-      const resultCanvas = await processWithFallback(img);
+      const rawBlob = await removeBackground(file, {
+        model: model,
+        output: { format: 'image/png', quality: 0.9 },
+        progress: (key, current, total) => {
+          const pct = Math.round((current / total) * 100);
+          progressFill.style.width = pct + '%';
+        },
+      });
 
-      const dataUrl = resultCanvas.toDataURL('image/png');
-      previewImg.src = dataUrl;
-      previewWrap.style.display = 'block';
+      statusText.textContent = 'এজ পরিষ্কার করা হচ্ছে...';
+      const cleanedBlob = await cleanupEdges(rawBlob);
 
-      downloadBtn.style.display = 'block';
-      downloadBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = 'background-removed.png';
-        a.click();
-      };
+      finalBlob = cleanedBlob;
+      resultImg.src = URL.createObjectURL(cleanedBlob);
 
-      retryBtn.style.display = 'block';
-      setStatus('success', 'Background removed successfully.');
+      statusInfo.classList.remove('show');
+      statusSuccess.classList.add('show');
+      preview.classList.add('show');
+      btnRow.style.display = 'flex';
+
     } catch (err) {
       console.error(err);
-      setStatus('error',
-        'Sorry, this image could not be processed on your device. ' +
-        'Try a smaller/simpler photo, or free up some memory by closing other browser tabs.'
-      );
-      retryBtn.style.display = 'block';
+      statusInfo.classList.remove('show');
+      statusError.classList.add('show');
+      errorText.textContent = 'ছবি প্রসেস করতে সমস্যা হয়েছে। আবার চেষ্টা করুন বা অন্য ছবি ব্যবহার করুন।';
     }
-  }
+  });
 
-})();
+  downloadBtn.addEventListener('click', () => {
+    if (!finalBlob) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(finalBlob);
+    a.download = 'cozyleaf-background-removed.png';
+    a.click();
+  });
+
+  retryBtn.addEventListener('click', () => {
+    fileInput.value = '';
+    statusSuccess.classList.remove('show');
+    preview.classList.remove('show');
+    btnRow.style.display = 'none';
+    fileInput.click();
+  });
 </script>
 
 </body>
