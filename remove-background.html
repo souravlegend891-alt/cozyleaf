@@ -401,17 +401,33 @@
     if(originalURL) URL.revokeObjectURL(originalURL);
     originalURL = URL.createObjectURL(file);
 
+    const onProgress = (key, current, total) => {
+      const pct = total ? (current/total)*100 : 0;
+      let label = 'Tracing the subject…';
+      if(key && key.includes('fetch')) label = 'Loading the cutting engine…';
+      else if(key && key.includes('compute')) label = 'Lifting the background…';
+      setProgress(pct, label);
+    };
+
     try{
       const removeBackground = await loadEngine();
-      const blob = await removeBackground(file, {
-        progress: (key, current, total) => {
-          const pct = total ? (current/total)*100 : 0;
-          let label = 'Tracing the subject…';
-          if(key && key.includes('fetch')) label = 'Loading the cutting engine…';
-          else if(key && key.includes('compute')) label = 'Lifting the background…';
-          setProgress(pct, label);
-        }
-      });
+      let blob;
+      try{
+        // First attempt: default (medium) model.
+        blob = await removeBackground(file, {
+          publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.7.0/dist/',
+          progress: onProgress
+        });
+      }catch(firstErr){
+        console.warn('Medium model failed, retrying with the small model:', firstErr);
+        setProgress(0, 'Retrying with a lighter model…');
+        // Fallback: smaller, lighter model — more reliable on phones and slow connections.
+        blob = await removeBackground(file, {
+          model: 'small',
+          publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.7.0/dist/',
+          progress: onProgress
+        });
+      }
       if(cutoutURL) URL.revokeObjectURL(cutoutURL);
       cutoutURL = URL.createObjectURL(blob);
       cutoutImg.src = cutoutURL;
@@ -425,7 +441,8 @@
     }catch(e){
       console.error(e);
       showLoading();
-      showError("That photo didn't process. Try a different JPG, PNG, or WEBP.");
+      const detail = (e && e.message) ? e.message : 'unknown error';
+      showError("That photo didn't process (" + detail + "). Try a different JPG, PNG, or WEBP, or reload the page.");
     }
   }
 
