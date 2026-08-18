@@ -388,7 +388,7 @@
 
   async function loadEngine(){
     if(removeBackgroundFn) return removeBackgroundFn;
-    const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/dist/index.mjs');
+    const mod = await import('https://esm.sh/@imgly/background-removal@1.5.1');
     removeBackgroundFn = mod.removeBackground;
     return removeBackgroundFn;
   }
@@ -412,7 +412,7 @@
     try{
       const removeBackground = await loadEngine();
       let blob;
-      const CORRECT_PUBLIC_PATH = 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/';
+      const CORRECT_PUBLIC_PATH = 'https://staticimgly.com/@imgly/background-removal-data/1.5.1/dist/';
       try{
         // First attempt: default (medium) model.
         blob = await removeBackground(file, {
