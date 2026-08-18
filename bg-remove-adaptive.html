@@ -102,6 +102,9 @@
 
   /* Step 1: Upload */
   .dropzone {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     border: 1.5px dashed #b7c9bd;
     border-radius: 16px;
     background: #fff;
@@ -109,22 +112,29 @@
     text-align: center;
     cursor: pointer;
     transition: border-color .15s, background .15s;
+    -webkit-tap-highlight-color: transparent;
   }
   .dropzone:active { background: #f0f4f1; border-color: var(--sage); }
-  .dropzone svg { width: 40px; height: 40px; color: var(--moss); margin-bottom: 12px; }
+  .dropzone svg { display: block; width: 40px; height: 40px; margin: 0 auto 12px; color: var(--moss); }
   .dz-title { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
   .dz-sub { font-size: 13px; color: #7d8a82; margin-bottom: 18px; }
   .pick-btn {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     background: var(--forest);
     color: #fff;
     font-weight: 600;
     font-size: 14.5px;
-    padding: 12px 30px;
+    padding: 14px 30px;
     border-radius: 30px;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
   }
+  .pick-btn:active { background: #143528; }
   .formats { font-size: 12px; color: #9aa79f; margin-top: 14px; }
-  input[type="file"] { display: none; }
+  #fileInput { display: none; }
 
   /* Step 2: Processing */
   .process-card {
@@ -245,14 +255,14 @@
 
   <!-- STEP 1: UPLOAD -->
   <div class="panel active" id="panelUpload">
-    <label class="dropzone" id="dropZone">
+    <div class="dropzone" id="dropZone">
       <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 7.5m0 0L7.5 12M12 7.5v9"/></svg>
       <div class="dz-title">Select a photo</div>
       <div class="dz-sub">Tap below to choose from your gallery</div>
-      <div class="pick-btn">Choose Photo</div>
+      <button type="button" class="pick-btn" id="pickBtn">Choose Photo</button>
       <div class="formats">Supports JPG, PNG, WEBP</div>
-      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" />
-    </label>
+    </div>
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" />
   </div>
 
   <!-- STEP 2: PROCESSING -->
@@ -296,6 +306,7 @@
 
   const fileInput   = document.getElementById('fileInput');
   const dropZone    = document.getElementById('dropZone');
+  const pickBtn     = document.getElementById('pickBtn');
 
   const panelUpload  = document.getElementById('panelUpload');
   const panelProcess = document.getElementById('panelProcess');
@@ -405,6 +416,13 @@
   }
 
   // ---------- Main flow ----------
+  // Tapping anywhere on the dropzone (or the button) opens the gallery picker.
+  dropZone.addEventListener('click', () => fileInput.click());
+  pickBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // avoid double-trigger from the dropzone click above
+    fileInput.click();
+  });
+
   fileInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
