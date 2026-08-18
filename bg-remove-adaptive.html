@@ -367,16 +367,26 @@
   }
 
   // ---------- Load the background-removal library ----------
+  // Different bundlers/CDNs/browsers resolve ESM interop differently: some
+  // expose the function as the default export, others as a named export
+  // (or both). Relying on `mod.default` alone breaks silently on some
+  // Android WebViews, producing "removeBackground is not a function" even
+  // though the module loaded fine. We check every plausible shape.
   let removeBackground;
   try {
     const mod = await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.8/dist/index.mjs");
-    removeBackground = mod.default;
+    const candidate = mod.removeBackground || mod.default?.removeBackground || mod.default || mod;
+    if (typeof candidate !== 'function') {
+      throw new Error('removeBackground export not found in module (unexpected module shape)');
+    }
+    removeBackground = candidate;
     pickBtn.disabled = false;
     pickBtn.textContent = 'Choose Photo';
   } catch (err) {
     console.error('Failed to load background-removal library:', err);
     pickBtn.textContent = 'Unavailable — check connection';
     pickBtn.disabled = true;
+    deviceNote.textContent = `Load error: ${err.message || err}`;
     return;
   }
 
@@ -575,6 +585,9 @@
   });
 
   async function runRemoval(sourceBlob, model, maxDim, outputQuality) {
+    if (typeof removeBackground !== 'function') {
+      throw new Error('removeBackground is not available (library failed to initialize)');
+    }
     const scaled = await downscaleIfNeeded(sourceBlob, maxDim);
     return removeBackground(scaled, {
       model,
