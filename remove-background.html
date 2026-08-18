@@ -2,32 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#12392d">
+<meta name="description" content="Free AI image background remover. Remove image backgrounds directly in your browser.">
 <title>Cutout — AI Background Remover</title>
 
-<meta name="description"
-content="Remove image backgrounds instantly with AI. Free, private and processed directly in your browser.">
-
 <style>
-
-/* =========================================================
-   ROOT
-========================================================= */
-
 :root{
-  --green:#17382d;
-  --green2:#102a21;
-  --paper:#f7f4ec;
-  --paper2:#ebe6d8;
-  --text:#16221b;
-  --muted:#617068;
-  --orange:#ff5935;
-  --orange2:#d94625;
+  --green:#12392d;
+  --green2:#0b281f;
+  --green3:#1d4d3d;
+  --cream:#f6f3ea;
+  --cream2:#ebe5d7;
+  --orange:#ff5938;
+  --orange2:#d94424;
+  --text:#142019;
+  --muted:#66736c;
   --white:#fff;
-  --danger:#9b3218;
-  --border:rgba(22,34,27,.12);
-  --shadow:0 30px 80px rgba(0,0,0,.25);
+  --danger:#8b321c;
+  --dangerbg:#fdece7;
   --radius:20px;
 }
 
@@ -35,15 +28,22 @@ content="Remove image backgrounds instantly with AI. Free, private and processed
   box-sizing:border-box;
 }
 
-html{
-  scroll-behavior:smooth;
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
 }
 
 body{
-  margin:0;
-  background:var(--paper);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+  background:var(--cream);
   -webkit-font-smoothing:antialiased;
 }
 
@@ -56,329 +56,325 @@ button{
   cursor:pointer;
 }
 
-img{
-  max-width:100%;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-  height:74px;
+header{
+  min-height:76px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:20px;
   max-width:1200px;
   margin:auto;
-  padding:0 22px;
+  padding:16px 24px;
 }
 
-.logo{
+.brand{
   display:flex;
   align-items:center;
-  gap:10px;
-  font-size:20px;
+  gap:11px;
+  font-size:22px;
   font-weight:800;
+  letter-spacing:-.04em;
 }
 
-.logo-icon{
-  width:34px;
-  height:34px;
+.brand-icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
   display:grid;
   place-items:center;
+  color:white;
   background:var(--orange);
-  color:#fff;
-  border-radius:10px;
+  font-size:23px;
   font-weight:900;
 }
 
-.privacy{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#35634f;
-  background:#e5efe9;
-  border:1px solid #c9ddd3;
+.trust{
+  border:1px solid rgba(29,77,61,.2);
+  background:rgba(29,77,61,.07);
+  color:var(--green3);
   border-radius:999px;
   padding:8px 13px;
   font-size:12px;
   font-weight:700;
 }
 
-.privacy-dot{
+.trust span{
+  display:inline-block;
   width:7px;
   height:7px;
   border-radius:50%;
-  background:#3d795f;
+  background:#2f7a5d;
+  margin-right:6px;
 }
 
-
-/* =========================================================
-   HERO
-========================================================= */
-
 .hero{
-  color:#fff;
   background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.035) 0 1px,
+      transparent 1px 32px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 0 1px,
+      transparent 1px 32px
+    ),
     radial-gradient(
       circle at 20% 0%,
-      #244d3d 0%,
-      transparent 48%
-    ),
-    linear-gradient(
-      135deg,
-      var(--green),
-      var(--green2)
+      #1c513f 0%,
+      var(--green) 48%,
+      var(--green2) 100%
     );
 
-  padding:
-    45px 20px
-    80px;
+  color:white;
+  padding:55px 20px 75px;
 }
 
 .hero-inner{
-  max-width:1200px;
+  max-width:1150px;
   margin:auto;
   text-align:center;
 }
 
 .eyebrow{
-  color:#ff957e;
-  font-size:12px;
-  letter-spacing:2px;
-  text-transform:uppercase;
+  margin:0 0 17px;
+  color:#ff9b82;
+  font-size:13px;
   font-weight:800;
-  margin-bottom:18px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
 }
 
-.hero h1{
-  font-size:clamp(42px,7vw,78px);
+h1{
+  margin:0;
+  font-size:clamp(42px,7vw,76px);
   line-height:.98;
-  letter-spacing:-3px;
-  margin:0 auto 22px;
-  max-width:850px;
+  letter-spacing:-.055em;
 }
 
-.hero h1 span{
+h1 span{
   color:var(--orange);
 }
 
-.hero-description{
-  color:#dce9e1;
-  font-size:17px;
+.subtitle{
+  max-width:620px;
+  margin:23px auto 40px;
+  color:#dbe8e1;
+  font-size:18px;
   line-height:1.6;
-  max-width:650px;
-  margin:0 auto 40px;
 }
 
-
-/* =========================================================
-   TOOL
-========================================================= */
-
-.tool{
-  max-width:760px;
+.tool-card{
+  max-width:700px;
   margin:auto;
-  background:var(--paper);
+  background:var(--cream);
   color:var(--text);
-  border-radius:26px;
+  border-radius:27px;
   padding:28px;
-  box-shadow:var(--shadow);
+  box-shadow:
+    0 35px 70px rgba(0,0,0,.38);
   text-align:left;
 }
 
-
-/* =========================================================
-   DROPZONE
-========================================================= */
+/* DROPZONE */
 
 .dropzone{
   position:relative;
-  min-height:310px;
-  border:2px dashed rgba(255,89,53,.5);
-  background:#eee9dc;
+  min-height:290px;
+  border:2px dashed rgba(255,89,56,.55);
   border-radius:20px;
-
+  background:#eee8db;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
-
+  justify-content:center;
   text-align:center;
   padding:35px 20px;
-
-  transition:
-    .2s ease;
-}
-
-.dropzone:hover{
-  border-color:var(--orange);
-  background:#f1ebdd;
+  transition:.2s ease;
 }
 
 .dropzone.drag{
-  transform:scale(1.01);
   border-color:var(--orange);
-  background:#f6e9dc;
+  background:#f6e9df;
+  transform:scale(1.01);
 }
 
-.upload-icon{
-  width:64px;
-  height:64px;
+.drop-icon{
+  width:58px;
+  height:58px;
+  margin:0 auto 18px;
+  border-radius:17px;
   display:grid;
   place-items:center;
-  border-radius:18px;
-  background:#fff;
-  color:var(--orange);
-  margin-bottom:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  background:#fff2ec;
+  color:var(--orange2);
+  font-size:28px;
 }
 
 .drop-title{
   font-size:20px;
   font-weight:800;
-  margin:0 0 8px;
+  margin-bottom:7px;
 }
 
-.drop-description{
+.drop-sub{
   color:var(--muted);
-  margin:0 0 20px;
   font-size:14px;
+  line-height:1.5;
 }
 
-.browse-button{
-  display:inline-flex;
-  align-items:center;
+.file-buttons{
+  display:flex;
   justify-content:center;
-  background:var(--orange);
-  color:#fff;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:21px;
+}
+
+.file-button{
   border:0;
   border-radius:12px;
-  padding:13px 22px;
+  padding:12px 17px;
   font-weight:800;
+  background:var(--orange);
+  color:white;
+  box-shadow:0 8px 20px rgba(255,89,56,.22);
 }
 
-.browse-button:hover{
-  background:var(--orange2);
+.file-button.secondary{
+  background:white;
+  color:var(--text);
+  border:1px solid #ddd5c7;
+  box-shadow:none;
 }
 
-.file-info{
-  margin-top:14px;
-  color:var(--muted);
-  font-size:12px;
+.file-input{
+  display:none;
 }
 
-#fileInput{
+.corner{
   position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:0;
-  cursor:pointer;
+  width:16px;
+  height:16px;
+  border-color:var(--orange2);
+  opacity:.55;
 }
 
+.corner.tl{
+  left:10px;
+  top:10px;
+  border-left:2px solid;
+  border-top:2px solid;
+}
 
-/* =========================================================
-   LOADING
-========================================================= */
+.corner.tr{
+  right:10px;
+  top:10px;
+  border-right:2px solid;
+  border-top:2px solid;
+}
+
+.corner.bl{
+  left:10px;
+  bottom:10px;
+  border-left:2px solid;
+  border-bottom:2px solid;
+}
+
+.corner.br{
+  right:10px;
+  bottom:10px;
+  border-right:2px solid;
+  border-bottom:2px solid;
+}
+
+/* LOADING */
 
 .loading{
   display:none;
+  padding:20px 5px 5px;
 }
 
 .loading.active{
   display:block;
 }
 
-.loading-card{
-  padding:35px 5px;
-}
-
-.loading-title{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:7px;
-}
-
-.loading-description{
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:24px;
-}
-
-.progress-info{
+.loading-head{
   display:flex;
   justify-content:space-between;
-  gap:20px;
-  font-size:12px;
+  gap:15px;
+  margin-bottom:12px;
+  font-size:13px;
   color:var(--muted);
-  margin-bottom:9px;
 }
 
 .progress-track{
   height:10px;
-  background:#ded8ca;
-  border-radius:999px;
   overflow:hidden;
+  background:#ddd7ca;
+  border-radius:999px;
 }
 
-.progress-bar{
+.progress-fill{
   height:100%;
   width:0%;
   border-radius:999px;
-  background:
-    linear-gradient(
-      90deg,
-      var(--orange2),
-      var(--orange)
-    );
-
-  transition:width .25s ease;
+  background:linear-gradient(
+    90deg,
+    var(--orange2),
+    var(--orange)
+  );
+  transition:width .2s ease;
 }
 
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.error{
-  display:none;
-  background:#fdece6;
-  border:1px solid #efc4b4;
-  border-radius:14px;
-  padding:16px;
-  color:var(--danger);
-  margin-top:15px;
-}
-
-.error.active{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.error-text{
-  font-size:14px;
+.loading-note{
+  margin-top:13px;
+  color:var(--muted);
+  font-size:12px;
   line-height:1.5;
 }
 
-.retry{
-  border:1px solid var(--orange2);
-  background:transparent;
+/* ERROR */
+
+.error{
+  display:none;
+  margin-top:17px;
+  padding:16px;
+  border:1px solid #f1c4b4;
+  border-radius:15px;
+  background:var(--dangerbg);
+  color:var(--danger);
+}
+
+.error.active{
+  display:block;
+}
+
+.error-title{
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.error-message{
+  font-size:13px;
+  line-height:1.5;
+}
+
+.error-actions{
+  display:flex;
+  gap:8px;
+  margin-top:13px;
+}
+
+.small-btn{
+  border:1px solid #d66b4e;
+  background:white;
   color:var(--danger);
   border-radius:9px;
-  padding:7px 12px;
-  font-size:12px;
+  padding:8px 13px;
   font-weight:800;
 }
 
-
-/* =========================================================
-   RESULT
-========================================================= */
+/* RESULT */
 
 .result{
   display:none;
@@ -388,1168 +384,883 @@ img{
   display:block;
 }
 
-.result-header{
+.tabs{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:15px;
+  gap:7px;
+  margin-bottom:13px;
 }
 
-.result-title{
-  font-size:18px;
+.tab{
+  border:0;
+  background:#e8e2d5;
+  color:#59655e;
+  border-radius:999px;
+  padding:8px 15px;
+  font-size:13px;
   font-weight:800;
 }
 
-.result-size{
-  color:var(--muted);
-  font-size:12px;
+.tab.active{
+  background:var(--text);
+  color:white;
 }
-
-
-/* =========================================================
-   PREVIEW
-========================================================= */
 
 .preview{
   position:relative;
-  height:min(65vw,520px);
+  width:100%;
   min-height:300px;
-
+  max-height:540px;
   overflow:hidden;
-  border-radius:17px;
+  border-radius:16px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
   background-color:#fff;
-
   background-image:
     linear-gradient(45deg,#d7d7d7 25%,transparent 25%),
     linear-gradient(-45deg,#d7d7d7 25%,transparent 25%),
     linear-gradient(45deg,transparent 75%,#d7d7d7 75%),
     linear-gradient(-45deg,transparent 75%,#d7d7d7 75%);
-
-  background-size:22px 22px;
-
+  background-size:20px 20px;
   background-position:
     0 0,
-    0 11px,
-    11px -11px,
-    -11px 0;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    0 10px,
+    10px -10px,
+    -10px 0;
 }
 
 .preview.solid{
   background-image:none;
 }
 
-.preview-image{
+.preview img{
+  display:block;
   max-width:100%;
-  max-height:100%;
+  max-height:520px;
+  width:auto;
+  height:auto;
   object-fit:contain;
-  user-select:none;
-  -webkit-user-drag:none;
 }
 
-
-/* =========================================================
-   BEFORE / AFTER
-========================================================= */
-
-.compare{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-}
-
-.compare img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  pointer-events:none;
-}
-
-.original-layer{
-  clip-path:inset(0 50% 0 0);
-}
-
-.slider-line{
+.sweep{
   position:absolute;
   top:0;
   bottom:0;
-  left:50%;
+  left:0;
   width:3px;
-  background:#fff;
-  box-shadow:0 0 10px rgba(0,0,0,.35);
-  transform:translateX(-50%);
-  pointer-events:none;
-}
-
-.slider-button{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  border:3px solid #fff;
   background:var(--orange);
-  color:#fff;
-  box-shadow:0 5px 20px rgba(0,0,0,.35);
-  z-index:4;
-  display:grid;
-  place-items:center;
+  box-shadow:0 0 16px rgba(255,89,56,.9);
   pointer-events:none;
+  z-index:3;
 }
 
-.compare-range{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:0;
-  cursor:ew-resize;
-  z-index:5;
+.sweep.animate{
+  animation:sweep .9s ease forwards;
 }
 
-
-/* =========================================================
-   VIEW MODES
-========================================================= */
-
-.view-controls{
-  display:flex;
-  gap:7px;
-  margin-top:14px;
+@keyframes sweep{
+  from{
+    left:0;
+    opacity:1;
+  }
+  to{
+    left:100%;
+    opacity:0;
+  }
 }
 
-.view-button{
-  border:0;
-  background:var(--paper2);
-  color:var(--muted);
-  border-radius:9px;
-  padding:8px 13px;
-  font-size:12px;
-  font-weight:800;
+.reveal{
+  animation:reveal .9s ease forwards;
 }
 
-.view-button.active{
-  background:var(--text);
-  color:#fff;
+@keyframes reveal{
+  from{
+    clip-path:inset(0 100% 0 0);
+  }
+  to{
+    clip-path:inset(0 0 0 0);
+  }
 }
 
+/* BACKGROUND */
 
-/* =========================================================
-   BACKGROUND OPTIONS
-========================================================= */
-
-.background-options{
-  margin-top:22px;
+.backing{
+  margin:19px 0;
 }
 
-.option-label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--muted);
-  font-weight:800;
+.backing-title{
   margin-bottom:10px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
 }
 
-.colors{
+.swatches{
   display:flex;
   align-items:center;
-  gap:10px;
   flex-wrap:wrap;
+  gap:9px;
 }
 
-.color{
-  width:36px;
-  height:36px;
-  border-radius:10px;
+.swatch{
+  width:35px;
+  height:35px;
   border:2px solid transparent;
-  cursor:pointer;
+  border-radius:10px;
+  padding:0;
 }
 
-.color.active{
+.swatch.active{
   border-color:var(--orange);
+  box-shadow:0 0 0 2px rgba(255,89,56,.15);
 }
 
-.transparent{
-  background-color:#fff;
-
+.checker{
+  background-color:white;
   background-image:
     linear-gradient(45deg,#ccc 25%,transparent 25%),
     linear-gradient(-45deg,#ccc 25%,transparent 25%),
     linear-gradient(45deg,transparent 75%,#ccc 75%),
     linear-gradient(-45deg,transparent 75%,#ccc 75%);
-
   background-size:10px 10px;
-
-  background-position:
-    0 0,
-    0 5px,
-    5px -5px,
-    -5px 0;
+  background-position:0 0,0 5px,5px -5px,-5px 0;
 }
 
 .white{
   background:#fff;
-  box-shadow:inset 0 0 0 1px #ddd;
+  box-shadow:inset 0 0 0 1px #ccc;
 }
 
 .black{
   background:#111;
 }
 
-.gray{
-  background:#7c837f;
+.mint{
+  background:#bfe3cf;
 }
 
 .blue{
-  background:#d9ebff;
+  background:#c7d9f5;
 }
 
-.color-picker{
-  width:38px;
-  height:38px;
+.custom-color{
+  width:35px;
+  height:35px;
   padding:0;
   border:0;
   border-radius:10px;
-  cursor:pointer;
+  background:none;
 }
 
-
-/* =========================================================
-   ZOOM
-========================================================= */
-
-.zoom{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:18px;
-}
-
-.zoom-label{
-  font-size:12px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-.zoom input{
-  flex:1;
-  accent-color:var(--orange);
-}
-
-.zoom-value{
-  width:42px;
-  font-size:12px;
-  color:var(--muted);
-}
-
-
-/* =========================================================
-   ACTIONS
-========================================================= */
+/* ACTIONS */
 
 .actions{
   display:flex;
-  gap:10px;
   flex-wrap:wrap;
-  margin-top:22px;
+  gap:10px;
 }
 
-.primary-button{
-  flex:1;
-  min-width:180px;
+.btn{
+  min-height:48px;
   border:0;
-  background:var(--orange);
-  color:#fff;
-  border-radius:12px;
-  padding:14px 20px;
-  font-weight:800;
-  box-shadow:0 10px 25px rgba(255,89,53,.25);
+  border-radius:13px;
+  padding:12px 20px;
+  font-size:14px;
+  font-weight:900;
 }
 
-.primary-button:hover{
+.download{
+  flex:1;
+  background:var(--orange);
+  color:white;
+  box-shadow:0 10px 25px rgba(255,89,56,.25);
+}
+
+.download:hover{
   background:var(--orange2);
 }
 
-.secondary-button{
-  border:0;
-  background:var(--paper2);
+.reset{
+  background:#e7e1d4;
   color:var(--text);
-  border-radius:12px;
-  padding:14px 20px;
-  font-weight:800;
 }
 
+/* INFO */
 
-/* =========================================================
-   FEATURES
-========================================================= */
-
-.features{
-  max-width:1200px;
+.info{
+  max-width:1150px;
   margin:auto;
-  padding:75px 22px;
+  padding:75px 22px 40px;
 }
 
-.features-title{
+.info h2{
   text-align:center;
   font-size:32px;
-  margin:0 0 40px;
+  letter-spacing:-.04em;
+  margin:0 0 32px;
 }
 
-.feature-grid{
+.steps{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:24px;
 }
 
-.feature{
-  background:var(--paper2);
-  border-radius:18px;
+.step{
+  background:var(--cream2);
+  border-radius:17px;
   padding:25px;
-  border-left:4px solid var(--orange);
+  border-left:3px solid var(--orange);
 }
 
-.feature-number{
+.step-label{
   color:var(--orange2);
-  font-size:12px;
+  font-size:11px;
   font-weight:900;
-  letter-spacing:1px;
-  margin-bottom:12px;
+  letter-spacing:.1em;
+  margin-bottom:10px;
 }
 
-.feature h3{
+.step h3{
   margin:0 0 8px;
   font-size:18px;
 }
 
-.feature p{
+.step p{
   margin:0;
   color:var(--muted);
-  line-height:1.6;
   font-size:14px;
+  line-height:1.55;
 }
 
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-  max-width:1200px;
+footer{
+  max-width:1150px;
   margin:auto;
-  padding:30px 22px 50px;
-  border-top:1px solid var(--border);
-
+  padding:30px 22px 55px;
+  border-top:1px solid #e0d9cb;
   display:flex;
   justify-content:space-between;
   gap:20px;
   flex-wrap:wrap;
-
   color:var(--muted);
   font-size:12px;
 }
 
+/* MOBILE */
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+@media(max-width:760px){
 
-@media(max-width:800px){
-
-  .feature-grid{
-    grid-template-columns:1fr;
+  header{
+    padding:13px 15px;
   }
 
-  .tool{
-    padding:18px;
+  .brand{
+    font-size:20px;
   }
 
-  .hero{
-    padding-top:35px;
+  .brand-icon{
+    width:39px;
+    height:39px;
   }
 
-  .hero h1{
-    letter-spacing:-2px;
-  }
-
-}
-
-@media(max-width:550px){
-
-  .header{
-    height:64px;
-  }
-
-  .privacy{
+  .trust{
     display:none;
   }
 
   .hero{
-    padding-left:14px;
-    padding-right:14px;
-    padding-bottom:55px;
+    padding:43px 14px 55px;
   }
 
-  .hero h1{
-    font-size:44px;
+  .eyebrow{
+    font-size:11px;
   }
 
-  .hero-description{
-    font-size:15px;
+  h1{
+    font-size:48px;
   }
 
-  .tool{
-    border-radius:20px;
+  .subtitle{
+    font-size:16px;
+    margin-bottom:30px;
+  }
+
+  .tool-card{
+    padding:14px;
+    border-radius:22px;
   }
 
   .dropzone{
     min-height:270px;
+    padding:25px 13px;
   }
 
-  .preview{
-    min-height:250px;
-    height:75vw;
-  }
-
-  .actions{
+  .file-buttons{
     flex-direction:column;
   }
 
-  .primary-button,
-  .secondary-button{
+  .file-button{
     width:100%;
   }
 
-  .features{
+  .preview{
+    min-height:230px;
+    max-height:430px;
+  }
+
+  .preview img{
+    max-height:420px;
+  }
+
+  .steps{
+    grid-template-columns:1fr;
+  }
+
+  .info{
     padding-top:55px;
   }
 
-}
+  .info h2{
+    font-size:27px;
+  }
 
-
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-button:focus-visible,
-input:focus-visible{
-  outline:3px solid var(--orange);
-  outline-offset:2px;
+  footer{
+    flex-direction:column;
+  }
 }
 
 @media(prefers-reduced-motion:reduce){
-
   *,
   *::before,
   *::after{
     animation:none!important;
     transition:none!important;
   }
-
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="header">
-
-  <div class="logo">
-
-    <div class="logo-icon">
-      C
-    </div>
-
-    Cutout
-
+<header>
+  <div class="brand">
+    <div class="brand-icon">C</div>
+    <div>Cutout</div>
   </div>
 
-
-  <div class="privacy">
-
-    <span class="privacy-dot"></span>
-
-    Your image stays in your browser
-
+  <div class="trust">
+    <span></span>
+    Processed on your device
   </div>
-
 </header>
 
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
 
 <section class="hero">
 
 <div class="hero-inner">
 
-<div class="eyebrow">
-AI IMAGE BACKGROUND REMOVER
-</div>
+  <p class="eyebrow">
+    AI IMAGE BACKGROUND REMOVER
+  </p>
+
+  <h1>
+    Remove any <span>background.</span>
+  </h1>
+
+  <p class="subtitle">
+    Upload an image and automatically remove its background.
+    Fast, private and processed directly on your device.
+  </p>
 
 
-<h1>
-Remove any
-<span>background.</span>
-</h1>
+  <div class="tool-card">
 
+    <!-- DROPZONE -->
 
-<p class="hero-description">
-Upload an image and automatically remove its background.
-Fast, private and processed directly on your device.
-</p>
+    <div class="dropzone" id="dropzone">
 
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
 
+      <div>
 
-<!-- ===================================================
-     TOOL
-=================================================== -->
+        <div class="drop-icon">✂</div>
 
-<div class="tool">
+        <div class="drop-title">
+          Drop your image here
+        </div>
 
+        <div class="drop-sub">
+          Choose an image from your gallery or use your camera.
+          <br>
+          JPG, PNG or WEBP · Maximum 25 MB
+        </div>
 
-<!-- UPLOAD -->
+        <div class="file-buttons">
 
-<div class="dropzone" id="dropzone">
+          <button
+            type="button"
+            class="file-button"
+            id="galleryButton"
+          >
+            Choose from gallery
+          </button>
 
+          <button
+            type="button"
+            class="file-button secondary"
+            id="cameraButton"
+          >
+            Take photo
+          </button>
 
-<div class="upload-icon">
+        </div>
 
-<svg
-width="34"
-height="34"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.8"
-stroke-linecap="round"
-stroke-linejoin="round">
+      </div>
 
-<path d="M12 3v12"></path>
+      <!-- IMPORTANT:
+           No capture attribute here.
+           This input is intended for gallery/file picker. -->
+      <input
+        id="galleryInput"
+        class="file-input"
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/*"
+      >
 
-<path d="m7 8 5-5 5 5"></path>
+      <!-- Camera is separate -->
+      <input
+        id="cameraInput"
+        class="file-input"
+        type="file"
+        accept="image/*"
+        capture="environment"
+      >
 
-<path d="M5 21h14"></path>
+    </div>
 
-</svg>
 
-</div>
+    <!-- LOADING -->
 
+    <div class="loading" id="loading">
 
-<p class="drop-title">
-Drop your image here
-</p>
+      <div class="loading-head">
+        <span id="statusText">
+          Preparing AI engine...
+        </span>
 
+        <span id="statusPct">
+          0%
+        </span>
+      </div>
 
-<p class="drop-description">
-or click below to choose a photo
-</p>
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          id="progressFill"
+        ></div>
+      </div>
 
+      <div class="loading-note" id="loadingNote">
+        The first processing can take longer because the
+        AI model needs to be downloaded and cached on this device.
+      </div>
 
-<button
-class="browse-button"
-type="button"
-onclick="document.getElementById('fileInput').click()">
+    </div>
 
-Choose Image
 
-</button>
+    <!-- ERROR -->
 
+    <div class="error" id="errorBox">
 
-<p class="file-info">
-JPG · PNG · WEBP · Maximum 25 MB
-</p>
+      <div class="error-title">
+        Processing failed
+      </div>
 
+      <div
+        class="error-message"
+        id="errorMessage"
+      ></div>
 
-<input
-type="file"
-id="fileInput"
-accept="image/jpeg,image/png,image/webp"
-capture="environment"
->
-
-</div>
-
-
-
-<!-- LOADING -->
-
-<div class="loading" id="loading">
-
-<div class="loading-card">
-
-<div class="loading-title">
-Removing background...
-</div>
-
-<div class="loading-description"
-id="loadingDescription">
-
-Preparing the AI engine.
-
-</div>
-
-
-<div class="progress-info">
-
-<span id="progressText">
-Preparing...
-</span>
-
-<span id="progressPercent">
-0%
-</span>
-
-</div>
-
-
-<div class="progress-track">
-
-<div
-class="progress-bar"
-id="progressBar">
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- ERROR -->
-
-<div class="error" id="errorBox">
-
-<div
-class="error-text"
-id="errorText">
-Something went wrong.
-</div>
-
-
-<button
-class="retry"
-id="retryButton">
-
-Try again
-
-</button>
-
-</div>
-
-
-
-<!-- RESULT -->
-
-<div class="result" id="result">
-
-
-<div class="result-header">
-
-<div class="result-title">
-Your result
-</div>
-
-<div
-class="result-size"
-id="resultSize">
-</div>
-
-</div>
-
-
-
-<!-- PREVIEW -->
-
-<div
-class="preview"
-id="preview">
-
-
-<!-- CUTOUT -->
-
-<img
-class="preview-image"
-id="cutoutImage"
-alt="Background removed result"
->
-
-
-<!-- COMPARISON -->
-
-<div
-class="compare"
-id="compare"
-style="display:none;">
-
-
-<img
-id="compareCutout"
-alt=""
->
-
-
-<img
-id="compareOriginal"
-class="original-layer"
-alt=""
->
-
-
-<div
-class="slider-line"
-id="sliderLine">
-</div>
-
-
-<div
-class="slider-button">
-
-↔
-
-</div>
-
-
-<input
-type="range"
-class="compare-range"
-id="compareRange"
-min="0"
-max="100"
-value="50"
-aria-label="Compare original and cutout"
->
-
-</div>
-
-</div>
-
-
-
-<!-- VIEW -->
-
-<div class="view-controls">
-
-<button
-class="view-button active"
-id="viewCutout">
-
-Cutout
-
-</button>
-
-
-<button
-class="view-button"
-id="viewCompare">
-
-Before / After
-
-</button>
-
-</div>
-
-
-
-<!-- BACKGROUND -->
-
-<div
-class="background-options"
-id="backgroundOptions">
-
-<div class="option-label">
-Background
-</div>
-
-
-<div class="colors">
-
-
-<button
-class="color transparent active"
-data-color="transparent"
-title="Transparent">
-</button>
-
-
-<button
-class="color white"
-data-color="#ffffff"
-title="White">
-</button>
-
-
-<button
-class="color black"
-data-color="#111111"
-title="Black">
-</button>
-
-
-<button
-class="color gray"
-data-color="#7c837f"
-title="Gray">
-</button>
-
-
-<button
-class="color blue"
-data-color="#d9ebff"
-title="Light blue">
-</button>
-
-
-<input
-type="color"
-class="color-picker"
-id="customColor"
-value="#ff5935"
-title="Custom background"
->
-
-</div>
-
-</div>
-
-
-
-<!-- ZOOM -->
-
-<div class="zoom">
-
-<span class="zoom-label">
-Zoom
-</span>
-
-
-<input
-type="range"
-id="zoomRange"
-min="50"
-max="200"
-value="100"
->
-
-
-<span
-class="zoom-value"
-id="zoomValue">
-100%
-</span>
-
-</div>
-
-
-
-<!-- ACTIONS -->
-
-<div class="actions">
-
-<button
-class="primary-button"
-id="downloadButton">
-
-Download PNG
-
-</button>
-
-
-<button
-class="secondary-button"
-id="resetButton">
-
-Start over
-
-</button>
-
-</div>
-
-
-</div>
-
-</div>
+      <div class="error-actions">
+
+        <button
+          class="small-btn"
+          id="retryButton"
+          type="button"
+        >
+          Try again
+        </button>
+
+        <button
+          class="small-btn"
+          id="chooseAgainButton"
+          type="button"
+        >
+          Choose another image
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div class="result" id="result">
+
+      <div class="tabs">
+
+        <button
+          class="tab active"
+          id="cutoutTab"
+          type="button"
+        >
+          Cutout
+        </button>
+
+        <button
+          class="tab"
+          id="originalTab"
+          type="button"
+        >
+          Original
+        </button>
+
+      </div>
+
+
+      <div
+        class="preview"
+        id="preview"
+      >
+
+        <img
+          id="resultImage"
+          alt="Background removed image"
+        >
+
+      </div>
+
+
+      <div
+        class="backing"
+        id="backing"
+      >
+
+        <div class="backing-title">
+          Preview background
+        </div>
+
+        <div class="swatches">
+
+          <button
+            class="swatch checker active"
+            data-color="transparent"
+            title="Transparent"
+            aria-label="Transparent"
+            type="button"
+          ></button>
+
+          <button
+            class="swatch white"
+            data-color="#ffffff"
+            title="White"
+            aria-label="White"
+            type="button"
+          ></button>
+
+          <button
+            class="swatch black"
+            data-color="#111111"
+            title="Black"
+            aria-label="Black"
+            type="button"
+          ></button>
+
+          <button
+            class="swatch mint"
+            data-color="#bfe3cf"
+            title="Mint"
+            aria-label="Mint"
+            type="button"
+          ></button>
+
+          <button
+            class="swatch blue"
+            data-color="#c7d9f5"
+            title="Blue"
+            aria-label="Blue"
+            type="button"
+          ></button>
+
+          <input
+            class="custom-color"
+            type="color"
+            id="customColor"
+            value="#ff5938"
+            title="Custom background"
+            aria-label="Custom background"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="btn download"
+          id="downloadButton"
+          type="button"
+        >
+          Download PNG
+        </button>
+
+        <button
+          class="btn reset"
+          id="resetButton"
+          type="button"
+        >
+          Start over
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
 </section>
 
 
+<section class="info">
 
-<!-- =====================================================
-     FEATURES
-===================================================== -->
+  <h2>
+    Professional background removal, directly in your browser
+  </h2>
 
-<section class="features">
+  <div class="steps">
 
-<h2 class="features-title">
-Simple for everyone
-</h2>
+    <div class="step">
+      <div class="step-label">01 · UPLOAD</div>
+      <h3>Choose an image</h3>
+      <p>
+        Select a photo from your gallery, drag and drop an image,
+        or take a new photo with your camera.
+      </p>
+    </div>
 
+    <div class="step">
+      <div class="step-label">02 · AI CUT</div>
+      <h3>AI removes the background</h3>
+      <p>
+        The background-removal model runs directly in your browser.
+        Your original photo does not need to be uploaded to your server.
+      </p>
+    </div>
 
-<div class="feature-grid">
+    <div class="step">
+      <div class="step-label">03 · DOWNLOAD</div>
+      <h3>Download your PNG</h3>
+      <p>
+        Get a transparent PNG or add a background color before
+        downloading your finished image.
+      </p>
+    </div>
 
-
-<div class="feature">
-
-<div class="feature-number">
-01 · UPLOAD
-</div>
-
-<h3>
-Choose any photo
-</h3>
-
-<p>
-Drag an image into the tool or choose one from your phone,
-tablet or computer.
-</p>
-
-</div>
-
-
-
-<div class="feature">
-
-<div class="feature-number">
-02 · AI CUTOUT
-</div>
-
-<h3>
-Automatic background removal
-</h3>
-
-<p>
-The AI model detects the foreground subject and generates
-a transparent PNG.
-</p>
-
-</div>
-
-
-
-<div class="feature">
-
-<div class="feature-number">
-03 · DOWNLOAD
-</div>
-
-<h3>
-Ready to use
-</h3>
-
-<p>
-Preview the result, choose a background and download your
-finished PNG.
-</p>
-
-</div>
-
-
-</div>
+  </div>
 
 </section>
 
 
+<footer>
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+  <span>
+    Your image is processed locally in the browser.
+  </span>
 
-<footer class="footer">
-
-<span>
-© 2026 Cutout
-</span>
-
-<span>
-AI background removal · Browser processing
-</span>
+  <span>
+    AI background removal powered by an open-source browser model.
+  </span>
 
 </footer>
 
 
-
 <script type="module">
 
+/*
+===========================================================
+CUTOUT — BROWSER BACKGROUND REMOVER
+===========================================================
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+IMPORTANT FIXES:
+
+1. The previous direct jsDelivr import could expose a bare
+   "onnxruntime-web" module specifier to the browser.
+
+2. This version uses esm.sh to resolve browser dependencies.
+
+3. Current IMG.LY model names are used:
+   isnet_fp16
+   isnet_quint8
+
+4. GPU is attempted when WebGPU exists.
+   CPU fallback is automatic.
+
+5. Gallery and Camera inputs are separated.
+
+===========================================================
+*/
+
+
+const galleryButton =
+  document.getElementById("galleryButton");
+
+const cameraButton =
+  document.getElementById("cameraButton");
+
+const galleryInput =
+  document.getElementById("galleryInput");
+
+const cameraInput =
+  document.getElementById("cameraInput");
 
 const dropzone =
-document.getElementById("dropzone");
-
-const fileInput =
-document.getElementById("fileInput");
+  document.getElementById("dropzone");
 
 const loading =
-document.getElementById("loading");
+  document.getElementById("loading");
 
-const loadingDescription =
-document.getElementById("loadingDescription");
+const statusText =
+  document.getElementById("statusText");
 
-const progressText =
-document.getElementById("progressText");
+const statusPct =
+  document.getElementById("statusPct");
 
-const progressPercent =
-document.getElementById("progressPercent");
+const progressFill =
+  document.getElementById("progressFill");
 
-const progressBar =
-document.getElementById("progressBar");
+const loadingNote =
+  document.getElementById("loadingNote");
 
 const errorBox =
-document.getElementById("errorBox");
+  document.getElementById("errorBox");
 
-const errorText =
-document.getElementById("errorText");
+const errorMessage =
+  document.getElementById("errorMessage");
 
 const retryButton =
-document.getElementById("retryButton");
+  document.getElementById("retryButton");
+
+const chooseAgainButton =
+  document.getElementById("chooseAgainButton");
 
 const result =
-document.getElementById("result");
+  document.getElementById("result");
 
-const cutoutImage =
-document.getElementById("cutoutImage");
+const resultImage =
+  document.getElementById("resultImage");
 
 const preview =
-document.getElementById("preview");
+  document.getElementById("preview");
 
-const compare =
-document.getElementById("compare");
+const backing =
+  document.getElementById("backing");
 
-const compareCutout =
-document.getElementById("compareCutout");
+const cutoutTab =
+  document.getElementById("cutoutTab");
 
-const compareOriginal =
-document.getElementById("compareOriginal");
-
-const compareRange =
-document.getElementById("compareRange");
-
-const sliderLine =
-document.getElementById("sliderLine");
-
-const viewCutout =
-document.getElementById("viewCutout");
-
-const viewCompare =
-document.getElementById("viewCompare");
-
-const backgroundOptions =
-document.getElementById("backgroundOptions");
-
-const colors =
-document.querySelectorAll(".color");
+const originalTab =
+  document.getElementById("originalTab");
 
 const customColor =
-document.getElementById("customColor");
-
-const zoomRange =
-document.getElementById("zoomRange");
-
-const zoomValue =
-document.getElementById("zoomValue");
+  document.getElementById("customColor");
 
 const downloadButton =
-document.getElementById("downloadButton");
+  document.getElementById("downloadButton");
 
 const resetButton =
-document.getElementById("resetButton");
+  document.getElementById("resetButton");
 
-const resultSize =
-document.getElementById("resultSize");
-
-
-/* =========================================================
-   CONFIG
-========================================================= */
-
-const MAX_SIZE =
-25 * 1024 * 1024;
+const swatches =
+  document.querySelectorAll(".swatch");
 
 
-/*
-  AI model assets.
-*/
+/* ---------------------------------------------------------
+   SETTINGS
+--------------------------------------------------------- */
 
-const MODEL_PATH =
-"https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/";
-
+const MAX_FILE_SIZE =
+  25 * 1024 * 1024;
 
 /*
-  Dynamic CDN import.
+  Mobile browsers can run out of RAM with extremely large
+  photos. We resize only the processing copy.
+
+  2560 gives a good balance between quality and reliability.
 */
-
-const LIBRARY_URL =
-"https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/dist/index.mjs";
+const MAX_PROCESS_DIMENSION = 2560;
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    STATE
-========================================================= */
+--------------------------------------------------------- */
 
 let removeBackground = null;
 
-let originalFile = null;
-
 let originalURL = null;
-
 let cutoutURL = null;
 
-let cutoutBlob = null;
+let lastFile = null;
 
-let currentBackground = "transparent";
+let selectedBackground =
+  "transparent";
 
 let processing = false;
 
-let currentZoom = 1;
+
+/* ---------------------------------------------------------
+   UI HELPERS
+--------------------------------------------------------- */
+
+function setProgress(percent, text){
+
+  const safe =
+    Math.max(0, Math.min(100, percent || 0));
+
+  progressFill.style.width =
+    safe + "%";
+
+  statusPct.textContent =
+    Math.round(safe) + "%";
+
+  if(text){
+    statusText.textContent =
+      text;
+  }
+}
 
 
-/* =========================================================
-   UI
-========================================================= */
-
-function resetUI(){
+function showIdle(){
 
   dropzone.style.display =
     "flex";
 
-  loading.classList.remove(
-    "active"
-  );
+  loading.classList.remove("active");
 
-  errorBox.classList.remove(
-    "active"
-  );
+  errorBox.classList.remove("active");
 
-  result.classList.remove(
-    "active"
-  );
+  result.classList.remove("active");
 
+  processing = false;
 }
 
 
@@ -1558,422 +1269,513 @@ function showLoading(){
   dropzone.style.display =
     "none";
 
-  loading.classList.add(
-    "active"
-  );
+  loading.classList.add("active");
 
-  errorBox.classList.remove(
-    "active"
-  );
+  errorBox.classList.remove("active");
 
-  result.classList.remove(
-    "active"
-  );
+  result.classList.remove("active");
 
+  processing = true;
+
+  setProgress(
+    0,
+    "Preparing AI engine..."
+  );
 }
 
 
 function showError(message){
 
-  loading.classList.remove(
-    "active"
-  );
+  loading.classList.remove("active");
 
-  errorBox.classList.add(
-    "active"
-  );
+  errorBox.classList.add("active");
 
-  errorText.textContent =
+  errorMessage.textContent =
     message;
 
+  processing = false;
 }
 
 
 function showResult(){
 
-  loading.classList.remove(
-    "active"
-  );
+  loading.classList.remove("active");
 
-  errorBox.classList.remove(
-    "active"
-  );
+  errorBox.classList.remove("active");
 
-  result.classList.add(
-    "active"
-  );
+  result.classList.add("active");
 
+  processing = false;
 }
 
 
-function setProgress(
-  percent,
-  text
-){
+/* ---------------------------------------------------------
+   VALIDATION
+--------------------------------------------------------- */
 
-  percent =
-    Math.max(
-      0,
-      Math.min(
-        100,
-        percent
-      )
-    );
-
-
-  progressBar.style.width =
-    percent + "%";
-
-
-  progressPercent.textContent =
-    Math.round(percent) + "%";
-
-
-  if(text){
-
-    progressText.textContent =
-      text;
-
-  }
-
-}
-
-
-/* =========================================================
-   VALIDATE
-========================================================= */
-
-function validate(file){
+function validateFile(file){
 
   if(!file){
-
-    return "Please choose an image.";
-
+    return "Please choose an image first.";
   }
 
-
-  const allowed = [
+  const validTypes = [
     "image/jpeg",
     "image/png",
     "image/webp"
   ];
 
+  /*
+    Some Android browsers don't always report the MIME type
+    correctly. Extension is therefore also checked.
+  */
 
-  if(!allowed.includes(file.type)){
+  const name =
+    (file.name || "").toLowerCase();
 
-    return "This file is not supported. Please use JPG, PNG or WEBP.";
+  const validExtension =
+    /\.(jpg|jpeg|png|webp)$/i.test(name);
 
+  if(
+    !validTypes.includes(file.type) &&
+    !validExtension
+  ){
+    return "This image type is not supported. Please use JPG, PNG or WEBP.";
   }
 
-
-  if(file.size > MAX_SIZE){
-
+  if(file.size > MAX_FILE_SIZE){
     return "This image is larger than 25 MB. Please choose a smaller image.";
-
   }
-
 
   return null;
+}
+
+
+/* ---------------------------------------------------------
+   LOAD IMAGE
+--------------------------------------------------------- */
+
+function loadImage(file){
+
+  return new Promise((resolve, reject) => {
+
+    const url =
+      URL.createObjectURL(file);
+
+    const img =
+      new Image();
+
+    img.onload = () => {
+
+      URL.revokeObjectURL(url);
+
+      resolve(img);
+
+    };
+
+    img.onerror = () => {
+
+      URL.revokeObjectURL(url);
+
+      reject(
+        new Error(
+          "The selected image could not be opened."
+        )
+      );
+
+    };
+
+    img.src = url;
+
+  });
 
 }
 
 
-/* =========================================================
-   LOAD AI
-========================================================= */
+/* ---------------------------------------------------------
+   RESIZE IMAGE FOR PROCESSING
+--------------------------------------------------------- */
 
-async function loadAI(){
+async function prepareImage(file){
 
-  if(removeBackground){
+  const img =
+    await loadImage(file);
 
-    return removeBackground;
+  let width =
+    img.naturalWidth;
 
+  let height =
+    img.naturalHeight;
+
+  const longest =
+    Math.max(width, height);
+
+  if(
+    longest <= MAX_PROCESS_DIMENSION
+  ){
+    return file;
   }
 
+  const scale =
+    MAX_PROCESS_DIMENSION /
+    longest;
 
-  loadingDescription.textContent =
-    "Loading the AI background-removal engine for the first time...";
+  width =
+    Math.round(width * scale);
 
+  height =
+    Math.round(height * scale);
 
-  setProgress(
-    3,
-    "Loading AI engine..."
+  const canvas =
+    document.createElement("canvas");
+
+  canvas.width =
+    width;
+
+  canvas.height =
+    height;
+
+  const ctx =
+    canvas.getContext("2d", {
+      alpha:true
+    });
+
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    width,
+    height
   );
 
+  const blob =
+    await new Promise(resolve => {
+
+      canvas.toBlob(
+        resolve,
+        "image/png",
+        1
+      );
+
+    });
+
+  if(!blob){
+    throw new Error(
+      "The image could not be prepared for processing."
+    );
+  }
+
+  return new File(
+    [blob],
+    "cutout-processing.png",
+    {
+      type:"image/png"
+    }
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   LOAD IMG.LY ENGINE
+--------------------------------------------------------- */
+
+async function loadEngine(){
+
+  if(removeBackground){
+    return removeBackground;
+  }
+
+  /*
+    IMPORTANT:
+
+    esm.sh resolves npm dependencies for browser modules.
+    This prevents the previous:
+
+      Failed to resolve module specifier
+      "onnxruntime-web"
+
+    problem.
+  */
 
   const module =
     await import(
-      LIBRARY_URL
+      "https://esm.sh/@imgly/background-removal@1.7.0?bundle&deps=onnxruntime-web@1.21.0-dev.20250206-d981b153d3"
     );
-
-
-  if(
-    !module ||
-    typeof module.removeBackground !==
-    "function"
-  ){
-
-    throw new Error(
-      "AI background-removal engine is unavailable."
-    );
-
-  }
-
 
   removeBackground =
+    module.default ||
     module.removeBackground;
 
+  if(typeof removeBackground !== "function"){
+    throw new Error(
+      "The AI background-removal engine could not be loaded."
+    );
+  }
 
   return removeBackground;
-
 }
 
 
-/* =========================================================
-   PROGRESS
-========================================================= */
+/* ---------------------------------------------------------
+   PROCESS IMAGE
+--------------------------------------------------------- */
 
-function handleProgress(
-  key,
-  current,
-  total
-){
-
-  let percent = 0;
-
-
-  if(total){
-
-    percent =
-      current /
-      total *
-      100;
-
-  }
-
-
-  let message =
-    "Removing background...";
-
-
-  const name =
-    String(
-      key || ""
-    ).toLowerCase();
-
-
-  if(
-    name.includes("fetch") ||
-    name.includes("download")
-  ){
-
-    message =
-      "Downloading AI model...";
-
-  }
-
-
-  else if(
-    name.includes("compute") ||
-    name.includes("inference")
-  ){
-
-    message =
-      "AI is removing the background...";
-
-  }
-
-
-  else if(
-    name.includes("decode")
-  ){
-
-    message =
-      "Preparing image...";
-
-  }
-
-
-  setProgress(
-    percent,
-    message
-  );
-
-}
-
-
-/* =========================================================
-   PROCESS
-========================================================= */
-
-async function processImage(
-  file
-){
+async function processFile(file){
 
   if(processing){
-
     return;
-
   }
 
-
   const validation =
-    validate(file);
-
+    validateFile(file);
 
   if(validation){
 
-    showError(
-      validation
-    );
+    showError(validation);
 
     return;
-
   }
 
-
-  processing = true;
-
-  originalFile =
+  lastFile =
     file;
 
-
   showLoading();
+
+  /*
+    Show the original image immediately after selection.
+    This also proves that gallery/camera selection worked.
+  */
+
+  if(originalURL){
+    URL.revokeObjectURL(
+      originalURL
+    );
+  }
+
+  originalURL =
+    URL.createObjectURL(file);
 
 
   try{
 
-
-    /*
-      Local original image.
-    */
-
-    if(originalURL){
-
-      URL.revokeObjectURL(
-        originalURL
-      );
-
-    }
-
-
-    originalURL =
-      URL.createObjectURL(
-        file
-      );
-
-
-    /*
-      Show file size/dimensions.
-    */
-
-    const tempImage =
-      new Image();
-
-
-    const dimensionPromise =
-      new Promise(
-        resolve => {
-
-          tempImage.onload =
-            () => {
-
-              resultSize.textContent =
-                tempImage.naturalWidth +
-                " × " +
-                tempImage.naturalHeight;
-
-              resolve();
-
-            };
-
-
-          tempImage.onerror =
-            resolve;
-
-
-          tempImage.src =
-            originalURL;
-
-        }
-      );
-
-
-    await dimensionPromise;
-
-
-    /*
-      Load AI.
-    */
-
-    const remover =
-      await loadAI();
+    loadingNote.textContent =
+      "Loading the AI engine. The first run may take longer because the model and WebAssembly files are cached by your browser.";
 
 
     setProgress(
-      8,
-      "Starting AI processor..."
+      5,
+      "Loading AI background-removal engine..."
     );
 
 
+    const engine =
+      await loadEngine();
+
+
+    setProgress(
+      18,
+      "Preparing your image..."
+    );
+
+
+    const processingFile =
+      await prepareImage(file);
+
+
     /*
-      Main model.
+      Progress callback from IMG.LY.
     */
 
-    let blob;
+    const progress =
+      (key, current, total) => {
 
+        let percent =
+          total
+          ? (current / total) * 100
+          : 0;
 
-    try{
+        /*
+          Keep the first 18% for engine/image setup.
+          Remaining work maps roughly to 18–95%.
+        */
 
-      blob =
-        await remover(
-          file,
-          {
-            publicPath:
-              MODEL_PATH,
+        const mapped =
+          18 + (percent * .77);
 
-            progress:
-              handleProgress
-          }
+        let text =
+          "AI is removing the background...";
+
+        if(
+          key &&
+          String(key).toLowerCase().includes("fetch")
+        ){
+          text =
+            "Downloading AI model files...";
+        }
+
+        if(
+          key &&
+          String(key).toLowerCase().includes("decode")
+        ){
+          text =
+            "Preparing image...";
+        }
+
+        if(
+          key &&
+          String(key).toLowerCase().includes("compute")
+        ){
+          text =
+            "AI is separating the subject...";
+        }
+
+        setProgress(
+          mapped,
+          text
         );
+
+      };
+
+
+    let blob = null;
+
+
+    /*
+      -----------------------------------------------
+      ATTEMPT 1
+      GPU if supported
+      -----------------------------------------------
+    */
+
+    const hasWebGPU =
+      "gpu" in navigator;
+
+
+    if(hasWebGPU){
+
+      try{
+
+        setProgress(
+          20,
+          "Starting GPU acceleration..."
+        );
+
+
+        blob =
+          await engine(
+            processingFile,
+            {
+              model:"isnet_fp16",
+              device:"gpu",
+
+              publicPath:
+                "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
+
+              output:{
+                format:"image/png",
+                type:"foreground"
+              },
+
+              progress
+            }
+          );
+
+      }catch(gpuError){
+
+        console.warn(
+          "GPU processing failed. Falling back to CPU.",
+          gpuError
+        );
+
+        blob = null;
+
+      }
 
     }
 
 
-    catch(mainError){
+    /*
+      -----------------------------------------------
+      ATTEMPT 2
+      CPU / high quality model
+      -----------------------------------------------
+    */
 
-      console.warn(
-        "Main model failed:",
-        mainError
-      );
+    if(!blob){
+
+      try{
+
+        setProgress(
+          20,
+          "Using CPU background-removal engine..."
+        );
 
 
-      /*
-        Lightweight fallback.
-      */
+        blob =
+          await engine(
+            processingFile,
+            {
+              model:"isnet_fp16",
+              device:"cpu",
+
+              publicPath:
+                "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
+
+              output:{
+                format:"image/png",
+                type:"foreground"
+              },
+
+              progress
+            }
+          );
+
+      }catch(cpuError){
+
+        console.warn(
+          "High quality model failed. Trying lightweight model.",
+          cpuError
+        );
+
+        blob = null;
+
+      }
+
+    }
+
+
+    /*
+      -----------------------------------------------
+      ATTEMPT 3
+      Lightweight quantized model
+      -----------------------------------------------
+    */
+
+    if(!blob){
 
       setProgress(
-        10,
-        "Trying lightweight AI model..."
+        25,
+        "Switching to lightweight AI model..."
       );
-
-
-      loadingDescription.textContent =
-        "Using a lighter model for better device compatibility.";
 
 
       blob =
-        await remover(
-          file,
+        await engine(
+          processingFile,
           {
-            model:
-              "small",
+            model:"isnet_quint8",
+            device:"cpu",
 
             publicPath:
-              MODEL_PATH,
+              "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
 
-            progress:
-              handleProgress
+            output:{
+              format:"image/png",
+              type:"foreground"
+            },
+
+            progress
           }
         );
 
@@ -1983,19 +1785,17 @@ async function processImage(
     if(!blob){
 
       throw new Error(
-        "No result was generated."
+        "The AI engine did not return an image."
       );
 
     }
 
 
-    cutoutBlob =
-      blob;
+    setProgress(
+      97,
+      "Finishing cutout..."
+    );
 
-
-    /*
-      Create output URL.
-    */
 
     if(cutoutURL){
 
@@ -2007,39 +1807,19 @@ async function processImage(
 
 
     cutoutURL =
-      URL.createObjectURL(
-        blob
-      );
+      URL.createObjectURL(blob);
 
 
-    /*
-      Set images.
-    */
-
-    cutoutImage.src =
-      cutoutURL;
-
-    compareCutout.src =
-      cutoutURL;
-
-    compareOriginal.src =
-      originalURL;
-
-
-    /*
-      Reset controls.
-    */
-
-    currentBackground =
+    selectedBackground =
       "transparent";
 
 
-    colors.forEach(
-      item => {
+    swatches.forEach(
+      swatch => {
 
-        item.classList.toggle(
+        swatch.classList.toggle(
           "active",
-          item.dataset.color ===
+          swatch.dataset.color ===
           "transparent"
         );
 
@@ -2047,185 +1827,185 @@ async function processImage(
     );
 
 
-    zoomRange.value =
-      "100";
-
-    currentZoom =
-      1;
-
-    updateZoom();
-
-
-    /*
-      Reset comparison.
-    */
-
-    compareRange.value =
-      "50";
-
-    updateComparison();
-
-
-    setCutoutView();
-
-
-    setProgress(
-      100,
-      "Background removed!"
-    );
+    setCutoutTab();
 
 
     showResult();
 
 
-  }
+    /*
+      Animation
+    */
+
+    resultImage.classList.remove(
+      "reveal"
+    );
+
+    document
+      .querySelectorAll(".sweep")
+      .forEach(el => el.remove());
 
 
-  catch(error){
+    const sweep =
+      document.createElement("div");
+
+    sweep.className =
+      "sweep animate";
+
+
+    preview.appendChild(
+      sweep
+    );
+
+
+    requestAnimationFrame(() => {
+
+      resultImage.classList.add(
+        "reveal"
+      );
+
+    });
+
+
+    setTimeout(() => {
+
+      sweep.remove();
+
+    },1000);
+
+
+    setProgress(
+      100,
+      "Background removed successfully."
+    );
+
+
+  }catch(error){
 
     console.error(
+      "Background removal error:",
       error
     );
 
 
     let message =
-      "Unable to remove the background.";
+      error && error.message
+      ? error.message
+      : "Unknown processing error.";
 
+
+    /*
+      Make the user-facing message much cleaner.
+    */
 
     if(
-      error &&
-      error.message
+      message.includes(
+        "onnxruntime"
+      )
     ){
 
       message =
-        error.message;
+        "The browser AI engine could not start. Please reload the page and try again.";
+
+    }else if(
+      message.includes(
+        "memory"
+      ) ||
+      message.includes(
+        "ArrayBuffer"
+      )
+    ){
+
+      message =
+        "This image is too demanding for this device. Please try a smaller image.";
+
+    }else if(
+      message.includes(
+        "fetch"
+      ) ||
+      message.includes(
+        "network"
+      )
+    ){
+
+      message =
+        "The AI model could not be downloaded. Please check your internet connection and try again.";
+
+    }else{
+
+      message =
+        "The image could not be processed. Please try the image again or choose another JPG, PNG or WEBP.";
 
     }
 
 
     showError(
-      "Processing failed: " +
-      message +
-      " Please try another image or reload the page."
+      message
     );
-
-  }
-
-
-  finally{
-
-    processing =
-      false;
 
   }
 
 }
 
 
-/* =========================================================
-   VIEW: CUTOUT
-========================================================= */
+/* ---------------------------------------------------------
+   RESULT TABS
+--------------------------------------------------------- */
 
-function setCutoutView(){
+function setCutoutTab(){
 
-  viewCutout.classList.add(
+  cutoutTab.classList.add(
     "active"
   );
 
-  viewCompare.classList.remove(
+  originalTab.classList.remove(
     "active"
   );
 
-  compare.style.display =
-    "none";
+  resultImage.src =
+    cutoutURL;
 
-  cutoutImage.style.display =
+  backing.style.display =
     "block";
 
-  backgroundOptions.style.display =
+  applyBackground(
+    selectedBackground
+  );
+
+}
+
+
+function setOriginalTab(){
+
+  originalTab.classList.add(
+    "active"
+  );
+
+  cutoutTab.classList.remove(
+    "active"
+  );
+
+  resultImage.src =
+    originalURL;
+
+  backing.style.display =
+    "none";
+
+  preview.classList.remove(
+    "solid"
+  );
+
+  preview.style.background =
     "";
 
 }
 
 
-/* =========================================================
-   VIEW: COMPARE
-========================================================= */
-
-function setCompareView(){
-
-  viewCompare.classList.add(
-    "active"
-  );
-
-  viewCutout.classList.remove(
-    "active"
-  );
-
-  cutoutImage.style.display =
-    "none";
-
-  compare.style.display =
-    "block";
-
-  backgroundOptions.style.display =
-    "none";
-
-}
-
-
-/* =========================================================
-   COMPARISON
-========================================================= */
-
-function updateComparison(){
-
-  const value =
-    Number(
-      compareRange.value
-    );
-
-
-  const right =
-    100 -
-    value;
-
-
-  compareOriginal.style.clipPath =
-    "inset(0 " +
-    right +
-    "% 0 0)";
-
-
-  sliderLine.style.left =
-    value + "%";
-
-
-  document
-    .querySelector(".slider-button")
-    .style.left =
-      value + "%";
-
-}
-
-
-compareRange.addEventListener(
-  "input",
-  updateComparison
-);
-
-
-/* =========================================================
+/* ---------------------------------------------------------
    BACKGROUND
-========================================================= */
+--------------------------------------------------------- */
 
-function applyBackground(
-  color
-){
-
-  currentBackground =
-    color;
-
+function applyBackground(color){
 
   if(color === "transparent"){
 
@@ -2236,9 +2016,7 @@ function applyBackground(
     preview.style.background =
       "";
 
-  }
-
-  else{
+  }else{
 
     preview.classList.add(
       "solid"
@@ -2252,293 +2030,235 @@ function applyBackground(
 }
 
 
-colors.forEach(
-  color => {
-
-    color.addEventListener(
-      "click",
-      () => {
-
-        colors.forEach(
-          item =>
-            item.classList.remove(
-              "active"
-            )
-        );
-
-
-        color.classList.add(
-          "active"
-        );
-
-
-        applyBackground(
-          color.dataset.color
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   CUSTOM COLOR
-========================================================= */
-
-customColor.addEventListener(
-  "input",
-  () => {
-
-    colors.forEach(
-      item =>
-        item.classList.remove(
-          "active"
-        )
-    );
-
-
-    applyBackground(
-      customColor.value
-    );
-
-  }
-);
-
-
-/* =========================================================
-   ZOOM
-========================================================= */
-
-function updateZoom(){
-
-  currentZoom =
-    Number(
-      zoomRange.value
-    ) / 100;
-
-
-  zoomValue.textContent =
-    zoomRange.value +
-    "%";
-
-
-  cutoutImage.style.transform =
-    "scale(" +
-    currentZoom +
-    ")";
-
-}
-
-
-zoomRange.addEventListener(
-  "input",
-  updateZoom
-);
-
-
-/* =========================================================
-   DOWNLOAD
-========================================================= */
+/* ---------------------------------------------------------
+   DOWNLOAD PNG
+--------------------------------------------------------- */
 
 async function downloadPNG(){
 
-  if(!cutoutBlob){
-
+  if(!cutoutURL){
     return;
-
   }
 
 
-  /*
-    Transparent original PNG.
-  */
+  downloadButton.disabled =
+    true;
 
-  if(
-    currentBackground ===
-    "transparent"
-  ){
+  downloadButton.textContent =
+    "Preparing PNG...";
+
+
+  try{
+
+    /*
+      Transparent download:
+      directly save original transparent PNG.
+    */
+
+    if(
+      selectedBackground ===
+      "transparent"
+    ){
+
+      const link =
+        document.createElement("a");
+
+      link.href =
+        cutoutURL;
+
+      link.download =
+        "cutout.png";
+
+      document.body.appendChild(
+        link
+      );
+
+      link.click();
+
+      link.remove();
+
+      return;
+
+    }
+
+
+    /*
+      Background-colored download.
+    */
+
+    const img =
+      new Image();
+
+    img.src =
+      cutoutURL;
+
+    await img.decode();
+
+
+    const canvas =
+      document.createElement(
+        "canvas"
+      );
+
+    canvas.width =
+      img.naturalWidth;
+
+    canvas.height =
+      img.naturalHeight;
+
+
+    const ctx =
+      canvas.getContext(
+        "2d"
+      );
+
+
+    ctx.fillStyle =
+      selectedBackground;
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    ctx.drawImage(
+      img,
+      0,
+      0
+    );
+
+
+    const blob =
+      await new Promise(
+        resolve =>
+          canvas.toBlob(
+            resolve,
+            "image/png"
+          )
+      );
+
+
+    if(!blob){
+
+      throw new Error(
+        "PNG creation failed."
+      );
+
+    }
+
 
     const url =
       URL.createObjectURL(
-        cutoutBlob
+        blob
       );
 
 
     const link =
-      document.createElement(
-        "a"
-      );
-
+      document.createElement("a");
 
     link.href =
       url;
 
-
     link.download =
       "cutout.png";
-
 
     document.body.appendChild(
       link
     );
 
-
     link.click();
-
 
     link.remove();
 
 
     setTimeout(
       () =>
-        URL.revokeObjectURL(
-          url
-        ),
+        URL.revokeObjectURL(url),
       1000
     );
 
 
-    return;
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Could not create the PNG. Please try again."
+    );
+
+  }finally{
+
+    downloadButton.disabled =
+      false;
+
+    downloadButton.textContent =
+      "Download PNG";
 
   }
-
-
-  /*
-    Render colored background.
-  */
-
-  const image =
-    new Image();
-
-
-  image.src =
-    cutoutURL;
-
-
-  await new Promise(
-    resolve => {
-
-      image.onload =
-        resolve;
-
-    }
-  );
-
-
-  const canvas =
-    document.createElement(
-      "canvas"
-    );
-
-
-  canvas.width =
-    image.naturalWidth;
-
-
-  canvas.height =
-    image.naturalHeight;
-
-
-  const ctx =
-    canvas.getContext(
-      "2d"
-    );
-
-
-  ctx.fillStyle =
-    currentBackground;
-
-
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-
-  ctx.drawImage(
-    image,
-    0,
-    0
-  );
-
-
-  canvas.toBlob(
-    blob => {
-
-      if(!blob){
-
-        return;
-
-      }
-
-
-      const url =
-        URL.createObjectURL(
-          blob
-        );
-
-
-      const link =
-        document.createElement(
-          "a"
-        );
-
-
-      link.href =
-        url;
-
-
-      link.download =
-        "cutout.png";
-
-
-      document.body.appendChild(
-        link
-      );
-
-
-      link.click();
-
-
-      link.remove();
-
-
-      setTimeout(
-        () =>
-          URL.revokeObjectURL(
-            url
-          ),
-        1000
-      );
-
-    },
-    "image/png"
-  );
 
 }
 
 
-/* =========================================================
-   FILE INPUT
-========================================================= */
+/* ---------------------------------------------------------
+   BUTTON EVENTS
+--------------------------------------------------------- */
 
-fileInput.addEventListener(
+
+/*
+  Gallery button:
+  DOES NOT use capture.
+  Therefore it requests the normal image/file picker.
+*/
+
+galleryButton.addEventListener(
+  "click",
+  () => {
+
+    galleryInput.value =
+      "";
+
+    galleryInput.click();
+
+  }
+);
+
+
+/*
+  Camera button:
+  Explicitly opens camera where supported.
+*/
+
+cameraButton.addEventListener(
+  "click",
+  () => {
+
+    cameraInput.value =
+      "";
+
+    cameraInput.click();
+
+  }
+);
+
+
+/*
+  Gallery image selected
+*/
+
+galleryInput.addEventListener(
   "change",
   event => {
 
     const file =
+      event.target.files &&
       event.target.files[0];
-
 
     if(file){
 
-      processImage(
-        file
-      );
+      processFile(file);
 
     }
 
@@ -2546,9 +2266,31 @@ fileInput.addEventListener(
 );
 
 
-/* =========================================================
-   DRAG & DROP
-========================================================= */
+/*
+  Camera image captured
+*/
+
+cameraInput.addEventListener(
+  "change",
+  event => {
+
+    const file =
+      event.target.files &&
+      event.target.files[0];
+
+    if(file){
+
+      processFile(file);
+
+    }
+
+  }
+);
+
+
+/* ---------------------------------------------------------
+   DRAG AND DROP
+--------------------------------------------------------- */
 
 [
   "dragenter",
@@ -2605,14 +2347,13 @@ dropzone.addEventListener(
   event => {
 
     const file =
+      event.dataTransfer &&
+      event.dataTransfer.files &&
       event.dataTransfer.files[0];
-
 
     if(file){
 
-      processImage(
-        file
-      );
+      processFile(file);
 
     }
 
@@ -2620,37 +2361,118 @@ dropzone.addEventListener(
 );
 
 
-/* =========================================================
-   BUTTONS
-========================================================= */
+/* ---------------------------------------------------------
+   TABS
+--------------------------------------------------------- */
 
-viewCutout.addEventListener(
+cutoutTab.addEventListener(
   "click",
-  setCutoutView
+  () => {
+
+    if(cutoutURL){
+
+      setCutoutTab();
+
+    }
+
+  }
 );
 
 
-viewCompare.addEventListener(
+originalTab.addEventListener(
   "click",
-  setCompareView
+  () => {
+
+    if(originalURL){
+
+      setOriginalTab();
+
+    }
+
+  }
 );
 
 
-downloadButton.addEventListener(
-  "click",
-  downloadPNG
+/* ---------------------------------------------------------
+   BACKGROUND SWATCHES
+--------------------------------------------------------- */
+
+swatches.forEach(
+  swatch => {
+
+    swatch.addEventListener(
+      "click",
+      () => {
+
+        selectedBackground =
+          swatch.dataset.color;
+
+
+        swatches.forEach(
+          item =>
+            item.classList.toggle(
+              "active",
+              item === swatch
+            )
+        );
+
+
+        applyBackground(
+          selectedBackground
+        );
+
+      }
+    );
+
+  }
 );
 
+
+/* ---------------------------------------------------------
+   CUSTOM COLOR
+--------------------------------------------------------- */
+
+customColor.addEventListener(
+  "input",
+  () => {
+
+    selectedBackground =
+      customColor.value;
+
+
+    swatches.forEach(
+      swatch =>
+        swatch.classList.remove(
+          "active"
+        )
+    );
+
+
+    applyBackground(
+      selectedBackground
+    );
+
+  }
+);
+
+
+/* ---------------------------------------------------------
+   RETRY
+--------------------------------------------------------- */
 
 retryButton.addEventListener(
   "click",
   () => {
 
-    if(originalFile){
+    if(lastFile){
 
-      processImage(
-        originalFile
+      processFile(
+        lastFile
       );
+
+    }else{
+
+      showIdle();
 
     }
 
@@ -2658,13 +2480,36 @@ retryButton.addEventListener(
 );
 
 
+/* ---------------------------------------------------------
+   CHOOSE ANOTHER
+--------------------------------------------------------- */
+
+chooseAgainButton.addEventListener(
+  "click",
+  () => {
+
+    galleryInput.value =
+      "";
+
+    galleryInput.click();
+
+  }
+);
+
+
+/* ---------------------------------------------------------
+   RESET
+--------------------------------------------------------- */
+
 resetButton.addEventListener(
   "click",
   () => {
 
-    fileInput.value =
+    galleryInput.value =
       "";
 
+    cameraInput.value =
+      "";
 
     if(originalURL){
 
@@ -2690,50 +2535,64 @@ resetButton.addEventListener(
     }
 
 
-    originalFile =
-      null;
-
-
-    cutoutBlob =
-      null;
-
-
-    currentBackground =
-      "transparent";
-
-
-    cutoutImage.src =
-      "";
-
-
-    compareCutout.src =
-      "";
-
-
-    compareOriginal.src =
-      "";
-
-
-    preview.classList.remove(
-      "solid"
+    resultImage.removeAttribute(
+      "src"
     );
 
 
-    preview.style.background =
-      "";
+    selectedBackground =
+      "transparent";
 
 
-    resetUI();
+    swatches.forEach(
+      swatch =>
+        swatch.classList.toggle(
+          "active",
+          swatch.dataset.color ===
+          "transparent"
+        )
+    );
+
+
+    showIdle();
 
   }
 );
 
 
-/* =========================================================
-   INITIAL
-========================================================= */
+/* ---------------------------------------------------------
+   CLEANUP
+--------------------------------------------------------- */
 
-resetUI();
+window.addEventListener(
+  "beforeunload",
+  () => {
+
+    if(originalURL){
+
+      URL.revokeObjectURL(
+        originalURL
+      );
+
+    }
+
+    if(cutoutURL){
+
+      URL.revokeObjectURL(
+        cutoutURL
+      );
+
+    }
+
+  }
+);
+
+
+/* ---------------------------------------------------------
+   INITIAL STATE
+--------------------------------------------------------- */
+
+showIdle();
 
 </script>
 
