@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12372d">
+<title>Cutout AI — Background Remover</title>
+
+<style>
+:root{
+  --green:#12372d;
+  --green2:#0b271f;
+  --paper:#f7f3e8;
+  --paper2:#ebe5d6;
+  --orange:#ff5638;
+  --orange2:#d84227;
+  --text:#14201a;
+  --muted:#617069;
+  --danger:#8d341e;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--paper);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.header{
+  background:var(--paper);
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:1100px;
+  margin:auto;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:24px;
+  font-weight:800;
+}
+
+.logo-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:var(--orange);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:25px;
+  font-weight:900;
+}
+
+.private{
+  font-size:12px;
+  color:#2c5949;
+  background:#e2eee8;
+  border:1px solid #bcd3c8;
+  border-radius:30px;
+  padding:8px 12px;
+}
+
+.hero{
+  background:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px),
+    radial-gradient(circle at top left,#1d503f,#0a271f 70%);
+  background-size:32px 32px,32px 32px,auto;
+  color:white;
+  padding:70px 18px 90px;
+}
+
+.hero-inner{
+  max-width:850px;
+  margin:auto;
+  text-align:center;
+}
+
+.eyebrow{
+  color:#ff927c;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:3px;
+  margin-bottom:18px;
+}
+
+h1{
+  margin:0;
+  font-size:clamp(44px,8vw,82px);
+  line-height:.98;
+  letter-spacing:-3px;
+}
+
+h1 span{
+  color:var(--orange);
+}
+
+.subtitle{
+  max-width:620px;
+  margin:25px auto 40px;
+  color:#dbe7e1;
+  line-height:1.65;
+  font-size:18px;
+}
+
+.card{
+  background:var(--paper);
+  color:var(--text);
+  max-width:680px;
+  margin:auto;
+  padding:28px;
+  border-radius:28px;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+
+.choose-box{
+  border:2px dashed #eea28f;
+  border-radius:22px;
+  padding:38px 22px;
+  text-align:center;
+  background:#f2ecdf;
+}
+
+.scissors{
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.choose-title{
+  font-size:24px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.choose-sub{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.choose-btn{
+  border:0;
+  border-radius:15px;
+  padding:16px 12px;
+  font-weight:800;
+  font-size:16px;
+}
+
+.gallery-btn{
+  background:var(--orange);
+  color:white;
+}
+
+.camera-btn{
+  background:#17231d;
+  color:white;
+}
+
+.choose-btn:active{
+  transform:scale(.98);
+}
+
+.hidden-input{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+.loading{
+  display:none;
+  padding:25px 5px 5px;
+}
+
+.loading.show{
+  display:block;
+}
+
+.loading-title{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:10px;
+  color:#526158;
+}
+
+.progress{
+  height:10px;
+  background:#e4dece;
+  border-radius:50px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#d84328,#ff6b4d);
+  transition:width .2s ease;
+}
+
+.error{
+  display:none;
+  margin-top:20px;
+  background:#fdebe5;
+  border:1px solid #efc3b5;
+  color:var(--danger);
+  padding:18px;
+  border-radius:18px;
+}
+
+.error.show{
+  display:block;
+}
+
+.error-title{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.error-text{
+  line-height:1.55;
+  font-size:14px;
+}
+
+.error-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+  flex-wrap:wrap;
+}
+
+.small-btn{
+  border:1px solid #d37a61;
+  background:white;
+  color:#80331f;
+  padding:10px 15px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.result{
+  display:none;
+}
+
+.result.show{
+  display:block;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.tab{
+  border:0;
+  background:#e8e2d5;
+  color:#536057;
+  padding:9px 16px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.tab.active{
+  background:#16211b;
+  color:white;
+}
+
+.preview{
+  min-height:260px;
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background-color:#fff;
+  background-image:
+    linear-gradient(45deg,#d5d5d5 25%,transparent 25%),
+    linear-gradient(-45deg,#d5d5d5 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#d5d5d5 75%),
+    linear-gradient(-45deg,transparent 75%,#d5d5d5 75%);
+  background-size:20px 20px;
+  background-position:0 0,0 10px,10px -10px,-10px 0;
+}
+
+.preview.solid{
+  background-image:none;
+}
+
+.preview img{
+  max-width:100%;
+  max-height:500px;
+  width:auto;
+  height:auto;
+  display:block;
+}
+
+.options{
+  margin-top:20px;
+}
+
+.options-label{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#657069;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.swatches{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.swatch{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  border:3px solid transparent;
+  padding:0;
+}
+
+.swatch.active{
+  border-color:var(--orange);
+}
+
+.checker{
+  background-color:white;
+  background-image:
+    linear-gradient(45deg,#ccc 25%,transparent 25%),
+    linear-gradient(-45deg,#ccc 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#ccc 75%),
+    linear-gradient(-45deg,transparent 75%,#ccc 75%);
+  background-size:10px 10px;
+  background-position:0 0,0 5px,5px -5px,-5px 0;
+}
+
+.white{
+  background:white;
+  border:1px solid #ccc;
+}
+
+.black{
+  background:#17201c;
+}
+
+.blue{
+  background:#d7e8f7;
+}
+
+.color-picker{
+  width:38px;
+  height:38px;
+  padding:0;
+  border:0;
+  border-radius:11px;
+  overflow:hidden;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.primary{
+  flex:1;
+  min-width:180px;
+  border:0;
+  background:var(--orange);
+  color:white;
+  padding:15px 20px;
+  border-radius:13px;
+  font-weight:800;
+}
+
+.secondary{
+  border:0;
+  background:transparent;
+  color:#536057;
+  text-decoration:underline;
+  padding:15px;
+  font-weight:700;
+}
+
+.info{
+  max-width:1000px;
+  margin:auto;
+  padding:70px 20px;
+}
+
+.info h2{
+  text-align:center;
+  font-size:38px;
+  margin-bottom:40px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.feature{
+  background:#ebe5d6;
+  border-radius:20px;
+  padding:25px;
+  border-left:4px solid var(--orange);
+}
+
+.feature-number{
+  color:var(--orange2);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.feature h3{
+  font-size:20px;
+}
+
+.feature p{
+  color:#637068;
+  line-height:1.6;
+}
+
+.footer{
+  border-top:1px solid #ded8c9;
+  padding:30px 20px;
+  text-align:center;
+  color:#657069;
+  font-size:13px;
+}
+
+@media(max-width:700px){
+  .private{
+    display:none;
+  }
+
+  .hero{
+    padding-top:45px;
+  }
+
+  .card{
+    padding:18px;
+    border-radius:22px;
+  }
+
+  .buttons{
+    grid-template-columns:1fr;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .info h2{
+    font-size:30px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">C</div>
+    Cutout
+  </div>
+
+  <div class="private">
+    ● Processed on your device
+  </div>
+</header>
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<div class="eyebrow">AI IMAGE BACKGROUND REMOVER</div>
+
+<h1>
+Remove any<br>
+<span>background.</span>
+</h1>
+
+<p class="subtitle">
+Upload an image and automatically remove its background.
+Fast, private and processed directly on your device.
+</p>
+
+<div class="card">
+
+<div class="choose-box">
+
+<div class="scissors">✂️</div>
+
+<div class="choose-title">
+Choose your image
+</div>
+
+<div class="choose-sub">
+JPG, PNG or WEBP · Maximum 25 MB
+</div>
+
+<div class="buttons">
+
+<button
+class="choose-btn gallery-btn"
+id="galleryButton">
+📁 Choose from Gallery
+</button>
+
+<button
+class="choose-btn camera-btn"
+id="cameraButton">
+📷 Take a Photo
+</button>
+
+</div>
+
+<input
+class="hidden-input"
+type="file"
+id="galleryInput"
+accept="image/jpeg,image/png,image/webp">
+
+<input
+class="hidden-input"
+type="file"
+id="cameraInput"
+accept="image/jpeg,image/png,image/webp"
+capture="environment">
+
+</div>
+
+<div class="loading" id="loading">
+
+<div class="loading-title">
+<span id="loadingText">Preparing image…</span>
+<span id="loadingPercent">0%</span>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+</div>
+
+<div class="error" id="errorBox">
+
+<div class="error-title">
+Background removal failed
+</div>
+
+<div class="error-text" id="errorText">
+The image could not be processed.
+</div>
+
+<div class="error-actions">
+
+<button class="small-btn" id="retryButton">
+Try again
+</button>
+
+<button class="small-btn" id="chooseAgainButton">
+Choose another image
+</button>
+
+</div>
+
+</div>
+
+<div class="result" id="result">
+
+<div class="tabs">
+
+<button
+class="tab active"
+id="cutoutTab">
+Cutout
+</button>
+
+<button
+class="tab"
+id="originalTab">
+Original
+</button>
+
+</div>
+
+<div class="preview" id="preview">
+
+<img
+id="resultImage"
+alt="Background removed image">
+
+</div>
+
+<div class="options" id="options">
+
+<div class="options-label">
+Preview background
+</div>
+
+<div class="swatches">
+
+<button
+class="swatch checker active"
+data-color="transparent">
+</button>
+
+<button
+class="swatch white"
+data-color="#ffffff">
+</button>
+
+<button
+class="swatch black"
+data-color="#17201c">
+</button>
+
+<button
+class="swatch blue"
+data-color="#d7e8f7">
+</button>
+
+<input
+class="color-picker"
+type="color"
+id="customColor"
+value="#ff5638">
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="primary"
+id="downloadButton">
+Download Transparent PNG
+</button>
+
+<button
+class="secondary"
+id="resetButton">
+Start over
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="info">
+
+<h2>
+Powerful and simple
+</h2>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-number">01 · UPLOAD</div>
+<h3>Choose from Gallery</h3>
+<p>
+Select an existing image from your phone or computer.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">02 · AI CUT</div>
+<h3>AI removes the background</h3>
+<p>
+The background-removal model runs in the browser without sending your image to your server.
+</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">03 · DOWNLOAD</div>
+<h3>Get a transparent PNG</h3>
+<p>
+Download the final cutout with transparent background.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+Your image is processed locally in your browser. No API key is required.
+</footer>
+
+
+<script type="module">
+
+/*
+===========================================================
+CUTOUT AI — STABLE BROWSER VERSION
+===========================================================
+
+Important fixes:
+
+1. Gallery and Camera use separate file inputs.
+2. Images are resized before AI processing.
+3. Small quantized model is used for mobile reliability.
+4. Bundled ESM package avoids the previous:
+   "Failed to resolve module specifier onnxruntime-web"
+5. No API key.
+6. No server required.
+7. Transparent PNG output.
+===========================================================
+*/
+
+
+const galleryButton =
+document.getElementById("galleryButton");
+
+const cameraButton =
+document.getElementById("cameraButton");
+
+const galleryInput =
+document.getElementById("galleryInput");
+
+const cameraInput =
+document.getElementById("cameraInput");
+
+const loading =
+document.getElementById("loading");
+
+const loadingText =
+document.getElementById("loadingText");
+
+const loadingPercent =
+document.getElementById("loadingPercent");
+
+const progressBar =
+document.getElementById("progressBar");
+
+const errorBox =
+document.getElementById("errorBox");
+
+const errorText =
+document.getElementById("errorText");
+
+const retryButton =
+document.getElementById("retryButton");
+
+const chooseAgainButton =
+document.getElementById("chooseAgainButton");
+
+const result =
+document.getElementById("result");
+
+const resultImage =
+document.getElementById("resultImage");
+
+const preview =
+document.getElementById("preview");
+
+const options =
+document.getElementById("options");
+
+const cutoutTab =
+document.getElementById("cutoutTab");
+
+const originalTab =
+document.getElementById("originalTab");
+
+const downloadButton =
+document.getElementById("downloadButton");
+
+const resetButton =
+document.getElementById("resetButton");
+
+const customColor =
+document.getElementById("customColor");
+
+const swatches =
+document.querySelectorAll(".swatch");
+
+
+let removeBackground = null;
+
+let originalFile = null;
+let originalURL = null;
+let cutoutBlob = null;
+let cutoutURL = null;
+
+let currentBackground = "transparent";
+
+let processing = false;
+
+
+/* ========================================================
+   OPEN FILE PICKERS
+======================================================== */
+
+galleryButton.addEventListener("click", () => {
+
+  galleryInput.value = "";
+
+  galleryInput.click();
+
+});
+
+
+cameraButton.addEventListener("click", () => {
+
+  cameraInput.value = "";
+
+  cameraInput.click();
+
+});
+
+
+galleryInput.addEventListener("change", event => {
+
+  const file = event.target.files && event.target.files[0];
+
+  if(file){
+    processSelectedFile(file);
+  }
+
+});
+
+
+cameraInput.addEventListener("change", event => {
+
+  const file = event.target.files && event.target.files[0];
+
+  if(file){
+    processSelectedFile(file);
+  }
+
+});
+
+
+/* ========================================================
+   VALIDATION
+======================================================== */
+
+function validateFile(file){
+
+  if(!file){
+    return "Please choose an image.";
+  }
+
+  const validTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ];
+
+  if(!validTypes.includes(file.type)){
+
+    return "Please choose a JPG, PNG or WEBP image.";
+
+  }
+
+  if(file.size > 25 * 1024 * 1024){
+
+    return "The image is larger than 25 MB. Please choose a smaller image.";
+
+  }
+
+  return null;
+
+}
+
+
+/* ========================================================
+   DEVICE MEMORY / IMAGE SIZE
+======================================================== */
+
+function getMaxImageSize(){
+
+  /*
+    Low-memory Android phones get a smaller image.
+    This is the important fix for:
+
+    "failed to allocate a buffer"
+  */
+
+  const memory =
+    navigator.deviceMemory || 4;
+
+  if(memory <= 2){
+    return 1024;
+  }
+
+  if(memory <= 4){
+    return 1280;
+  }
+
+  if(memory <= 6){
+    return 1600;
+  }
+
+  return 1800;
+
+}
+
+
+/* ========================================================
+   LOAD IMAGE SAFELY
+======================================================== */
+
+function loadImage(file){
+
+  return new Promise((resolve,reject)=>{
+
+    const url =
+    URL.createObjectURL(file);
+
+    const img =
+    new Image();
+
+    img.onload = () => {
+
+      URL.revokeObjectURL(url);
+
+      resolve(img);
+
+    };
+
+    img.onerror = () => {
+
+      URL.revokeObjectURL(url);
+
+      reject(
+        new Error("The image could not be decoded by the browser.")
+      );
+
+    };
+
+    img.src = url;
+
+  });
+
+}
+
+
+/* ========================================================
+   RESIZE IMAGE BEFORE AI
+======================================================== */
+
+async function prepareImage(file){
+
+  const img =
+  await loadImage(file);
+
+  const maxSize =
+  getMaxImageSize();
+
+  let width =
+  img.naturalWidth;
+
+  let height =
+  img.naturalHeight;
+
+
+  /*
+    Never send an enormous camera photo
+    directly into the ONNX model.
+  */
+
+  const longest =
+  Math.max(width,height);
+
+
+  if(longest > maxSize){
+
+    const scale =
+    maxSize / longest;
+
+    width =
+    Math.max(1,Math.round(width * scale));
+
+    height =
+    Math.max(1,Math.round(height * scale));
+
+  }
+
+
+  const canvas =
+  document.createElement("canvas");
+
+  canvas.width =
+  width;
+
+  canvas.height =
+  height;
+
+
+  const ctx =
+  canvas.getContext("2d",{
+    alpha:true
+  });
+
+
+  if(!ctx){
+
+    throw new Error(
+      "Your browser cannot create an image canvas."
+    );
+
+  }
+
+
+  ctx.imageSmoothingEnabled =
+  true;
+
+  ctx.imageSmoothingQuality =
+  "high";
+
+
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  const blob =
+  await new Promise(resolve => {
+
+    canvas.toBlob(
+      resolve,
+      "image/jpeg",
+      0.92
+    );
+
+  });
+
+
+  if(!blob){
+
+    throw new Error(
+      "The image could not be prepared."
+    );
+
+  }
+
+
+  return blob;
+
+}
+
+
+/* ========================================================
+   UI
+======================================================== */
+
+function setProgress(percent,text){
+
+  const safe =
+  Math.max(0,Math.min(100,percent));
+
+  progressBar.style.width =
+  safe + "%";
+
+  loadingPercent.textContent =
+  Math.round(safe) + "%";
+
+  if(text){
+    loadingText.textContent =
+    text;
+  }
+
+}
+
+
+function showLoading(){
+
+  loading.classList.add("show");
+
+  errorBox.classList.remove("show");
+
+  result.classList.remove("show");
+
+}
+
+
+function hideLoading(){
+
+  loading.classList.remove("show");
+
+}
+
+
+function showError(message){
+
+  hideLoading();
+
+  result.classList.remove("show");
+
+  errorBox.classList.add("show");
+
+  errorText.textContent =
+  message;
+
+}
+
+
+function showResult(){
+
+  hideLoading();
+
+  errorBox.classList.remove("show");
+
+  result.classList.add("show");
+
+}
+
+
+/* ========================================================
+   LOAD AI ENGINE
+======================================================== */
+
+async function loadAI(){
+
+  if(removeBackground){
+
+    return removeBackground;
+
+  }
+
+
+  setProgress(
+    5,
+    "Loading the AI engine…"
+  );
+
+
+  /*
+    IMPORTANT:
+
+    The previous code imported:
+
+    jsdelivr.net/.../dist/index.mjs
+
+    which could leave:
+
+    onnxruntime-web
+
+    as a bare module specifier.
+
+    The bundled ESM endpoint below packages
+    the dependency for browser use.
+  */
+
+  const module =
+  await import(
+    "https://esm.sh/@imgly/background-removal@1.7.0?bundle&target=es2022"
+  );
+
+
+  removeBackground =
+  module.default ||
+  module.removeBackground;
+
+
+  if(typeof removeBackground !== "function"){
+
+    throw new Error(
+      "The AI engine could not be loaded."
+    );
+
+  }
+
+
+  return removeBackground;
+
+}
+
+
+/* ========================================================
+   PROCESS IMAGE
+======================================================== */
+
+async function processSelectedFile(file){
+
+  if(processing){
+    return;
+  }
+
+
+  const validation =
+  validateFile(file);
+
+
+  if(validation){
+
+    showError(validation);
+
+    return;
+
+  }
+
+
+  processing = true;
+
+  originalFile =
+  file;
+
+
+  try{
+
+    showLoading();
+
+    setProgress(
+      2,
+      "Preparing your image…"
+    );
+
+
+    /*
+      Keep original for the Original tab.
+    */
+
+    if(originalURL){
+
+      URL.revokeObjectURL(
+        originalURL
+      );
+
+    }
+
+
+    originalURL =
+    URL.createObjectURL(file);
+
+
+    /*
+      Resize BEFORE AI.
+
+      This is the main mobile-memory protection.
+    */
+
+    setProgress(
+      10,
+      "Optimizing image for your device…"
+    );
+
+
+    const prepared =
+    await prepareImage(file);
+
+
+    /*
+      Load AI.
+    */
+
+    const remove =
+    await loadAI();
+
+
+    setProgress(
+      20,
+      "Starting background removal…"
+    );
+
+
+    let lastPercent = 20;
+
+
+    const progress =
+    (key,current,total) => {
+
+      if(total){
+
+        /*
+          Map model download/processing
+          to 20–95%.
+        */
+
+        const local =
+        (current / total) * 75;
+
+        const pct =
+        20 + local;
+
+        if(pct > lastPercent){
+
+          lastPercent =
+          pct;
+
+          let label =
+          "Removing background…";
+
+
+          if(
+            String(key || "")
+            .toLowerCase()
+            .includes("fetch")
+          ){
+
+            label =
+            "Downloading AI model…";
+
+          }
+
+
+          if(
+            String(key || "")
+            .toLowerCase()
+            .includes("compute")
+          ){
+
+            label =
+            "AI is removing the background…";
+
+          }
+
+
+          setProgress(
+            pct,
+            label
+          );
+
+        }
+
+      }
+
+    };
+
+
+    /*
+      Use the smallest quantized model.
+
+      It uses considerably less memory
+      than the larger model and is much
+      safer for mobile browsers.
+    */
+
+    cutoutBlob =
+    await remove(
+      prepared,
+      {
+        model:"isnet_quint8",
+
+        device:"cpu",
+
+        proxyToWorker:false,
+
+        publicPath:
+        "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
+
+        output:{
+          format:"image/png",
+          type:"foreground"
+        },
+
+        progress
+
+      }
+    );
+
+
+    if(!cutoutBlob){
+
+      throw new Error(
+        "The AI model returned no image."
+      );
+
+    }
+
+
+    if(cutoutURL){
+
+      URL.revokeObjectURL(
+        cutoutURL
+      );
+
+    }
+
+
+    cutoutURL =
+    URL.createObjectURL(
+      cutoutBlob
+    );
+
+
+    resultImage.src =
+    cutoutURL;
+
+
+    currentBackground =
+    "transparent";
+
+
+    swatches.forEach(
+      swatch => {
+
+        swatch.classList.toggle(
+          "active",
+          swatch.dataset.color ===
+          "transparent"
+        );
+
+      }
+    );
+
+
+    preview.classList.remove(
+      "solid"
+    );
+
+    preview.style.background =
+    "";
+
+
+    setProgress(
+      100,
+      "Done!"
+    );
+
+
+    setTimeout(() => {
+
+      showResult();
+
+      setCutoutTab();
+
+    },250);
+
+
+  }catch(error){
+
+    console.error(
+      "Background removal error:",
+      error
+    );
+
+
+    let message =
+    "The image could not be processed.";
+
+
+    const detail =
+    String(
+      error?.message ||
+      error ||
+      ""
+    );
+
+
+    /*
+      Give useful messages for
+      known browser problems.
+    */
+
+    if(
+      detail
+      .toLowerCase()
+      .includes("allocate")
+    ){
+
+      message =
+      "This phone does not have enough free memory for this image. The tool already reduced the image size. Please close other browser apps and try again.";
+
+    }
+    else if(
+      detail
+      .toLowerCase()
+      .includes("module")
+    ){
+
+      message =
+      "The AI engine could not load. Please reload the page once and try again.";
+
+    }
+    else if(
+      detail
+      .toLowerCase()
+      .includes("network")
+      ||
+      detail
+      .toLowerCase()
+      .includes("fetch")
+    ){
+
+      message =
+      "The AI model could not download. Check your internet connection and try again.";
+
+    }
+    else if(
+      detail
+      .toLowerCase()
+      .includes("wasm")
+    ){
+
+      message =
+      "Your browser could not load the AI engine. Please update Chrome or try another modern browser.";
+
+    }
+
+
+    showError(
+      message
+    );
+
+  }finally{
+
+    processing =
+    false;
+
+  }
+
+}
+
+
+/* ========================================================
+   TABS
+======================================================== */
+
+function setCutoutTab(){
+
+  cutoutTab.classList.add(
+    "active"
+  );
+
+  originalTab.classList.remove(
+    "active"
+  );
+
+  options.style.display =
+  "";
+
+  resultImage.src =
+  cutoutURL;
+
+}
+
+
+function setOriginalTab(){
+
+  originalTab.classList.add(
+    "active"
+  );
+
+  cutoutTab.classList.remove(
+    "active"
+  );
+
+  options.style.display =
+  "none";
+
+  preview.classList.add(
+    "solid"
+  );
+
+  preview.style.background =
+  "#ffffff";
+
+  resultImage.src =
+  originalURL;
+
+}
+
+
+cutoutTab.addEventListener(
+  "click",
+  () => {
+
+    setCutoutTab();
+
+  }
+);
+
+
+originalTab.addEventListener(
+  "click",
+  () => {
+
+    setOriginalTab();
+
+  }
+);
+
+
+/* ========================================================
+   BACKGROUND COLORS
+======================================================== */
+
+function applyBackground(color){
+
+  currentBackground =
+  color;
+
+
+  swatches.forEach(
+    swatch => {
+
+      swatch.classList.toggle(
+        "active",
+        swatch.dataset.color === color
+      );
+
+    }
+  );
+
+
+  if(color === "transparent"){
+
+    preview.classList.remove(
+      "solid"
+    );
+
+    preview.style.background =
+    "";
+
+  }else{
+
+    preview.classList.add(
+      "solid"
+    );
+
+    preview.style.background =
+    color;
+
+  }
+
+}
+
+
+swatches.forEach(
+  swatch => {
+
+    swatch.addEventListener(
+      "click",
+      () => {
+
+        applyBackground(
+          swatch.dataset.color
+        );
+
+      }
+    );
+
+  }
+);
+
+
+customColor.addEventListener(
+  "input",
+  () => {
+
+    swatches.forEach(
+      s =>
+      s.classList.remove(
+        "active"
+      )
+    );
+
+
+    currentBackground =
+    customColor.value;
+
+
+    preview.classList.add(
+      "solid"
+    );
+
+    preview.style.background =
+    customColor.value;
+
+  }
+);
+
+
+/* ========================================================
+   DOWNLOAD
+======================================================== */
+
+async function downloadPNG(){
+
+  if(!cutoutBlob){
+
+    return;
+
+  }
+
+
+  /*
+    Transparent PNG:
+    simply download original AI PNG.
+  */
+
+  if(
+    currentBackground ===
+    "transparent"
+  ){
+
+    const url =
+    URL.createObjectURL(
+      cutoutBlob
+    );
+
+
+    const a =
+    document.createElement("a");
+
+    a.href =
+    url;
+
+    a.download =
+    "cutout-transparent.png";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+
+    setTimeout(
+      () =>
+      URL.revokeObjectURL(url),
+      1000
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Colored PNG:
+    compose the AI result over
+    selected background.
+  */
+
+  const img =
+  new Image();
+
+
+  img.src =
+  cutoutURL;
+
+
+  await new Promise(
+    (resolve,reject) => {
+
+      img.onload =
+      resolve;
+
+      img.onerror =
+      reject;
+
+    }
+  );
+
+
+  const canvas =
+  document.createElement(
+    "canvas"
+  );
+
+
+  canvas.width =
+  img.naturalWidth;
+
+  canvas.height =
+  img.naturalHeight;
+
+
+  const ctx =
+  canvas.getContext("2d");
+
+
+  ctx.fillStyle =
+  currentBackground;
+
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+
+  ctx.drawImage(
+    img,
+    0,
+    0
+  );
+
+
+  const blob =
+  await new Promise(
+    resolve =>
+    canvas.toBlob(
+      resolve,
+      "image/png"
+    )
+  );
+
+
+  const url =
+  URL.createObjectURL(
+    blob
+  );
+
+
+  const a =
+  document.createElement("a");
+
+  a.href =
+  url;
+
+  a.download =
+  "cutout.png";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+
+  setTimeout(
+    () =>
+    URL.revokeObjectURL(url),
+    1000
+  );
+
+}
+
+
+downloadButton.addEventListener(
+  "click",
+  downloadPNG
+);
+
+
+/* ========================================================
+   RETRY / RESET
+======================================================== */
+
+retryButton.addEventListener(
+  "click",
+  () => {
+
+    if(originalFile){
+
+      processSelectedFile(
+        originalFile
+      );
+
+    }
+
+  }
+);
+
+
+chooseAgainButton.addEventListener(
+  "click",
+  () => {
+
+    galleryInput.value = "";
+
+    cameraInput.value = "";
+
+    errorBox.classList.remove(
+      "show"
+    );
+
+    galleryInput.click();
+
+  }
+);
+
+
+resetButton.addEventListener(
+  "click",
+  () => {
+
+    if(originalURL){
+
+      URL.revokeObjectURL(
+        originalURL
+      );
+
+    }
+
+
+    if(cutoutURL){
+
+      URL.revokeObjectURL(
+        cutoutURL
+      );
+
+    }
+
+
+    originalURL =
+    null;
+
+    cutoutURL =
+    null;
+
+    cutoutBlob =
+    null;
+
+    originalFile =
+    null;
+
+    resultImage.removeAttribute(
+      "src"
+    );
+
+    result.classList.remove(
+      "show"
+    );
+
+    errorBox.classList.remove(
+      "show"
+    );
+
+    loading.classList.remove(
+      "show"
+    );
+
+    galleryInput.value =
+    "";
+
+    cameraInput.value =
+    "";
+
+    setProgress(
+      0,
+      "Preparing image…"
+    );
+
+  }
+);
+
+
+/* ========================================================
+   CLEANUP
+======================================================== */
+
+window.addEventListener(
+  "beforeunload",
+  () => {
+
+    if(originalURL){
+
+      URL.revokeObjectURL(
+        originalURL
+      );
+
+    }
+
+    if(cutoutURL){
+
+      URL.revokeObjectURL(
+        cutoutURL
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
