@@ -3,9 +3,79 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cozyleaf — Every tool, one place</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
+
+<title>Cozyleaf — Free Image, PDF, Calculator & Text Tools Online</title>
+<meta name="description" content="Free online tools — BMI, calorie, BMR, GPA/CGPA and love calculators, image to JPG converter, typing speed test, and stylish name generator. No sign-up, no download, works instantly in your browser."/>
+<link rel="canonical" href="https://cozyleaf.in/"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#1B1D29"/>
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Cozyleaf"/>
+<meta property="og:title" content="Cozyleaf — Free Image, PDF, Calculator & Text Tools Online"/>
+<meta property="og:description" content="Free online tools for everyone — calculators, image conversion, typing tests, and more. No sign-up needed."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://cozyleaf.in/"/>
+<meta property="og:locale" content="en_US"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cozyleaf — Free Image, PDF, Calculator & Text Tools Online"/>
+<meta name="twitter:description" content="Free online tools for everyone — calculators, image conversion, typing tests, and more."/>
+
+<!-- Performance: preconnect + font loading that won't block rendering -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+
+<!-- WebSite structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Cozyleaf",
+  "alternateName": "Cozyleaf.in",
+  "url": "https://cozyleaf.in/",
+  "description": "Free online tools for image conversion, calculators, and text utilities.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://cozyleaf.in/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- Organization structured data (helps brand search / knowledge panel eligibility) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Cozyleaf",
+  "url": "https://cozyleaf.in/",
+  "logo": "https://cozyleaf.in/favicon.png",
+  "sameAs": []
+}
+</script>
+
+<!-- ItemList structured data: lists every live tool so Google understands site structure -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Convert to JPG","url":"https://cozyleaf.in/convert-to-jpg.html"},
+    {"@type":"ListItem","position":2,"name":"BMI Calculator","url":"https://cozyleaf.in/bmi-calculator.html"},
+    {"@type":"ListItem","position":3,"name":"Calorie Calculator","url":"https://cozyleaf.in/calorie-calculator.html"},
+    {"@type":"ListItem","position":4,"name":"BMR Calculator","url":"https://cozyleaf.in/bmr-calculator.html"},
+    {"@type":"ListItem","position":5,"name":"Love Calculator","url":"https://cozyleaf.in/love-calculator.html"},
+    {"@type":"ListItem","position":6,"name":"GPA / CGPA Calculator","url":"https://cozyleaf.in/gpa-cgpa-calculator.html"},
+    {"@type":"ListItem","position":7,"name":"Dog Food Calculator","url":"https://cozyleaf.in/dog-food-calculator.html"},
+    {"@type":"ListItem","position":8,"name":"Typing Speed Test","url":"https://cozyleaf.in/typing-speed-test.html"},
+    {"@type":"ListItem","position":9,"name":"Stylish Name Generator","url":"https://cozyleaf.in/name-style.html"}
+  ]
+}
+</script>
+
 <style>
   :root{
     --ink:#14161A;
@@ -67,7 +137,7 @@
   .hero{padding:52px 24px 34px;max-width:1100px;margin:0 auto;}
   .hero .eyebrow{color:var(--cta-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:block;}
   .hero h1{font-size:clamp(28px,4.6vw,46px);font-weight:700;line-height:1.15;color:var(--ink);max-width:760px;margin-bottom:12px;}
-  .hero p{color:var(--ink-soft);font-size:15.5px;max-width:520px;}
+  .hero p{color:var(--ink-soft);font-size:15.5px;max-width:560px;line-height:1.6;}
   .jumpnav{max-width:1100px;margin:0 auto 8px;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap;}
   .jumpnav a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:20px;background:var(--card);border:1px solid var(--line);color:var(--ink-soft);display:flex;align-items:center;gap:6px;transition:.15s;}
   .jumpnav a:hover{border-color:var(--ink); color:var(--ink);}
@@ -86,8 +156,12 @@
   .row-name{font-weight:600;font-size:15px;color:var(--ink);}
   .row-formats{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
   .row-arrow{color:var(--ink-soft);flex-shrink:0;font-size:16px;}
+  .about-block{max-width:1100px;margin:0 auto;padding:8px 24px 40px;color:var(--ink-soft);font-size:14px;line-height:1.7;}
+  .about-block h2{font-size:19px;color:var(--ink);margin-bottom:10px;}
   footer{background:var(--header);color:rgba(255,255,255,.6);padding:34px 24px;text-align:center;font-size:13.5px;}
-  footer a{color:var(--cta);font-weight:600;}
+  footer a{color:rgba(255,255,255,.85);font-weight:500;}
+  footer a:hover{color:var(--cta);}
+  .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
   @media (max-width:640px){
     header{padding:12px 14px;gap:10px;}
     .logo{font-size:18px;}
@@ -101,6 +175,7 @@
     .tool-row{padding:12px 14px;gap:10px;}
     .row-name{font-size:14px;}
     .row-formats{font-size:11.5px;}
+    .about-block{padding:8px 16px 30px;}
   }
 </style>
 </head>
@@ -111,7 +186,7 @@
   <a class="logo" href="index.html"><span class="dot"></span><span class="text">Cozyleaf</span></a>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input id="searchInput" type="text" placeholder="Search any tool — resize, bmi, mp3..."/>
+    <input id="searchInput" type="text" placeholder="Search any tool — bmi, gpa, typing..."/>
     <div id="search-results"></div>
   </div>
   <button class="signup-btn">Sign up</button>
@@ -129,25 +204,35 @@
 <section class="hero">
 <span class="eyebrow">Cozyleaf.in — Free tools that actually work</span>
   <h1>Free Image, PDF, Calculator & Text Tools — All in One Place</h1>
+  <p>No sign-up, no download, no watermark. Every tool below runs instantly in your browser and works on any device — desktop, tablet, or phone.</p>
 </section>
 
 <nav class="jumpnav" id="jumpnav"></nav>
 
 <main id="main"></main>
 
+<section class="about-block">
+  <h2>About Cozyleaf</h2>
+  <p>Cozyleaf is a free collection of everyday online tools built for speed and simplicity. Whether you need to check your BMI, calculate your GPA, convert an image to JPG, or test your typing speed, every tool here works instantly without an account, a download, or a fee. New tools are added regularly — if there's something you'd like to see, reach out through the contact page below.</p>
+</section>
+
 <footer>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
   Cozyleaf.in — every tool, one place. &#160; <a href="#" id="footerAll">Browse all categories →</a>
 </footer>
 
 <script>
+// Only tools that are fully built and work reliably in-browser are listed here.
+// Remove Background, Upscale Image, Compress/Resize/Crop Image, Convert from JPG,
+// Image Translator, and all Document/PDF tools are intentionally left out until
+// they're actually built and tested — add them back in once ready.
 const MAIN_TOOLS = [
-  {name:"Remove Background", cat:"Image Tools", formats:"", usage:10000000, url:"bg-remove-adaptive.html"},
-  {name:"Compress Image",    cat:"Image Tools", formats:"JPG, PNG, SVG, GIF", usage:0, url:"#"},
-  {name:"Resize Image",      cat:"Image Tools", formats:"JPG, PNG, SVG, GIF", usage:0, url:"#"},
-  {name:"Crop Image",        cat:"Image Tools", formats:"JPG, PNG, GIF", usage:0, url:"#"},
-  {name:"Convert to JPG",    cat:"Image Tools", formats:"PNG, GIF, TIF, PSD, SVG, WEBP, HEIC, RAW", usage:0, url:"convert-to-jpg.html"},
-  {name:"Convert from JPG",  cat:"Image Tools", formats:"To PNG, GIF, or animated GIF", usage:0, url:"#"},
-  {name:"Upscale Image",     cat:"Image Tools", formats:"", usage:700000, url:"upscale-image-tool.html"},
+  {name:"Convert to JPG",    cat:"Image Tools", formats:"PNG, GIF, TIF, SVG, WEBP", usage:0, url:"convert-to-jpg.html"},
   {name:"BMI Calculator",     cat:"Calculators", formats:"", usage:9000000, url:"bmi-calculator.html"},
   {name:"Calorie Calculator", cat:"Calculators", formats:"", usage:5000000, url:"calorie-calculator.html"},
   {name:"BMR Calculator", cat:"Calculators", formats:"", usage:0, url:"bmr-calculator.html"},
@@ -155,28 +240,17 @@ const MAIN_TOOLS = [
   {name:"GPA / CGPA Calculator", cat:"Calculators", formats:"", usage:50000, url:"gpa-cgpa-calculator.html"},
   {name:"Dog Food Calculator", cat:"Calculators", formats:"", usage:20000, url:"dog-food-calculator.html"},
   {name:"Typing Speed Test", cat:"Text Tools", formats:"", usage:3000000, url:"typing-speed-test.html" },
-  {name:"Stylish Name Generator", cat:" Name generator Tools", formats:"", usage:1000000, url:"name-style.html"},
-  {name:"Image Translator", cat:"Translate", formats:"", usage:140000, url:"#"}
+  {name:"Stylish Name Generator", cat:"Name Generator Tools", formats:"", usage:1000000, url:"name-style.html"}
 ];
 
-const DRAWER_CATEGORIES = {
-  "Document & PDF Tools": [
-    
-    {name:"PDF to Word", url:"#"},
-    {name:"Word to PDF", url:"#"},
-    {name:"PDF to JPG", url:"#"},
-    {name:"JPG to Word", url:"#"},
-    {name:"JPG to Excel", url:"#"},
-    {name:"PDF to Excel", url:"#"},
-    {name:"Image to PDF", url:"#"},
-    ] 
-};
+const DRAWER_CATEGORIES = {};
 
 const CATEGORY_META = {
   "Image Tools": "var(--c-image)",
   "Calculators": "var(--c-calc)",
   "Converters & Media": "var(--c-convert)",
   "Text Tools": "var(--c-fun)",
+  "Name Generator Tools": "var(--c-fun)",
   "Document & Translate": "var(--c-doc)",
   "Document & PDF Tools": "var(--c-doc)",
   "QR & Barcode Tools": "var(--c-qr)"
@@ -186,7 +260,8 @@ const CATEGORY_HEX = {
   "Image Tools": "#FF6B4A",
   "Calculators": "#2EC4B6",
   "Converters & Media": "#F4A527",
-  "Fun & Text Tools": "#8676FF",
+  "Text Tools": "#8676FF",
+  "Name Generator Tools": "#8676FF",
   "Document & Translate": "#4CA8FF",
   "Document & PDF Tools": "#4CA8FF",
   "QR & Barcode Tools": "#9AA0AC"
