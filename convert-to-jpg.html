@@ -1,0 +1,455 @@
+<!-- ============================================================
+     Cozyleaf · Convert to JPG tool
+     Self-contained block — paste into the Blogger post body for
+     the "Convert to JPG" tool page. Client-side only: PNG, WebP,
+     GIF (first frame), BMP, SVG and HEIC (iPhone photos) all
+     convert to JPG in the browser. Nothing is uploaded anywhere.
+     ============================================================ -->
+<div class="c2j-scope" id="c2jScope">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .c2j-scope{
+    --ink:#17130F; --ink-soft:#6B6259; --paper:#FAF7F2; --card:#FFFFFF;
+    --line:#E7E1D8; --accent:#F2643B; --accent-deep:#C7431E; --accent-soft:#FFE4D9;
+    --success:#2FA36B; --success-soft:#E4F5EC; --warn:#B8860B; --warn-soft:#FBF0D9;
+    font-family:'Inter',system-ui,sans-serif; color:var(--ink); background:var(--paper); box-sizing:border-box;
+  }
+  .c2j-scope *, .c2j-scope *::before, .c2j-scope *::after{ box-sizing:inherit; }
+  .c2j-scope h1,.c2j-scope h2{ font-family:'Sora',sans-serif; margin:0; }
+  .c2j-scope button, .c2j-scope input, .c2j-scope select{ font-family:inherit; }
+  .c2j-scope button{ cursor:pointer; }
+  .c2j-scope :focus-visible{ outline:2px solid var(--accent-deep); outline-offset:2px; }
+
+  /* ---------- Hero ---------- */
+  .c2j-hero{ background:var(--ink); padding:48px 20px 34px; position:relative; overflow:hidden; }
+  .c2j-hero::before{ content:""; position:absolute; inset:0;
+    background:radial-gradient(600px 240px at 85% -10%, rgba(242,100,59,.28), transparent 60%),
+      radial-gradient(500px 220px at 0% 0%, rgba(242,100,59,.14), transparent 55%); pointer-events:none; }
+  .c2j-hero-inner{ max-width:640px; margin:0 auto; position:relative; text-align:center; }
+  .c2j-eyebrow{ color:var(--accent); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 14px; }
+  .c2j-title{ color:#fff; font-size:clamp(28px,6vw,42px); line-height:1.12; font-weight:800; }
+  .c2j-title span{ color:var(--accent); }
+  .c2j-sub{ color:#CFC8BE; font-size:15.5px; line-height:1.55; max-width:480px; margin:14px auto 26px; }
+
+  /* Signature: format chips funnelling into one JPG badge */
+  .c2j-funnel{ display:flex; flex-direction:column; align-items:center; gap:6px; margin-bottom:26px; }
+  .c2j-funnel-row{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+  .c2j-chip{ font-size:11.5px; font-weight:700; letter-spacing:.02em; color:#DCD5C9;
+    border:1px solid rgba(255,255,255,.22); border-radius:8px; padding:5px 10px; background:rgba(255,255,255,.03); }
+  .c2j-funnel-lines{ width:120px; height:20px; opacity:.5; }
+  .c2j-jpg-badge{ font-family:'Sora',sans-serif; font-weight:800; font-size:15px; color:#fff;
+    background:linear-gradient(135deg,var(--accent),var(--accent-deep)); border-radius:10px;
+    padding:8px 22px; box-shadow:0 6px 18px rgba(242,100,59,.35); animation:c2jPulse 2.8s ease-in-out infinite; }
+  @keyframes c2jPulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+
+  .c2j-drop{ background:rgba(255,255,255,.04); border:1.5px dashed rgba(255,255,255,.28); border-radius:18px;
+    padding:26px 20px; transition:border-color .2s,background .2s,transform .2s; }
+  .c2j-drop.c2j-drag{ border-color:var(--accent); background:rgba(242,100,59,.09); transform:scale(1.01); }
+  .c2j-drop-text{ color:#fff; font-size:15.5px; margin:0 0 4px; }
+  .c2j-browse{ color:var(--accent); text-decoration:underline; text-underline-offset:3px; font-weight:600; }
+  .c2j-drop-hint{ color:#8E867B; font-size:13px; margin:0; }
+
+  /* ---------- Workspace ---------- */
+  .c2j-workspace{ max-width:980px; margin:0 auto; padding:28px 16px 60px; display:grid;
+    grid-template-columns:270px 1fr; gap:22px; align-items:start; }
+  .c2j-workspace[hidden]{ display:none !important; }
+  @media (max-width:820px){ .c2j-workspace{ grid-template-columns:1fr; } }
+
+  .c2j-settings{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; position:sticky; top:12px; }
+  @media (max-width:820px){ .c2j-settings{ position:static; } }
+  .c2j-settings h2{ font-size:16px; margin-bottom:14px; }
+
+  .c2j-field{ display:block; margin-bottom:16px; font-size:13.5px; font-weight:600; }
+  .c2j-field > span{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .c2j-field > span b{ color:var(--accent-deep); font-weight:800; }
+  .c2j-field input[type=range]{ width:100%; accent-color:var(--accent); }
+  .c2j-field input[type=number]{ width:100%; padding:9px 10px; border-radius:9px; border:1px solid var(--line); font-size:13.5px; }
+  .c2j-field input[type=checkbox]{ accent-color:var(--accent); margin-right:6px; }
+  .c2j-target-row{ display:flex; gap:6px; align-items:center; font-weight:500; color:var(--ink-soft); font-size:13px; }
+  .c2j-target-row input{ flex:1; }
+
+  .c2j-swatches{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .c2j-swatch{ width:30px; height:30px; border-radius:9px; border:2px solid var(--line); cursor:pointer; padding:0; }
+  .c2j-swatch.active{ border-color:var(--accent-deep); box-shadow:0 0 0 2px var(--accent-soft); }
+  .c2j-swatch-custom{ width:30px; height:30px; border-radius:9px; border:2px solid var(--line); padding:0; background:none; overflow:hidden; }
+  .c2j-swatch-custom input[type=color]{ width:140%; height:140%; margin:-20%; border:none; cursor:pointer; }
+
+  .c2j-note{ font-size:12px; color:var(--ink-soft); background:#F4F0EA; border-radius:8px; padding:8px 10px; margin:0 0 16px; }
+
+  .c2j-btn{ width:100%; border:none; border-radius:11px; padding:12px; font-weight:700; font-size:14.5px; }
+  .c2j-btn-primary{ background:var(--accent); color:#fff; transition:background .15s, transform .1s; }
+  .c2j-btn-primary:hover{ background:var(--accent-deep); }
+  .c2j-btn-primary:active{ transform:scale(.98); }
+  .c2j-btn-ghost{ background:#fff; color:var(--ink); border:1px solid var(--line); }
+  .c2j-btn-ghost:hover{ background:#F4F0EA; }
+
+  /* ---------- Results ---------- */
+  .c2j-summary{ background:var(--ink); border-radius:16px; padding:18px 20px; color:#fff;
+    display:flex; align-items:center; gap:18px; margin-bottom:16px; flex-wrap:wrap; }
+  .c2j-summary[hidden]{ display:none !important; }
+  .c2j-summary-stat{ display:flex; flex-direction:column; }
+  .c2j-summary-stat .n{ font-family:'Sora',sans-serif; font-size:22px; font-weight:700; }
+  .c2j-summary-stat .l{ font-size:11.5px; color:#B9B0A5; text-transform:uppercase; letter-spacing:.05em; }
+  .c2j-summary-actions{ display:flex; gap:8px; width:100%; margin-top:4px; margin-left:auto; }
+  @media (min-width:640px){ .c2j-summary-actions{ width:auto; margin-top:0; } }
+  .c2j-summary-actions .c2j-btn{ width:auto; padding:10px 16px; font-size:13.5px; }
+  .c2j-summary-actions .c2j-btn-ghost{ background:transparent; border-color:rgba(255,255,255,.25); color:#fff; }
+  .c2j-summary-actions .c2j-btn-ghost:hover{ background:rgba(255,255,255,.08); }
+
+  .c2j-filelist{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .c2j-file{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px;
+    display:grid; grid-template-columns:52px 1fr auto; gap:12px; align-items:center; }
+  .c2j-file-thumb{ width:52px; height:52px; border-radius:9px; object-fit:cover; background:#F0EBE3; }
+  .c2j-file-name{ font-size:13.5px; font-weight:600; margin:0 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+  .c2j-file-meta{ font-size:12px; color:var(--ink-soft); display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+  .c2j-badge-swap{ display:inline-flex; align-items:center; gap:5px; font-weight:700; }
+  .c2j-badge-from{ color:var(--ink-soft); }
+  .c2j-badge-to{ background:var(--success-soft); color:var(--success); border-radius:999px; padding:1px 9px;
+    font-size:11.5px; transform:scale(.8); opacity:0; transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .25s; }
+  .c2j-badge-to.show{ transform:scale(1); opacity:1; }
+  .c2j-pending{ color:var(--accent-deep); font-weight:600; }
+  .c2j-error{ color:#B3261E; font-weight:600; }
+
+  .c2j-file-actions{ display:flex; gap:6px; }
+  .c2j-icon-btn{ width:34px; height:34px; border-radius:9px; border:1px solid var(--line); background:#fff;
+    display:flex; align-items:center; justify-content:center; color:var(--ink-soft); }
+  .c2j-icon-btn svg{ width:16px; height:16px; }
+  .c2j-icon-btn.c2j-download{ background:var(--accent-soft); border-color:var(--accent-soft); color:var(--accent-deep); }
+  .c2j-icon-btn.c2j-download:hover{ background:var(--accent); color:#fff; }
+
+  .c2j-empty{ text-align:center; padding:30px 10px; color:var(--ink-soft); font-size:13.5px; }
+
+  @media (prefers-reduced-motion:reduce){ .c2j-scope *{ transition:none !important; animation:none !important; } }
+</style>
+
+<section class="c2j-hero">
+  <div class="c2j-hero-inner">
+    <p class="c2j-eyebrow">Image Tools · Convert</p>
+    <h1 class="c2j-title">Any image.<br><span>One universal JPG.</span></h1>
+    <p class="c2j-sub">PNG, WebP, GIF, BMP, SVG or an iPhone HEIC photo — convert it to a JPG that opens anywhere, right in your browser.</p>
+
+    <div class="c2j-funnel" aria-hidden="true">
+      <div class="c2j-funnel-row">
+        <span class="c2j-chip">PNG</span><span class="c2j-chip">WEBP</span><span class="c2j-chip">HEIC</span>
+        <span class="c2j-chip">GIF</span><span class="c2j-chip">SVG</span><span class="c2j-chip">BMP</span>
+      </div>
+      <svg class="c2j-funnel-lines" viewBox="0 0 120 20"><path d="M10 0 L58 20 M35 0 L58 20 M60 0 L60 20 M85 0 L62 20 M110 0 L62 20" stroke="#F2643B" stroke-width="1.5" fill="none"/></svg>
+      <span class="c2j-jpg-badge">JPG</span>
+    </div>
+
+    <div class="c2j-drop" id="c2jDrop" tabindex="0" role="button" aria-label="Upload images to convert">
+      <input type="file" id="c2jInput" accept="image/*,.heic,.heif" multiple hidden>
+      <p class="c2j-drop-text"><strong>Drop images here</strong> or <span class="c2j-browse">browse files</span></p>
+      <p class="c2j-drop-hint">PNG · WebP · GIF · BMP · SVG · HEIC — or press Ctrl+V to paste</p>
+    </div>
+  </div>
+</section>
+
+<section class="c2j-workspace" id="c2jWorkspace" hidden>
+  <aside class="c2j-settings">
+    <h2>Conversion settings</h2>
+
+    <label class="c2j-field">
+      <span>JPG quality <b id="c2jQualityVal">90</b></span>
+      <input type="range" id="c2jQuality" min="1" max="100" value="90">
+    </label>
+
+    <div class="c2j-field">
+      <span>Background for transparent areas</span>
+      <div class="c2j-swatches">
+        <button class="c2j-swatch active" data-color="#FFFFFF" style="background:#FFFFFF" aria-label="White"></button>
+        <button class="c2j-swatch" data-color="#000000" style="background:#000000" aria-label="Black"></button>
+        <button class="c2j-swatch" data-color="#F2643B" style="background:#F2643B" aria-label="Orange"></button>
+        <label class="c2j-swatch-custom" aria-label="Custom color"><input type="color" id="c2jCustomColor" value="#faf7f2"></label>
+      </div>
+    </div>
+
+    <label class="c2j-field">
+      <span><input type="checkbox" id="c2jResizeToggle">Limit longest side</span>
+      <div class="c2j-target-row">
+        <input type="number" id="c2jResizeValue" min="1" value="1920" disabled><span>px</span>
+      </div>
+    </label>
+
+    <p class="c2j-note">JPG doesn't support transparency, so see-through areas are filled with your chosen background color. Animated GIFs convert using their first frame.</p>
+
+    <button class="c2j-btn c2j-btn-primary" id="c2jConvertAll">Convert all to JPG</button>
+  </aside>
+
+  <div class="c2j-results">
+    <div class="c2j-summary" id="c2jSummary" hidden>
+      <div class="c2j-summary-stat"><span class="n" id="c2jDoneCount">0</span><span class="l">Converted</span></div>
+      <div class="c2j-summary-actions">
+        <button class="c2j-btn c2j-btn-primary" id="c2jDownloadAll">Download all (ZIP)</button>
+        <button class="c2j-btn c2j-btn-ghost" id="c2jClearAll">Clear</button>
+      </div>
+    </div>
+    <ul class="c2j-filelist" id="c2jFileList"></ul>
+    <p class="c2j-empty" id="c2jEmptyState">Your converted JPGs will appear here.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  var scope = document.getElementById('c2jScope');
+  var $ = function(id){ return document.getElementById(id); };
+
+  var drop = $('c2jDrop'), input = $('c2jInput'), workspace = $('c2jWorkspace'),
+      fileList = $('c2jFileList'), emptyState = $('c2jEmptyState'), summary = $('c2jSummary'),
+      qualitySlider = $('c2jQuality'), qualityVal = $('c2jQualityVal'),
+      resizeToggle = $('c2jResizeToggle'), resizeValue = $('c2jResizeValue'),
+      convertAllBtn = $('c2jConvertAll'), downloadAllBtn = $('c2jDownloadAll'), clearAllBtn = $('c2jClearAll'),
+      swatches = scope.querySelectorAll('.c2j-swatch'), customColor = $('c2jCustomColor');
+
+  var entries = [];
+  var uid = 0;
+  var bgColor = '#FFFFFF';
+  var heic2anyLoading = null;
+
+  function fmtBytes(n){
+    if (n < 1024) return n + ' B';
+    if (n < 1024*1024) return (n/1024).toFixed(n < 10*1024 ? 1 : 0) + ' KB';
+    return (n/(1024*1024)).toFixed(2) + ' MB';
+  }
+  function isHeic(file){
+    return /image\/hei[cf]/i.test(file.type) || /\.hei[cf]$/i.test(file.name);
+  }
+  function canvasToBlob(canvas, mime, quality){
+    return new Promise(function(res){ canvas.toBlob(res, mime, quality); });
+  }
+  function ensureHeic2any(){
+    if (window.heic2any) return Promise.resolve();
+    if (heic2anyLoading) return heic2anyLoading;
+    heic2anyLoading = new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.1/index.min.js';
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    return heic2anyLoading;
+  }
+
+  swatches.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      swatches.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      bgColor = btn.dataset.color;
+    });
+  });
+  customColor.addEventListener('input', function(){
+    swatches.forEach(function(b){ b.classList.remove('active'); });
+    bgColor = customColor.value;
+  });
+
+  function addFiles(fileArr){
+    var valid = Array.prototype.filter.call(fileArr, function(f){
+      return f.type.indexOf('image/') === 0 || isHeic(f);
+    });
+    if (!valid.length) return;
+    workspace.hidden = false;
+    valid.forEach(function(file){
+      var id = 'c2j' + (++uid);
+      var entry = { id:id, file:file, status:'pending', heic:isHeic(file) };
+      entries.push(entry);
+      if (!entry.heic){
+        var img = new Image();
+        img.onload = function(){ entry.w = img.naturalWidth; entry.h = img.naturalHeight; entry.imgEl = img; };
+        img.src = URL.createObjectURL(file);
+        entry.thumbUrl = img.src;
+      } else {
+        entry.thumbUrl = null; // shown as generic icon until converted
+      }
+      renderFileList();
+    });
+  }
+
+  drop.addEventListener('click', function(){ input.click(); });
+  drop.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); input.click(); } });
+  input.addEventListener('change', function(){ addFiles(input.files); input.value = ''; });
+  ['dragenter','dragover'].forEach(function(evt){ drop.addEventListener(evt, function(e){ e.preventDefault(); drop.classList.add('c2j-drag'); }); });
+  ['dragleave','drop'].forEach(function(evt){ drop.addEventListener(evt, function(e){ e.preventDefault(); drop.classList.remove('c2j-drag'); }); });
+  drop.addEventListener('drop', function(e){ if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+  document.addEventListener('paste', function(e){
+    var items = (e.clipboardData || {}).files;
+    if (items && items.length) addFiles(items);
+  });
+
+  qualitySlider.addEventListener('input', function(){ qualityVal.textContent = qualitySlider.value; });
+  resizeToggle.addEventListener('change', function(){ resizeValue.disabled = !resizeToggle.checked; });
+
+  function drawToCanvas(imgEl){
+    var w = imgEl.naturalWidth || imgEl.width, h = imgEl.naturalHeight || imgEl.height;
+    if (resizeToggle.checked){
+      var maxDim = parseInt(resizeValue.value, 10) || 1920;
+      var longest = Math.max(w, h);
+      if (longest > maxDim){ var scale = maxDim / longest; w = Math.round(w*scale); h = Math.round(h*scale); }
+    }
+    var canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(imgEl, 0, 0, w, h);
+    return canvas;
+  }
+
+  function convertEntry(entry){
+    return new Promise(function(resolve){
+      entry.status = 'converting';
+      renderFileList();
+
+      function finishWithImage(imgEl){
+        var canvas = drawToCanvas(imgEl);
+        canvasToBlob(canvas, 'image/jpeg', qualitySlider.value / 100).then(function(blob){
+          entry.outBlob = blob;
+          entry.outSize = blob.size;
+          entry.outUrl = URL.createObjectURL(blob);
+          entry.status = 'done';
+          renderFileList();
+          resolve();
+        });
+      }
+
+      if (entry.heic){
+        ensureHeic2any().then(function(){
+          return window.heic2any({ blob: entry.file, toType: 'image/png', quality: 0.92 });
+        }).then(function(pngBlob){
+          var img = new Image();
+          img.onload = function(){
+            entry.thumbUrl = img.src;
+            entry.w = img.naturalWidth; entry.h = img.naturalHeight;
+            finishWithImage(img);
+          };
+          img.onerror = function(){ entry.status = 'error'; renderFileList(); resolve(); };
+          img.src = URL.createObjectURL(pngBlob);
+        }).catch(function(){
+          entry.status = 'error';
+          renderFileList();
+          resolve();
+        });
+      } else {
+        var tick = function(){
+          if (!entry.imgEl || !entry.imgEl.complete){ setTimeout(tick, 30); return; }
+          finishWithImage(entry.imgEl);
+        };
+        tick();
+      }
+    });
+  }
+
+  convertAllBtn.addEventListener('click', function(){
+    convertAllBtn.disabled = true;
+    convertAllBtn.textContent = 'Converting…';
+    var pending = entries.filter(function(e){ return e.status !== 'converting'; });
+    Promise.all(pending.map(convertEntry)).then(function(){
+      convertAllBtn.disabled = false;
+      convertAllBtn.textContent = 'Convert all to JPG';
+      updateSummary();
+    });
+  });
+
+  clearAllBtn.addEventListener('click', function(){ entries = []; renderFileList(); });
+
+  function renderFileList(){
+    fileList.innerHTML = '';
+    emptyState.hidden = entries.length > 0;
+    updateSummary();
+
+    entries.forEach(function(entry){
+      var li = document.createElement('li');
+      li.className = 'c2j-file';
+
+      var thumb = document.createElement('img');
+      thumb.className = 'c2j-file-thumb';
+      thumb.src = entry.thumbUrl || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52"><rect width="52" height="52" fill="%23F0EBE3"/></svg>';
+      thumb.alt = '';
+      li.appendChild(thumb);
+
+      var mid = document.createElement('div');
+      var name = document.createElement('p');
+      name.className = 'c2j-file-name';
+      name.textContent = entry.file.name;
+      mid.appendChild(name);
+
+      var meta = document.createElement('div');
+      meta.className = 'c2j-file-meta';
+      var fromExt = (entry.file.name.split('.').pop() || 'img').toUpperCase().slice(0,4);
+      var swapHtml = '<span class="c2j-badge-swap"><span class="c2j-badge-from">' + fromExt + '</span> &rarr; <span class="c2j-badge-to' + (entry.status === 'done' ? ' show' : '') + '">JPG</span></span>';
+      if (entry.status === 'done'){
+        meta.innerHTML = swapHtml + '<span>' + fmtBytes(entry.outSize) + '</span>';
+      } else if (entry.status === 'converting'){
+        meta.innerHTML = swapHtml + '<span class="c2j-pending">Converting…</span>';
+      } else if (entry.status === 'error'){
+        meta.innerHTML = swapHtml + '<span class="c2j-error">Couldn\u2019t read this file</span>';
+      } else {
+        meta.innerHTML = swapHtml + '<span class="c2j-pending">Waiting</span>';
+      }
+      mid.appendChild(meta);
+      li.appendChild(mid);
+
+      var actions = document.createElement('div');
+      actions.className = 'c2j-file-actions';
+      var dlBtn = document.createElement('a');
+      dlBtn.className = 'c2j-icon-btn c2j-download';
+      dlBtn.setAttribute('aria-label', 'Download JPG');
+      dlBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0l-5-5m5 5l5-5M4 21h16"/></svg>';
+      if (entry.status === 'done'){
+        dlBtn.href = entry.outUrl;
+        dlBtn.download = entry.file.name.replace(/\.[^.]+$/, '') + '.jpg';
+      } else {
+        dlBtn.style.opacity = '.4'; dlBtn.style.pointerEvents = 'none';
+      }
+      actions.appendChild(dlBtn);
+      li.appendChild(actions);
+
+      fileList.appendChild(li);
+    });
+  }
+
+  function updateSummary(){
+    var done = entries.filter(function(e){ return e.status === 'done'; });
+    summary.hidden = done.length === 0;
+    $('c2jDoneCount').textContent = done.length;
+  }
+
+  var jszipLoading = null;
+  function ensureJSZip(){
+    if (window.JSZip) return Promise.resolve();
+    if (jszipLoading) return jszipLoading;
+    jszipLoading = new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    return jszipLoading;
+  }
+  downloadAllBtn.addEventListener('click', function(){
+    var done = entries.filter(function(e){ return e.status === 'done'; });
+    if (!done.length) return;
+    downloadAllBtn.disabled = true;
+    var original = downloadAllBtn.textContent;
+    downloadAllBtn.textContent = 'Zipping…';
+    ensureJSZip().then(function(){
+      var zip = new window.JSZip();
+      done.forEach(function(e){ zip.file(e.file.name.replace(/\.[^.]+$/, '') + '.jpg', e.outBlob); });
+      return zip.generateAsync({ type: 'blob' });
+    }).then(function(blob){
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'cozyleaf-converted-jpgs.zip';
+      document.body.appendChild(a); a.click(); a.remove();
+      downloadAllBtn.disabled = false; downloadAllBtn.textContent = original;
+    }).catch(function(){
+      downloadAllBtn.disabled = false; downloadAllBtn.textContent = original;
+      alert('Could not build the ZIP — please try downloading images individually.');
+    });
+  });
+
+})();
+</script>
+</div>
