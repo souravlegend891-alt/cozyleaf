@@ -114,13 +114,14 @@
   .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.6;font-size:15px;}
   .signup-btn{background:var(--cta);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;border:none;white-space:nowrap;transition:.15s;}
   .signup-btn:hover{background:var(--cta-dark);}
-  #search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.22);max-height:360px;overflow-y:auto;display:none;z-index:60;}
+  #search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);max-height:min(420px,70vh);overflow-y:auto;display:none;z-index:200;border:1px solid var(--line);}
   #search-results.show{display:block;}
-  .sr-item{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:var(--ink);border-bottom:1px solid var(--line);font-size:14px;}
+  .sr-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;color:var(--ink);border-bottom:1px solid var(--line);font-size:15.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:rgba(255,107,74,.15);}
   .sr-item:last-child{border-bottom:none;}
-  .sr-item:hover{background:var(--paper);}
-  .sr-cat{color:var(--ink-soft);font-size:12px;}
-  .sr-empty{padding:16px;color:var(--ink-soft);font-size:14px;}
+  .sr-item:active,.sr-item:hover{background:var(--paper);}
+  .sr-name{flex:1;min-width:0;}
+  .sr-cat{color:var(--ink-soft);font-size:12px;font-weight:500;flex-shrink:0;background:var(--paper);padding:4px 10px;border-radius:20px;}
+  .sr-empty{padding:20px 18px;color:var(--ink-soft);font-size:14.5px;}
   .overlay{position:fixed;inset:0;background:rgba(10,10,14,.5);z-index:80;opacity:0;pointer-events:none;transition:.2s;}
   .overlay.show{opacity:1;pointer-events:auto;}
   .drawer{position:fixed;top:0;left:0;height:100%;width:350px;max-width:88vw;background:var(--header);color:#fff;z-index:90;transform:translateX(-105%);transition:.25s ease;display:flex;flex-direction:column;}
@@ -166,7 +167,8 @@
     .cat-section{scroll-margin-top:68px;}
     header{padding:12px 14px;gap:10px;}
     .logo{font-size:18px;}
-    .search-wrap input{font-size:14px;padding:10px 14px 10px 36px;}
+    .search-wrap input{font-size:16px;padding:10px 14px 10px 36px;}
+    #search-results{position:fixed;top:64px;left:10px;right:10px;max-height:60vh;}
     .signup-btn{padding:9px 13px;font-size:13px;}
     .hero{padding:34px 16px 24px;}
     .hero h1{font-size:clamp(22px,7vw,30px);}
@@ -190,7 +192,7 @@
     <input id="searchInput" type="text" placeholder="Search any tool — bmi, gpa, typing..."/>
     <div id="search-results"></div>
   </div>
-  <button class="signup-btn">Sign up</button>
+
 </header>
 
 <div class="overlay" id="overlay"></div>
@@ -370,10 +372,22 @@ input.addEventListener('input', ()=>{
   if(!q){ results.classList.remove('show'); return; }
   const matches = ALL_SEARCHABLE.filter(t=>t.name.toLowerCase().includes(q));
   results.innerHTML = matches.length
-    ? matches.map(t=>`<a class="sr-item" href="${t.url || '#'}"><span>${t.name}</span><span class="sr-cat">${t.cat}</span></a>`).join('')
+    ? matches.map(t=>`<div class="sr-item" data-url="${t.url || '#'}"><span class="sr-name">${t.name}</span><span class="sr-cat">${t.cat}</span></div>`).join('')
     : `<div class="sr-empty">No tool found for "${q}"</div>`;
   results.classList.add('show');
 });
+// Navigate on pointerdown/touchstart (fires before the keyboard closes and the layout
+// shifts) instead of waiting for click — this is what makes tapping a result reliable
+// on mobile, since a plain click can land on the wrong spot after the shift.
+function goToSearchResult(e){
+  const item = e.target.closest('.sr-item');
+  if(!item) return;
+  e.preventDefault();
+  const url = item.dataset.url;
+  if(url && url !== '#') window.location.href = url;
+}
+results.addEventListener('touchstart', goToSearchResult, {passive:false});
+results.addEventListener('mousedown', goToSearchResult);
 document.addEventListener('click', e=>{
   if(!e.target.closest('.search-wrap')) results.classList.remove('show');
 });
