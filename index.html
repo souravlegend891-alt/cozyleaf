@@ -143,7 +143,7 @@
   .jumpnav a:hover{border-color:var(--ink); color:var(--ink);}
   .jumpnav .chip{width:7px;height:7px;border-radius:50%;}
   main{max-width:1100px;margin:0 auto;padding:28px 24px 90px;}
-  .cat-section{margin-bottom:40px;}
+  .cat-section{margin-bottom:40px;scroll-margin-top:78px;}
   .cat-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .cat-head .bar{width:5px;height:24px;border-radius:3px;flex-shrink:0;}
   .cat-head h2{font-size:20px;font-weight:600;color:var(--ink);}
@@ -163,6 +163,7 @@
   footer a:hover{color:var(--cta);}
   .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
   @media (max-width:640px){
+    .cat-section{scroll-margin-top:68px;}
     header{padding:12px 14px;gap:10px;}
     .logo{font-size:18px;}
     .search-wrap input{font-size:14px;padding:10px 14px 10px 36px;}
@@ -204,7 +205,7 @@
 <section class="hero">
 <span class="eyebrow">Cozyleaf.in — Free tools that actually work</span>
   <h1>Free Image, PDF, Calculator & Text Tools — All in One Place</h1>
-  <p>No sign-up, no download, no watermark. Every tool below runs instantly in your browser and works on any device — desktop, tablet, or phone.</p>
+  <p>Cozyleaf brings together the calculators and converters people search for most — BMI, calorie, BMR, and GPA calculators, an image to JPG converter, a typing speed test, and more. No sign-up, no download, and no watermark — every tool runs instantly in your browser on any device.</p>
 </section>
 
 <nav class="jumpnav" id="jumpnav"></nav>
@@ -278,9 +279,24 @@ function shade(hex, percent){
 const main = document.getElementById('main');
 const jumpnav = document.getElementById('jumpnav');
 
+// Manual category order — edit this list to control the order categories appear on the
+// homepage. Add new category names here when you add new tool categories; any category
+// not listed here will simply be appended at the end automatically.
+const CATEGORY_ORDER = [
+  "Text Tools",
+  "Name Generator Tools",
+  "Calculators",
+  "Image Tools"
+];
 const MAIN_CATS_ORDER = [...new Set(MAIN_TOOLS.map(t=>t.cat))]
-  .sort((a,b)=> Math.max(...MAIN_TOOLS.filter(t=>t.cat===b).map(t=>t.usage))
-              - Math.max(...MAIN_TOOLS.filter(t=>t.cat===a).map(t=>t.usage)));
+  .sort((a,b)=>{
+    const ia = CATEGORY_ORDER.indexOf(a);
+    const ib = CATEGORY_ORDER.indexOf(b);
+    if(ia === -1 && ib === -1) return 0;
+    if(ia === -1) return 1;
+    if(ib === -1) return -1;
+    return ia - ib;
+  });
 
 MAIN_CATS_ORDER.forEach(cat=>{
   const tools = MAIN_TOOLS.filter(t=>t.cat===cat).sort((a,b)=>b.usage-a.usage);
