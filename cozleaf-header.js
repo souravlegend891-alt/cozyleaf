@@ -123,12 +123,12 @@
       <header id="czHeader">
         <div class="cz-side"><button class="cz-icon-btn" id="czDrawerBtn" aria-label="Browse all tools">☰</button></div>
         <a class="cz-logo" href="index.html">
-          <svg width="147" height="48" viewBox="0 0 210 68" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="8" cy="14" r="6" fill="#FF6B4A"/>
-            <text x="22" y="30" font-family="'Space Grotesk',sans-serif" font-size="27" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Cozyleaf</text>
-            <path d="M22 44C55 58 130 58 168 40" stroke="#3FA875" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-            <path d="M85 55C88 48 96 45 102 48C99 54 91 58 85 56C84.3 55.7 84.6 55.3 85 55Z" fill="#3FA875"/>
-            <path d="M168 40C171 31 179 27 188 29C186 38 178 44 169 43C167.5 42.8 167.6 40.9 168 40Z" fill="#3FA875"/>
+          <svg width="147" height="42" viewBox="0 0 210 68" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="18" r="5" fill="#3FA875"/>
+            <text x="21" y="30" font-family="'Space Grotesk',sans-serif" font-size="27" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Cozyleaf</text>
+            <path d="M21 44C54 58 129 58 167 40" stroke="#3FA875" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M84 55C87 48 95 45 101 48C98 54 90 58 84 56C83.3 55.7 83.6 55.3 84 55Z" fill="#3FA875"/>
+            <path d="M167 40C170 31 178 27 187 29C185 38 177 44 168 43C166.5 42.8 166.6 40.9 167 40Z" fill="#3FA875"/>
           </svg>
         </a>
         <div class="cz-side cz-right"><button class="cz-icon-btn" id="czSearchBtn" aria-label="Search tools">🔍</button></div>
