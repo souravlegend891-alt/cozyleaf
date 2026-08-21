@@ -36,7 +36,7 @@
 
   const CSS = `
     #czHeader{position:sticky;top:0;z-index:200;background:#1B1D29;color:#fff;
-      padding:12px 14px;display:flex;align-items:center;
+      padding:8px 14px;display:flex;align-items:center;
       font-family:'Space Grotesk','Inter',sans-serif;}
     #czHeader .cz-side{flex:1;display:flex;align-items:center;min-width:0;}
     #czHeader .cz-side.cz-right{justify-content:flex-end;}
@@ -123,12 +123,12 @@
       <header id="czHeader">
         <div class="cz-side"><button class="cz-icon-btn" id="czDrawerBtn" aria-label="Browse all tools">☰</button></div>
         <a class="cz-logo" href="index.html">
-          <svg width="147" height="42" viewBox="0 0 210 68" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="8" cy="18" r="5" fill="#3FA875"/>
-            <text x="21" y="30" font-family="'Space Grotesk',sans-serif" font-size="27" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Cozyleaf</text>
-            <path d="M21 44C54 58 129 58 167 40" stroke="#3FA875" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-            <path d="M84 55C87 48 95 45 101 48C98 54 90 58 84 56C83.3 55.7 83.6 55.3 84 55Z" fill="#3FA875"/>
-            <path d="M167 40C170 31 178 27 187 29C185 38 177 44 168 43C166.5 42.8 166.6 40.9 167 40Z" fill="#3FA875"/>
+          <svg width="147" height="46" viewBox="0 0 208 65" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="20" r="5.5" fill="#3FA875"/>
+            <text x="21" y="34" font-family="'Space Grotesk',sans-serif" font-size="31" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Cozyleaf.in</text>
+            <path d="M21 46C58 60 143 60 185 42" stroke="#3FA875" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <path d="M92 57C95 50 103 47 109 50C106 56 98 60 92 58C91.3 57.7 91.6 57.3 92 57Z" fill="#3FA875"/>
+            <path d="M185 42C188 33 196 29 205 31C203 40 195 46 186 45C184.5 44.8 184.6 42.9 185 42Z" fill="#3FA875"/>
           </svg>
         </a>
         <div class="cz-side cz-right"><button class="cz-icon-btn" id="czSearchBtn" aria-label="Search tools">🔍</button></div>
