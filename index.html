@@ -106,8 +106,8 @@
   .header-side.right{justify-content:flex-end;}
   .icon-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#fff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:.15s;}
   .icon-btn:hover{background:var(--header-soft);}
-  .logo{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:7px;flex-shrink:0;white-space:nowrap;}
-  .logo .dot{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--cta-glow), var(--cta) 70%);display:inline-block;box-shadow:0 0 0 3px rgba(31,122,83,.18);}
+  .logo{display:flex;align-items:center;flex-shrink:0;}
+  .logo svg{display:block;}
 
   /* search icon replaces the old always-visible input in the header row */
   #searchToggle{}
@@ -188,7 +188,7 @@
   .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
   @media (max-width:640px){
     .cat-section{scroll-margin-top:68px;margin-bottom:28px;}
-    .logo{font-size:17px;}
+    .logo svg{width:115px;height:36px;}
     .hero{padding:18px 16px 14px;}
     .hero .eyebrow{display:none;}
     .hero h1{font-size:clamp(19px,6vw,24px);margin-bottom:6px;}
@@ -208,7 +208,15 @@
   <div class="header-side left">
     <button class="icon-btn" id="drawerBtn" aria-label="Browse all categories">☰</button>
   </div>
-  <a class="logo" href="index.html"><span class="dot"></span><span class="text">Cozyleaf</span></a>
+  <a class="logo" href="index.html">
+    <svg width="128" height="40" viewBox="0 0 208 65" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="8" cy="20" r="5.5" fill="#3FA875"/>
+      <text x="21" y="34" font-family="'Space Grotesk',sans-serif" font-size="31" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Cozyleaf.in</text>
+      <path d="M21 46C58 60 143 60 185 42" stroke="#3FA875" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M92 57C95 50 103 47 109 50C106 56 98 60 92 58C91.3 57.7 91.6 57.3 92 57Z" fill="#3FA875"/>
+      <path d="M185 42C188 33 196 29 205 31C203 40 195 46 186 45C184.5 44.8 184.6 42.9 185 42Z" fill="#3FA875"/>
+    </svg>
+  </a>
   <div class="header-side right">
     <button class="icon-btn" id="searchToggle" aria-label="Search tools">🔍</button>
   </div>
