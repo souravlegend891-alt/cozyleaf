@@ -10,7 +10,6 @@
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <meta name="theme-color" content="#1B1D29"/>
 
-<!-- Open Graph -->
 <meta property="og:site_name" content="Cozyleaf"/>
 <meta property="og:title" content="Cozyleaf — Free Image, PDF, Calculator & Text Tools Online"/>
 <meta property="og:description" content="Free online tools for everyone — calculators, image conversion, typing tests, and more. No sign-up needed."/>
@@ -18,17 +17,14 @@
 <meta property="og:url" content="https://cozyleaf.in/"/>
 <meta property="og:locale" content="en_US"/>
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Cozyleaf — Free Image, PDF, Calculator & Text Tools Online"/>
 <meta name="twitter:description" content="Free online tools for everyone — calculators, image conversion, typing tests, and more."/>
 
-<!-- Performance: preconnect + font loading that won't block rendering -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
 
-<!-- WebSite structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,7 +41,6 @@
 }
 </script>
 
-<!-- Organization structured data (helps brand search / knowledge panel eligibility) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -57,7 +52,6 @@
 }
 </script>
 
-<!-- ItemList structured data: lists every live tool so Google understands site structure -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -103,20 +97,36 @@
   .mono{font-family:'IBM Plex Mono',monospace;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;cursor:pointer;}
-  header{position:sticky;top:0;z-index:50;background:var(--header);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:16px;}
+
+  header{
+    position:sticky;top:0;z-index:50;background:var(--header);color:#fff;
+    padding:12px 14px;display:flex;align-items:center;
+  }
+  .header-side{flex:1;display:flex;align-items:center;min-width:0;}
+  .header-side.right{justify-content:flex-end;}
   .icon-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#fff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:.15s;}
   .icon-btn:hover{background:var(--header-soft);}
-  .logo{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:7px;flex-shrink:0;}
-  .logo .dot{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--cta-glow), var(--cta) 70%);display:inline-block;box-shadow:0 0 0 3px rgba(31,122,83,.18);}
-  .search-wrap{flex:1;position:relative;max-width:640px;}
-  .search-wrap input{width:100%;padding:11px 16px 11px 40px;border-radius:10px;border:none;background:rgba(255,255,255,0.08);color:#fff;font-size:14.5px;font-family:'Inter',sans-serif;outline:none;transition:.15s;}
-  .search-wrap input::placeholder{color:rgba(255,255,255,0.45);}
-  .search-wrap input:focus{background:#fff;color:var(--ink);}
-  .search-wrap input:focus::placeholder{color:var(--ink-soft);}
-  .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.6;font-size:15px;}
-  .signup-btn{background:var(--cta);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;border:none;white-space:nowrap;transition:.15s;}
-  .signup-btn:hover{background:var(--cta-dark);}
-  #search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);max-height:min(420px,70vh);overflow-y:auto;display:none;z-index:200;border:1px solid var(--line);}
+  .logo{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:7px;flex-shrink:0;white-space:nowrap;}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--cta-glow), var(--cta) 70%);display:inline-block;box-shadow:0 0 0 3px rgba(31,122,83,.18);}
+
+  /* search icon replaces the old always-visible input in the header row */
+  #searchToggle{}
+  .search-overlay{
+    position:fixed;top:0;left:0;right:0;background:var(--header);z-index:60;
+    padding:12px 14px;display:flex;align-items:center;gap:10px;
+    transform:translateY(-100%);transition:transform .2s ease;
+  }
+  .search-overlay.show{transform:translateY(0);}
+  .search-overlay input{
+    flex:1;padding:11px 16px;border-radius:10px;border:none;background:rgba(255,255,255,0.08);
+    color:#fff;font-size:16px;font-family:'Inter',sans-serif;outline:none;
+  }
+  .search-overlay input::placeholder{color:rgba(255,255,255,0.45);}
+  .search-overlay input:focus{background:#fff;color:var(--ink);}
+  .search-overlay input:focus::placeholder{color:var(--ink-soft);}
+  .search-overlay .close-search{background:none;border:none;color:#fff;font-size:22px;line-height:1;flex-shrink:0;}
+
+  #search-results{position:fixed;top:66px;left:10px;right:10px;background:var(--card);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);max-height:min(420px,70vh);overflow-y:auto;display:none;z-index:65;border:1px solid var(--line);}
   #search-results.show{display:block;}
   .sr-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;color:var(--ink);border-bottom:1px solid var(--line);font-size:15.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:rgba(255,107,74,.15);}
   .sr-item:last-child{border-bottom:none;}
@@ -124,6 +134,7 @@
   .sr-name{flex:1;min-width:0;}
   .sr-cat{color:var(--ink-soft);font-size:12px;font-weight:500;flex-shrink:0;background:var(--hover);padding:4px 10px;border-radius:20px;}
   .sr-empty{padding:20px 18px;color:var(--ink-soft);font-size:14.5px;}
+
   .overlay{position:fixed;inset:0;background:rgba(10,10,14,.5);z-index:80;opacity:0;pointer-events:none;transition:.2s;}
   .overlay.show{opacity:1;pointer-events:auto;}
   .drawer{position:fixed;top:0;left:0;height:100%;width:350px;max-width:88vw;background:var(--header);color:#fff;z-index:90;transform:translateX(-105%);transition:.25s ease;display:flex;flex-direction:column;}
@@ -177,11 +188,7 @@
   .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
   @media (max-width:640px){
     .cat-section{scroll-margin-top:68px;margin-bottom:28px;}
-    header{padding:12px 14px;gap:10px;}
-    .logo{font-size:18px;}
-    .search-wrap input{font-size:16px;padding:10px 14px 10px 36px;}
-    #search-results{position:fixed;top:64px;left:10px;right:10px;max-height:60vh;}
-    .signup-btn{padding:9px 13px;font-size:13px;}
+    .logo{font-size:17px;}
     .hero{padding:18px 16px 14px;}
     .hero .eyebrow{display:none;}
     .hero h1{font-size:clamp(19px,6vw,24px);margin-bottom:6px;}
@@ -198,15 +205,20 @@
 <body>
 
 <header>
-  <button class="icon-btn" id="drawerBtn" aria-label="Browse all categories">☰</button>
-  <a class="logo" href="index.html"><span class="dot"></span><span class="text">Cozyleaf</span></a>
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input id="searchInput" type="text" placeholder="Search any tool — bmi, gpa, typing..."/>
-    <div id="search-results"></div>
+  <div class="header-side left">
+    <button class="icon-btn" id="drawerBtn" aria-label="Browse all categories">☰</button>
   </div>
-
+  <a class="logo" href="index.html"><span class="dot"></span><span class="text">Cozyleaf</span></a>
+  <div class="header-side right">
+    <button class="icon-btn" id="searchToggle" aria-label="Search tools">🔍</button>
+  </div>
 </header>
+
+<div class="search-overlay" id="searchOverlay">
+  <input id="searchInput" type="text" placeholder="Search any tool — bmi, gpa, typing..."/>
+  <button class="close-search" id="closeSearch" aria-label="Close search">×</button>
+</div>
+<div id="search-results"></div>
 
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="drawer">
@@ -243,10 +255,6 @@
 </footer>
 
 <script>
-// Only tools that are fully built and work reliably in-browser are listed here.
-// Remove Background, Upscale Image, Compress/Resize/Crop Image, Convert from JPG,
-// Image Translator, and all Document/PDF tools are intentionally left out until
-// they're actually built and tested — add them back in once ready.
 const MAIN_TOOLS = [
   {name:"Convert to JPG",    cat:"Image Tools", formats:"PNG, GIF, TIF, SVG, WEBP", usage:0, url:"convert-to-jpg.html"},
   {name:"BMI Calculator",     cat:"Calculators", formats:"", usage:9000000, url:"bmi-calculator.html"},
@@ -294,9 +302,6 @@ function shade(hex, percent){
 const main = document.getElementById('main');
 const jumpnav = document.getElementById('jumpnav');
 
-// Manual category order — edit this list to control the order categories appear on the
-// homepage. Add new category names here when you add new tool categories; any category
-// not listed here will simply be appended at the end automatically.
 const CATEGORY_ORDER = [
   "Text Tools",
   "Name Generator Tools",
@@ -374,14 +379,29 @@ document.getElementById('footerAll').onclick = (e)=>{e.preventDefault(); openDra
 overlay.onclick = closeDrawer;
 drawerBody.addEventListener('click', e=>{ if(e.target.closest('.drawer-link')) closeDrawer(); });
 
+const searchOverlay = document.getElementById('searchOverlay');
+const searchToggle = document.getElementById('searchToggle');
+const closeSearch = document.getElementById('closeSearch');
+const searchInput = document.getElementById('searchInput');
+const results = document.getElementById('search-results');
+
+function openSearch(){
+  searchOverlay.classList.add('show');
+  setTimeout(()=> searchInput.focus(), 150);
+}
+function closeSearchBox(){
+  searchOverlay.classList.remove('show');
+  results.classList.remove('show');
+}
+searchToggle.onclick = openSearch;
+closeSearch.onclick = closeSearchBox;
+
 const ALL_SEARCHABLE = [
   ...MAIN_TOOLS.map(t=>({name:t.name, cat:t.cat, url:t.url})),
   ...Object.entries(DRAWER_CATEGORIES).flatMap(([cat, tools])=>tools.map(t=>({name:t.name, cat, url:t.url})))
 ];
-const input = document.getElementById('searchInput');
-const results = document.getElementById('search-results');
-input.addEventListener('input', ()=>{
-  const q = input.value.trim().toLowerCase();
+searchInput.addEventListener('input', ()=>{
+  const q = searchInput.value.trim().toLowerCase();
   if(!q){ results.classList.remove('show'); return; }
   const matches = ALL_SEARCHABLE.filter(t=>t.name.toLowerCase().includes(q));
   results.innerHTML = matches.length
@@ -389,9 +409,6 @@ input.addEventListener('input', ()=>{
     : `<div class="sr-empty">No tool found for "${q}"</div>`;
   results.classList.add('show');
 });
-// Navigate on pointerdown/touchstart (fires before the keyboard closes and the layout
-// shifts) instead of waiting for click — this is what makes tapping a result reliable
-// on mobile, since a plain click can land on the wrong spot after the shift.
 function goToSearchResult(e){
   const item = e.target.closest('.sr-item');
   if(!item) return;
@@ -402,7 +419,9 @@ function goToSearchResult(e){
 results.addEventListener('touchstart', goToSearchResult, {passive:false});
 results.addEventListener('mousedown', goToSearchResult);
 document.addEventListener('click', e=>{
-  if(!e.target.closest('.search-wrap')) results.classList.remove('show');
+  if(!e.target.closest('.search-overlay') && !e.target.closest('#searchToggle')) {
+    results.classList.remove('show');
+  }
 });
 </script>
 </body>
