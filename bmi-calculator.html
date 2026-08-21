@@ -3,7 +3,51 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>BMI Calculator - Cozyleaf</title>
+
+<title>BMI Calculator - Check Your Body Mass Index Free Online | Cozyleaf</title>
+<meta name="description" content="Free BMI calculator — check your Body Mass Index instantly using metric (kg/cm) or imperial (lb/in) units. Get your BMI category and health guidance. No sign-up needed."/>
+<meta name="keywords" content="bmi calculator, body mass index calculator, bmi calculator kg cm, bmi chart, healthy weight calculator, free bmi calculator"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<link rel="canonical" href="https://cozyleaf.in/bmi-calculator.html"/>
+<meta name="theme-color" content="#2EC4B6"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Cozyleaf"/>
+<meta property="og:title" content="BMI Calculator - Check Your Body Mass Index Free Online"/>
+<meta property="og:description" content="Free BMI calculator — check your Body Mass Index instantly using metric or imperial units. Get your category and health guidance."/>
+<meta property="og:url" content="https://cozyleaf.in/bmi-calculator.html"/>
+<meta property="og:locale" content="en_US"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BMI Calculator - Cozyleaf"/>
+<meta name="twitter:description" content="Free BMI calculator — check your Body Mass Index instantly. No sign-up needed."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf BMI Calculator",
+  "url": "https://cozyleaf.in/bmi-calculator.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool to calculate Body Mass Index (BMI) using metric or imperial units, with instant category and health guidance."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is BMI?","acceptedAnswer":{"@type":"Answer","text":"BMI (Body Mass Index) is a number calculated from your height and weight that estimates whether your weight is in a healthy range for your height."}},
+    {"@type":"Question","name":"How is BMI calculated?","acceptedAnswer":{"@type":"Answer","text":"BMI is calculated as weight in kilograms divided by height in meters squared. This calculator also supports imperial units (pounds and inches)."}},
+    {"@type":"Question","name":"What are the BMI categories?","acceptedAnswer":{"@type":"Answer","text":"Under 18.5 is underweight, 18.5 to 24.9 is normal weight, 25 to 29.9 is overweight, and 30 or above is considered obese."}},
+    {"@type":"Question","name":"Is BMI accurate for everyone?","acceptedAnswer":{"@type":"Answer","text":"BMI is a useful general screening tool but does not account for muscle mass, bone density, age, or sex. Athletes and very muscular people may show a higher BMI without excess body fat. Consult a healthcare provider for a full assessment."}},
+    {"@type":"Question","name":"Is this BMI calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -14,7 +58,7 @@
     background:#F5F4F0;border:1px solid #E6E4DD;border-radius:14px;
     padding:26px 22px;color:#14161A;
   }
-  .bmi-wrap h2{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:6px;}
+  .bmi-wrap h1{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:6px;}
   .bmi-wrap p.sub{color:#6B6F76;font-size:14px;margin-bottom:20px;}
   .bmi-unit-toggle{display:flex;gap:8px;margin-bottom:18px;}
   .bmi-unit-toggle button{
@@ -48,14 +92,32 @@
   .cat-normal{background:#E4F9F6;color:#159C8F;}
   .cat-over{background:#FFEDE8;color:#E85436;}
   .cat-obese{background:#FBE9E9;color:#C0392B;}
+
+  .seo-content{max-width:480px;margin:0 auto 40px;padding:0 22px;color:#4A4E56;}
+  .seo-content h1{font-family:'Space Grotesk',sans-serif;font-size:19px;color:#14161A;margin-bottom:10px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:#14161A;margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .bmi-chart{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:13px;}
+  .bmi-chart th,.bmi-chart td{padding:8px 10px;text-align:left;border-bottom:1px solid #E6E4DD;}
+  .bmi-chart th{color:#6B6F76;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .more-tools{max-width:480px;margin:0 auto 8px;padding:0 22px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:#14161A;margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{
+    display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;
+    background:#fff;border:1px solid #E6E4DD;color:#14161A;text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s;
+  }
+  .tool-grid a:hover{border-color:#2EC4B6;background:#F0FBFA;}
+  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
 </style>
 </head>
 <body>
 
-<a class="top-back" href="index.html">← Back to all tools</a>
+<script src="assets/cozyleaf-header.js" defer></script>
 
 <div class="bmi-wrap">
-  <h2>BMI Calculator</h2>
+  <h1>BMI Calculator</h1>
   <p class="sub">Check your Body Mass Index by entering your height and weight below.</p>
 
   <div class="bmi-unit-toggle">
@@ -97,6 +159,66 @@
     <div class="desc" id="bmiDesc"></div>
   </div>
 </div>
+
+<nav class="more-tools" aria-label="Other tools">
+  <h2>More Free Tools</h2>
+  <div class="tool-grid">
+    <a href="calorie-calculator.html"><span class="ic">🔥</span>Calorie Calculator</a>
+    <a href="bmr-calculator.html"><span class="ic">⚡</span>BMR Calculator</a>
+    <a href="love-calculator.html"><span class="ic">💕</span>Love Calculator</a>
+    <a href="gpa-cgpa-calculator.html"><span class="ic">🎓</span>GPA / CGPA Calculator</a>
+    <a href="dog-food-calculator.html"><span class="ic">🐶</span>Dog Food Calculator</a>
+    <a href="typing-speed-test.html"><span class="ic">⌨️</span>Typing Speed Test</a>
+    <a href="convert-to-jpg.html"><span class="ic">🖼️</span>Convert to JPG</a>
+    <a href="name-style.html"><span class="ic">✨</span>Stylish Name Generator</a>
+  </div>
+</nav>
+
+<section class="seo-content">
+  <h2>Free BMI Calculator — Check Your Body Mass Index Online</h2>
+  <p>This BMI calculator gives you an instant Body Mass Index reading using either metric (kilograms and centimeters) or imperial (pounds and inches) units. Just enter your height and weight and tap Calculate — no sign-up, no download, and the result appears immediately in your browser.</p>
+
+  <h2>What is BMI?</h2>
+  <p>Body Mass Index (BMI) is a simple screening measurement calculated from your height and weight. It's widely used by doctors and health organizations as a quick way to estimate whether a person's weight falls into a healthy range for their height.</p>
+
+  <h2>BMI Category Chart</h2>
+  <table class="bmi-chart">
+    <tr><th>BMI Range</th><th>Category</th></tr>
+    <tr><td>Below 18.5</td><td>Underweight</td></tr>
+    <tr><td>18.5 – 24.9</td><td>Normal weight</td></tr>
+    <tr><td>25.0 – 29.9</td><td>Overweight</td></tr>
+    <tr><td>30.0 and above</td><td>Obese</td></tr>
+  </table>
+
+  <h2>How Is BMI Calculated?</h2>
+  <p>In metric units, BMI equals your weight in kilograms divided by your height in meters, squared. In imperial units, it's your weight in pounds divided by your height in inches squared, multiplied by 703. This calculator handles the math for you automatically in either unit system.</p>
+
+  <h2>Is BMI a Perfect Measurement?</h2>
+  <p>BMI is a useful general indicator, but it doesn't directly measure body fat and doesn't account for factors like muscle mass, bone density, age, or sex. Athletes or very muscular people may show a higher BMI without carrying excess body fat. Use BMI as a starting point, not a diagnosis, and speak with a healthcare provider for a complete picture of your health.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <p><strong>What is BMI?</strong> BMI (Body Mass Index) is a number calculated from your height and weight that estimates whether your weight is in a healthy range for your height.</p>
+  <p><strong>How is BMI calculated?</strong> BMI is calculated as weight in kilograms divided by height in meters squared. This calculator also supports imperial units (pounds and inches).</p>
+  <p><strong>What are the BMI categories?</strong> Under 18.5 is underweight, 18.5 to 24.9 is normal weight, 25 to 29.9 is overweight, and 30 or above is considered obese.</p>
+  <p><strong>Is BMI accurate for everyone?</strong> BMI is a useful general screening tool but does not account for muscle mass, bone density, age, or sex. Athletes and very muscular people may show a higher BMI without excess body fat. Consult a healthcare provider for a full assessment.</p>
+  <p><strong>Is this BMI calculator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+  <p><strong>Does it work in both kg and lb?</strong> Yes — switch between Metric (kg/cm) and Imperial (lb/in) using the toggle above the form.</p>
+  <p><strong>Does this store or upload my data?</strong> No — the calculation runs entirely in your browser. Nothing is sent to any server.</p>
+
+  <p style="margin-top:16px;padding:12px 14px;background:#fff;border:1px solid #E6E4DD;border-radius:10px;font-size:12.5px;color:#6B6F76;">
+    <strong>Medical disclaimer:</strong> This tool provides a general estimate only and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider with questions about your health.
+  </p>
+</section>
+
+<footer style="max-width:480px;margin:0 auto 30px;padding:0 22px;text-align:center;">
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+    <a href="index.html" style="color:#6B6F76;text-decoration:none;">All Tools</a>
+    <a href="about.html" style="color:#6B6F76;text-decoration:none;">About</a>
+    <a href="contact.html" style="color:#6B6F76;text-decoration:none;">Contact</a>
+    <a href="privacy-policy.html" style="color:#6B6F76;text-decoration:none;">Privacy Policy</a>
+    <a href="terms.html" style="color:#6B6F76;text-decoration:none;">Terms of Service</a>
+  </div>
+</footer>
 
 <script>
 (function(){
