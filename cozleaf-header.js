@@ -1,5 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
+   VERSION: cozyleaf-v8-2026-08-22 (logo 147x46, header pad 8px 14px)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -113,7 +114,31 @@
     return toolsHTML + infoHTML;
   }
 
+  function ensureFontLoaded(){
+    // If a page's own <head> forgot to include the Space Grotesk font (or it
+    // loads late), the logo briefly renders in a fallback font that has
+    // different letter widths — this is what looks like the logo "resizing"
+    // or "shaking" when moving between pages. Loading it here guarantees
+    // every page using this shared header gets the same font, every time.
+    if(document.getElementById('cz-font-link')) return;
+    const preconnect1 = document.createElement('link');
+    preconnect1.rel = 'preconnect';
+    preconnect1.href = 'https://fonts.googleapis.com';
+    const preconnect2 = document.createElement('link');
+    preconnect2.rel = 'preconnect';
+    preconnect2.href = 'https://fonts.gstatic.com';
+    preconnect2.crossOrigin = 'anonymous';
+    const fontLink = document.createElement('link');
+    fontLink.id = 'cz-font-link';
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap';
+    document.head.appendChild(preconnect1);
+    document.head.appendChild(preconnect2);
+    document.head.appendChild(fontLink);
+  }
+
   function inject(){
+    ensureFontLoaded();
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.appendChild(style);
