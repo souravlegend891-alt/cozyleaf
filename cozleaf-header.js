@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v8-2026-08-22 (logo 147x46, header pad 8px 14px)
+   VERSION: cozyleaf-v9-2026-08-22 (exposes window.COZYLEAF_TOOLS)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -34,6 +34,24 @@
     "Image Tools":"#FF6B4A","Calculators":"#2EC4B6",
     "Text Tools":"#8676FF","Name Generator Tools":"#8676FF"
   };
+
+  // Expose so individual tool pages can build "More Tools" sections
+  // from this single source instead of hardcoding their own lists.
+  const TOOL_ICONS = {
+    "convert-to-jpg.html":"🖼️",
+    "bmi-calculator.html":"⚖️",
+    "calorie-calculator.html":"🔥",
+    "bmr-calculator.html":"⚡",
+    "love-calculator.html":"💕",
+    "gpa-cgpa-calculator.html":"🎓",
+    "dog-food-calculator.html":"🐶",
+    "typing-speed-test.html":"⌨️",
+    "name-style.html":"✨"
+  };
+  window.COZYLEAF_TOOLS = MAIN_TOOLS;
+  window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
+  window.COZYLEAF_CATEGORY_HEX = CATEGORY_HEX;
+  window.COZYLEAF_ICONS = TOOL_ICONS;
 
   const CSS = `
     #czHeader{position:sticky;top:0;z-index:200;background:#1B1D29;color:#fff;
