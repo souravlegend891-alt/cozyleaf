@@ -117,6 +117,23 @@
   .tool-grid a:hover{border-color:var(--c-calc);background:#F0FBFA;}
   .tool-grid a .ic{font-size:15px;flex-shrink:0;}
 
+  .more-toggle{
+    width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);
+    background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .more-toggle:hover{border-color:var(--c-calc);color:var(--c-calc);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{
+    display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
+    font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);
+  }
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
   .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
 </style>
 </head>
@@ -181,16 +198,9 @@
 
   <nav class="more-tools" aria-label="Other tools">
     <h2>More Free Tools</h2>
-    <div class="tool-grid">
-      <a href="calorie-calculator.html"><span class="ic">🔥</span>Calorie Calculator</a>
-      <a href="bmr-calculator.html"><span class="ic">⚡</span>BMR Calculator</a>
-      <a href="love-calculator.html"><span class="ic">💕</span>Love Calculator</a>
-      <a href="gpa-cgpa-calculator.html"><span class="ic">🎓</span>GPA / CGPA Calculator</a>
-      <a href="dog-food-calculator.html"><span class="ic">🐶</span>Dog Food Calculator</a>
-      <a href="typing-speed-test.html"><span class="ic">⌨️</span>Typing Speed Test</a>
-      <a href="convert-to-jpg.html"><span class="ic">🖼️</span>Convert to JPG</a>
-      <a href="name-style.html"><span class="ic">✨</span>Stylish Name Generator</a>
-    </div>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
   </nav>
 
   <section class="seo-content">
@@ -240,7 +250,49 @@
   </footer>
 </div>
 
-<script>
+<script defer>
+(function(){
+  var CURRENT_URL = 'bmi-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  function buildMoreTools(){
+    var tools = window.COZYLEAF_TOOLS || [];
+    var icons = window.COZYLEAF_ICONS || {};
+    var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+    var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+    // Same-category tools, shown directly as a grid
+    var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+    var grid = document.getElementById('categoryGrid');
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+
+    // Every other category, grouped, revealed under "+ More tools"
+    var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+    var listEl = document.getElementById('allToolsList');
+    listEl.innerHTML = otherCats.map(function(cat){
+      var hex = catHex[cat] || '#9AA0AC';
+      var catTools = tools.filter(function(t){ return t.cat === cat; });
+      if(!catTools.length) return '';
+      var head = '<div class="all-tools-cat"><span class="chip" style="background:'+hex+'"></span>'+cat+'</div>';
+      var rows = catTools.map(function(t){
+        var ic = icons[t.url] || '🔧';
+        return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+      }).join('');
+      return head + rows;
+    }).join('');
+
+    document.getElementById('moreToggle').addEventListener('click', function(){
+      listEl.classList.toggle('open');
+      this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+    });
+  }
+  buildMoreTools();
+})();
+</script>
+<script defer>
 (function(){
   var metricBtn = document.getElementById('unitMetric');
   var imperialBtn = document.getElementById('unitImperial');
@@ -327,4 +379,3 @@
 </script>
 </body>
 </html>
-
