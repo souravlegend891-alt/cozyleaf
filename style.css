@@ -1,0 +1,102 @@
+/* ============================================================
+   Cozyleaf Shared Stylesheet
+   VERSION: cozyleaf-style-v1-2026-08-22
+   Link on every page, in <head>, AFTER the Google Fonts link:
+   <link rel="stylesheet" href="style.css">
+
+   Purpose: one source of truth for colors, header look, and
+   the approved size standard, so every page (index + all tools)
+   looks and feels identical. Page-specific styling (e.g. a
+   calculator's own result UI) stays in that page's own <style>
+   block below this file.
+   ============================================================ */
+
+:root{
+  /* ---- Core palette (same on every page) ---- */
+  --ink:#14161A;
+  --ink-soft:#6B6F76;
+  --paper:#FFFFFF;      /* site-wide background */
+  --hover:#F6F6F6;
+  --card:#FFFFFF;
+  --line:#EBEBEB;
+  --header:#1B1D29;
+  --header-soft:#262A3B;
+
+  /* ---- Primary action color (buttons, links, focus) ---- */
+  --cta:#1F7A53;
+  --cta-dark:#175C3F;
+  --cta-glow:#3FA875;
+
+  --radius:12px;
+
+  /* ---- Category accent colors (used for badges/bars) ---- */
+  --c-image:#FF6B4A;
+  --c-calc:#2EC4B6;
+  --c-convert:#F4A527;
+  --c-fun:#8676FF;
+  --c-doc:#4CA8FF;
+  --c-qr:#9AA0AC;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+
+/* ============================================================
+   APPROVED SIZE STANDARD — applies to every tool page's content
+   (Do not override these on individual pages.)
+   ============================================================ */
+
+.wrap{max-width:560px;margin:0 auto;padding:26px 16px 0;}
+
+.eyebrow{
+  color:var(--cta-dark);
+  font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:12px;display:flex;align-items:center;gap:7px;
+}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--cta-glow);}
+
+h1{
+  font-size:clamp(26px,6vw,36px);
+  font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;
+}
+
+.hero-p{
+  color:var(--ink-soft);
+  font-size:14.5px;line-height:1.55;max-width:56ch;margin-bottom:26px;
+}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px;margin-bottom:16px;
+}
+.card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+.card-head .bar{width:5px;height:20px;border-radius:3px;flex-shrink:0;background:var(--cta);}
+.card-head h2{font-size:16.5px;font-weight:600;}
+.card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
+
+label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
+input[type=text], input[type=number], input[type=date], select{
+  width:100%;padding:12px 13px;border-radius:10px;border:1.5px solid var(--line);
+  background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
+}
+input:focus, select:focus{border-color:var(--cta);background:#fff;}
+
+.btn-primary{
+  width:100%;padding:16px;border:none;border-radius:14px;color:#fff;
+  font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;cursor:pointer;
+  letter-spacing:.01em;margin-top:6px;
+  background:linear-gradient(135deg, var(--cta-glow), var(--cta-dark));
+  box-shadow:0 6px 16px rgba(31,122,83,.28);
+}
+.btn-primary:hover{filter:brightness(1.05);}
+
+.note{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:16px;}
