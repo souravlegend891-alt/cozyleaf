@@ -3,126 +3,231 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Calorie Calculator - Cozyleaf</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<title>Calorie Calculator - Daily Calorie Needs Free Online | Cozyleaf</title>
+<meta name="description" content="Free calorie calculator — find your daily calorie needs to lose, maintain, or gain weight, using the Mifflin-St Jeor formula and your activity level. No sign-up needed."/>
+<meta name="keywords" content="calorie calculator, daily calorie needs calculator, calories to lose weight calculator, tdee calculator, maintenance calories calculator"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<link rel="canonical" href="https://cozyleaf.in/calorie-calculator.html"/>
+<meta name="theme-color" content="#1B1D29"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Cozyleaf"/>
+<meta property="og:title" content="Calorie Calculator - Daily Calorie Needs Free Online"/>
+<meta property="og:description" content="Free calorie calculator — find your daily calorie needs to lose, maintain, or gain weight based on your activity level."/>
+<meta property="og:url" content="https://cozyleaf.in/calorie-calculator.html"/>
+<meta property="og:locale" content="en_US"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Calorie Calculator - Cozyleaf"/>
+<meta name="twitter:description" content="Free calorie calculator — find your daily calorie needs instantly. No sign-up needed."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Calorie Calculator",
+  "url": "https://cozyleaf.in/calorie-calculator.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool to calculate daily calorie needs for weight loss, maintenance, or gain, using the Mifflin-St Jeor equation and activity level."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How many calories do I need per day?","acceptedAnswer":{"@type":"Answer","text":"It depends on your age, gender, height, weight, and activity level. This calculator estimates your maintenance calories, then adjusts up or down for weight gain or loss goals."}},
+    {"@type":"Question","name":"How is daily calorie need calculated?","acceptedAnswer":{"@type":"Answer","text":"This calculator first estimates your Basal Metabolic Rate using the Mifflin-St Jeor formula, then multiplies it by an activity factor based on how often you exercise."}},
+    {"@type":"Question","name":"How many calories should I eat to lose weight?","acceptedAnswer":{"@type":"Answer","text":"A common approach is eating around 500 calories below your maintenance level, which typically results in about 0.5 kg (1 lb) of weight loss per week."}},
+    {"@type":"Question","name":"What is TDEE?","acceptedAnswer":{"@type":"Answer","text":"TDEE stands for Total Daily Energy Expenditure — the total number of calories your body burns in a day, including exercise. It's the same as your maintenance calorie number."}},
+    {"@type":"Question","name":"Is this calorie calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:#F5F4F0;font-family:'Inter',sans-serif;color:#14161A;}
-  .top-back{display:block;max-width:480px;margin:20px auto 0;padding:0 22px;font-size:13.5px;font-weight:600;color:#6B6F76;text-decoration:none;}
-  .cal-wrap{
-    max-width:480px;margin:12px auto 40px;
-    background:#F5F4F0;border:1px solid #E6E4DD;border-radius:14px;
-    padding:26px 22px;color:#14161A;
-  }
-  .cal-wrap h2{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:6px;}
-  .cal-wrap p.sub{color:#6B6F76;font-size:14px;margin-bottom:20px;}
+  /* Page-specific only — colors/size/header come from style.css */
   .cal-unit-toggle{display:flex;gap:8px;margin-bottom:18px;}
   .cal-unit-toggle button{
-    flex:1;padding:10px;border-radius:10px;border:1px solid #E6E4DD;
-    background:#fff;font-weight:600;font-size:14px;color:#6B6F76;transition:.15s;cursor:pointer;
+    flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--line);
+    background:#fff;font-weight:600;font-size:14px;color:var(--ink-soft);transition:.15s;cursor:pointer;
   }
-  .cal-unit-toggle button.active{background:#2EC4B6;color:#fff;border-color:#2EC4B6;}
-  .cal-field{margin-bottom:16px;}
-  .cal-field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px;color:#14161A;}
-  .cal-field input, .cal-field select{
-    width:100%;padding:12px 14px;border-radius:10px;border:1px solid #E6E4DD;
-    font-size:15px;outline:none;background:#fff;font-family:'Inter',sans-serif;
-  }
-  .cal-field input:focus, .cal-field select:focus{border-color:#2EC4B6;}
+  .cal-unit-toggle button.active{background:var(--c-calc);color:#fff;border-color:var(--c-calc);}
   .cal-row{display:flex;gap:10px;}
-  .cal-row .cal-field{flex:1;}
-  .cal-btn{
-    width:100%;padding:13px;border:none;border-radius:10px;
-    background:#FF6B4A;color:#fff;font-weight:700;font-size:15px;margin-top:6px;cursor:pointer;
-  }
-  .cal-btn:hover{background:#E85436;}
+  .cal-row .field{flex:1;}
+
   .cal-result{
-    margin-top:22px;padding:18px;border-radius:12px;background:#fff;
-    border:1px solid #E6E4DD;text-align:center;display:none;
+    margin-top:22px;padding:18px;border-radius:12px;background:#FBFAF7;
+    border:1px solid var(--line);text-align:center;display:none;
   }
   .cal-result.show{display:block;}
   .cal-result .num{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;}
-  .cal-result .label{font-size:13px;color:#6B6F76;margin-top:2px;}
-  .cal-breakdown{margin-top:16px;text-align:left;border-top:1px solid #E6E4DD;padding-top:14px;}
-  .cal-breakdown-row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;color:#14161A;}
+  .cal-result .label{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+  .cal-breakdown{margin-top:16px;text-align:left;border-top:1px solid var(--line);padding-top:14px;}
+  .cal-breakdown-row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;color:var(--ink);}
   .cal-breakdown-row span:last-child{font-weight:600;}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .cal-chart{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:13px;}
+  .cal-chart th,.cal-chart td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);}
+  .cal-chart th{color:var(--ink-soft);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{
+    display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;
+    background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s;
+  }
+  .tool-grid a:hover{border-color:var(--c-calc);background:#F0FBFA;}
+  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
+
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
 </style>
 </head>
 <body>
+<script src="cozleaf-header.js" defer></script>
 
-<a class="top-back" href="index.html">← Back to all tools</a>
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
+  <h1>Calorie Calculator</h1>
+  <p class="hero-p">Estimate your daily calorie needs to lose, maintain, or gain weight — based on your body stats and activity level.</p>
 
-<div class="cal-wrap">
-  <h2>Calorie Calculator</h2>
-  <p class="sub">Estimate your daily calorie needs based on your body and activity level.</p>
-
-  <div class="cal-unit-toggle">
-    <button id="unitMetric" class="active">Metric (kg/cm)</button>
-    <button id="unitImperial">Imperial (lb/in)</button>
-  </div>
-
-  <div class="cal-row">
-    <div class="cal-field">
-      <label>Age</label>
-      <input type="number" id="age" placeholder="e.g. 28"/>
+  <div class="card">
+    <div class="cal-unit-toggle">
+      <button id="unitMetric" class="active">Metric (kg/cm)</button>
+      <button id="unitImperial">Imperial (lb/in)</button>
     </div>
-    <div class="cal-field">
-      <label>Gender</label>
-      <select id="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+
+    <div class="cal-row">
+      <div class="field">
+        <label class="small">Age</label>
+        <input type="number" id="age" placeholder="e.g. 28"/>
+      </div>
+      <div class="field">
+        <label class="small">Gender</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="metricFields">
+      <div class="cal-row">
+        <div class="field">
+          <label class="small">Height (cm)</label>
+          <input type="number" id="heightCm" placeholder="e.g. 170"/>
+        </div>
+        <div class="field">
+          <label class="small">Weight (kg)</label>
+          <input type="number" id="weightKg" placeholder="e.g. 65"/>
+        </div>
+      </div>
+    </div>
+
+    <div id="imperialFields" style="display:none;">
+      <div class="cal-row">
+        <div class="field">
+          <label class="small">Height (in)</label>
+          <input type="number" id="heightIn" placeholder="e.g. 67"/>
+        </div>
+        <div class="field">
+          <label class="small">Weight (lb)</label>
+          <input type="number" id="weightLb" placeholder="e.g. 143"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="small">Activity Level</label>
+      <select id="activity">
+        <option value="1.2">Sedentary (little or no exercise)</option>
+        <option value="1.375">Lightly active (1-3 days/week)</option>
+        <option value="1.55" selected>Moderately active (3-5 days/week)</option>
+        <option value="1.725">Very active (6-7 days/week)</option>
+        <option value="1.9">Extra active (hard exercise daily)</option>
       </select>
     </div>
-  </div>
 
-  <div id="metricFields">
-    <div class="cal-row">
-      <div class="cal-field">
-        <label>Height (cm)</label>
-        <input type="number" id="heightCm" placeholder="e.g. 170"/>
-      </div>
-      <div class="cal-field">
-        <label>Weight (kg)</label>
-        <input type="number" id="weightKg" placeholder="e.g. 65"/>
-      </div>
-    </div>
-  </div>
+    <button class="btn-primary" id="calcBtn">Calculate Calories</button>
 
-  <div id="imperialFields" style="display:none;">
-    <div class="cal-row">
-      <div class="cal-field">
-        <label>Height (in)</label>
-        <input type="number" id="heightIn" placeholder="e.g. 67"/>
-      </div>
-      <div class="cal-field">
-        <label>Weight (lb)</label>
-        <input type="number" id="weightLb" placeholder="e.g. 143"/>
+    <div class="cal-result" id="calResult">
+      <div class="num" id="calNum">--</div>
+      <div class="label">Calories per day to maintain weight</div>
+      <div class="cal-breakdown">
+        <div class="cal-breakdown-row"><span>Lose weight (0.5 kg/week)</span><span id="calLose">--</span></div>
+        <div class="cal-breakdown-row"><span>Maintain weight</span><span id="calMaintain">--</span></div>
+        <div class="cal-breakdown-row"><span>Gain weight (0.5 kg/week)</span><span id="calGain">--</span></div>
       </div>
     </div>
   </div>
 
-  <div class="cal-field">
-    <label>Activity Level</label>
-    <select id="activity">
-      <option value="1.2">Sedentary (little or no exercise)</option>
-      <option value="1.375">Lightly active (1-3 days/week)</option>
-      <option value="1.55" selected>Moderately active (3-5 days/week)</option>
-      <option value="1.725">Very active (6-7 days/week)</option>
-      <option value="1.9">Extra active (hard exercise daily)</option>
-    </select>
-  </div>
-
-  <button class="cal-btn" id="calcBtn">Calculate Calories</button>
-
-  <div class="cal-result" id="calResult">
-    <div class="num" id="calNum">--</div>
-    <div class="label">Calories per day to maintain weight</div>
-    <div class="cal-breakdown">
-      <div class="cal-breakdown-row"><span>Lose weight (0.5 kg/week)</span><span id="calLose">--</span></div>
-      <div class="cal-breakdown-row"><span>Maintain weight</span><span id="calMaintain">--</span></div>
-      <div class="cal-breakdown-row"><span>Gain weight (0.5 kg/week)</span><span id="calGain">--</span></div>
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>More Free Tools</h2>
+    <div class="tool-grid">
+      <a href="bmi-calculator.html"><span class="ic">⚖️</span>BMI Calculator</a>
+      <a href="bmr-calculator.html"><span class="ic">⚡</span>BMR Calculator</a>
+      <a href="love-calculator.html"><span class="ic">💕</span>Love Calculator</a>
+      <a href="gpa-cgpa-calculator.html"><span class="ic">🎓</span>GPA / CGPA Calculator</a>
+      <a href="dog-food-calculator.html"><span class="ic">🐶</span>Dog Food Calculator</a>
+      <a href="typing-speed-test.html"><span class="ic">⌨️</span>Typing Speed Test</a>
+      <a href="convert-to-jpg.html"><span class="ic">🖼️</span>Convert to JPG</a>
+      <a href="name-style.html"><span class="ic">✨</span>Stylish Name Generator</a>
     </div>
-  </div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free Calorie Calculator — Find Your Daily Calorie Needs</h2>
+    <p>This calorie calculator estimates how many calories you burn each day and how many you should eat to lose, maintain, or gain weight. Enter your age, gender, height, weight, and activity level — the result appears instantly, right in your browser, with no sign-up required.</p>
+
+    <h2>How Are Daily Calorie Needs Calculated?</h2>
+    <p>This tool first estimates your Basal Metabolic Rate (BMR) — the calories your body burns at complete rest — using the Mifflin-St Jeor formula, one of the most accurate equations used by dietitians. It then multiplies your BMR by an activity factor based on how often you exercise, giving your Total Daily Energy Expenditure (TDEE), also called your maintenance calories.</p>
+
+    <h2>Calorie Targets By Goal</h2>
+    <table class="cal-chart">
+      <tr><th>Goal</th><th>Daily calorie adjustment</th></tr>
+      <tr><td>Lose weight (~0.5 kg/week)</td><td>Maintenance − 500 kcal</td></tr>
+      <tr><td>Maintain current weight</td><td>Maintenance calories</td></tr>
+      <tr><td>Gain weight (~0.5 kg/week)</td><td>Maintenance + 500 kcal</td></tr>
+    </table>
+
+    <h2>Activity Level Guide</h2>
+    <p>Sedentary means little to no exercise; lightly active is light exercise 1–3 days a week; moderately active is moderate exercise 3–5 days a week; very active is hard exercise 6–7 days a week; and extra active covers very hard daily training or a physically demanding job. Picking the closest match gives a more accurate calorie estimate.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>How many calories do I need per day?</strong> It depends on your age, gender, height, weight, and activity level. This calculator estimates your maintenance calories, then adjusts up or down for weight gain or loss goals.</p>
+    <p><strong>How is daily calorie need calculated?</strong> This calculator first estimates your Basal Metabolic Rate using the Mifflin-St Jeor formula, then multiplies it by an activity factor based on how often you exercise.</p>
+    <p><strong>How many calories should I eat to lose weight?</strong> A common approach is eating around 500 calories below your maintenance level, which typically results in about 0.5 kg (1 lb) of weight loss per week.</p>
+    <p><strong>What is TDEE?</strong> TDEE stands for Total Daily Energy Expenditure — the total number of calories your body burns in a day, including exercise. It's the same as your maintenance calorie number.</p>
+    <p><strong>Is this calorie calculator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload my data?</strong> No — the calculation runs entirely in your browser. Nothing is sent to any server.</p>
+
+    <p class="disclaimer">
+      <strong>Disclaimer:</strong> This tool provides a general estimate only and is not a substitute for professional medical or nutritional advice. Always consult a qualified healthcare provider or registered dietitian before starting a new diet or weight management plan.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
 </div>
 
 <script>
