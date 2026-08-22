@@ -78,6 +78,27 @@
   .cat-over{background:#FFEDE8;color:#E85436;}
   .cat-obese{background:#FBE9E9;color:#C0392B;}
 
+  .btn-row{display:flex;gap:10px;margin-top:6px;}
+  .btn-row .btn-primary{margin-top:0;}
+  .btn-reset{
+    padding:16px 20px;border-radius:14px;border:1.5px solid var(--line);
+    background:#fff;color:var(--ink-soft);font-family:'Inter',sans-serif;
+    font-size:14.5px;font-weight:600;cursor:pointer;flex-shrink:0;
+  }
+  .btn-reset:hover{border-color:var(--ink-soft);color:var(--ink);}
+
+  .bmi-slider{margin-top:18px;}
+  .bmi-slider-track{
+    position:relative;height:10px;border-radius:6px;margin-top:14px;margin-bottom:8px;
+    background:linear-gradient(90deg, #4CA8FF 0%, #4CA8FF 18.5%, #2EC4B6 18.5%, #2EC4B6 45%, #F4A527 45%, #F4A527 60%, #E85436 60%, #E85436 100%);
+  }
+  .bmi-slider-marker{
+    position:absolute;top:50%;width:16px;height:16px;border-radius:50%;
+    background:#fff;border:3px solid var(--ink);transform:translate(-50%,-50%);
+    box-shadow:0 2px 6px rgba(0,0,0,.25);transition:left .4s cubic-bezier(.22,1,.36,1);
+  }
+  .bmi-slider-labels{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
+
   .seo-content{color:#4A4E56;margin-top:8px;}
   .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
   .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
@@ -103,7 +124,6 @@
 <script src="cozleaf-header.js" defer></script>
 
 <div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>Calculators</div>
   <h1>BMI Calculator</h1>
   <p class="hero-p">Check your Body Mass Index by entering your height and weight below — switch between metric and imperial units anytime.</p>
 
@@ -117,11 +137,11 @@
       <div class="bmi-row">
         <div class="field">
           <label class="small">Height (cm)</label>
-          <input type="number" id="heightCm" placeholder="e.g. 170"/>
+          <input type="number" id="heightCm"/>
         </div>
         <div class="field">
           <label class="small">Weight (kg)</label>
-          <input type="number" id="weightKg" placeholder="e.g. 65"/>
+          <input type="number" id="weightKg"/>
         </div>
       </div>
     </div>
@@ -130,20 +150,31 @@
       <div class="bmi-row">
         <div class="field">
           <label class="small">Height (in)</label>
-          <input type="number" id="heightIn" placeholder="e.g. 67"/>
+          <input type="number" id="heightIn"/>
         </div>
         <div class="field">
           <label class="small">Weight (lb)</label>
-          <input type="number" id="weightLb" placeholder="e.g. 143"/>
+          <input type="number" id="weightLb"/>
         </div>
       </div>
     </div>
 
-    <button class="btn-primary" id="calcBtn">Calculate BMI</button>
+    <div class="btn-row">
+      <button class="btn-primary" id="calcBtn">Calculate BMI</button>
+      <button class="btn-reset" id="resetBtn">Reset</button>
+    </div>
 
     <div class="bmi-result" id="bmiResult">
       <div class="num" id="bmiNum">--</div>
       <div class="cat" id="bmiCat">--</div>
+      <div class="bmi-slider">
+        <div class="bmi-slider-track">
+          <div class="bmi-slider-marker" id="bmiMarker" style="left:0%"></div>
+        </div>
+        <div class="bmi-slider-labels">
+          <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span>
+        </div>
+      </div>
       <div class="desc" id="bmiDesc"></div>
     </div>
   </div>
@@ -278,8 +309,22 @@
     catEl.className = 'cat ' + catClass;
     document.getElementById('bmiDesc').textContent = desc;
     document.getElementById('bmiResult').classList.add('show');
+
+    // Position the marker on the gradient scale (chart range: 10 to 40 BMI)
+    var pct = ((bmi - 10) / (40 - 10)) * 100;
+    pct = Math.max(2, Math.min(98, pct));
+    document.getElementById('bmiMarker').style.left = pct + '%';
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    document.getElementById('heightCm').value = '';
+    document.getElementById('weightKg').value = '';
+    document.getElementById('heightIn').value = '';
+    document.getElementById('weightLb').value = '';
+    document.getElementById('bmiResult').classList.remove('show');
   });
 })();
 </script>
 </body>
 </html>
+
