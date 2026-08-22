@@ -37,9 +37,21 @@
 
   // Expose so individual tool pages can build "More Tools" sections
   // from this single source instead of hardcoding their own lists.
+  const TOOL_ICONS = {
+    "convert-to-jpg.html":"🖼️",
+    "bmi-calculator.html":"⚖️",
+    "calorie-calculator.html":"🔥",
+    "bmr-calculator.html":"⚡",
+    "love-calculator.html":"💕",
+    "gpa-cgpa-calculator.html":"🎓",
+    "dog-food-calculator.html":"🐶",
+    "typing-speed-test.html":"⌨️",
+    "name-style.html":"✨"
+  };
   window.COZYLEAF_TOOLS = MAIN_TOOLS;
   window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
   window.COZYLEAF_CATEGORY_HEX = CATEGORY_HEX;
+  window.COZYLEAF_ICONS = TOOL_ICONS;
 
   const CSS = `
     #czHeader{position:sticky;top:0;z-index:200;background:#1B1D29;color:#fff;
