@@ -9,7 +9,7 @@
 <meta name="keywords" content="typing speed test, wpm test online, typing test free, words per minute test, typing accuracy test, free typing test">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://cozyleaf.in/typing-speed-test.html">
-<meta name="theme-color" content="#14151b">
+<meta name="theme-color" content="#1B1D29">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cozyleaf">
@@ -48,516 +48,176 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
 <style>
-  /* This page keeps its own intentional vintage-typewriter theme.
-     Every rule below is scoped to this page and is declared AFTER
-     style.css, so it fully overrides the site-wide light theme —
-     the dark background, custom fonts, and layout stay untouched. */
-  :root{
-    --ink:#14151b;
-    --ink-2:#1c1e27;
-    --paper:#f2ecdc;
-    --paper-2:#e9e1cb;
-    --ribbon:#b23a48;
-    --ribbon-dark:#8f2c38;
-    --brass:#c9a227;
-    --steel:#3d5a80;
-    --slate:#8a8d99;
-    --slate-dark:#5b5e6b;
-    --good:#3f7d54;
-    --bad:#b23a48;
-    --radius:14px;
-    --shadow: 0 18px 40px -18px rgba(0,0,0,.5);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  html{
-    /* fallback for browsers without dvh */
-    height:100%;
-  }
-  body{
-    font-family:'Work Sans', sans-serif;
-    background:
-      radial-gradient(circle at 12% 8%, rgba(201,162,39,.10), transparent 40%),
-      radial-gradient(circle at 88% 92%, rgba(178,58,72,.12), transparent 45%),
-      var(--ink);
-    color:var(--paper);
-    min-height:100vh;
-    min-height:100dvh; /* actual visible height on mobile, shrinks correctly when keyboard opens */
-    padding:0 16px 60px;
-  }
-  .wrap{
-    width:100%;
-    max-width:820px;
-    margin:0 auto;
-    padding:32px 0 0;
-  }
-  .eyebrow{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:var(--brass);
-    margin-bottom:10px;
-  }
-  .eyebrow .dot{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--ribbon);
-    box-shadow:0 0 0 3px rgba(178,58,72,.25);
-  }
-  h1{
-    font-family:'Special Elite', monospace;
-    font-weight:400;
-    font-size:clamp(28px, 5vw, 42px);
-    line-height:1.15;
-    margin:0 0 8px;
-    letter-spacing:.01em;
-  }
-  .sub{
-    color:var(--slate);
-    font-size:15px;
-    margin:0 0 26px;
-    max-width:56ch;
-  }
-
-
-  /* control row */
-  .controls{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    align-items:center;
-    margin-bottom:18px;
-  }
-  .chip-group{
-    display:flex;
-    flex-wrap:wrap;
-    background:var(--ink-2);
-    border:1px solid rgba(242,236,220,.08);
-    border-radius:999px;
-    padding:4px;
-    gap:2px;
-  }
-  .chip{
-    border:none;
-    background:transparent;
-    color:var(--slate);
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    padding:7px 14px;
-    border-radius:999px;
-    cursor:pointer;
-    transition:background .15s ease, color .15s ease;
-  }
-  .chip.active{
-    background:var(--ribbon);
-    color:var(--paper);
-  }
-  .chip:hover:not(.active){ color:var(--paper); }
-
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing
+     all come from style.css so this page matches every other page. */
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px;}
+  .chip-group{display:flex;flex-wrap:wrap;background:#FBFAF7;border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px;}
+  .chip{border:none;background:transparent;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.15s;}
+  .chip.active{background:var(--c-fun);color:#fff;}
+  .chip:hover:not(.active){color:var(--ink);}
   .spacer{flex:1;}
+  .btn-outline{
+    border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:9px 14px;border-radius:10px;
+    cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s;
+  }
+  .btn-outline:hover{border-color:var(--c-fun);color:var(--c-fun);}
 
-  .btn{
-    border:1px solid rgba(242,236,220,.16);
-    background:var(--ink-2);
-    color:var(--paper);
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    padding:9px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    transition:transform .12s ease, border-color .15s ease;
-  }
-  .btn:hover{ border-color:var(--brass); }
-  .btn:active{ transform:scale(.97); }
-  .btn:focus-visible, .chip:focus-visible{
-    outline:2px solid var(--brass);
-    outline-offset:2px;
-  }
+  .dials{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+  .dial{background:#FBFAF7;border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;}
+  .dial.time-dial{background:#F3F1FF;border-color:#D9D4FF;}
+  .dial .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:clamp(18px,4vw,26px);color:var(--ink);font-variant-numeric:tabular-nums;}
+  .dial .num.time{color:var(--c-fun);font-size:clamp(24px,5.5vw,34px);}
+  .dial .lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
+  .dial.time-dial .lbl{color:var(--c-fun);opacity:.85;}
 
-  /* dial readouts */
-  .dials{
-    display:grid;
-    grid-template-columns:1.3fr 1fr 1fr 1fr;
-    gap:10px;
-    margin-bottom:18px;
-  }
-  .dial{
-    background:var(--ink-2);
-    border:1px solid rgba(242,236,220,.08);
-    border-radius:12px;
-    padding:12px 10px;
-    text-align:center;
-  }
-  .dial.time-dial{
-    background:linear-gradient(180deg, rgba(201,162,39,.16), rgba(201,162,39,.05));
-    border:1px solid rgba(201,162,39,.45);
-  }
-  .dial .num{
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-    font-size:clamp(20px,4vw,30px);
-    color:var(--paper);
-    font-variant-numeric:tabular-nums;
-  }
-  .dial .num.time{
-    color:var(--brass);
-    font-size:clamp(28px,6vw,40px);
-  }
-  .dial .lbl{
-    font-size:10.5px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--slate);
-    margin-top:2px;
-  }
-  .dial.time-dial .lbl{ color:var(--brass); opacity:.85; }
-
-  /* paper / typing surface */
-  .paper{
-    position:relative;
-    background:var(--paper);
-    color:#2a2620;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:26px 26px 20px;
-    overflow:hidden;
-    scroll-margin-top:16px;
-    scroll-margin-bottom:16px;
-  }
-  .paper::before{
-    content:"";
-    position:absolute;
-    top:0;left:0;right:0;height:6px;
-    background:repeating-linear-gradient(90deg, var(--brass) 0 18px, var(--steel) 18px 36px);
-    opacity:.85;
-  }
-  .progress-track{
-    height:4px;
-    background:var(--paper-2);
-    border-radius:2px;
-    overflow:hidden;
-    margin-bottom:16px;
-  }
-  .progress-fill{
-    height:100%;
-    width:0%;
-    background:var(--ribbon);
-    transition:width .15s linear;
-  }
+  .paper{position:relative;background:#FBFAF7;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:hidden;scroll-margin-top:16px;scroll-margin-bottom:16px;}
+  .progress-track{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:14px;}
+  .progress-fill{height:100%;width:0%;background:var(--c-fun);transition:width .15s linear;}
   .text-display{
-    font-family:'JetBrains Mono', monospace;
-    font-size:clamp(16px,2.4vw,20px);
-    line-height:1.9;
-    letter-spacing:.2px;
-    user-select:none;
-    min-height:150px;
-    max-height:min(38vh, 260px);
-    overflow-y:auto;
+    font-family:'IBM Plex Mono',monospace;font-size:clamp(15px,2.2vw,18px);line-height:1.9;
+    letter-spacing:.2px;user-select:none;min-height:140px;max-height:min(36vh,240px);overflow-y:auto;color:var(--ink);
   }
-  .text-display span{ position:relative; }
-  .char-pending{ color:#8a8067; }
-  .char-correct{ color:#2f5c3f; }
-  .char-incorrect{ color:var(--bad); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; background:rgba(178,58,72,.12); border-radius:2px; }
-  .char-incorrect.is-space{ background:rgba(178,58,72,.28); }
-  .char-current{
-    border-left:2px solid var(--ribbon);
-    animation:blink 1s step-end infinite;
-  }
-  @keyframes blink{ 50%{ border-color:transparent; } }
+  .text-display span{position:relative;}
+  .char-pending{color:#A8A4B0;}
+  .char-correct{color:#159C8F;}
+  .char-incorrect{color:#C0392B;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;background:rgba(192,57,43,.10);border-radius:2px;}
+  .char-incorrect.is-space{background:rgba(192,57,43,.22);}
+  .char-current{border-left:2px solid var(--c-fun);animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{border-color:transparent;}}
 
   .type-input{
-    width:100%;
-    margin-top:16px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:16px; /* keep >=16px: prevents iOS Safari auto-zoom on focus */
-    padding:14px 16px;
-    border-radius:10px;
-    border:2px solid var(--paper-2);
-    background:#fffdf7;
-    color:#2a2620;
-    outline:none;
-    transition:border-color .15s ease;
-    scroll-margin-top:16px;
-    scroll-margin-bottom:16px;
+    width:100%;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:16px;
+    padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);
+    outline:none;transition:.15s;scroll-margin-top:16px;scroll-margin-bottom:16px;
   }
-  .type-input::placeholder{ color:#a79f88; }
-  .type-input:focus{ border-color:var(--ribbon); }
-  .type-input:disabled{ opacity:.6; }
-  .type-input.input-correct{ border-color:var(--good); color:var(--good); }
-  .type-input.input-incorrect{ border-color:var(--bad); color:var(--bad); }
+  .type-input::placeholder{color:var(--ink-soft);}
+  .type-input:focus{border-color:var(--c-fun);}
+  .type-input:disabled{opacity:.6;}
+  .type-input.input-correct{border-color:#159C8F;color:#159C8F;}
+  .type-input.input-incorrect{border-color:#C0392B;color:#C0392B;}
 
-  .complete-flash{
-    position:absolute;
-    inset:0;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    background:var(--paper);
-    z-index:5;
-  }
-  .complete-flash.show{ display:flex; }
-  .flash-check{
-    width:64px;height:64px;
-    border-radius:50%;
-    background:var(--good);
-    color:#fff;
-    font-size:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    animation:flashPop .55s cubic-bezier(.34,1.56,.64,1);
-  }
-  .flash-label{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--slate-dark);
-    animation:flashFadeIn .4s ease .15s both;
-  }
-  @keyframes flashPop{
-    0%{ transform:scale(.3); opacity:0; }
-    60%{ transform:scale(1.12); opacity:1; }
-    100%{ transform:scale(1); opacity:1; }
-  }
-  @keyframes flashFadeIn{
-    from{ opacity:0; transform:translateY(4px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
+  .complete-flash{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FBFAF7;z-index:5;}
+  .complete-flash.show{display:flex;}
+  .flash-check{width:60px;height:60px;border-radius:50%;background:#159C8F;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;animation:flashPop .55s cubic-bezier(.34,1.56,.64,1);}
+  .flash-label{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);animation:flashFadeIn .4s ease .15s both;}
+  @keyframes flashPop{0%{transform:scale(.3);opacity:0;}60%{transform:scale(1.12);opacity:1;}100%{transform:scale(1);opacity:1;}}
+  @keyframes flashFadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
-  .hint{
-    margin-top:14px;
-    font-size:12.5px;
-    color:var(--slate-dark);
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:6px;
-  }
-  .hint .tag{
-    background:var(--paper-2);
-    padding:3px 9px;
-    border-radius:999px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-  }
+  .hint{margin-top:12px;font-size:12px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+  .hint .tag{background:var(--hover);padding:3px 9px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;}
 
-  /* results */
-  .results{
-    display:none;
-    background:var(--paper);
-    color:#2a2620;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:30px 26px;
-    text-align:center;
-  }
-  .results.show{ display:block; animation:rise .35s ease; }
-  @keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-  .results h2{
-    font-family:'Special Elite', monospace;
-    font-weight:400;
-    font-size:24px;
-    margin:0 0 4px;
-  }
-  .results .headline{
-    font-family:'JetBrains Mono', monospace;
-    font-size:56px;
-    font-weight:700;
-    color:var(--ribbon-dark);
-    margin:6px 0 2px;
-    line-height:1;
-  }
-  .results .headline-lbl{
-    font-size:12px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--slate-dark);
-    margin-bottom:22px;
-  }
-  .result-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-bottom:22px;
-  }
-  .result-grid .cell{
-    background:var(--paper-2);
-    border-radius:10px;
-    padding:12px 8px;
-  }
-  .result-grid .cell .v{
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-    font-size:20px;
-  }
-  .result-grid .cell .k{
-    font-size:10.5px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--slate-dark);
-    margin-top:2px;
-  }
-  .results .btn{
-    background:var(--ribbon);
-    border-color:var(--ribbon);
-    color:#fff;
-  }
-  .results .btn:hover{ border-color:var(--brass); }
+  .results{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;margin-bottom:16px;}
+  .results.show{display:block;animation:rise .35s ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .results h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;margin:0 0 4px;}
+  .results .headline{font-family:'IBM Plex Mono',monospace;font-size:48px;font-weight:700;color:var(--c-fun);margin:6px 0 2px;line-height:1;}
+  .results .headline-lbl{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px;}
+  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;}
+  .result-grid .cell{background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:11px 6px;}
+  .result-grid .cell .v{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:18px;color:var(--ink);}
+  .result-grid .cell .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
 
-  footer.credit{
-    text-align:center;
-    color:var(--slate-dark);
-    font-size:11.5px;
-    margin-top:22px;
-    font-family:'JetBrains Mono', monospace;
-    letter-spacing:.05em;
-  }
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-fun);background:#F5F4FF;}
 
-  /* Related tools + SEO content — styled to match the vintage theme */
-  .related-tools{ margin-top:34px; }
-  .related-tools h2{
-    font-family:'Special Elite', monospace;
-    font-weight:400;
-    font-size:19px;
-    margin-bottom:12px;
-  }
-  .related-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-  .related-grid a{
-    display:flex; align-items:center; gap:8px; padding:11px 12px; border-radius:10px;
-    background:var(--ink-2); border:1px solid rgba(242,236,220,.08); color:var(--paper);
-    text-decoration:none; font-size:13px; font-weight:600; transition:.15s;
-  }
-  .related-grid a:hover{ border-color:var(--brass); }
-  .more-toggle{
-    width:100%; margin-top:10px; padding:11px; border-radius:10px;
-    border:1.5px dashed rgba(242,236,220,.2); background:none; color:var(--slate);
-    font-size:13px; font-weight:600; cursor:pointer; font-family:'JetBrains Mono',monospace;
-  }
-  .more-toggle:hover{ border-color:var(--brass); color:var(--brass); }
-  .all-tools-list{ display:none; margin-top:10px; border:1px solid rgba(242,236,220,.08); border-radius:12px; overflow:hidden; background:var(--ink-2); }
-  .all-tools-list.open{ display:block; }
-  .all-tools-cat{ padding:12px 14px 4px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--slate); display:flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; }
-  .all-tools-cat .chip-dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-  .all-tools-list a{
-    display:flex; align-items:center; justify-content:space-between; padding:10px 14px;
-    font-size:13.5px; font-weight:600; color:var(--paper); text-decoration:none;
-    border-bottom:1px solid rgba(242,236,220,.06);
-  }
-  .all-tools-list a:last-child{ border-bottom:none; }
-  .all-tools-list a:hover{ background:rgba(242,236,220,.05); }
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-fun);color:var(--c-fun);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
 
-  .seo-content{ margin-top:30px; color:var(--slate); }
-  .seo-content h2{
-    font-family:'Special Elite', monospace; font-weight:400; font-size:18px;
-    color:var(--paper); margin:22px 0 8px;
-  }
-  .seo-content p{ font-size:13.5px; line-height:1.7; margin-bottom:8px; }
-  .seo-content strong{ color:var(--paper); }
-
-  .site-footer{ margin-top:24px; text-align:center; }
-  .site-footer .links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; font-size:12.5px; }
-  .site-footer a{ color:var(--slate); text-decoration:none; }
-  .site-footer a:hover{ color:var(--brass); }
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
 
   @media (max-width:520px){
-    .dials{ grid-template-columns:repeat(2,1fr); }
-    .result-grid{ grid-template-columns:repeat(1,1fr); }
-    .paper{ padding:20px 16px 16px; }
+    .dials{grid-template-columns:repeat(2,1fr);}
+    .result-grid{grid-template-columns:repeat(1,1fr);}
+    .paper{padding:14px;}
   }
 
-  /* When the on-screen keyboard is open (body gets .kb-open via JS),
-     hide everything that isn't essential and compact what's left so the
-     timer row, accuracy, passage and input box all stay fully visible
-     above the keyboard — nothing should get clipped by the address bar. */
-  body.kb-open{
-    padding-top:8px;
-    padding-bottom:8px;
-    align-items:flex-start;
-  }
-  body.kb-open .eyebrow{ display:none; }
-  body.kb-open h1{ display:none; }
-  body.kb-open .sub{ display:none; }
-  body.kb-open .controls{ display:none; }
-  body.kb-open footer.credit{ display:none; }
-  body.kb-open .hint{ display:none; }
-  body.kb-open .dials{
-    grid-template-columns:repeat(4,1fr);
-    gap:6px;
-    margin-bottom:8px;
-    scroll-margin-top:8px;
-  }
-  body.kb-open .dial{ padding:6px 4px; }
-  body.kb-open .dial .num{ font-size:16px; }
-  body.kb-open .dial .num.time{ font-size:18px; }
-  body.kb-open .dial .lbl{ font-size:8.5px; }
-  body.kb-open .text-display{ max-height:16vh; min-height:0; }
-  body.kb-open .paper{ padding:12px 14px 12px; }
-  body.kb-open .progress-track{ margin-bottom:10px; }
-  body.kb-open .type-input{ margin-top:10px; }
+  /* When the on-screen keyboard is open, compact the layout so the timer
+     row, passage, and input box stay fully visible above the keyboard. */
+  body.kb-open .eyebrow{display:none;}
+  body.kb-open h1{display:none;}
+  body.kb-open .hero-p{display:none;}
+  body.kb-open .controls{display:none;}
+  body.kb-open .hint{display:none;}
+  body.kb-open .dials{grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;scroll-margin-top:8px;}
+  body.kb-open .dial{padding:6px 4px;}
+  body.kb-open .dial .num{font-size:15px;}
+  body.kb-open .dial .num.time{font-size:17px;}
+  body.kb-open .dial .lbl{font-size:8px;}
+  body.kb-open .text-display{max-height:16vh;min-height:0;}
+  body.kb-open .paper{padding:10px 12px;}
+  body.kb-open .progress-track{margin-bottom:8px;}
+  body.kb-open .type-input{margin-top:8px;}
 
   @media (prefers-reduced-motion: reduce){
-    .char-current{ animation:none; border-left-color:var(--ribbon); }
-    .results.show{ animation:none; }
-    .flash-check{ animation:none; }
-    .flash-label{ animation:none; }
+    .char-current{animation:none;border-left-color:var(--c-fun);}
+    .results.show{animation:none;}
+    .flash-check{animation:none;}
+    .flash-label{animation:none;}
   }
 </style>
 </head>
 <body>
 <script src="cozleaf-header.js" defer></script>
+
 <div class="wrap">
-
-  <div class="eyebrow"><span class="dot"></span>COZYLEAF &middot; TYPING TOOL</div>
+  <div class="eyebrow"><span class="dot"></span>Text Tools</div>
   <h1>Typing Speed Test</h1>
-  <p class="sub">Read the passage below, then type it into the box underneath as fast and accurately as you can. Your speed and accuracy update live the moment you start typing.</p>
+  <p class="hero-p">Read the passage below, then type it into the box underneath as fast and accurately as you can. Your speed and accuracy update live the moment you start typing.</p>
 
-  <div class="controls">
-    <div class="chip-group" id="durationGroup">
-      <button class="chip" data-time="15">15s</button>
-      <button class="chip active" data-time="30">30s</button>
-      <button class="chip" data-time="60">60s</button>
-      <button class="chip" data-time="120">120s</button>
-      <button class="chip" data-time="300">5m</button>
-      <button class="chip" data-time="600">10m</button>
-      <button class="chip" data-time="1800">30m</button>
-      <button class="chip" data-time="3600">1h</button>
+  <div class="card">
+    <div class="controls">
+      <div class="chip-group" id="durationGroup">
+        <button class="chip" data-time="15">15s</button>
+        <button class="chip active" data-time="30">30s</button>
+        <button class="chip" data-time="60">60s</button>
+        <button class="chip" data-time="120">120s</button>
+        <button class="chip" data-time="300">5m</button>
+        <button class="chip" data-time="600">10m</button>
+        <button class="chip" data-time="1800">30m</button>
+        <button class="chip" data-time="3600">1h</button>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn-outline" id="restartBtn">&#8635; New text</button>
     </div>
-    <div class="spacer"></div>
-    <button class="btn" id="restartBtn">&#8635; New text</button>
-  </div>
 
-  <div class="dials">
-    <div class="dial time-dial"><div class="num time" id="dialTime">30</div><div class="lbl">Time left</div></div>
-    <div class="dial"><div class="num" id="dialWpm">0</div><div class="lbl">WPM</div></div>
-    <div class="dial"><div class="num" id="dialAcc">0</div><div class="lbl">Accuracy %</div></div>
-    <div class="dial"><div class="num" id="dialErr">0</div><div class="lbl">Errors</div></div>
-  </div>
-
-  <div class="paper" id="paper">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="text-display" id="textDisplay"></div>
-    <input type="text" class="type-input" id="hiddenInput" placeholder="Click here and start typing…" autocomplete="off" autocorrect="off" spellcheck="false">
-    <div class="hint">
-      <span>Type into the box above — the passage highlights as you go.</span>
-      <span class="tag" id="stateTag">Ready</span>
+    <div class="dials">
+      <div class="dial time-dial"><div class="num time" id="dialTime">30</div><div class="lbl">Time left</div></div>
+      <div class="dial"><div class="num" id="dialWpm">0</div><div class="lbl">WPM</div></div>
+      <div class="dial"><div class="num" id="dialAcc">0</div><div class="lbl">Accuracy %</div></div>
+      <div class="dial"><div class="num" id="dialErr">0</div><div class="lbl">Errors</div></div>
     </div>
-    <div class="complete-flash" id="completeFlash">
-      <div class="flash-check">&#10003;</div>
-      <div class="flash-label">Done!</div>
+
+    <div class="paper" id="paper">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="text-display" id="textDisplay"></div>
+      <input type="text" class="type-input" id="hiddenInput" placeholder="Click here and start typing…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <div class="hint">
+        <span>Type into the box above — the passage highlights as you go.</span>
+        <span class="tag" id="stateTag">Ready</span>
+      </div>
+      <div class="complete-flash" id="completeFlash">
+        <div class="flash-check">&#10003;</div>
+        <div class="flash-label">Done!</div>
+      </div>
     </div>
   </div>
 
@@ -570,14 +230,12 @@
       <div class="cell"><div class="v" id="finalRaw">0</div><div class="k">Raw WPM</div></div>
       <div class="cell"><div class="v" id="finalErr">0</div><div class="k">Errors</div></div>
     </div>
-    <button class="btn" id="retryBtn">&#8635; Try again</button>
+    <button class="btn-primary" id="retryBtn">&#8635; Try again</button>
   </div>
 
-  <footer class="credit">COZYLEAF.IN — FREE ONLINE TOOLS</footer>
-
-  <nav class="related-tools" aria-label="Other tools">
+  <nav class="more-tools" aria-label="Other tools">
     <h2>Related Tools</h2>
-    <div class="related-grid" id="categoryGrid"></div>
+    <div class="tool-grid" id="categoryGrid"></div>
     <button class="more-toggle" id="moreToggle">+ More tools</button>
     <div class="all-tools-list" id="allToolsList"></div>
   </nav>
@@ -604,13 +262,13 @@
     <p><strong>Does this store or upload my data?</strong> No — the test runs entirely in your browser. Nothing is sent to any server.</p>
   </section>
 
-  <footer class="site-footer">
-    <div class="links">
-      <a href="index.html">All Tools</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
     </div>
   </footer>
 </div>
@@ -630,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(sameCat.length){
     grid.innerHTML = sameCat.map(function(t){
       var ic = icons[t.url] || '🔧';
-      return '<a href="'+t.url+'"><span>'+ic+'</span>'+t.name+'</a>';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
     }).join('');
   } else {
     grid.style.display = 'none';
@@ -660,7 +318,6 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 (function(){
   var PASSAGES = [
-    // everyday / general
     "The quick brown fox jumps over the lazy dog while the morning sun rises slowly over the quiet hills and fields.",
     "Learning to type quickly takes practice, patience, and a steady rhythm that your fingers remember over time.",
     "A good typist keeps their eyes on the screen, their fingers on the home row, and their mind calm and focused.",
@@ -675,50 +332,41 @@ document.addEventListener('DOMContentLoaded', function(){
     "The train pulled slowly into the station as passengers gathered their bags and waited for the doors to open.",
     "On a quiet Sunday morning, the smell of fresh bread drifting from the bakery drew a small line of customers outside.",
     "A cluttered desk can quietly drain focus, while a few minutes of tidying often clears the mind as much as the space.",
-    // technology
     "Technology has changed the way people work, communicate, and share ideas across every corner of the world today.",
     "Programmers often say that clean code is easier to read than clever code, and clarity matters more than speed.",
     "Artificial intelligence systems learn patterns from large amounts of data rather than following rigid, hand written rules.",
     "A strong password is long, unpredictable, and unique to each account, which makes it far harder for attackers to guess.",
     "Cloud storage lets people save files on remote servers so they can access their work from almost any device, anywhere.",
     "Open source software is built and improved by volunteers around the world who share their code freely with everyone.",
-    // science
     "Photosynthesis allows plants to convert sunlight, water, and carbon dioxide into the energy they need to grow.",
     "The human heart beats roughly one hundred thousand times a day, pumping blood through a vast network of vessels.",
     "Gravity is the invisible force that keeps planets orbiting the sun and objects firmly resting on the ground.",
     "Bacteria are microscopic organisms that exist almost everywhere, including soil, water, and the human body itself.",
     "A rainbow forms when sunlight passes through raindrops and splits into the familiar spectrum of visible colors.",
     "Volcanoes form when molten rock beneath the surface finds a path upward and erupts through cracks in the crust.",
-    // history
     "Ancient civilizations along great rivers like the Nile and the Indus built early cities that shaped human history.",
     "The printing press, invented in the fifteenth century, made books far cheaper and helped literacy spread widely.",
     "Explorers once relied on the stars and simple instruments to navigate vast oceans without any modern technology.",
     "Many historical treaties were signed not to end conflict entirely, but to pause it long enough for diplomacy to work.",
-    // nature and geography
     "The Amazon rainforest produces a significant share of the world's oxygen and is home to countless unique species.",
     "Deserts can be freezing at night and scorching during the day because dry air holds onto very little heat.",
     "Coral reefs, though they cover a small fraction of the ocean floor, support an extraordinary variety of marine life.",
     "Migratory birds travel thousands of miles each year, guided by instinct, memory, and the position of the sun.",
-    // health and wellbeing
     "Getting enough sleep each night supports memory, mood, and the body's ability to repair and recover itself.",
     "Drinking enough water throughout the day helps regulate body temperature and keeps the mind alert and clear.",
     "Regular exercise, even a short daily walk, can meaningfully improve both physical health and mental wellbeing.",
     "Balanced meals that include vegetables, protein, and whole grains tend to provide steadier energy through the day.",
-    // business and finance
     "A well written business plan outlines not just an idea, but the market, the costs, and the path to profit.",
     "Compound interest rewards patience, since even small amounts saved regularly can grow substantially over time.",
     "Good customer service often turns a single purchase into years of loyalty, referrals, and repeat business.",
     "Negotiation works best when both sides understand what the other truly values, not just what they initially ask for.",
-    // psychology and self-improvement
     "Small, consistent habits tend to shape a person's life far more than rare bursts of motivation ever could.",
     "Curiosity, more than raw talent, often determines how far someone goes when learning a difficult new skill.",
     "Listening carefully, without immediately planning a reply, is one of the simplest ways to strengthen a friendship.",
     "Setting realistic goals, broken into small steps, makes long term progress feel achievable instead of overwhelming.",
-    // literature and language
     "A well chosen word can carry more weight than an entire paragraph of vague and unfocused explanation.",
     "Many idioms make little literal sense, yet native speakers use and understand them without a second thought.",
     "Great storytellers often show a character's feelings through small actions rather than simply stating them outright.",
-    // space and astronomy
     "The moon has no atmosphere of its own, so its surface experiences extreme swings between heat and cold.",
     "Light from distant stars can take thousands or even millions of years to finally reach our eyes on Earth.",
     "A single day on Venus is longer than its entire year, because the planet rotates unusually slowly on its axis."
@@ -745,12 +393,11 @@ document.addEventListener('DOMContentLoaded', function(){
   var started = false;
   var finished = false;
   var currentText = "";
-  var typedChars = [];   // 'correct' | 'incorrect' | null
+  var typedChars = [];
   var totalKeystrokes = 0;
   var errorKeystrokes = 0;
   var startTime = null;
 
-  // --- shuffle-bag so the same passage doesn't keep repeating ---
   var passageBag = [];
   var lastPassage = null;
   function refillBag(){
@@ -759,7 +406,6 @@ document.addEventListener('DOMContentLoaded', function(){
       var j = Math.floor(Math.random()*(i+1));
       var tmp = passageBag[i]; passageBag[i]=passageBag[j]; passageBag[j]=tmp;
     }
-    // avoid the same passage showing twice back-to-back across a refill
     if(passageBag.length > 1 && passageBag[0] === lastPassage){
       passageBag.push(passageBag.shift());
     }
@@ -771,10 +417,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return p;
   }
 
-  // --- streamed text generation: keep a buffer of untyped text ahead of
-  // the cursor instead of building the whole (possibly huge, for 30m/1h
-  // tests) passage up front ---
-  var GEN_BUFFER = 3000; // keep at least this many un-typed chars generated
+  var GEN_BUFFER = 3000;
   function ensureBuffer(){
     while(currentText.length - typedChars.length < GEN_BUFFER){
       currentText += (currentText ? " " : "") + nextPassage();
@@ -795,8 +438,6 @@ document.addEventListener('DOMContentLoaded', function(){
     return h + ":" + (mm<10?"0":"") + mm + ":" + (ss<10?"0":"") + ss;
   }
 
-  // --- windowed rendering: only render a chunk of characters around the
-  // cursor so the DOM stays small even during very long tests ---
   var RENDER_BEHIND = 80;
   var RENDER_AHEAD = 900;
   function renderText(){
@@ -804,7 +445,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var start = Math.max(0, typedLen - RENDER_BEHIND);
     var end = Math.min(currentText.length, typedLen + RENDER_AHEAD);
     var html = "";
-    var cursorMarker = "";
     for(var i=start;i<end;i++){
       var ch = currentText[i];
       var display = ch === " " ? " " : ch;
@@ -816,7 +456,6 @@ document.addEventListener('DOMContentLoaded', function(){
       html += '<span'+(isCursor?' id="cursorChar"':'')+' class="'+cls+'">'+ escapeHtml(display) +'</span>';
     }
     textDisplay.innerHTML = html;
-    // keep the cursor in view as typing progresses
     var cursorEl = document.getElementById('cursorChar');
     if(cursorEl){
       cursorEl.scrollIntoView({ block:'center' });
@@ -883,32 +522,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
   var prevVal = "";
   function recomputeTyped(val){
-    // make sure there's enough generated text ahead of what's been typed
     if(val.length + GEN_BUFFER > currentText.length){
       while(currentText.length < val.length + GEN_BUFFER){
         currentText += (currentText ? " " : "") + nextPassage();
       }
     }
 
-    // Fast paths so long (30m/1h) tests stay smooth: only diff the part
-    // that actually changed instead of rescanning from the start every
-    // keystroke. Falls back to a full recompute for anything unusual
-    // (e.g. mobile autocorrect rewriting a whole word).
-    // Comparisons are case-insensitive: mobile keyboards auto-capitalize
-    // the first letter of sentences on their own, so a correctly-typed
-    // letter should never get flagged as wrong just because of casing.
     if(prevVal && val.length > prevVal.length && val.indexOf(prevVal) === 0){
-      // pure append
       for(var i=prevVal.length;i<val.length && i<currentText.length;i++){
         if(val[i].toLowerCase() === currentText[i].toLowerCase()){ typedChars.push("correct"); }
         else { typedChars.push("incorrect"); errorKeystrokes++; }
       }
     } else if(prevVal && val.length < prevVal.length && prevVal.indexOf(val) === 0){
-      // pure backspace/truncate
       var removed = typedChars.splice(val.length);
       for(var r=0;r<removed.length;r++){ if(removed[r]==="incorrect") errorKeystrokes--; }
     } else {
-      // full recompute (self-correcting fallback)
       var len = Math.min(val.length, currentText.length);
       recomputeTypedFull(val, len);
     }
@@ -947,7 +575,6 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('finalRaw').textContent = Math.max(rawWpm,0);
     document.getElementById('finalErr').textContent = errorKeystrokes;
 
-    // brief completion flash, then reveal the full results panel
     completeFlash.classList.add('show');
     setTimeout(function(){
       completeFlash.classList.remove('show');
@@ -994,26 +621,10 @@ document.addEventListener('DOMContentLoaded', function(){
   restartBtn.addEventListener('click', function(){ resetTest(); hiddenInput.focus(); });
   retryBtn.addEventListener('click', function(){ resetTest(); hiddenInput.focus(); paperEl.scrollIntoView({behavior:'smooth', block:'center'}); });
 
-  // ---- Mobile on-screen keyboard handling ----
-  // When the keyboard opens on phones, the visible viewport shrinks (or, on
-  // some Android browsers, the layout viewport doesn't shrink at all and the
-  // keyboard just overlaps content). Two things fix that:
-  // 1) Use visualViewport to detect the keyboard opening and add a
-  //    body.kb-open class that compacts the layout (hides subtitle, shrinks
-  //    dials/passage box) so everything still fits above the keyboard.
-  // 2) Explicitly scroll the input + passage into view once the keyboard
-  //    has finished animating in, instead of relying on default browser
-  //    behavior (which is inconsistent, especially inside address-bar
-  //    heavy mobile browser UIs).
   var dialsEl = document.querySelector('.dials');
 
   function scrollInputIntoView(){
-    // Give the keyboard time to finish opening before measuring/scrolling.
     setTimeout(function(){
-      // Bring the whole compact block (dials down to input) to the top
-      // of the visible area, so nothing is hidden above the fold behind
-      // the browser's address bar, and the input is guaranteed visible
-      // right below the shrunk passage.
       if(dialsEl){ dialsEl.scrollIntoView({ block:'start' }); }
       window.scrollTo(0, Math.max(window.scrollY - 8, 0));
     }, 250);
@@ -1040,7 +651,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // init
   resetTest();
 })();
 </script>
