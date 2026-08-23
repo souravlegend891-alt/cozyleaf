@@ -57,10 +57,10 @@
   /* Page-specific only — colors, header, .wrap/.card/h1 sizing
      all come from style.css so this page matches every other page. */
   .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px;}
-  .chip-group{display:flex;flex-wrap:wrap;background:#FBFAF7;border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px;}
-  .chip{border:none;background:transparent;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.15s;}
-  .chip.active{background:var(--c-fun);color:#fff;}
-  .chip:hover:not(.active){color:var(--ink);}
+  .chip-group{display:flex;flex-wrap:wrap;background:linear-gradient(135deg,#F5F3FF,#F0F6FF);border:1px solid #E1DBFA;border-radius:999px;padding:5px;gap:3px;box-shadow:inset 0 1px 2px rgba(90,70,200,.05);}
+  .chip{border:none;background:transparent;color:#6B7280;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.18s;}
+  .chip.active{background:linear-gradient(135deg,#8B7CF6,#6C5CE7);color:#fff;box-shadow:0 3px 10px rgba(108,92,231,.35);}
+  .chip:hover:not(.active){color:#6C5CE7;background:rgba(108,92,231,.08);}
   .spacer{flex:1;}
   .btn-outline{
     border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
@@ -70,48 +70,84 @@
   .btn-outline:hover{border-color:var(--c-fun);color:var(--c-fun);}
 
   .dials{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
-  .dial{background:#FBFAF7;border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;}
-  .dial.time-dial{background:#F3F1FF;border-color:#D9D4FF;}
+  .dial{border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;transition:transform .15s;}
   .dial .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:clamp(18px,4vw,26px);color:var(--ink);font-variant-numeric:tabular-nums;}
-  .dial .num.time{color:var(--c-fun);font-size:clamp(24px,5.5vw,34px);}
   .dial .lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
-  .dial.time-dial .lbl{color:var(--c-fun);opacity:.85;}
 
-  .paper{position:relative;background:#FBFAF7;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:hidden;scroll-margin-top:16px;scroll-margin-bottom:16px;}
-  .progress-track{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:14px;}
-  .progress-fill{height:100%;width:0%;background:var(--c-fun);transition:width .15s linear;}
+  /* Each stat gets its own accent so the row reads clearly at a glance. */
+  .dial.time-dial{background:linear-gradient(160deg,#F3F1FF,#E9E4FF);border-color:#D3CBFA;}
+  .dial.time-dial .num.time{color:#6C5CE7;font-size:clamp(24px,5.5vw,34px);}
+  .dial.time-dial .lbl{color:#7A6FE0;opacity:.9;font-weight:600;}
+
+  .dial.wpm-dial{background:linear-gradient(160deg,#EAF3FF,#DCEBFF);border-color:#C3DDFB;}
+  .dial.wpm-dial .num{color:#2E7BE0;}
+  .dial.wpm-dial .lbl{color:#3D82D6;opacity:.9;font-weight:600;}
+
+  .dial.acc-dial{background:linear-gradient(160deg,#E9FBF3,#D9F6E7);border-color:#BEEBD4;}
+  .dial.acc-dial .num{color:#159C7A;}
+  .dial.acc-dial .lbl{color:#1B9E80;opacity:.9;font-weight:600;}
+
+  .dial.err-dial{background:linear-gradient(160deg,#FFF1EC,#FFE3D8);border-color:#FBCDB6;}
+  .dial.err-dial .num{color:#E0632E;}
+  .dial.err-dial .lbl{color:#D9622F;opacity:.9;font-weight:600;}
+
+  /* Passage/typing card: layered indigo gradient with a colorful top accent
+     bar, dark high-contrast passage text, and a crisp white input field so
+     each zone (passage / input / status) reads as its own distinct area. */
+  .paper{
+    position:relative;overflow:hidden;border-radius:18px;padding:22px 20px 18px;
+    background:linear-gradient(165deg,#F3F5FF 0%,#E7EBFC 55%,#EDF1FB 100%);
+    border:1px solid #D6DCF5;
+    box-shadow:0 10px 24px -14px rgba(76,86,180,.28), inset 0 1px 0 rgba(255,255,255,.6);
+    scroll-margin-top:16px;scroll-margin-bottom:16px;
+  }
+  .paper::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,#8B7CF6,#6C9BF6,#4FD1B5);
+  }
+  .progress-track{height:5px;background:#DDE2F5;border-radius:3px;overflow:hidden;margin-bottom:16px;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#8B7CF6,#6C9BF6);transition:width .15s linear;}
   .text-display{
-    font-family:'IBM Plex Mono',monospace;font-size:clamp(15px,2.2vw,18px);line-height:1.9;
+    font-family:'IBM Plex Mono',monospace;font-size:clamp(15px,2.2vw,18px);line-height:1.95;
     letter-spacing:.2px;user-select:none;min-height:140px;max-height:min(36vh,240px);overflow-y:auto;color:var(--ink);
   }
   .text-display span{position:relative;}
-  .char-pending{color:#A8A4B0;}
-  .char-correct{color:#159C8F;}
-  .char-incorrect{color:#C0392B;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;background:rgba(192,57,43,.10);border-radius:2px;}
-  .char-incorrect.is-space{background:rgba(192,57,43,.22);}
-  .char-current{border-left:2px solid var(--c-fun);animation:blink 1s step-end infinite;}
+  .char-pending{color:#3E4459;font-weight:500;}
+  .char-correct{color:#0F9B7E;}
+  .char-incorrect{color:#D6483A;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;background:rgba(214,72,58,.12);border-radius:2px;}
+  .char-incorrect.is-space{background:rgba(214,72,58,.24);}
+  .char-current{border-left:2.5px solid #6C5CE7;animation:blink 1s step-end infinite;}
   @keyframes blink{50%{border-color:transparent;}}
 
   .type-input{
-    width:100%;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:16px;
-    padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);
+    width:100%;margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;
+    padding:13px 16px;border-radius:12px;border:1.5px solid #E3E7F5;background:#fff;color:var(--ink);
     outline:none;transition:.15s;scroll-margin-top:16px;scroll-margin-bottom:16px;
+    box-shadow:0 4px 12px -6px rgba(30,30,60,.12);
   }
-  .type-input::placeholder{color:var(--ink-soft);}
-  .type-input:focus{border-color:var(--c-fun);}
+  .type-input::placeholder{color:#9AA0B4;font-weight:400;}
+  .type-input:focus{border-color:#6C5CE7;box-shadow:0 4px 14px -4px rgba(108,92,231,.35);}
   .type-input:disabled{opacity:.6;}
-  .type-input.input-correct{border-color:#159C8F;color:#159C8F;}
-  .type-input.input-incorrect{border-color:#C0392B;color:#C0392B;}
+  .type-input.input-correct{border-color:#0F9B7E;color:#0F9B7E;}
+  .type-input.input-incorrect{border-color:#D6483A;color:#D6483A;}
 
-  .complete-flash{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FBFAF7;z-index:5;}
+  .complete-flash{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(165deg,#F3F5FF,#E7EBFC);z-index:5;}
   .complete-flash.show{display:flex;}
-  .flash-check{width:60px;height:60px;border-radius:50%;background:#159C8F;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;animation:flashPop .55s cubic-bezier(.34,1.56,.64,1);}
+  .flash-check{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#4FD1B5,#0F9B7E);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;animation:flashPop .55s cubic-bezier(.34,1.56,.64,1);box-shadow:0 6px 16px -6px rgba(15,155,126,.5);}
   .flash-label{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);animation:flashFadeIn .4s ease .15s both;}
   @keyframes flashPop{0%{transform:scale(.3);opacity:0;}60%{transform:scale(1.12);opacity:1;}100%{transform:scale(1);opacity:1;}}
   @keyframes flashFadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
-  .hint{margin-top:12px;font-size:12px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
-  .hint .tag{background:var(--hover);padding:3px 9px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;}
+
+  .hint{margin-top:13px;font-size:12.5px;color:#5A5F76;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;line-height:1.6;}
+  .hint-good{color:#0F9B7E;font-weight:700;}
+  .hint-bad{color:#D6483A;font-weight:700;}
+  .hint .tag{background:#fff;border:1px solid #E3E7F5;color:#6C5CE7;padding:4px 11px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:10.5px;display:inline-flex;align-items:center;gap:5px;transition:.15s;}
+  .hint .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#9AA0B4;}
+  .hint .tag.state-typing{background:#EAF3FF;border-color:#C3DDFB;color:#2E7BE0;}
+  .hint .tag.state-typing::before{background:#2E7BE0;}
+  .hint .tag.state-finished{background:#E9FBF3;border-color:#BEEBD4;color:#0F9B7E;}
+  .hint .tag.state-finished::before{background:#0F9B7E;}
 
   .results{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;margin-bottom:16px;}
   .results.show{display:block;animation:rise .35s ease;}
@@ -123,22 +159,6 @@
   .result-grid .cell{background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:11px 6px;}
   .result-grid .cell .v{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:18px;color:var(--ink);}
   .result-grid .cell .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
-
-  .more-tools{margin:24px 0 8px;}
-  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
-  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
-  .tool-grid a:hover{border-color:var(--c-fun);background:#F5F4FF;}
-
-  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-  .more-toggle:hover{border-color:var(--c-fun);color:var(--c-fun);}
-  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
-  .all-tools-list.open{display:block;}
-  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
-  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
-  .all-tools-list a:last-child{border-bottom:none;}
-  .all-tools-list a:hover{background:var(--hover);}
 
   .seo-content{color:#4A4E56;margin-top:8px;}
   .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
@@ -201,9 +221,9 @@
 
     <div class="dials">
       <div class="dial time-dial"><div class="num time" id="dialTime">30</div><div class="lbl">Time left</div></div>
-      <div class="dial"><div class="num" id="dialWpm">0</div><div class="lbl">WPM</div></div>
-      <div class="dial"><div class="num" id="dialAcc">0</div><div class="lbl">Accuracy %</div></div>
-      <div class="dial"><div class="num" id="dialErr">0</div><div class="lbl">Errors</div></div>
+      <div class="dial wpm-dial"><div class="num" id="dialWpm">0</div><div class="lbl">WPM</div></div>
+      <div class="dial acc-dial"><div class="num" id="dialAcc">0</div><div class="lbl">Accuracy %</div></div>
+      <div class="dial err-dial"><div class="num" id="dialErr">0</div><div class="lbl">Errors</div></div>
     </div>
 
     <div class="paper" id="paper">
@@ -211,7 +231,7 @@
       <div class="text-display" id="textDisplay"></div>
       <input type="text" class="type-input" id="hiddenInput" placeholder="Click here and start typing…" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="hint">
-        <span>Type into the box above — the passage highlights as you go.</span>
+        <span>Start typing above — correct letters turn <span class="hint-good">green</span>, mistakes turn <span class="hint-bad">red</span>.</span>
         <span class="tag" id="stateTag">Ready</span>
       </div>
       <div class="complete-flash" id="completeFlash">
@@ -232,13 +252,6 @@
     </div>
     <button class="btn-primary" id="retryBtn">&#8635; Try again</button>
   </div>
-
-  <nav class="more-tools" aria-label="Other tools">
-    <h2>Related Tools</h2>
-    <div class="tool-grid" id="categoryGrid"></div>
-    <button class="more-toggle" id="moreToggle">+ More tools</button>
-    <div class="all-tools-list" id="allToolsList"></div>
-  </nav>
 
   <section class="seo-content">
     <h2>Free Typing Speed Test — Measure Your WPM Online</h2>
@@ -272,48 +285,6 @@
     </div>
   </footer>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var CURRENT_URL = 'typing-speed-test.html';
-  var CURRENT_CAT = 'Text Tools';
-
-  var tools = window.COZYLEAF_TOOLS || [];
-  var icons = window.COZYLEAF_ICONS || {};
-  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
-  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
-
-  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
-  var grid = document.getElementById('categoryGrid');
-  if(sameCat.length){
-    grid.innerHTML = sameCat.map(function(t){
-      var ic = icons[t.url] || '🔧';
-      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
-    }).join('');
-  } else {
-    grid.style.display = 'none';
-  }
-
-  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
-  var listEl = document.getElementById('allToolsList');
-  listEl.innerHTML = otherCats.map(function(cat){
-    var hex = catHex[cat] || '#9AA0AC';
-    var catTools = tools.filter(function(t){ return t.cat === cat; });
-    if(!catTools.length) return '';
-    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
-    var rows = catTools.map(function(t){
-      var ic = icons[t.url] || '🔧';
-      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
-    }).join('');
-    return head + rows;
-  }).join('');
-
-  document.getElementById('moreToggle').addEventListener('click', function(){
-    listEl.classList.toggle('open');
-    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
-  });
-});
-</script>
 
 <script>
 (function(){
@@ -492,6 +463,7 @@ document.addEventListener('DOMContentLoaded', function(){
     dialErr.textContent = "0";
     progressFill.style.width = "0%";
     stateTag.textContent = "Ready";
+    stateTag.classList.remove('state-typing','state-finished');
     results.classList.remove('show');
     completeFlash.classList.remove('show');
     paperEl.style.display = "";
@@ -502,6 +474,7 @@ document.addEventListener('DOMContentLoaded', function(){
     started = true;
     startTime = Date.now();
     stateTag.textContent = "Typing…";
+    stateTag.classList.add('state-typing');
     timerId = setInterval(function(){
       timeLeft--;
       dialTime.textContent = formatTime(timeLeft);
@@ -570,6 +543,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var acc = totalKeystrokes>0 ? Math.round(100*(totalKeystrokes-errorKeystrokes)/totalKeystrokes) : 100;
 
     stateTag.textContent = "Finished";
+    stateTag.classList.remove('state-typing');
+    stateTag.classList.add('state-finished');
     document.getElementById('finalWpm').textContent = Math.max(netWpm,0);
     document.getElementById('finalAcc').textContent = Math.max(acc,0)+"%";
     document.getElementById('finalRaw').textContent = Math.max(rawWpm,0);
