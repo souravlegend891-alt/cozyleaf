@@ -3,11 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Typing Speed Test</title>
+
+<title>Typing Speed Test - Free WPM Test Online | Cozyleaf</title>
+<meta name="description" content="Free typing speed test — measure your words per minute (WPM) and accuracy with live stats. Choose 15 seconds up to 1 hour. No sign-up needed.">
+<meta name="keywords" content="typing speed test, wpm test online, typing test free, words per minute test, typing accuracy test, free typing test">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/typing-speed-test.html">
+<meta name="theme-color" content="#14151b">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Typing Speed Test - Free WPM Test Online">
+<meta property="og:description" content="Free typing speed test — measure your words per minute and accuracy with live stats. No sign-up needed.">
+<meta property="og:url" content="https://cozyleaf.in/typing-speed-test.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Typing Speed Test - Cozyleaf">
+<meta name="twitter:description" content="Free typing speed test — measure your WPM and accuracy instantly. No sign-up needed.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Typing Speed Test",
+  "url": "https://cozyleaf.in/typing-speed-test.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online typing speed test that measures words per minute (WPM), raw WPM, accuracy, and errors across selectable durations from 15 seconds to 1 hour."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is WPM?","acceptedAnswer":{"@type":"Answer","text":"WPM stands for words per minute, a standard measure of typing speed. It is usually calculated as the number of correctly typed characters divided by five, divided by the time taken in minutes."}},
+    {"@type":"Question","name":"What is a good typing speed?","acceptedAnswer":{"@type":"Answer","text":"The average typing speed is around 40 WPM. Above 60 WPM is considered fast, and professional typists often reach 70-100+ WPM."}},
+    {"@type":"Question","name":"What is the difference between WPM and raw WPM?","acceptedAnswer":{"@type":"Answer","text":"Net WPM only counts correctly typed characters, while raw WPM counts every character typed including mistakes. Net WPM is a more accurate measure of real typing speed."}},
+    {"@type":"Question","name":"How is typing accuracy calculated?","acceptedAnswer":{"@type":"Answer","text":"Accuracy is the percentage of correctly typed characters out of all characters typed, including any mistakes that were later corrected."}},
+    {"@type":"Question","name":"Is this typing test free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
+  /* This page keeps its own intentional vintage-typewriter theme.
+     Every rule below is scoped to this page and is declared AFTER
+     style.css, so it fully overrides the site-wide light theme —
+     the dark background, custom fonts, and layout stay untouched. */
   :root{
     --ink:#14151b;
     --ink-2:#1c1e27;
@@ -39,13 +88,13 @@
     color:var(--paper);
     min-height:100vh;
     min-height:100dvh; /* actual visible height on mobile, shrinks correctly when keyboard opens */
-    padding:32px 16px 60px;
-    display:flex;
-    justify-content:center;
+    padding:0 16px 60px;
   }
   .wrap{
     width:100%;
     max-width:820px;
+    margin:0 auto;
+    padding:32px 0 0;
   }
   .eyebrow{
     display:flex;
@@ -378,6 +427,52 @@
     letter-spacing:.05em;
   }
 
+  /* Related tools + SEO content — styled to match the vintage theme */
+  .related-tools{ margin-top:34px; }
+  .related-tools h2{
+    font-family:'Special Elite', monospace;
+    font-weight:400;
+    font-size:19px;
+    margin-bottom:12px;
+  }
+  .related-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .related-grid a{
+    display:flex; align-items:center; gap:8px; padding:11px 12px; border-radius:10px;
+    background:var(--ink-2); border:1px solid rgba(242,236,220,.08); color:var(--paper);
+    text-decoration:none; font-size:13px; font-weight:600; transition:.15s;
+  }
+  .related-grid a:hover{ border-color:var(--brass); }
+  .more-toggle{
+    width:100%; margin-top:10px; padding:11px; border-radius:10px;
+    border:1.5px dashed rgba(242,236,220,.2); background:none; color:var(--slate);
+    font-size:13px; font-weight:600; cursor:pointer; font-family:'JetBrains Mono',monospace;
+  }
+  .more-toggle:hover{ border-color:var(--brass); color:var(--brass); }
+  .all-tools-list{ display:none; margin-top:10px; border:1px solid rgba(242,236,220,.08); border-radius:12px; overflow:hidden; background:var(--ink-2); }
+  .all-tools-list.open{ display:block; }
+  .all-tools-cat{ padding:12px 14px 4px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--slate); display:flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; }
+  .all-tools-cat .chip-dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .all-tools-list a{
+    display:flex; align-items:center; justify-content:space-between; padding:10px 14px;
+    font-size:13.5px; font-weight:600; color:var(--paper); text-decoration:none;
+    border-bottom:1px solid rgba(242,236,220,.06);
+  }
+  .all-tools-list a:last-child{ border-bottom:none; }
+  .all-tools-list a:hover{ background:rgba(242,236,220,.05); }
+
+  .seo-content{ margin-top:30px; color:var(--slate); }
+  .seo-content h2{
+    font-family:'Special Elite', monospace; font-weight:400; font-size:18px;
+    color:var(--paper); margin:22px 0 8px;
+  }
+  .seo-content p{ font-size:13.5px; line-height:1.7; margin-bottom:8px; }
+  .seo-content strong{ color:var(--paper); }
+
+  .site-footer{ margin-top:24px; text-align:center; }
+  .site-footer .links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; font-size:12.5px; }
+  .site-footer a{ color:var(--slate); text-decoration:none; }
+  .site-footer a:hover{ color:var(--brass); }
+
   @media (max-width:520px){
     .dials{ grid-template-columns:repeat(2,1fr); }
     .result-grid{ grid-template-columns:repeat(1,1fr); }
@@ -479,7 +574,88 @@
   </div>
 
   <footer class="credit">COZYLEAF.IN — FREE ONLINE TOOLS</footer>
+
+  <nav class="related-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="related-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free Typing Speed Test — Measure Your WPM Online</h2>
+    <p>This typing speed test measures how many words per minute (WPM) you can type, along with your accuracy and error count. Pick a duration from 15 seconds up to a full hour, then type the passage shown as fast and accurately as you can — your stats update live as you go.</p>
+
+    <h2>What is WPM?</h2>
+    <p>WPM stands for words per minute, the standard way typing speed is measured. It's calculated by dividing the number of correctly typed characters by five (the average word length), then dividing by the time taken in minutes.</p>
+
+    <h2>Net WPM vs Raw WPM</h2>
+    <p>Net WPM only counts characters you typed correctly, giving a realistic measure of your actual typing speed. Raw WPM counts every character typed, including mistakes, so it's usually higher than net WPM. This test shows both, along with your accuracy percentage.</p>
+
+    <h2>What Is a Good Typing Speed?</h2>
+    <p>The average typing speed is around 40 WPM. Speeds above 60 WPM are considered fast, and professional typists — such as transcriptionists and data entry specialists — often reach 70 to 100+ WPM with high accuracy.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What is WPM?</strong> WPM stands for words per minute, a standard measure of typing speed, calculated as correctly typed characters divided by five, divided by time in minutes.</p>
+    <p><strong>What is a good typing speed?</strong> The average typing speed is around 40 WPM. Above 60 WPM is considered fast, and professional typists often reach 70-100+ WPM.</p>
+    <p><strong>What is the difference between WPM and raw WPM?</strong> Net WPM only counts correctly typed characters, while raw WPM counts every character typed including mistakes.</p>
+    <p><strong>How is typing accuracy calculated?</strong> Accuracy is the percentage of correctly typed characters out of all characters typed, including any mistakes.</p>
+    <p><strong>Is this typing test free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload my data?</strong> No — the test runs entirely in your browser. Nothing is sent to any server.</p>
+  </section>
+
+  <footer class="site-footer">
+    <div class="links">
+      <a href="index.html">All Tools</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </footer>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'typing-speed-test.html';
+  var CURRENT_CAT = 'Text Tools';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
 
 <script>
 (function(){
