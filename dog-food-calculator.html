@@ -3,7 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bowl Math — Advanced Dog Food Calculator</title>
+<title>Dog Food Calculator — Daily Portion &amp; Calorie Calculator | Cozyleaf</title>
+<meta name="description" content="Free dog food calculator based on the vet RER formula. Get your dog's daily calorie target, cups/cans per day, per-meal portion and treat allowance — factors in life stage, activity and body condition.">
+<meta name="keywords" content="dog food calculator, dog calorie calculator, how much to feed my dog, dog portion calculator, RER calculator dog, puppy feeding calculator, dog food amount calculator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/dog-food-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Dog Food Calculator — Daily Portion &amp; Calorie Calculator | Cozyleaf">
+<meta property="og:description" content="Enter your dog's weight, life stage and activity level to get a vet-formula daily calorie target and food portion — cups, cans or grams per day.">
+<meta property="og:url" content="https://cozyleaf.in/dog-food-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dog Food Calculator | Cozyleaf">
+<meta name="twitter:description" content="Vet-formula (RER) dog food calculator. Free, instant, no signup.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Dog Food Calculator",
+  "url": "https://cozyleaf.in/dog-food-calculator.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online calculator that estimates a dog's daily calorie needs and food portion using the resting energy requirement (RER) formula, adjusted for life stage, activity level and body condition."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How is the daily calorie target calculated?","acceptedAnswer":{"@type":"Answer","text":"It uses the resting energy requirement formula, RER = 70 × (weight in kg) to the power 0.75, then multiplies by a factor for life stage, activity level and body condition score."}},
+    {"@type":"Question","name":"Is this dog food calculator free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no account or sign-up required, and it runs entirely in your browser."}},
+    {"@type":"Question","name":"Can I use this for puppies?","acceptedAnswer":{"@type":"Answer","text":"Yes, select the Puppy life stage, which applies a higher calorie multiplier to support growth. For very young or toy-breed puppies, also check with your vet."}},
+    {"@type":"Question","name":"Does this replace advice from a vet?","acceptedAnswer":{"@type":"Answer","text":"No, this is a starting estimate. Dogs with medical conditions, extreme sizes, or a body condition score far from ideal should be assessed by a veterinarian."}}
+  ]
+}
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -30,11 +72,11 @@
     color:var(--ink);
     font-family:'Inter',sans-serif;
     min-height:100vh;
-    padding:28px 16px 60px;
+    padding:0 16px 60px;
   }
   .wrap{max-width:640px;margin:0 auto;}
 
-  header.hero{margin-bottom:28px;}
+  header.hero{margin:28px 0;}
   .eyebrow{
     display:flex;align-items:center;gap:8px;
     font-family:'Space Grotesk',sans-serif;
@@ -166,10 +208,25 @@
 
   .note{font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:16px;}
 
-  footer{text-align:center; font-size:12px; color:var(--ink-soft); margin-top:26px;}
+  /* SEO content — same pattern used across other Cozyleaf tool pages */
+  .seo-content{margin:20px 0 30px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif; font-size:17px; color:var(--moss-dark); margin:22px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 10px;}
+  .seo-content strong{color:var(--ink);}
+
+  footer{
+    text-align:center; padding:14px 0 10px; font-family:'Inter',sans-serif;
+    font-size:12px; color:var(--ink-soft); line-height:1.9; border-top:1px solid var(--line);
+  }
+  footer a{color:var(--moss-dark); text-decoration:none; font-weight:600;}
+  footer a:hover{text-decoration:underline;}
+  .footer-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:6px;}
 </style>
 </head>
 <body>
+<script src="cozleaf-header.js" defer></script>
+
 <div class="wrap">
 
   <header class="hero">
@@ -320,7 +377,33 @@
     </div>
   </div>
 
-  <footer>Built with Bowl Math · not a substitute for veterinary advice</footer>
+  <section class="seo-content">
+    <h2>How This Dog Food Calculator Works</h2>
+    <p>This calculator starts from your dog's <strong>resting energy requirement (RER)</strong> — the calories needed at complete rest — using the vet-standard formula RER = 70 × (weight in kg)<sup>0.75</sup>. That baseline is then multiplied by a factor for life stage, activity level and body condition score to estimate your dog's actual daily calorie needs, rather than relying on a generic weight-to-cups chart.</p>
+
+    <h2>Why Life Stage and Activity Matter</h2>
+    <p>A growing puppy or a pregnant/nursing dog needs far more calories per pound than a typical neutered adult, while a working dog or a highly active dog burns significantly more than one that's mostly sedentary. Selecting the right life stage and activity level keeps the daily target realistic instead of over- or under-feeding.</p>
+
+    <h2>Reading Your Results</h2>
+    <p>The results show a daily calorie target, the equivalent portion in cups, cans or grams based on your food's calorie density, a per-meal breakdown, and a treat allowance capped at 10% of daily calories — a common guideline vets use to avoid displacing balanced nutrition.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>How is the daily calorie target calculated?</strong> It uses RER = 70 × (weight in kg)<sup>0.75</sup>, then multiplies by a factor for life stage, activity level and body condition score.</p>
+    <p><strong>Is this free to use?</strong> Yes, completely free with no account required, and it runs entirely in your browser.</p>
+    <p><strong>Can I use this for puppies?</strong> Yes — select the Puppy life stage for a higher growth-appropriate multiplier. For very young or toy-breed puppies, also check with your vet.</p>
+    <p><strong>Does this replace advice from a vet?</strong> No. It's a starting estimate — dogs with medical conditions, extreme sizes, or a body condition score far from ideal should be assessed by a veterinarian.</p>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    This calculator runs 100% in your browser — no data goes anywhere.<br>
+    Cozyleaf.in — every tool, one place.
+  </footer>
 </div>
 
 <script>
