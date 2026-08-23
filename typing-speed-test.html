@@ -56,11 +56,15 @@
 <style>
   /* Page-specific only — colors, header, .wrap/.card/h1 sizing
      all come from style.css so this page matches every other page. */
+  /* Remove the shared .card wrapper's white background/border/shadow on
+     this page only — style.css and every other page keep .card as-is. */
+  .wrap > .card{background:none;border:none;box-shadow:none;padding:0;border-radius:0;}
+
   .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px;}
-  .chip-group{display:flex;flex-wrap:wrap;background:linear-gradient(135deg,#F5F3FF,#F0F6FF);border:1px solid #E1DBFA;border-radius:999px;padding:5px;gap:3px;box-shadow:inset 0 1px 2px rgba(90,70,200,.05);}
-  .chip{border:none;background:transparent;color:#6B7280;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.18s;}
+  .chip-group{display:flex;flex-wrap:wrap;background:linear-gradient(135deg,#F5F3FF,#F0F6FF);border:1px solid #E1DBFA;border-radius:16px;padding:6px;gap:4px;box-shadow:inset 0 1px 2px rgba(90,70,200,.05);}
+  .chip{border:none;background:transparent;color:#565C74;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;padding:8px 14px;border-radius:10px;cursor:pointer;transition:.18s;}
   .chip.active{background:linear-gradient(135deg,#8B7CF6,#6C5CE7);color:#fff;box-shadow:0 3px 10px rgba(108,92,231,.35);}
-  .chip:hover:not(.active){color:#6C5CE7;background:rgba(108,92,231,.08);}
+  .chip:hover:not(.active){color:#6C5CE7;background:rgba(108,92,231,.1);}
   .spacer{flex:1;}
   .btn-outline{
     border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
@@ -96,14 +100,14 @@
      each zone (passage / input / status) reads as its own distinct area. */
   .paper{
     position:relative;overflow:hidden;border-radius:18px;padding:22px 20px 18px;
-    background:linear-gradient(165deg,#F3F5FF 0%,#E7EBFC 55%,#EDF1FB 100%);
-    border:1px solid #D6DCF5;
+    border:3px solid transparent;
+    background-image:
+      linear-gradient(165deg,#F3F5FF 0%,#E7EBFC 55%,#EDF1FB 100%),
+      linear-gradient(135deg,#8B7CF6 0%,#6C9BF6 33%,#4FD1B5 66%,#F0A868 100%);
+    background-origin:border-box;
+    background-clip:padding-box, border-box;
     box-shadow:0 10px 24px -14px rgba(76,86,180,.28), inset 0 1px 0 rgba(255,255,255,.6);
     scroll-margin-top:16px;scroll-margin-bottom:16px;
-  }
-  .paper::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:4px;
-    background:linear-gradient(90deg,#8B7CF6,#6C9BF6,#4FD1B5);
   }
   .progress-track{height:5px;background:#DDE2F5;border-radius:3px;overflow:hidden;margin-bottom:16px;}
   .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#8B7CF6,#6C9BF6);transition:width .15s linear;}
@@ -121,12 +125,13 @@
 
   .type-input{
     width:100%;margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;
-    padding:13px 16px;border-radius:12px;border:1.5px solid #E3E7F5;background:#fff;color:var(--ink);
+    padding:13px 16px;border-radius:12px;border:1.5px solid #E2D9FC;
+    background:linear-gradient(135deg,#FFFFFF 0%,#F5F1FF 100%);color:var(--ink);
     outline:none;transition:.15s;scroll-margin-top:16px;scroll-margin-bottom:16px;
-    box-shadow:0 4px 12px -6px rgba(30,30,60,.12);
+    box-shadow:0 4px 14px -6px rgba(108,92,231,.22), inset 0 1px 0 rgba(255,255,255,.8);
   }
-  .type-input::placeholder{color:#9AA0B4;font-weight:400;}
-  .type-input:focus{border-color:#6C5CE7;box-shadow:0 4px 14px -4px rgba(108,92,231,.35);}
+  .type-input::placeholder{color:#8A85A8;font-weight:500;}
+  .type-input:focus{border-color:#6C5CE7;box-shadow:0 4px 16px -4px rgba(108,92,231,.4);}
   .type-input:disabled{opacity:.6;}
   .type-input.input-correct{border-color:#0F9B7E;color:#0F9B7E;}
   .type-input.input-incorrect{border-color:#D6483A;color:#D6483A;}
@@ -159,6 +164,17 @@
   .result-grid .cell{background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:11px 6px;}
   .result-grid .cell .v{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:18px;color:var(--ink);}
   .result-grid .cell .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
+
+  .more-tools{margin:20px 0 8px;}
+  .more-toggle{width:100%;padding:12px;border-radius:12px;border:1.5px dashed #C9BFF5;background:linear-gradient(135deg,#F5F3FF,#F0F6FF);color:#6C5CE7;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;}
+  .more-toggle:hover{border-color:#6C5CE7;background:linear-gradient(135deg,#EDE9FF,#E5EEFF);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid #E1DBFA;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 6px 18px -10px rgba(76,86,180,.2);}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#6A7089;display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid #F0EEFB;}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:#F5F3FF;color:#6C5CE7;}
 
   .seo-content{color:#4A4E56;margin-top:8px;}
   .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
@@ -253,6 +269,11 @@
     <button class="btn-primary" id="retryBtn">&#8635; Try again</button>
   </div>
 
+  <nav class="more-tools" aria-label="Other tools">
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
   <section class="seo-content">
     <h2>Free Typing Speed Test — Measure Your WPM Online</h2>
     <p>This typing speed test measures how many words per minute (WPM) you can type, along with your accuracy and error count. Pick a duration from 15 seconds up to a full hour, then type the passage shown as fast and accurately as you can — your stats update live as you go.</p>
@@ -285,6 +306,40 @@
     </div>
   </footer>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'typing-speed-test.html';
+  var CURRENT_CAT = 'Text Tools';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var listEl = document.getElementById('allToolsList');
+  var toggleBtn = document.getElementById('moreToggle');
+  if(!listEl || !toggleBtn) return;
+
+  var allCats = catOrder.length ? catOrder : [CURRENT_CAT];
+  listEl.innerHTML = allCats.map(function(cat){
+    var hex = catHex[cat] || '#6C5CE7';
+    var catTools = tools.filter(function(t){ return t.cat === cat && t.url !== CURRENT_URL; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  toggleBtn.addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
 
 <script>
 (function(){
@@ -631,4 +686,3 @@
 </script>
 </body>
 </html>
-
