@@ -8,7 +8,7 @@
 <meta name="keywords" content="stylish name generator, fancy text generator, nickname generator, free fire name style, facebook stylish name, instagram bio font, unicode font generator, cool name for bio, stylish font">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://cozyleaf.in/name-style.html">
-<meta name="theme-color" content="#0A1F1B">
+<meta name="theme-color" content="#1B1D29">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cozyleaf">
@@ -46,337 +46,238 @@
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Symbols+2&family=Noto+Sans:wght@400;600&display=swap');
+  .stat-row{display:flex;justify-content:center;gap:8px;margin:14px 0 4px;flex-wrap:wrap;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#F5F4FF;border:1px solid #D9D4FF;color:var(--c-fun);padding:6px 12px;border-radius:999px;}
 
-  :root{
-    --ink:#0A1F1B;
-    --ink-2:#0F2E27;
-    --paper:#FBF5E6;
-    --hot:#FF6B4A;
-    --gold:#FFC24B;
-    --mint:#3ED6A3;
-    --teal:#17B6A8;
-    --card:#123028;
-    --card-line:rgba(251,245,230,0.12);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(circle at 15% 0%, rgba(62,214,163,0.20) 0%, transparent 45%),
-      radial-gradient(circle at 90% 10%, rgba(255,107,74,0.16) 0%, transparent 45%),
-      radial-gradient(circle at 50% 90%, rgba(255,194,75,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse 900px 500px at 50% -10%, var(--ink-2) 0%, transparent 60%),
-      var(--ink);
-    background-attachment:fixed;
-    color:var(--paper);
-    font-family:'Space Grotesk','Noto Sans','Noto Sans Symbols 2',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .noise{
-    position:fixed; inset:0; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  a{color:inherit;}
-  .top-nav{
-    max-width:1240px; margin:0 auto; padding:16px 20px 0;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .brand{
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px;
-    display:flex; align-items:center; gap:7px; text-decoration:none; color:var(--paper);
-  }
-  .brand .dot{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--mint), var(--teal) 70%);}
-  .top-nav a.back{font-size:12.5px; color:rgba(251,245,230,0.55); text-decoration:none; font-family:'JetBrains Mono',monospace;}
-
-  header{
-    padding:24px 20px 10px;
-    text-align:center;
-  }
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    letter-spacing:.22em;
-    color:var(--mint);
-    text-transform:uppercase;
-  }
-  h1{
-    font-family:'Bungee',sans-serif;
-    font-weight:400;
-    font-size:clamp(26px,7.5vw,50px);
-    line-height:1.08;
-    margin:10px 0 6px;
-    background:linear-gradient(90deg,var(--hot),var(--gold));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .sub{
-    font-size:14px;
-    color:rgba(251,245,230,0.65);
-    max-width:440px;
-    margin:0 auto;
-    line-height:1.5;
-  }
-  .stat-row{
-    display:flex; justify-content:center; gap:10px; margin-top:14px; flex-wrap:wrap;
-  }
-  .stat-pill{
-    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600;
-    background:rgba(62,214,163,0.12); border:1px solid rgba(62,214,163,0.3);
-    color:var(--mint); padding:6px 12px; border-radius:999px;
-  }
-
-  .layout{ max-width:480px; margin:0 auto; }
-  .sidebar{ } .main-col{ }
-
-  .badge-wrap{ margin:22px auto 8px; padding:0 18px; }
-  .badge{
-    background:var(--paper);
-    color:var(--ink); border-radius:20px;
-    padding:24px 20px 20px; position:relative;
-    box-shadow:0 20px 0 -9px rgba(0,0,0,0.28), 0 26px 46px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(10,31,27,0.06) inset;
-    border:none;
-  }
-  .badge::before{
-    content:""; position:absolute; top:-10px; left:50%; transform:translateX(-50%);
-    width:52px; height:20px; background:var(--teal); border-radius:0 0 8px 8px;
-  }
   .gen-status{
-    display:flex; align-items:center; gap:8px;
-    height:0; opacity:0; overflow:hidden; margin-bottom:0;
+    display:flex;align-items:center;gap:8px;height:0;opacity:0;overflow:hidden;margin-bottom:0;
     transition:opacity .25s ease, margin-bottom .25s ease;
-    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
-    color:var(--teal);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--c-fun);
   }
-  .gen-status.show{
-    height:auto; opacity:1; margin-bottom:8px;
-  }
-  .gen-status .gen-mascot{
-    font-size:20px; display:inline-block; transform-origin:70% 90%;
-  }
-  .gen-status.show .gen-mascot{
-    animation:mascotBounce .8s ease;
-  }
+  .gen-status.show{height:auto;opacity:1;margin-bottom:8px;}
+  .gen-status .gen-mascot{font-size:20px;display:inline-block;transform-origin:70% 90%;}
+  .gen-status.show .gen-mascot{animation:mascotBounce .8s ease;}
   @keyframes mascotBounce{
-    0%{ transform:translateY(2px) scale(.5) rotate(-8deg); opacity:0; }
-    35%{ transform:translateY(-8px) scale(1.2) rotate(6deg); opacity:1; }
-    60%{ transform:translateY(0) scale(.95) rotate(-3deg); }
-    80%{ transform:translateY(-3px) scale(1.05) rotate(2deg); }
-    100%{ transform:translateY(0) scale(1) rotate(0); }
+    0%{transform:translateY(2px) scale(.5) rotate(-8deg);opacity:0;}
+    35%{transform:translateY(-8px) scale(1.2) rotate(6deg);opacity:1;}
+    60%{transform:translateY(0) scale(.95) rotate(-3deg);}
+    80%{transform:translateY(-3px) scale(1.05) rotate(2deg);}
+    100%{transform:translateY(0) scale(1) rotate(0);}
   }
-  @media (prefers-reduced-motion:reduce){
-    .gen-status.show .gen-mascot{ animation:none; }
-  }
+  @media (prefers-reduced-motion:reduce){ .gen-status.show .gen-mascot{animation:none;} }
+
   .badge-preview{
-    font-family:'Bungee','Noto Sans','Noto Sans Symbols 2',sans-serif;
-    font-size:clamp(20px,6.5vw,30px); margin:10px 0 14px; min-height:40px;
-    word-break:break-word; line-height:1.2;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--c-fun);
+    font-size:clamp(18px,6vw,26px);margin:8px 0 14px;min-height:34px;word-break:break-word;line-height:1.25;
   }
   #nameInput{
-    width:100%; border:none; border-top:2px solid rgba(10,31,27,0.15);
-    background:transparent; font-family:'Space Grotesk',sans-serif; font-size:17px;
-    font-weight:600; padding-top:12px; color:var(--ink); outline:none;
+    width:100%;border:none;border-top:2px solid var(--line);background:transparent;
+    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;
+    padding-top:12px;color:var(--ink);outline:none;
   }
-  #nameInput::placeholder{color:rgba(10,31,27,0.35);}
-  #nameInput:focus-visible{outline:2px solid var(--teal); outline-offset:3px; border-radius:4px;}
-  .count{ font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(10,31,27,0.4); text-align:right; margin-top:4px; }
+  #nameInput::placeholder{color:var(--ink-soft);}
+  #nameInput:focus-visible{outline:2px solid var(--c-fun);outline-offset:3px;border-radius:4px;}
+  .count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-align:right;margin-top:4px;}
 
-  .chip-row{ display:flex; gap:8px; overflow-x:auto; padding:18px 18px 6px; scrollbar-width:none; }
+  .chip-row{display:flex;gap:8px;overflow-x:auto;padding:16px 0 4px;scrollbar-width:none;}
   .chip-row::-webkit-scrollbar{display:none;}
   .chip{
-    flex:0 0 auto; font-family:'JetBrains Mono',monospace; font-size:12px;
-    letter-spacing:.03em; padding:9px 15px 9px 12px; border-radius:999px;
-    border:1px solid var(--card-line); background:var(--card); color:var(--paper);
-    cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:6px;
+    flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.02em;
+    padding:9px 15px 9px 12px;border-radius:999px;border:1px solid var(--line);background:#FBFAF7;
+    color:var(--ink-soft);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;
   }
-  .chip:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
-  .chip .n{opacity:.5; font-size:10px;}
-  .chip.active{ background:var(--teal); border-color:var(--teal); color:#08201B; font-weight:600; }
-  .chip.active .n{opacity:.7;}
+  .chip:focus-visible{outline:2px solid var(--c-fun);outline-offset:2px;}
+  .chip .n{opacity:.55;font-size:10px;}
+  .chip.active{background:var(--c-fun);border-color:var(--c-fun);color:#fff;font-weight:600;}
+  .chip.active .n{opacity:.8;}
 
-  #results{ padding:10px 18px 0; display:flex; flex-direction:column; gap:12px; }
+  #results{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
   .result-card{
-    background:var(--card); border:1px solid var(--card-line); border-radius:14px;
-    padding:16px 16px 12px; transition:border-color .15s ease;
-    opacity:0; animation:cardIn .5s cubic-bezier(.2,.8,.2,1) forwards;
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 14px 10px;
+    transition:border-color .15s ease;opacity:0;animation:cardIn .4s cubic-bezier(.2,.8,.2,1) forwards;
   }
-  @keyframes cardIn{
-    from{ opacity:0; transform:translateY(16px) scale(.96); }
-    to{ opacity:1; transform:translateY(0) scale(1); }
-  }
-  @media (prefers-reduced-motion:reduce){
-    .result-card{ animation:none; opacity:1; }
-  }
+  @keyframes cardIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){ .result-card{animation:none;opacity:1;} }
   .result-tag{
-    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--gold); display:flex; justify-content:space-between; gap:10px;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--c-fun);display:flex;justify-content:space-between;gap:10px;
   }
-  .result-tag span:last-child{color:rgba(251,245,230,0.4);}
-  .result-text{ font-size:20px; margin:10px 0 14px; word-break:break-word; line-height:1.4; }
-  .result-actions{ display:flex; gap:8px; }
+  .result-tag span:last-child{color:var(--ink-soft);}
+  .result-text{font-size:18px;margin:8px 0 12px;word-break:break-word;line-height:1.4;color:var(--ink);}
+  .result-actions{display:flex;gap:8px;}
   .btn{
-    font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;
-    border:none; border-radius:9px; padding:9px 14px; cursor:pointer;
-    display:flex; align-items:center; gap:6px;
+    font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;border:none;
+    border-radius:9px;padding:9px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
   }
-  .btn.copy{ background:rgba(251,245,230,0.08); color:var(--paper); flex:1; transition:background .15s ease, color .15s ease; }
-  .btn.copy:active, .btn.copy.copied{ background:var(--mint); color:var(--ink); }
-  .btn.heart{ background:rgba(251,245,230,0.08); color:var(--hot); width:40px; justify-content:center; transition:background .15s ease, color .15s ease; }
-  .btn.heart.on{ background:var(--hot); color:#fff; }
-  .load-more-wrap{ padding:6px 18px 4px; }
+  .btn.copy{background:var(--hover);color:var(--ink);flex:1;justify-content:center;transition:.15s;}
+  .btn.copy:active, .btn.copy.copied{background:var(--c-fun);color:#fff;}
+  .btn.heart{background:var(--hover);color:#E8486B;width:40px;justify-content:center;transition:.15s;}
+  .btn.heart.on{background:#E8486B;color:#fff;}
+
+  .load-more-wrap{margin-top:6px;}
   .btn.loadmore{
-    width:100%; background:rgba(251,245,230,0.06); color:var(--mint);
-    border:1px dashed rgba(62,214,163,0.4); justify-content:center; padding:12px;
+    width:100%;background:none;color:var(--c-fun);border:1.5px dashed #D9D4FF;
+    justify-content:center;padding:11px;font-size:13px;
   }
-  .empty-note{ padding:20px 18px; text-align:center; color:rgba(251,245,230,0.4); font-size:13px; }
+  .empty-note{padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13px;}
 
   .loading-note{
-    grid-column:1/-1;
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    padding:40px 18px; color:var(--mint);
-    font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.04em;
+    display:flex;align-items:center;justify-content:center;gap:10px;padding:32px 0;
+    color:var(--c-fun);font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.03em;
   }
-  .spin{
-    width:18px; height:18px; border-radius:50%;
-    border:2.5px solid rgba(62,214,163,0.25); border-top-color:var(--mint);
-    animation:spin .7s linear infinite;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  @media (prefers-reduced-motion:reduce){
-    .spin{ animation:none; }
-  }
+  .spin{width:16px;height:16px;border-radius:50%;border:2.5px solid #E4E1FF;border-top-color:var(--c-fun);animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion:reduce){ .spin{animation:none;} }
 
-  footer{
-    text-align:center; padding:28px 20px 40px; font-family:'JetBrains Mono',monospace;
-    font-size:11px; color:rgba(251,245,230,0.35); line-height:1.9;
-  }
-  footer a{color:var(--mint); text-decoration:none;}
-  .footer-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:6px;}
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-fun);background:#F5F4FF;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-fun);color:var(--c-fun);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
 
-  .seo-content{ margin:20px auto 30px; padding:0 18px; }
-  .seo-content h2{ font-family:'Space Grotesk',sans-serif; font-size:17px; color:var(--gold); margin:22px 0 8px; }
-  .seo-content h2:first-child{ margin-top:0; }
-  .seo-content p{ font-size:13px; line-height:1.7; color:rgba(251,245,230,0.7); margin:0 0 10px; }
-
-  @media (prefers-reduced-motion:no-preference){
-    .badge{transition:transform .25s ease;}
-    .badge:active{transform:scale(0.995);}
-  }
-  @media (hover:hover){
-    .chip:hover{border-color:var(--teal);}
-    .result-card:hover{border-color:rgba(62,214,163,0.4);}
-    .btn.copy:hover{background:rgba(251,245,230,0.14);}
-    .top-nav a.back:hover{color:var(--mint);}
-  }
-
-  @media (min-width:700px){
-    .layout{ max-width:680px; }
-    .sub{ max-width:520px; }
-    .badge-wrap{ max-width:420px; margin-left:auto; margin-right:auto; }
-    #results{ display:grid; grid-template-columns:repeat(2,1fr); align-items:start; }
-  }
-  @media (min-width:1000px){
-    header{ padding-top:36px; }
-    .sub{ max-width:600px; }
-    .layout{
-      max-width:1120px; display:grid; grid-template-columns:340px 1fr;
-      gap:36px; align-items:start; padding:0 32px;
-    }
-    .sidebar{ position:sticky; top:28px; }
-    .badge-wrap{ padding:0; margin-top:0; }
-    .chip-row{ flex-wrap:wrap; overflow:visible; padding:16px 0 0; }
-    #results{ grid-template-columns:repeat(2,1fr); padding:0; margin-top:34px; }
-    .seo-content{ padding:0; max-width:760px; }
-  }
-  @media (min-width:1300px){
-    .layout{ grid-template-columns:360px 1fr; max-width:1240px; }
-    #results{ grid-template-columns:repeat(3,1fr); }
-  }
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
 </style>
 </head>
 <body>
-<div class="noise"></div>
+<script src="cozleaf-header.js" defer></script>
 
-<nav class="top-nav">
-  <a class="brand" href="index.html"><span class="dot"></span>Cozyleaf</a>
-  <a class="back" href="index.html">← All Tools</a>
-</nav>
-
-<header>
-  <div class="eyebrow">Facebook · Instagram · Gaming Names</div>
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Name Generator Tools</div>
   <h1>Stylish Name Generator for Facebook, Instagram &amp; Gaming</h1>
-  <p class="sub">Type your name and instantly see 400+ hand-picked stylish fonts, symbol frames and themed styles — built for Facebook, Instagram bio and gaming IDs. Works with English, Bengali, Hindi, Arabic and more.</p>
+  <p class="hero-p">Type your name and instantly see 400+ hand-picked stylish fonts, symbol frames and themed styles — built for Facebook, Instagram bio and gaming IDs. Works with English, Bengali, Hindi, Arabic and more.</p>
   <div class="stat-row">
     <span class="stat-pill">400+ styles</span>
     <span class="stat-pill">28 categories</span>
     <span class="stat-pill">No signup</span>
   </div>
-</header>
 
-<div class="layout">
-  <aside class="sidebar">
-    <div class="badge-wrap">
-      <div class="badge">
-        <div class="gen-status" id="genStatus">
-          <span class="gen-mascot" aria-hidden="true">🦊</span>
-          <span class="gen-msg">Styles generated!</span>
-        </div>
-        <div class="badge-preview" id="livePreview">Your Name</div>
-        <input id="nameInput" type="text" maxlength="30" placeholder="Type a name here..." autocomplete="off" />
-      </div>
+  <div class="card">
+    <div class="gen-status" id="genStatus">
+      <span class="gen-mascot" aria-hidden="true">🦊</span>
+      <span class="gen-msg">Styles generated!</span>
     </div>
+    <div class="badge-preview" id="livePreview">Your Name</div>
+    <input id="nameInput" type="text" maxlength="30" placeholder="Type a name here..." autocomplete="off">
     <div class="chip-row" id="chipRow"></div>
-  </aside>
+  </div>
 
-  <main class="main-col">
-    <div id="results"></div>
-    <div class="load-more-wrap">
-      <button class="btn loadmore" id="loadMoreBtn">Show more styles</button>
+  <div id="results"></div>
+  <div class="load-more-wrap">
+    <button class="btn loadmore" id="loadMoreBtn">Show more styles</button>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>What is a Stylish Name Generator?</h2>
+    <p>A stylish name generator turns a plain name into eye-catching text using special Unicode characters — bubble letters, gothic fonts, script fonts, symbols and more. These aren't new fonts; they're special Unicode characters that look like styled letters, so they work anywhere you can paste text: Facebook name, Instagram bio, WhatsApp status, Free Fire, PUBG Mobile and other gaming usernames.</p>
+
+    <h2>400+ Styles Across 29 Categories</h2>
+    <p>Cozyleaf's generator offers over 400 styles — Popular, Facebook, Instagram, Gaming, Royal, Love, Gothic, Cute, Nature, Space, and themed frames like Birthday, Wedding, Superhero, Halloween, Business and more. Browse by category using the chips above the results, or start with Popular for the most commonly used styles.</p>
+
+    <h2>Works in Any Language</h2>
+    <p>Font-transform styles (bold, script, gothic, small caps, etc.) are built on the Latin alphabet, so they look best with English names. But the bracket, symbol and themed frame styles wrap your name exactly as typed — so they work beautifully with names in Bengali, Hindi, Arabic, Chinese, or any other language. For example, typing a Bengali name and choosing a bracket or theme style keeps every character intact while still adding a decorative frame around it, since those styles never rewrite the letters themselves.</p>
+
+    <h2>Picking the Right Style for Each Platform</h2>
+    <p>Not every style looks or works the same everywhere, so it helps to match the style to where you're pasting it. For a Facebook display name, sans-serif or bold styles tend to render most reliably and look closest to a normal name. Instagram bios have more visual freedom, so script, aesthetic, and symbol-framed styles stand out well there. Gaming usernames in Free Fire, PUBG Mobile, and similar titles often favor clan-tag and elite-tag styles, since these are instantly recognizable within a game's community. WhatsApp and Discord display names generally support the widest range of Unicode, so bracket and themed frame styles both work cleanly. If a style ever shows up as small boxes or blank squares on a particular app, that app's font renderer doesn't support those characters — simply try a different style from the list instead.</p>
+
+    <h2>How to Use It</h2>
+    <p>Type your name in the box above — the results update instantly. Browse by category, tap Copy on any style, and paste it wherever you want. Everything runs directly in your browser, so it works instantly with no sign-up and no waiting.</p>
+
+    <h2>Why Use Stylish Fonts for Facebook, Instagram & Gaming?</h2>
+    <p>A unique stylish name helps your profile stand out — on a Facebook or Instagram bio, or on leaderboards and in-game chat in Free Fire and PUBG Mobile. Clan tags, symbol frames and decorative Unicode styles are a simple way to make a name look distinct without any design skill. A well-chosen style can also reinforce a personal brand or theme — for instance, pairing a Gothic or Royal style consistently across a gaming profile and its clan tag helps teammates and followers recognize the name at a glance.</p>
+
+    <h2>Tips for a Standout Stylish Name</h2>
+    <p>Keep it readable first — a style that's too dense with symbols can be hard for others to read or search for. Match the style to the mood of the platform: playful and cute styles suit casual social profiles, while bold or gothic styles tend to suit gaming tags. Testing a style on the actual platform before committing to it is worthwhile, since font rendering can vary slightly between apps and operating systems. Finally, saving a favorite using the heart icon on any result makes it easy to compare a few finalists side by side before copying the one you like best.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>Is this free to use?</strong> Yes, completely free with no account required.</p>
+    <p><strong>Does it work with non-English names?</strong> Yes — bracket, symbol and themed frame styles work with any language. Latin-letter font styles work best with English names.</p>
+    <p><strong>Will these styles work on Facebook and Instagram?</strong> Most modern apps support Unicode, so these styles display correctly on Facebook, Instagram, WhatsApp, Free Fire, Discord and more.</p>
+    <p><strong>Which style works best for gaming usernames?</strong> Clan tag, elite tag, and symbol-framed Gaming category styles tend to be the most recognizable in Free Fire, PUBG Mobile, and similar titles.</p>
+    <p><strong>Can I use a stylish name on a resume or formal document?</strong> It's best to avoid decorative Unicode styles in formal or professional documents, since some systems may not render them consistently. They're best suited for social media, gaming, and casual messaging.</p>
+    <p><strong>Why does a style show as boxes or missing characters somewhere?</strong> That means the app or device doesn't have a font covering those particular Unicode characters. Trying a different style usually solves it, since not every style uses the same character set.</p>
+    <p><strong>Does this store or upload my name?</strong> No — everything is generated locally in your browser. Nothing is sent to any server.</p>
+  </section>
+
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
     </div>
-
-    <section class="seo-content">
-      <h2>What is a Stylish Name Generator?</h2>
-      <p>A stylish name generator turns a plain name into eye-catching text using special Unicode characters — bubble letters, gothic fonts, script fonts, symbols and more. These aren't new fonts; they're special Unicode characters that look like styled letters, so they work anywhere you can paste text: Facebook name, Instagram bio, WhatsApp status, Free Fire, PUBG Mobile and other gaming usernames.</p>
-
-      <h2>400+ Styles Across 29 Categories</h2>
-      <p>Cozyleaf's generator offers over 400 styles — Popular, Facebook, Instagram, Gaming, Royal, Love, Gothic, Cute, Nature, Space, and themed frames like Birthday, Wedding, Superhero, Halloween, Business and more. Browse by category using the chips above the results, or start with Popular for the most commonly used styles.</p>
-
-      <h2>Works in Any Language</h2>
-      <p>Font-transform styles (bold, script, gothic, small caps, etc.) are built on the Latin alphabet, so they look best with English names. But the bracket, symbol and themed frame styles wrap your name exactly as typed — so they work beautifully with names in Bengali, Hindi, Arabic, Chinese, or any other language.</p>
-
-      <h2>How to Use It</h2>
-      <p>Type your name in the box above — the results update instantly. Browse by category, tap Copy on any style, and paste it wherever you want. Everything runs directly in your browser, so it works instantly with no sign-up and no waiting.</p>
-
-      <h2>Why Use Stylish Fonts for Facebook, Instagram & Gaming?</h2>
-      <p>A unique stylish name helps your profile stand out — on a Facebook or Instagram bio, or on leaderboards and in-game chat in Free Fire and PUBG Mobile. Clan tags, symbol frames and decorative Unicode styles are a simple way to make a name look distinct without any design skill.</p>
-
-      <h2>Frequently Asked Questions</h2>
-      <p><strong>Is this free to use?</strong> Yes, completely free with no account required.</p>
-      <p><strong>Does it work with non-English names?</strong> Yes — bracket, symbol and themed frame styles work with any language. Latin-letter font styles work best with English names.</p>
-      <p><strong>Will these styles work on Facebook and Instagram?</strong> Most modern apps support Unicode, so these styles display correctly on Facebook, Instagram, WhatsApp, Free Fire, Discord and more.</p>
-      <p><strong>Does this store or upload my name?</strong> No — everything is generated locally in your browser. Nothing is sent to any server.</p>
-    </section>
-  </main>
+  </footer>
 </div>
 
-<footer>
-  <div class="footer-links">
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
-  </div>
-  Unicode styles run 100% in your browser — no data goes anywhere.<br>
-  Cozyleaf.in — every tool, one place.
-</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'name-style.html';
+  var CURRENT_CAT = 'Name Generator Tools';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
 
 <script>
-/* =========================================================
-   FONT MAPS — Latin letter transforms
-   ========================================================= */
 const maps = {
   bold: {base:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
     target:"𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"},
@@ -467,15 +368,6 @@ function leet(str){
 function dotted(str){ return [...str].join('·'); }
 function spacedOut(str){ return [...str].join(' '); }
 
-/* =========================================================
-   UNIVERSAL DECORATIVE EFFECTS
-   These use Unicode COMBINING marks and character interleaving.
-   Unlike the font maps above (which only remap A-Z/a-z), these
-   stack onto or sit between ANY base character — so they change
-   the actual look of Bengali, Hindi, Arabic, etc. names too, not
-   just wrap symbols around the unchanged text. Combining marks
-   are plain text and render fine on Facebook, Instagram, WhatsApp.
-   ========================================================= */
 function combineWrap(str, mark){
   return [...str].map(ch => /\s/.test(ch) ? ch : ch + mark).join('');
 }
@@ -483,7 +375,6 @@ function interleave(str, sep){
   return [...str].filter(ch=>ch.trim().length).join(sep) || str;
 }
 
-/* Universal bracket wraps — work with ANY language/script */
 const BRACKET_PAIRS = [
   ["Round","(",")"], ["Square","[","]"], ["Curly","{","}"], ["Angle","<",">"],
   ["Chevron","‹","›"], ["Double Chevron","«","»"], ["Corner","「","」"], ["White Corner","『","』"],
@@ -498,9 +389,6 @@ const BRACKET_PAIRS = [
   ["Fullwidth Paren","(",")"], ["Halfwidth Corner","｢","｣"]
 ];
 
-/* Themed frames — [tag, left, right] applied over two alternating fonts.
-   Font transforms only affect A-Z/a-z, so non-Latin names still pass
-   through safely with the frame intact. */
 const THEMES = [
   {cat:"Royal", icon:"👑", fonts:["frakturBold","bold"], pairs:[
     ["Crown","👑","👑"],["Emblem","⚜","⚜"],["Jewel","💍","💍"],["Medal","🎖","🎖"],
@@ -694,9 +582,6 @@ function buildStyles(rawName){
     });
   });
 
-  /* Universal per-letter effects — work on ANY script (Bengali, Hindi,
-     Arabic, English...) because they use combining marks stacked onto
-     each character, not a Latin-only substitution table. */
   const combineEffects = [
     ["Circle Wrap", combineWrap(name,'\u20DD')],
     ["Square Wrap", combineWrap(name,'\u20DE')],
@@ -755,9 +640,6 @@ function buildStyles(rawName){
   return deduped;
 }
 
-/* =========================================================
-   UI
-   ========================================================= */
 const categories = ["All","Effects","Royal","Love","Gothic","Cute",
   "Nature","Space","Music","Ocean","Party","Sports","Tech","Flowers","Animals","Travel",
   "Weather","Aesthetic","Birthday","Wedding","Superhero","Halloween","Food","Business",
@@ -779,7 +661,7 @@ function render(){
   const genStatus = document.getElementById('genStatus');
   if(name){
     genStatus.classList.remove('show');
-    void genStatus.offsetWidth; // restart animation
+    void genStatus.offsetWidth;
     genStatus.classList.add('show');
     clearTimeout(window.__genStatusTimer);
     window.__genStatusTimer = setTimeout(()=> genStatus.classList.remove('show'), 2200);
