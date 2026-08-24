@@ -3,92 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GPA / CGPA Calculator — Cozyleaf</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<title>GPA / CGPA Calculator - Free Semester & Overall GPA Tool | Cozyleaf</title>
+<meta name="description" content="Free GPA and CGPA calculator — works with 4.0, 10-point, letter-grade, and percentage scales. Add courses per semester, track overall CGPA, and plan the GPA you need next semester.">
+<meta name="keywords" content="gpa calculator, cgpa calculator, gpa calculator online, cgpa calculator online, semester gpa calculator, college gpa calculator, target gpa calculator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/gpa-cgpa-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="GPA / CGPA Calculator - Free Semester & Overall GPA Tool">
+<meta property="og:description" content="Free GPA and CGPA calculator supporting 4.0, 10-point, letter-grade, and percentage scales, with a target-GPA planner.">
+<meta property="og:url" content="https://cozyleaf.in/gpa-cgpa-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GPA / CGPA Calculator - Cozyleaf">
+<meta name="twitter:description" content="Free GPA and CGPA calculator with a target-GPA planner. No sign-up needed.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf GPA / CGPA Calculator",
+  "url": "https://cozyleaf.in/gpa-cgpa-calculator.html",
+  "applicationCategory": "EducationApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool to calculate semester GPA and overall CGPA on 4.0, 10-point, letter-grade, or percentage scales, with a target-GPA planner for future semesters."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the difference between GPA and CGPA?","acceptedAnswer":{"@type":"Answer","text":"GPA (Grade Point Average) measures performance in a single semester or term, while CGPA (Cumulative Grade Point Average) is the credit-weighted average across all semesters combined."}},
+    {"@type":"Question","name":"How is CGPA calculated?","acceptedAnswer":{"@type":"Answer","text":"CGPA is calculated by multiplying each course's grade point by its credit hours, summing these across every semester, then dividing by the total credit hours attempted."}},
+    {"@type":"Question","name":"What grading scales does this calculator support?","acceptedAnswer":{"@type":"Answer","text":"This calculator supports the 4.0 scale, the 10-point scale common in many universities, a letter-grade scale converted to a 4.0 equivalent, and direct percentage entry."}},
+    {"@type":"Question","name":"How do I find out what GPA I need next semester?","acceptedAnswer":{"@type":"Answer","text":"Use the target CGPA planner below the results — enter your goal CGPA and next semester's credit hours, and it calculates the GPA you need to reach that target."}},
+    {"@type":"Question","name":"Does this account for credit hours correctly?","acceptedAnswer":{"@type":"Answer","text":"Yes — every calculation is credit-weighted, so higher-credit courses count proportionally more toward both semester GPA and overall CGPA, matching standard university calculation methods."}},
+    {"@type":"Question","name":"Is this GPA calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}},
+    {"@type":"Question","name":"Does this store or upload my grades?","acceptedAnswer":{"@type":"Answer","text":"No — the calculation runs entirely in your browser. Nothing is sent to any server."}},
+    {"@type":"Question","name":"What is considered a good CGPA?","acceptedAnswer":{"@type":"Answer","text":"On a 4.0 scale, 3.5 and above is generally considered excellent, 3.0 to 3.49 is good, and 2.5 to 2.99 is average, though standards vary by institution and program. On a 10-point scale, 8.5 and above is typically excellent."}},
+    {"@type":"Question","name":"Do I need to enter every single course I've taken?","acceptedAnswer":{"@type":"Answer","text":"No — you only need to enter courses for the semesters you want included in the CGPA calculation. Leaving out a course will simply exclude its credit hours and grade from the average."}},
+    {"@type":"Question","name":"What if my university uses a grade this calculator doesn't list, like A* or S/U?","acceptedAnswer":{"@type":"Answer","text":"Check your institution's official grade-point conversion table for the numeric equivalent, then select the closest matching option, or switch to the Percentage scale and enter the equivalent mark directly."}},
+    {"@type":"Question","name":"Does a failed course still count toward CGPA?","acceptedAnswer":{"@type":"Answer","text":"Yes, in most grading systems a failed course (0.00 grade points) is still included in the credit-weighted average, which is why it can significantly lower CGPA. Some universities exclude repeated failed courses from the calculation — check your institution's policy."}},
+    {"@type":"Question","name":"Can I use this calculator before I have my final grades?","acceptedAnswer":{"@type":"Answer","text":"Yes — entering your expected or predicted grades lets you estimate your semester GPA and see how it would affect your CGPA before results are officially released."}},
+    {"@type":"Question","name":"How many semesters can I add?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed limit — you can add as many semesters as needed to cover your entire academic record, from a single term to a full multi-year degree."}},
+    {"@type":"Question","name":"Why does my calculated CGPA look different from my official transcript?","acceptedAnswer":{"@type":"Answer","text":"Small differences can happen if your institution rounds grade points differently, excludes certain courses (like repeated or audited ones), or uses slightly different grade-point cutoffs than the standard conventions used here. Your official transcript is always the authoritative record."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 <style>
-  :root{
-    --ink:#14161A;
-    --ink-soft:#6B6F76;
-    --paper:#F5F4F0;
-    --card:#FFFFFF;
-    --line:#E6E4DD;
-    --calc:#2EC4B6;
-    --calc-dark:#1F9E93;
-    --calc-soft:#E4F7F5;
-    --cta:#FF6B4A;
-    --danger:#C0503F;
-    --radius:12px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:26px 16px 60px;}
-  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .wrap{max-width:680px;margin:0 auto;}
-
-  .eyebrow{color:var(--calc-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--calc);}
-  h1{font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;}
-  .hero-p{color:var(--ink-soft);font-size:14.5px;max-width:58ch;line-height:1.55;margin-bottom:26px;}
-
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
-  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
-  .card-head .bar{width:5px;height:20px;border-radius:3px;background:var(--calc);flex-shrink:0;}
-  .card-head h2{font-size:16.5px;font-weight:600;}
-  .card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
-
-  label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
-  select, input[type=text], input[type=number]{
-    width:100%;padding:11px 12px;border-radius:9px;border:1.5px solid var(--line);
-    background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
-  }
-  select:focus, input:focus{border-color:var(--calc);background:#fff;}
-
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing
+     all come from style.css so this page matches every other page. */
   .scale-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   .scale-pill{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;cursor:pointer;background:#FBFAF7;}
   .scale-pill b{display:block;font-family:'Space Grotesk',sans-serif;font-size:13.5px;}
   .scale-pill small{color:var(--ink-soft);font-size:11px;line-height:1.4;}
-  .scale-pill.active{border-color:var(--calc);background:var(--calc-soft);}
+  .scale-pill.active{border-color:var(--c-calc);background:#E4F7F5;}
 
-  .sem-card{border:1.5px solid var(--line);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;}
+  .sem-card{border:1.5px solid var(--line);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;background:#fff;}
   .sem-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#FBFAF7;border-bottom:1px solid var(--line);}
-  .sem-head input.sem-name{border:none;background:transparent;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:0;width:auto;max-width:60%;}
-  .sem-head input.sem-name:focus{border:none;background:#fff;padding:2px 6px;border-radius:6px;}
-  .sem-gpa-badge{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--calc-dark);background:var(--calc-soft);padding:4px 10px;border-radius:20px;}
+  .sem-head input.sem-name{border:none;background:transparent;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:0;width:auto;max-width:60%;color:var(--ink);}
+  .sem-head input.sem-name:focus{border:none;background:#fff;padding:2px 6px;border-radius:6px;outline:none;}
+  .sem-gpa-badge{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#1F9E93;background:#E4F7F5;padding:4px 10px;border-radius:20px;}
   .sem-remove{background:none;border:none;color:var(--ink-soft);font-size:18px;cursor:pointer;padding:2px 6px;}
-  .sem-remove:hover{color:var(--danger);}
+  .sem-remove:hover{color:#C0503F;}
 
   .course-row{display:grid;grid-template-columns:1fr 62px 90px 30px;gap:8px;padding:10px 14px;align-items:center;border-bottom:1px solid var(--line);}
   .course-row:last-child{border-bottom:none;}
-  .course-row input, .course-row select{padding:9px 10px;font-size:13.5px;}
-  .course-row .rm-course{background:none;border:none;color:var(--ink-soft);font-size:17px;cursor:pointer;}
-  .course-row .rm-course:hover{color:var(--danger);}
+  .course-row input, .course-row select{padding:9px 10px;font-size:13.5px;width:100%;border-radius:8px;border:1.5px solid var(--line);background:#FBFAF7;font-family:'Inter',sans-serif;color:var(--ink);outline:none;}
+  .course-row input:focus, .course-row select:focus{border-color:var(--c-calc);background:#fff;}
+  .course-row .rm-course{background:none;border:none;color:var(--ink-soft);font-size:17px;cursor:pointer;padding:0;}
+  .course-row .rm-course:hover{color:#C0503F;}
   .col-labels{display:grid;grid-template-columns:1fr 62px 90px 30px;gap:8px;padding:8px 14px 4px;font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
 
   .add-row-btn{width:calc(100% - 28px);margin:10px 14px 14px;padding:9px;border-radius:8px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;}
-  .add-row-btn:hover{border-color:var(--calc);color:var(--calc-dark);}
+  .add-row-btn:hover{border-color:var(--c-calc);color:#1F9E93;}
 
   .add-sem-btn{width:100%;padding:13px;border-radius:11px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-weight:600;font-size:14px;cursor:pointer;margin-bottom:16px;}
-  .add-sem-btn:hover{border-color:var(--calc);color:var(--calc-dark);background:var(--calc-soft);}
+  .add-sem-btn:hover{border-color:var(--c-calc);color:#1F9E93;background:#E4F7F5;}
 
   .cgpa-result{
-    background:linear-gradient(135deg, var(--calc), var(--calc-dark));
-    color:#fff;border-radius:16px;padding:24px 22px;margin-bottom:16px;
+    background:linear-gradient(135deg, var(--c-calc), #1F9E93);
+    color:#fff;border-radius:16px;padding:22px 20px;margin-bottom:16px;
     display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
   }
   .cgpa-result .label{font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;opacity:.85;font-weight:600;}
-  .cgpa-result .value{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;line-height:1;}
-  .cgpa-result .value span{font-size:16px;font-weight:500;opacity:.85;}
+  .cgpa-result .value{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;line-height:1;}
+  .cgpa-result .value span{font-size:15px;font-weight:500;opacity:.85;}
   .cgpa-mini{text-align:right;font-size:12.5px;opacity:.9;line-height:1.6;}
 
   .target-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
   .target-grid .field{flex:1;min-width:130px;}
   .target-out{
-    margin-top:14px;padding:14px 16px;border-radius:11px;background:var(--calc-soft);
-    color:var(--calc-dark);font-size:13.5px;line-height:1.6;display:none;
+    margin-top:14px;padding:14px 16px;border-radius:11px;background:#E4F7F5;
+    color:#1F9E93;font-size:13.5px;line-height:1.6;display:none;
   }
-  .target-out.warn{background:#FBE7E2;color:var(--danger);}
+  .target-out.warn{background:#FBE7E2;color:#C0503F;}
   .target-out b{font-family:'Space Grotesk',sans-serif;font-size:15px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-calc);background:#F0FBFA;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-calc);color:#1F9E93;}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
 
   .note{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:6px;}
 
@@ -96,19 +137,19 @@
     .course-row{grid-template-columns:1fr 50px 78px 24px;gap:5px;padding:9px 10px;}
     .col-labels{grid-template-columns:1fr 50px 78px 24px;gap:5px;padding:8px 10px 4px;}
     .course-row input, .course-row select{font-size:12.5px;padding:8px 6px;}
-    .cgpa-result{padding:20px 18px;}
-    .cgpa-result .value{font-size:32px;}
+    .cgpa-result{padding:18px 16px;}
+    .cgpa-result .value{font-size:30px;}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+<script src="cozleaf-header.js" defer></script>
 
+<div class="wrap">
   <div class="eyebrow"><span class="dot"></span>Calculators</div>
   <h1>GPA / CGPA Calculator</h1>
   <p class="hero-p">Works with the grading system your university actually uses. Add courses per semester, pick a scale, and get a running CGPA across every semester — plus a target-GPA planner so you know exactly what you need next term.</p>
 
-  <!-- Grading scale -->
   <div class="card">
     <div class="card-head"><div class="bar"></div><h2>Grading system</h2></div>
     <div class="card-sub">Changes the grade options in every course row below</div>
@@ -120,11 +161,12 @@
     </div>
   </div>
 
-  <!-- Semesters -->
   <div id="semesters-wrap"></div>
-  <button class="add-sem-btn" id="add-sem">+ Add another semester</button>
+  <div style="display:flex;gap:8px;margin-bottom:16px;">
+    <button class="add-sem-btn" id="add-sem" style="margin-bottom:0;flex:1;">+ Add another semester</button>
+    <button class="add-sem-btn" id="clear-all" style="margin-bottom:0;flex:0 0 auto;padding:13px 16px;color:#C0503F;border-color:#F0D9D3;">Clear all</button>
+  </div>
 
-  <!-- CGPA result -->
   <div class="cgpa-result">
     <div>
       <div class="label" id="cgpa-label">Overall CGPA</div>
@@ -133,7 +175,6 @@
     <div class="cgpa-mini" id="cgpa-mini">0 semesters · 0 credit hours</div>
   </div>
 
-  <!-- Target GPA planner -->
   <div class="card">
     <div class="card-head"><div class="bar"></div><h2>Target CGPA planner</h2></div>
     <div class="card-sub">What score do you need next semester to hit a goal?</div>
@@ -151,7 +192,113 @@
   </div>
 
   <p class="note">Grade-point values follow the conventions most commonly used for each scale and may vary slightly by institution — check your university's official grading policy for exact cutoffs. CGPA is credit-weighted across every semester entered above.</p>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free GPA & CGPA Calculator for Any Grading Scale</h2>
+    <p>This calculator computes both semester GPA and overall CGPA, supporting the four grading systems used by most universities worldwide: the 4.0 scale, the 10-point scale, letter grades converted to a 4.0 equivalent, and direct percentage entry. Add each course with its credit hours and grade, and every number updates instantly — no sign-up, no download.</p>
+
+    <h2>How to Use This Calculator, Step by Step</h2>
+    <ol style="font-size:13.5px;line-height:1.85;padding-left:20px;margin-bottom:8px;">
+      <li><strong>Pick your grading scale first.</strong> Choose whichever one matches your university — this decides which grade options appear in the dropdown below.</li>
+      <li><strong>Name the semester (optional).</strong> Tap the "Semester 1" text to rename it, e.g. "Fall 2024" — this is just a label and doesn't affect the math.</li>
+      <li><strong>Add each course.</strong> Type the course name, its credit hours (check your course syllabus or registration portal if unsure), and select the grade you received.</li>
+      <li><strong>Add more courses or semesters as needed.</strong> Use "+ Add course" inside a semester, or "+ Add another semester" to start a new term.</li>
+      <li><strong>Read your results.</strong> Each semester shows its own GPA in the small badge next to its name. The large green banner below all semesters shows your overall CGPA across everything entered.</li>
+      <li><strong>Try the target planner (optional).</strong> If you have a CGPA goal, enter it along with next semester's credit hours to see exactly what GPA you'd need to reach it.</li>
+    </ol>
+    <p>You don't need final grades to use this — entering expected or predicted grades works just as well for planning ahead.</p>
+
+    <h2>GPA vs CGPA — What's the Difference?</h2>
+    <p>GPA (Grade Point Average) measures performance within a single semester or term. CGPA (Cumulative Grade Point Average) is the credit-weighted average across every semester completed so far. This tool calculates both: each semester card shows that term's GPA, while the highlighted result at the bottom shows your running CGPA across all semesters combined.</p>
+
+    <h2>How CGPA Is Calculated</h2>
+    <p>Each course's grade point is multiplied by its credit hours to get that course's quality points. These quality points are summed across every course in every semester, then divided by the total credit hours attempted. This credit-weighting means a 4-credit course affects your CGPA more than a 1-credit course, which mirrors how virtually every university actually calculates it.</p>
+
+    <h2>Choosing the Right Grading Scale</h2>
+    <p>Not every institution grades the same way, so picking the correct scale matters. North American universities typically use the 4.0 scale. Many universities in India, Bangladesh, and parts of Asia use a 10-point scale instead. Some institutions issue letter grades (A, B, C, etc.) without a numeric point system — this calculator converts those to a standard 4.0-equivalent so CGPA stays comparable across semesters. If your transcript only shows percentage marks, the Percentage option skips grade-point conversion entirely and averages the raw marks directly.</p>
+
+    <h2>Using the Target CGPA Planner</h2>
+    <p>The target planner answers a very specific, practical question: "what GPA do I need next semester to reach a certain CGPA?" Enter your goal CGPA and how many credit hours you're taking next term, and it works backward from your current cumulative points to tell you exactly what average you'd need. If the required GPA exceeds the scale's maximum, the tool flags it as unreachable in a single semester — which is useful for realistic academic planning rather than a discouraging surprise at term's end.</p>
+
+    <h2>Common Mistakes That Throw Off a GPA Calculation</h2>
+    <p>The most frequent error is leaving credit hours blank or wrong — a course with no credit hours entered is silently excluded from the average, which can make CGPA look artificially high or low. The second most common mistake is mixing scales, like entering a percentage mark while the 4.0 Scale is still selected. Switching the scale first, before entering any grades, avoids both issues.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What is the difference between GPA and CGPA?</strong> GPA measures performance in a single semester or term, while CGPA is the credit-weighted average across all semesters combined.</p>
+    <p><strong>How is CGPA calculated?</strong> CGPA is calculated by multiplying each course's grade point by its credit hours, summing these across every semester, then dividing by the total credit hours attempted.</p>
+    <p><strong>What grading scales does this calculator support?</strong> The 4.0 scale, the 10-point scale common in many universities, a letter-grade scale converted to a 4.0 equivalent, and direct percentage entry.</p>
+    <p><strong>How do I find out what GPA I need next semester?</strong> Use the target CGPA planner below the results — enter your goal CGPA and next semester's credit hours, and it calculates the GPA you need to reach that target.</p>
+    <p><strong>Does this account for credit hours correctly?</strong> Yes — every calculation is credit-weighted, so higher-credit courses count proportionally more toward both semester GPA and overall CGPA, matching standard university calculation methods.</p>
+    <p><strong>Is this GPA calculator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload my grades?</strong> No — the calculation runs entirely in your browser. Nothing is sent to any server.</p>
+    <p><strong>What is considered a good CGPA?</strong> On a 4.0 scale, 3.5 and above is generally considered excellent, 3.0–3.49 is good, and 2.5–2.99 is average, though standards vary by institution and program. On a 10-point scale, 8.5 and above is typically excellent.</p>
+    <p><strong>Do I need to enter every single course I've taken?</strong> No — you only need to enter courses for the semesters you want included in the CGPA calculation. Leaving out a course simply excludes its credit hours and grade from the average.</p>
+    <p><strong>What if my university uses a grade this calculator doesn't list, like A* or S/U?</strong> Check your institution's official grade-point conversion table for the numeric equivalent, then pick the closest option — or switch to the Percentage scale and enter the equivalent mark directly.</p>
+    <p><strong>Does a failed course still count toward CGPA?</strong> Yes, in most grading systems a failed course (0.00 grade points) is still included in the credit-weighted average, which is why it can significantly lower CGPA. Some universities exclude repeated failed courses — check your institution's policy.</p>
+    <p><strong>Can I use this calculator before I have my final grades?</strong> Yes — entering expected or predicted grades lets you estimate your semester GPA and see how it would affect your CGPA before results are officially released.</p>
+    <p><strong>How many semesters can I add?</strong> There is no fixed limit — add as many semesters as needed to cover your entire academic record, from a single term to a full multi-year degree.</p>
+    <p><strong>Why does my calculated CGPA look different from my official transcript?</strong> Small differences can happen if your institution rounds grade points differently, excludes certain courses (like repeated or audited ones), or uses slightly different grade-point cutoffs than the standard conventions used here. Your official transcript is always the authoritative record.</p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'gpa-cgpa-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
 
 <script>
 // Each scale: max = top of the numeric range, label = shown next to the CGPA figure,
@@ -173,8 +320,25 @@ let semCounter = 0;
 let courseCounter = 0;
 const semesters = []; // {id, card, rowsWrap, courses:[{id,row,gradeEl,pctEl,creditEl}]}
 
+// Returns true if the student has entered any credit hours or grades anywhere —
+// used to warn before a scale switch would silently wipe that data.
+function hasAnyData(){
+  return semesters.some(s => s.courses.some(c => {
+    const credit = c.creditEl.value.trim();
+    const grade = c.gradeEl.style.display !== 'none' ? c.gradeEl.value : '';
+    const pct = c.pctEl.value.trim();
+    const name = c.row.querySelector('.course-name').value.trim();
+    return credit || pct || name || (grade && SCALES[currentScale].grades && SCALES[currentScale].grades[0][1] !== parseFloat(grade));
+  }));
+}
+
 document.querySelectorAll('.scale-pill').forEach(p=>{
   p.onclick = ()=>{
+    if(p.dataset.scale === currentScale) return;
+    if(hasAnyData()){
+      const ok = confirm("Switching grading scale will reset the grade dropdowns in every course you've already entered (credit hours and course names stay). Continue?");
+      if(!ok) return;
+    }
     document.querySelectorAll('.scale-pill').forEach(x=>x.classList.remove('active'));
     p.classList.add('active');
     currentScale = p.dataset.scale;
@@ -265,6 +429,14 @@ function addCourse(semObj){
     recalcAll();
   };
   row.querySelectorAll('input, select').forEach(el=> el.addEventListener('input', recalcAll));
+  courseObj.pctEl.addEventListener('blur', ()=>{
+    const v = parseFloat(courseObj.pctEl.value);
+    if(!isNaN(v)){
+      if(v > 100) courseObj.pctEl.value = 100;
+      if(v < 0) courseObj.pctEl.value = 0;
+      recalcAll();
+    }
+  });
 }
 
 function semesterAverage(semObj){
@@ -339,6 +511,19 @@ function updateTarget(grandPoints, grandCredits){
 document.getElementById('target-cgpa').addEventListener('input', recalcAll);
 document.getElementById('target-credits').addEventListener('input', recalcAll);
 document.getElementById('add-sem').onclick = ()=>{ addSemester(); recalcAll(); };
+
+document.getElementById('clear-all').onclick = ()=>{
+  if(hasAnyData() || semesters.length > 1){
+    const ok = confirm("This will remove every semester and course you've entered. Continue?");
+    if(!ok) return;
+  }
+  document.getElementById('semesters-wrap').innerHTML = '';
+  semesters.length = 0;
+  document.getElementById('target-cgpa').value = '';
+  document.getElementById('target-credits').value = '';
+  addSemester();
+  recalcAll();
+};
 
 // init
 addSemester();
