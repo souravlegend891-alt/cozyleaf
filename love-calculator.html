@@ -3,115 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Calculator — Cozyleaf</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<title>Love Calculator - Free Love Compatibility Test Online | Cozyleaf</title>
+<meta name="description" content="Free love calculator — enter two names to get a compatibility percentage, a category breakdown, and an optional zodiac bonus. Just for fun, no sign-up needed.">
+<meta name="keywords" content="love calculator, love compatibility test, love percentage calculator, name compatibility test, love calculator by name, zodiac love match">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/love-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Love Calculator - Free Love Compatibility Test">
+<meta property="og:description" content="Enter two names and get a fun compatibility score, category breakdown, and zodiac bonus. Free and instant.">
+<meta property="og:url" content="https://cozyleaf.in/love-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Love Calculator - Cozyleaf">
+<meta name="twitter:description" content="Free love compatibility calculator by name, with an optional zodiac bonus.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Love Calculator",
+  "url": "https://cozyleaf.in/love-calculator.html",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online love compatibility calculator that scores two names, breaks the result down by category, and adds an optional zodiac element compatibility note."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How does the love calculator work?","acceptedAnswer":{"@type":"Answer","text":"It uses a playful letter-and-numerology based formula on the two names entered, reducing letter-frequency counts down to a single compatibility percentage. It's for entertainment, not a scientific or psychological measure."}},
+    {"@type":"Question","name":"Is the love calculator score accurate?","acceptedAnswer":{"@type":"Answer","text":"No — it's a fun, deterministic formula based on the letters in the names, not a real prediction of relationship compatibility. The same two names always produce the same score."}},
+    {"@type":"Question","name":"What does the category breakdown mean?","acceptedAnswer":{"@type":"Answer","text":"The breakdown splits the overall score into playful sub-categories like Communication, Trust, and Passion, derived from the same name-based formula for variety — not from any real relationship data."}},
+    {"@type":"Question","name":"What is the zodiac bonus?","acceptedAnswer":{"@type":"Answer","text":"If you add both birth dates, the calculator shows each person's zodiac sign and a short note about how their elements (Fire, Earth, Air, Water) traditionally pair — purely for fun."}},
+    {"@type":"Question","name":"Is this love calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 <style>
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing
+     all come from style.css so this page matches every other page.
+     Love-pink is kept as this category's accent, layered on top of
+     the shared .btn-primary button, the same way BMI/Calorie use teal. */
   :root{
-    --ink:#14161A;
-    --ink-soft:#6B6F76;
-    --paper:#F5F4F0;
-    --card:#FFFFFF;
-    --line:#E6E4DD;
     --love:#E8486B;
     --love-dark:#C9345A;
     --love-soft:#FCE6EB;
     --gold:#F4A527;
-    --radius:12px;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 60px;}
-  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .wrap{max-width:560px;margin:0 auto;padding:26px 16px 0;}
+  .eyebrow .dot{background:var(--love);}
+  .eyebrow{color:var(--love-dark);}
+  .card-head .bar{background:var(--love);}
 
-  .eyebrow{color:var(--love-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--love);}
-  h1{font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;}
-  .hero-p{color:var(--ink-soft);font-size:14.5px;max-width:56ch;line-height:1.55;margin-bottom:26px;}
-
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;margin-bottom:16px;}
-  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
-  .card-head .bar{width:5px;height:20px;border-radius:3px;background:var(--love);flex-shrink:0;}
-  .card-head h2{font-size:16.5px;font-weight:600;}
-  .card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
-
-  label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
-  input[type=text], input[type=date]{
-    width:100%;padding:12px 13px;border-radius:10px;border:1.5px solid var(--line);
-    background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
-  }
-  input:focus{border-color:var(--love);background:#fff;}
+  input[type=text]:focus, input[type=date]:focus{border-color:var(--love);}
 
   .name-pair{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .name-pair .field{flex:1;}
   .heart-sep{font-size:20px;color:var(--love);flex-shrink:0;margin-top:18px;}
 
   .toggle-birthdates{
-    display:flex; align-items:center; justify-content:space-between; margin-top:4px; margin-bottom:4px;
-    font-size:13px; color:var(--ink-soft); cursor:pointer; user-select:none;
+    display:flex;align-items:center;justify-content:space-between;margin-top:4px;margin-bottom:4px;
+    font-size:13px;color:var(--ink-soft);cursor:pointer;user-select:none;
   }
   .toggle-birthdates .chev{transition:.2s;}
   .toggle-birthdates.open .chev{transform:rotate(90deg);}
-  .bd-row{display:flex; gap:10px; max-height:0; overflow:hidden; transition:.25s; margin-top:0;}
-  .bd-row.open{max-height:100px; margin-top:12px;}
+  .bd-row{display:flex;gap:10px;max-height:0;overflow:hidden;transition:.25s;margin-top:0;}
+  .bd-row.open{max-height:100px;margin-top:12px;}
   .bd-row .field{flex:1;}
 
-  .calc-btn{
-    width:100%; padding:16px; border:none; border-radius:14px;
-    background:linear-gradient(135deg, var(--love), var(--love-dark)); color:#fff;
-    font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; cursor:pointer;
-    letter-spacing:.01em; margin-top:6px; box-shadow:0 6px 16px rgba(232,72,107,.28);
-  }
-  .calc-btn:hover{filter:brightness(1.05);}
+  .btn-primary{background:linear-gradient(135deg, var(--love), var(--love-dark));box-shadow:0 6px 16px rgba(232,72,107,.28);}
   .error{color:var(--love-dark);font-size:12.5px;margin-top:10px;display:none;}
 
-  /* Results */
   #results{display:none;}
-  .meter-wrap{display:flex; flex-direction:column; align-items:center; padding:8px 0 6px;}
-  .heart-svg{width:150px; height:135px; position:relative;}
-  .score-big{
-    font-family:'Space Grotesk',sans-serif; font-size:42px; font-weight:700; color:var(--love-dark);
-    margin-top:10px; line-height:1;
-  }
-  .score-big span{font-size:18px; font-weight:600; color:var(--ink-soft);}
-  .names-line{font-size:14.5px; color:var(--ink-soft); margin-top:4px; text-align:center;}
-  .verdict{
-    font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; text-align:center;
-    margin-top:12px; color:var(--ink);
-  }
-  .verdict-sub{font-size:13px; color:var(--ink-soft); text-align:center; margin-top:4px; max-width:40ch; margin-left:auto; margin-right:auto; line-height:1.5;}
+  .meter-wrap{display:flex;flex-direction:column;align-items:center;padding:8px 0 6px;}
+  .heart-svg{width:150px;height:135px;position:relative;}
+  .score-big{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:var(--love-dark);margin-top:10px;line-height:1;}
+  .score-big span{font-size:18px;font-weight:600;color:var(--ink-soft);}
+  .names-line{font-size:14.5px;color:var(--ink-soft);margin-top:4px;text-align:center;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;text-align:center;margin-top:12px;color:var(--ink);}
+  .verdict-sub{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:4px;max-width:40ch;margin-left:auto;margin-right:auto;line-height:1.5;}
 
   .breakdown{margin-top:22px;}
   .bd-item{margin-bottom:14px;}
-  .bd-label{display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:6px;}
-  .bd-label span.pct{color:var(--love-dark); font-family:'IBM Plex Mono',monospace; font-weight:600;}
-  .bd-bar-track{height:8px; border-radius:5px; background:var(--love-soft); overflow:hidden;}
-  .bd-bar-fill{height:100%; border-radius:5px; background:linear-gradient(90deg, var(--gold), var(--love)); width:0%; transition:width 1s cubic-bezier(.22,1,.36,1);}
+  .bd-label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px;}
+  .bd-label span.pct{color:var(--love-dark);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .bd-bar-track{height:8px;border-radius:5px;background:var(--love-soft);overflow:hidden;}
+  .bd-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg, var(--gold), var(--love));width:0%;transition:width 1s cubic-bezier(.22,1,.36,1);}
 
-  .zodiac-box{
-    margin-top:18px; padding:14px 16px; border-radius:12px; background:var(--love-soft);
-    color:var(--love-dark); font-size:13.5px; line-height:1.6; display:none;
-  }
+  .zodiac-box{margin-top:18px;padding:14px 16px;border-radius:12px;background:var(--love-soft);color:var(--love-dark);font-size:13.5px;line-height:1.6;display:none;}
 
-  .actions{display:flex; gap:10px; margin-top:20px;}
-  .actions button{
-    flex:1; padding:12px; border-radius:11px; font-size:13.5px; font-weight:600; cursor:pointer;
-    font-family:'Inter',sans-serif;
-  }
-  .btn-again{background:none; border:1.5px solid var(--line); color:var(--ink);}
+  .actions{display:flex;gap:10px;margin-top:20px;}
+  .actions button{flex:1;padding:12px;border-radius:11px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-again{background:none;border:1.5px solid var(--line);color:var(--ink);}
   .btn-again:hover{border-color:var(--love);}
-  .btn-copy{background:var(--ink); border:none; color:#fff;}
+  .btn-copy{background:var(--ink);border:none;color:#fff;}
   .btn-copy:hover{background:#000;}
 
-  .note{font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:16px;}
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--love);background:var(--love-soft);}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--love);color:var(--love-dark);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:16px;}
 </style>
 </head>
 <body>
 <script src="cozleaf-header.js" defer></script>
-<div class="wrap">
 
-  <div class="eyebrow"><span class="dot"></span>Fun Tools</div>
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
   <h1>Love Calculator</h1>
   <p class="hero-p">Type in two names and get a compatibility score, a category-by-category breakdown, and — if you add birth dates — a bit of zodiac flavor. Purely for fun, not a real relationship predictor.</p>
 
@@ -147,7 +174,7 @@
     </div>
 
     <div class="error" id="err">Enter both names to calculate.</div>
-    <button class="calc-btn" id="calc-btn">Calculate compatibility</button>
+    <button class="btn-primary" id="calc-btn">Calculate compatibility</button>
   </div>
 
   <div class="card" id="results">
@@ -184,7 +211,92 @@
   </div>
 
   <p class="note">This calculator uses a playful letter-and-numerology based formula (not psychology or science) — treat it as entertainment. Results are deterministic: the same two names will always give the same score.</p>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free Love Calculator — Check Name Compatibility</h2>
+    <p>This love calculator takes two names and turns them into a compatibility percentage, using a playful letter-and-numerology based formula. Type both names, tap Calculate, and see the overall score, a category-by-category breakdown, and — if you add both birth dates — a short zodiac compatibility note. Everything runs instantly in your browser, with no sign-up required.</p>
+
+    <h2>How the Score Is Calculated</h2>
+    <p>The calculator combines the letters of both names and counts how often each letter of the word "LOVES" appears. Those counts are then repeatedly paired and reduced down to two final digits, which become the compatibility percentage. It's the same idea behind the classic "FLAMES" and pen-and-paper love-calculator games many people played growing up — just automated. Because the formula only depends on the letters typed in, the same two names will always produce the exact same score every time.</p>
+
+    <h2>What the Category Breakdown Shows</h2>
+    <p>Beyond the overall percentage, the results break the score down into five playful categories — Communication, Trust, Passion, Fun & Humor, and Long-term Stability. Each category number is derived from the same two names using a related but distinct calculation, so the categories vary from each other while still connecting back to the overall score. Like the main score, these are for entertainment and don't reflect any real assessment of a relationship.</p>
+
+    <h2>Understanding the Zodiac Bonus</h2>
+    <p>Adding both birth dates unlocks an optional zodiac section. The calculator identifies each person's zodiac sign from their birth date, then shows a short note about how their elements — Fire, Earth, Air, or Water — traditionally pair in astrology. This is a fun addition layered on top of the main score, not a separate scientific calculation, and birth dates are entirely optional.</p>
+
+    <h2>Is a Love Calculator Accurate?</h2>
+    <p>No — and it isn't meant to be. Real compatibility depends on communication, shared values, effort, and countless factors a name alone could never capture. This tool is a lighthearted way to have fun with a friend, a partner, or a crush's name — not a serious relationship assessment. Use the "Copy result" button to quickly share a fun result, and "Try another pair" to test as many name combinations as you like.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>How does the love calculator work?</strong> It uses a playful letter-and-numerology based formula on the two names entered, reducing letter-frequency counts down to a single compatibility percentage. It's for entertainment, not a scientific or psychological measure.</p>
+    <p><strong>Is the love calculator score accurate?</strong> No — it's a fun, deterministic formula based on the letters in the names, not a real prediction of relationship compatibility. The same two names always produce the same score.</p>
+    <p><strong>What does the category breakdown mean?</strong> The breakdown splits the overall score into playful sub-categories like Communication, Trust, and Passion, derived from the same name-based formula for variety — not from any real relationship data.</p>
+    <p><strong>What is the zodiac bonus?</strong> If you add both birth dates, the calculator shows each person's zodiac sign and a short note about how their elements (Fire, Earth, Air, Water) traditionally pair — purely for fun.</p>
+    <p><strong>Does entering a full name change the result?</strong> Yes — the formula uses every letter typed, so a full name will usually give a different score than just a first name. Try both to see the variety.</p>
+    <p><strong>Is this love calculator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload the names I enter?</strong> No — the calculation runs entirely in your browser. Nothing is sent to any server.</p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'love-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
 
 <script>
 const bdToggle = document.getElementById('bd-toggle');
