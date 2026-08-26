@@ -3,124 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMR Calculator — Cozyleaf</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<title>BMR Calculator - Basal Metabolic Rate & TDEE Free Online | Cozyleaf</title>
+<meta name="description" content="Free BMR calculator — find your Basal Metabolic Rate, TDEE, and a calorie target for losing, maintaining, or gaining weight, with a full macro breakdown. No sign-up needed.">
+<meta name="keywords" content="bmr calculator, basal metabolic rate calculator, tdee calculator, bmr and tdee calculator, macro calculator, calorie calculator by bmr">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/bmr-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="BMR Calculator - Basal Metabolic Rate & TDEE Free Online">
+<meta property="og:description" content="Free BMR calculator with TDEE, calorie goals, and a macro breakdown for weight loss, maintenance, or gain.">
+<meta property="og:url" content="https://cozyleaf.in/bmr-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BMR Calculator - Cozyleaf">
+<meta name="twitter:description" content="Free BMR and TDEE calculator with a macro breakdown. No sign-up needed.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf BMR Calculator",
+  "url": "https://cozyleaf.in/bmr-calculator.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool to calculate Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE), with calorie goals and a macro breakdown for weight loss, maintenance, or gain."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is BMR?","acceptedAnswer":{"@type":"Answer","text":"BMR (Basal Metabolic Rate) is the number of calories your body burns at complete rest just to keep basic functions like breathing, circulation, and cell production running."}},
+    {"@type":"Question","name":"What is the difference between BMR and TDEE?","acceptedAnswer":{"@type":"Answer","text":"BMR is calories burned at complete rest, while TDEE (Total Daily Energy Expenditure) adds in calories burned through daily activity and exercise, giving your true total daily calorie burn."}},
+    {"@type":"Question","name":"How is BMR calculated?","acceptedAnswer":{"@type":"Answer","text":"This calculator uses the Mifflin-St Jeor formula by default, or the Katch-McArdle formula if you enter your body fat percentage, which uses lean body mass for a more precise estimate."}},
+    {"@type":"Question","name":"How accurate is a BMR calculator?","acceptedAnswer":{"@type":"Answer","text":"BMR formulas are estimates and individual metabolism can vary roughly 10-15% from the calculated number due to genetics, muscle mass, and other factors. Use it as a starting point, not an exact figure."}},
+    {"@type":"Question","name":"Is this BMR calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 <style>
-  :root{
-    --ink:#14161A;
-    --ink-soft:#6B6F76;
-    --paper:#F5F4F0;
-    --card:#FFFFFF;
-    --line:#E6E4DD;
-    --calc:#2EC4B6;
-    --calc-dark:#1F9E93;
-    --calc-soft:#E4F7F5;
-    --gold:#F4A527;
-    --gold-soft:#FCEFD6;
-    --coral:#FF6B4A;
-    --coral-soft:#FFE7E0;
-    --radius:12px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding:26px 16px 60px;}
-  h1,h2,.display{font-family:'Space Grotesk',sans-serif;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .wrap{max-width:640px;margin:0 auto;}
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing
+     all come from style.css so this page matches every other page. */
+  .field-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .field{flex:1;min-width:100px;}
 
-  .eyebrow{color:var(--calc-dark);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--calc);}
-  h1{font-size:clamp(26px,6vw,36px);font-weight:700;line-height:1.15;margin-bottom:10px;letter-spacing:-.01em;}
-  .hero-p{color:var(--ink-soft);font-size:14.5px;max-width:58ch;line-height:1.55;margin-bottom:26px;}
+  .unit-toggle{display:flex;border:1.5px solid var(--line);border-radius:9px;overflow:hidden;}
+  .unit-toggle button{flex:1;border:none;background:#FBFAF7;padding:11px 8px;font-size:13.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
+  .unit-toggle button.active{background:var(--c-calc);color:#fff;}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
-  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
-  .card-head .bar{width:5px;height:20px;border-radius:3px;background:var(--calc);flex-shrink:0;}
-  .card-head h2{font-size:16.5px;font-weight:600;}
-  .card-sub{color:var(--ink-soft);font-size:13px;margin:2px 0 14px 14px;}
+  .gender-pill{display:flex;gap:8px;margin-bottom:14px;}
+  .gender-pill div{flex:1;text-align:center;padding:11px;border-radius:9px;border:1.5px solid var(--line);font-size:14px;font-weight:600;cursor:pointer;background:#FBFAF7;color:var(--ink-soft);}
+  .gender-pill div.active{border-color:var(--c-calc);background:#E4F7F5;color:#1F9E93;}
 
-  label.small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
-  input[type=number], select{
-    width:100%;padding:11px 12px;border-radius:9px;border:1.5px solid var(--line);
-    background:#FBFAF7;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;
-  }
-  select:focus, input:focus{border-color:var(--calc);background:#fff;}
+  .pill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .pill{border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;cursor:pointer;font-size:13px;background:#FBFAF7;}
+  .pill b{display:block;font-family:'Space Grotesk',sans-serif;font-size:13.5px;}
+  .pill small{color:var(--ink-soft);font-size:11px;}
+  .pill.active{border-color:var(--c-calc);background:#E4F7F5;}
+  .pill.active small{color:#1F9E93;}
 
-  .field-row{display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
-  .field{flex:1; min-width:100px;}
+  .error{color:#C0503F;font-size:12.5px;margin-top:10px;display:none;}
 
-  .unit-toggle{display:flex; border:1.5px solid var(--line); border-radius:9px; overflow:hidden;}
-  .unit-toggle button{flex:1; border:none; background:#FBFAF7; padding:11px 8px; font-size:13.5px; font-weight:600; color:var(--ink-soft); cursor:pointer;}
-  .unit-toggle button.active{background:var(--calc); color:#fff;}
-
-  .gender-pill{display:flex; gap:8px; margin-bottom:14px;}
-  .gender-pill div{flex:1; text-align:center; padding:11px; border-radius:9px; border:1.5px solid var(--line); font-size:14px; font-weight:600; cursor:pointer; background:#FBFAF7; color:var(--ink-soft);}
-  .gender-pill div.active{border-color:var(--calc); background:var(--calc-soft); color:var(--calc-dark);}
-
-  .pill-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
-  .pill{border:1.5px solid var(--line); border-radius:11px; padding:10px 12px; cursor:pointer; font-size:13px; background:#FBFAF7;}
-  .pill b{display:block; font-family:'Space Grotesk',sans-serif; font-size:13.5px;}
-  .pill small{color:var(--ink-soft); font-size:11px;}
-  .pill.active{border-color:var(--calc); background:var(--calc-soft);}
-  .pill.active small{color:var(--calc-dark);}
-
-  .calc-btn{
-    width:100%; padding:16px; border:none; border-radius:14px;
-    background:var(--calc); color:#fff; font-family:'Space Grotesk',sans-serif;
-    font-size:16px; font-weight:700; cursor:pointer; margin-top:4px;
-  }
-  .calc-btn:hover{background:var(--calc-dark);}
-  .error{color:var(--coral); font-size:12.5px; margin-top:10px; display:none;}
-
-  /* Results */
   #results{display:none;}
   .stat-hero{
-    background:linear-gradient(135deg, var(--calc), var(--calc-dark)); color:#fff;
-    border-radius:16px; padding:22px 20px; margin-bottom:14px;
-    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px;
+    background:linear-gradient(135deg, var(--c-calc), #1F9E93);color:#fff;
+    border-radius:16px;padding:22px 20px;margin-bottom:14px;
+    display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;
   }
-  .stat-hero .label{font-size:11.5px; text-transform:uppercase; letter-spacing:.07em; opacity:.85; font-weight:600;}
-  .stat-hero .value{font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:700; line-height:1;}
-  .stat-hero .value span{font-size:15px; font-weight:500; opacity:.85;}
-  .stat-hero .sub{font-size:12px; opacity:.85; text-align:right;}
+  .stat-hero .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;opacity:.85;font-weight:600;}
+  .stat-hero .value{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;line-height:1;}
+  .stat-hero .value span{font-size:15px;font-weight:500;opacity:.85;}
+  .stat-hero .sub{font-size:12px;opacity:.85;text-align:right;}
 
-  .metric-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:6px;}
-  .metric{background:#FBFAF7; border:1px solid var(--line); border-radius:12px; padding:12px 14px;}
-  .metric .m-label{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; font-weight:600;}
-  .metric .m-value{font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:700; margin-top:3px;}
-  .metric .m-value span{font-size:12.5px; font-weight:500; color:var(--ink-soft);}
+  .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px;}
+  .metric{background:#FBFAF7;border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+  .metric .m-label{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+  .metric .m-value{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;margin-top:3px;}
+  .metric .m-value span{font-size:12.5px;font-weight:500;color:var(--ink-soft);}
 
-  .goal-tabs{display:flex; gap:6px; margin:18px 0 12px;}
-  .goal-tab{flex:1; text-align:center; padding:10px 6px; border-radius:9px; border:1.5px solid var(--line); font-size:12.5px; font-weight:600; cursor:pointer; background:#FBFAF7; color:var(--ink-soft);}
-  .goal-tab.active{border-color:var(--calc); background:var(--calc-soft); color:var(--calc-dark);}
+  .goal-tabs{display:flex;gap:6px;margin:18px 0 12px;}
+  .goal-tab{flex:1;text-align:center;padding:10px 6px;border-radius:9px;border:1.5px solid var(--line);font-size:12.5px;font-weight:600;cursor:pointer;background:#FBFAF7;color:var(--ink-soft);}
+  .goal-tab.active{border-color:var(--c-calc);background:#E4F7F5;color:#1F9E93;}
 
-  .goal-cal{
-    text-align:center; padding:16px; border-radius:12px; background:var(--calc-soft);
-    margin-bottom:14px;
-  }
-  .goal-cal .num{font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--calc-dark);}
-  .goal-cal .lbl{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+  .goal-cal{text-align:center;padding:16px;border-radius:12px;background:#E4F7F5;margin-bottom:14px;}
+  .goal-cal .num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#1F9E93;}
+  .goal-cal .lbl{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
 
-  .macro-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
-  .macro-card{border-radius:11px; padding:12px 10px; text-align:center;}
-  .macro-card.protein{background:var(--coral-soft);}
-  .macro-card.carb{background:var(--gold-soft);}
-  .macro-card.fat{background:var(--calc-soft);}
-  .macro-card .mc-label{font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
-  .macro-card.protein .mc-label{color:var(--coral);}
+  .macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .macro-card{border-radius:11px;padding:12px 10px;text-align:center;}
+  .macro-card.protein{background:#FFE7E0;}
+  .macro-card.carb{background:#FCEFD6;}
+  .macro-card.fat{background:#E4F7F5;}
+  .macro-card .mc-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+  .macro-card.protein .mc-label{color:#FF6B4A;}
   .macro-card.carb .mc-label{color:#B9800F;}
-  .macro-card.fat .mc-label{color:var(--calc-dark);}
-  .macro-card .mc-grams{font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; margin-top:4px;}
-  .macro-card .mc-pct{font-size:11px; color:var(--ink-soft); margin-top:1px;}
+  .macro-card.fat .mc-label{color:#1F9E93;}
+  .macro-card .mc-grams{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-top:4px;}
+  .macro-card .mc-pct{font-size:11px;color:var(--ink-soft);margin-top:1px;}
 
-  .timeline-box{
-    margin-top:14px; padding:14px 16px; border-radius:12px; background:#FBFAF7; border:1px solid var(--line);
-    font-size:13.5px; color:var(--ink-soft); line-height:1.6;
-  }
-  .timeline-box b{color:var(--ink); font-family:'Space Grotesk',sans-serif;}
+  .timeline-box{margin-top:14px;padding:14px 16px;border-radius:12px;background:#FBFAF7;border:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+  .timeline-box b{color:var(--ink);font-family:'Space Grotesk',sans-serif;}
 
-  .divider{height:1px; background:var(--line); margin:18px 0;}
-  .note{font-size:12px; color:var(--ink-soft); line-height:1.6; margin-top:6px;}
+  .divider{height:1px;background:var(--line);margin:18px 0;}
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:6px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-calc);background:#F0FBFA;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-calc);color:#1F9E93;}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
 
   @media(max-width:420px){
     .stat-hero .value{font-size:30px;}
@@ -128,8 +144,9 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<script src="cozleaf-header.js" defer></script>
 
+<div class="wrap">
   <div class="eyebrow"><span class="dot"></span>Calculators</div>
   <h1>BMR Calculator</h1>
   <p class="hero-p">Find your Basal Metabolic Rate, daily calorie burn (TDEE), and a calorie target for losing, maintaining, or gaining weight — with a macro breakdown to match.</p>
@@ -200,10 +217,9 @@
       <div class="pill" data-mult="1.9"><b>Extra active</b><small>Hard daily training / physical job</small></div>
     </div>
     <div class="error" id="err">Fill in age, weight, and height to calculate.</div>
-    <button class="calc-btn" id="calc-btn">Calculate BMR &amp; calories</button>
+    <button class="btn-primary" id="calc-btn">Calculate BMR &amp; calories</button>
   </div>
 
-  <!-- Results -->
   <div id="results">
 
     <div class="stat-hero">
@@ -265,7 +281,95 @@
     <p class="note" id="method-note"></p>
   </div>
 
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free BMR Calculator — Basal Metabolic Rate & TDEE</h2>
+    <p>This calculator finds your Basal Metabolic Rate (BMR), your Total Daily Energy Expenditure (TDEE) based on activity level, and a calorie target with a macro breakdown for losing, maintaining, or gaining weight. Enter your details and results appear instantly, right in your browser, with no sign-up required.</p>
+
+    <h2>What Is BMR?</h2>
+    <p>BMR is the number of calories your body burns at complete rest just to keep essential functions running — breathing, circulation, cell repair, and basic organ function. It does not include any calories burned through movement or exercise. BMR typically makes up 60–75% of total daily calorie burn for most people, which is why it's the foundation every calorie goal is built from.</p>
+
+    <h2>BMR vs TDEE — What's the Difference?</h2>
+    <p>TDEE (Total Daily Energy Expenditure) takes BMR and adds in calories burned through daily activity, from light movement to structured exercise. This calculator shows both: your BMR at complete rest, your "sedentary burn" (BMR with minimal daily movement factored in), and your full TDEE based on the activity level you select. TDEE is the number most people use as their maintenance calorie baseline.</p>
+
+    <h2>Mifflin-St Jeor vs Katch-McArdle</h2>
+    <p>By default, this calculator uses the Mifflin-St Jeor formula, widely considered the most accurate general-purpose BMR equation. If you enter your body fat percentage, it automatically switches to the Katch-McArdle formula instead, which calculates BMR from lean body mass rather than total weight — this tends to be more precise for people who know their body composition, especially those with more or less muscle than average.</p>
+
+    <h2>Understanding the Macro Breakdown</h2>
+    <p>Once a calorie goal is calculated, the macro split adjusts protein, carbohydrate, and fat targets based on that goal. A weight-loss target leans higher in protein to help preserve muscle during a calorie deficit. A weight-gain target shifts more calories toward carbohydrates to support training and recovery. Maintenance uses a balanced, moderate split across all three. Gram targets are calculated using standard conversions: 4 calories per gram of protein and carbohydrate, and 9 calories per gram of fat.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What is BMR?</strong> BMR (Basal Metabolic Rate) is the number of calories your body burns at complete rest just to keep basic functions like breathing, circulation, and cell production running.</p>
+    <p><strong>What is the difference between BMR and TDEE?</strong> BMR is calories burned at complete rest, while TDEE adds in calories burned through daily activity and exercise, giving your true total daily calorie burn.</p>
+    <p><strong>How is BMR calculated?</strong> This calculator uses the Mifflin-St Jeor formula by default, or the Katch-McArdle formula if you enter your body fat percentage, which uses lean body mass for a more precise estimate.</p>
+    <p><strong>How accurate is a BMR calculator?</strong> BMR formulas are estimates and individual metabolism can vary roughly 10-15% from the calculated number due to genetics, muscle mass, and other factors. Use it as a starting point, not an exact figure.</p>
+    <p><strong>Why does the macro split change based on my goal?</strong> Protein needs increase relative to calories during weight loss to help preserve muscle, while weight gain shifts more calories toward carbohydrates to fuel training — maintenance uses a balanced default split.</p>
+    <p><strong>Is this BMR calculator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload my data?</strong> No — the calculation runs entirely in your browser. Nothing is sent to any server.</p>
+
+    <p style="margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);">
+      <strong>Disclaimer:</strong> This tool provides a general estimate only and is not a substitute for professional medical or nutritional advice. Always consult a qualified healthcare provider or registered dietitian before starting a new diet or weight management plan.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'bmr-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
 
 <script>
 let unitWeight = 'kg';
@@ -345,12 +449,10 @@ function calculate(){
   let bmr, method;
 
   if(!isNaN(bodyfat) && bodyfat>0){
-    // Katch-McArdle using lean body mass
     const lbm = weightKg * (1 - bodyfat/100);
     bmr = 370 + (21.6 * lbm);
     method = 'Katch–McArdle formula (uses lean body mass from your body fat %)';
   } else {
-    // Mifflin-St Jeor
     if(gender==='male'){
       bmr = (10*weightKg) + (6.25*heightCm) - (5*age) + 5;
     } else {
@@ -396,7 +498,6 @@ function renderGoal(){
   document.getElementById('goal-cal-out').textContent = target;
   document.getElementById('goal-cal-label').textContent = label;
 
-  // Macro split: protein by bodyweight-ish (30%), fat 25-30%, rest carbs — adjusted slightly by goal
   let proteinPct, fatPct, carbPct;
   if(currentGoal==='lose'){ proteinPct=0.35; fatPct=0.30; carbPct=0.35; }
   else if(currentGoal==='gain'){ proteinPct=0.25; fatPct=0.25; carbPct=0.50; }
