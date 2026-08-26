@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Calorie Calculator - Daily Calorie Needs Free Online | Cozyleaf</title>
-<meta name="description" content="Free calorie calculator — find your daily calorie needs to lose, maintain, or gain weight, using the Mifflin-St Jeor formula and your activity level. No sign-up needed."/>
+<meta name="description" content="Free calorie calculator — find your daily calorie needs to lose, maintain, or gain weight in seconds, using the Mifflin-St Jeor formula and your activity level. No sign-up needed."/>
 <meta name="keywords" content="calorie calculator, daily calorie needs calculator, calories to lose weight calculator, tdee calculator, maintenance calories calculator"/>
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <link rel="canonical" href="https://cozyleaf.in/calorie-calculator.html"/>
@@ -39,10 +39,10 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"How many calories do I need per day?","acceptedAnswer":{"@type":"Answer","text":"It depends on your age, gender, height, weight, and activity level. This calculator estimates your maintenance calories, then adjusts up or down for weight gain or loss goals."}},
-    {"@type":"Question","name":"How is daily calorie need calculated?","acceptedAnswer":{"@type":"Answer","text":"This calculator first estimates your Basal Metabolic Rate using the Mifflin-St Jeor formula, then multiplies it by an activity factor based on how often you exercise."}},
+    {"@type":"Question","name":"How many calories do I need per day?","acceptedAnswer":{"@type":"Answer","text":"It depends on your age, gender, height, weight, and activity level. This calculator gives you a quick maintenance number, then adjusts it for weight loss or weight gain goals."}},
     {"@type":"Question","name":"How many calories should I eat to lose weight?","acceptedAnswer":{"@type":"Answer","text":"A common approach is eating around 500 calories below your maintenance level, which typically results in about 0.5 kg (1 lb) of weight loss per week."}},
-    {"@type":"Question","name":"What is TDEE?","acceptedAnswer":{"@type":"Answer","text":"TDEE stands for Total Daily Energy Expenditure — the total number of calories your body burns in a day, including exercise. It's the same as your maintenance calorie number."}},
+    {"@type":"Question","name":"What's the difference between this and the BMR Calculator?","acceptedAnswer":{"@type":"Answer","text":"This tool is built for a fast daily number to plan meals around. The BMR Calculator on Cozyleaf goes deeper — it separates resting metabolism from activity burn and adds a full protein, carb, and fat breakdown for your goal."}},
+    {"@type":"Question","name":"Should I eat the same number of calories every day?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Many people eat slightly more on high-activity days and slightly less on rest days, as long as the weekly average lines up with their goal."}},
     {"@type":"Question","name":"Is this calorie calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
   ]
 }
@@ -82,6 +82,10 @@
   .cal-chart th,.cal-chart td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);}
   .cal-chart th{color:var(--ink-soft);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
 
+  .compare-box{margin:10px 0 4px;padding:14px 16px;border-radius:12px;background:#F0FBFA;border:1px solid var(--line);font-size:13.5px;line-height:1.7;color:var(--ink);}
+  .compare-box a{color:#1F9E93;font-weight:600;text-decoration:none;}
+  .compare-box a:hover{text-decoration:underline;}
+
   .more-tools{margin:24px 0 8px;}
   .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
   .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -102,7 +106,7 @@
 <div class="wrap">
   <div class="eyebrow"><span class="dot"></span>Calculators</div>
   <h1>Calorie Calculator</h1>
-  <p class="hero-p">Estimate your daily calorie needs to lose, maintain, or gain weight — based on your body stats and activity level.</p>
+  <p class="hero-p">Get a quick daily calorie number to lose, maintain, or gain weight — enter your stats and activity level below.</p>
 
   <div class="card">
     <div class="cal-unit-toggle">
@@ -190,10 +194,10 @@
 
   <section class="seo-content">
     <h2>Free Calorie Calculator — Find Your Daily Calorie Needs</h2>
-    <p>This calorie calculator estimates how many calories you burn each day and how many you should eat to lose, maintain, or gain weight. Enter your age, gender, height, weight, and activity level — the result appears instantly, right in your browser, with no sign-up required.</p>
+    <p>This calorie calculator gives you a fast, straightforward number: how many calories to eat each day to lose, maintain, or gain weight. Enter your age, gender, height, weight, and activity level, and the result appears instantly in your browser — no sign-up, no tracking apps, no extra steps.</p>
 
-    <h2>How Are Daily Calorie Needs Calculated?</h2>
-    <p>This tool first estimates your Basal Metabolic Rate (BMR) — the calories your body burns at complete rest — using the Mifflin-St Jeor formula, one of the most accurate equations used by dietitians. It then multiplies your BMR by an activity factor based on how often you exercise, giving your Total Daily Energy Expenditure (TDEE), also called your maintenance calories.</p>
+    <h2>How It Works</h2>
+    <p>Behind the scenes, this tool runs the Mifflin-St Jeor equation — one of the most widely used calorie formulas among dietitians — then applies an activity multiplier based on how often you move or exercise. The result is your maintenance number, with a lose and gain target built in automatically so you don't have to do the subtraction yourself.</p>
 
     <h2>Calorie Targets By Goal</h2>
     <table class="cal-chart">
@@ -203,14 +207,22 @@
       <tr><td>Gain weight (~0.5 kg/week)</td><td>Maintenance + 500 kcal</td></tr>
     </table>
 
+    <h2>Using This Number Day to Day</h2>
+    <p>The daily total from this calculator works best as a target to plan meals around rather than a number to hit exactly every single day. Many people find it easier to think in terms of a weekly average — eating a little more on a high-activity day and a little less on a rest day, as long as the week balances out close to the goal. Pairing this number with a simple food tracking app makes it much easier to stay consistent without obsessing over every meal.</p>
+
     <h2>Activity Level Guide</h2>
-    <p>Sedentary means little to no exercise; lightly active is light exercise 1–3 days a week; moderately active is moderate exercise 3–5 days a week; very active is hard exercise 6–7 days a week; and extra active covers very hard daily training or a physically demanding job. Picking the closest match gives a more accurate calorie estimate.</p>
+    <p>Sedentary means little to no exercise; lightly active is light exercise 1–3 days a week; moderately active is moderate exercise 3–5 days a week; very active is hard exercise 6–7 days a week; and extra active covers very hard daily training or a physically demanding job. Picking the closest match gives a more accurate calorie estimate — when in doubt, it's usually more accurate to pick the lower option, since people tend to overestimate their own activity level.</p>
+
+    <h2>Calorie Calculator vs. BMR Calculator — Which Should You Use?</h2>
+    <div class="compare-box">
+      This tool is built for speed: enter your stats, get a daily number, done. If you want to go a step further — see your resting metabolism separately from your activity burn, and get a full protein, carb, and fat gram breakdown for your goal — try the <a href="bmr-calculator.html">BMR Calculator</a> instead. Both use the same underlying science; this page is the quick version, that one is the detailed version.
+    </div>
 
     <h2>Frequently Asked Questions</h2>
-    <p><strong>How many calories do I need per day?</strong> It depends on your age, gender, height, weight, and activity level. This calculator estimates your maintenance calories, then adjusts up or down for weight gain or loss goals.</p>
-    <p><strong>How is daily calorie need calculated?</strong> This calculator first estimates your Basal Metabolic Rate using the Mifflin-St Jeor formula, then multiplies it by an activity factor based on how often you exercise.</p>
+    <p><strong>How many calories do I need per day?</strong> It depends on your age, gender, height, weight, and activity level. This calculator gives you a quick maintenance number, then adjusts it for weight loss or weight gain goals.</p>
     <p><strong>How many calories should I eat to lose weight?</strong> A common approach is eating around 500 calories below your maintenance level, which typically results in about 0.5 kg (1 lb) of weight loss per week.</p>
-    <p><strong>What is TDEE?</strong> TDEE stands for Total Daily Energy Expenditure — the total number of calories your body burns in a day, including exercise. It's the same as your maintenance calorie number.</p>
+    <p><strong>What's the difference between this and the BMR Calculator?</strong> This tool is built for a fast daily number to plan meals around. The BMR Calculator on Cozyleaf goes deeper — it separates resting metabolism from activity burn and adds a full protein, carb, and fat breakdown for your goal.</p>
+    <p><strong>Should I eat the same number of calories every day?</strong> Not necessarily. Many people eat slightly more on high-activity days and slightly less on rest days, as long as the weekly average lines up with their goal.</p>
     <p><strong>Is this calorie calculator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
     <p><strong>Does this store or upload my data?</strong> No — the calculation runs entirely in your browser. Nothing is sent to any server.</p>
 
