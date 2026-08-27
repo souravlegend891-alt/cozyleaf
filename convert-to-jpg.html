@@ -1,215 +1,467 @@
-<!-- ============================================================
-     Cozyleaf · Convert to JPG tool
-     Self-contained block — paste into the Blogger post body for
-     the "Convert to JPG" tool page. Client-side only: PNG, WebP,
-     GIF (first frame), BMP, SVG and HEIC (iPhone photos) all
-     convert to JPG in the browser. Nothing is uploaded anywhere.
-     ============================================================ -->
-<div class="c2j-scope" id="c2jScope">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Convert to JPG - Free Online Image Converter (PNG, WebP, HEIC) | Cozyleaf</title>
+<meta name="description" content="Free online image converter — turn PNG, WebP, GIF, BMP, SVG or iPhone HEIC photos into JPG instantly in your browser. No upload, no sign-up, batch convert and download as ZIP."/>
+<meta name="keywords" content="convert to jpg, png to jpg, webp to jpg, heic to jpg, image converter online, free jpg converter, heic converter"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<link rel="canonical" href="https://cozyleaf.in/convert-to-jpg.html"/>
+<meta name="theme-color" content="#1B1D29"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Cozyleaf"/>
+<meta property="og:title" content="Convert to JPG - Free Online Image Converter"/>
+<meta property="og:description" content="Convert PNG, WebP, GIF, BMP, SVG or HEIC photos into JPG instantly in your browser. No upload, no sign-up."/>
+<meta property="og:url" content="https://cozyleaf.in/convert-to-jpg.html"/>
+<meta property="og:locale" content="en_US"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Convert to JPG - Cozyleaf"/>
+<meta name="twitter:description" content="Free online image converter — PNG, WebP, GIF, BMP, SVG or HEIC to JPG, instantly in your browser."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Convert to JPG",
+  "url": "https://cozyleaf.in/convert-to-jpg.html",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool to convert PNG, WebP, GIF, BMP, SVG and HEIC images to JPG directly in the browser, with batch conversion and ZIP download."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What image formats can I convert to JPG?","acceptedAnswer":{"@type":"Answer","text":"You can convert PNG, WebP, GIF, BMP, SVG, and HEIC (iPhone photo format) images to JPG."}},
+    {"@type":"Question","name":"Does converting HEIC photos from my iPhone work?","acceptedAnswer":{"@type":"Answer","text":"Yes. HEIC files are automatically decoded in your browser and converted to JPG, so iPhone photos work without any extra app."}},
+    {"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All conversion happens locally in your browser using the Canvas API. Your images never leave your device."}},
+    {"@type":"Question","name":"Why does a background color option appear?","acceptedAnswer":{"@type":"Answer","text":"JPG does not support transparency. If your source image has transparent areas, they are filled with the background color you choose before conversion."}},
+    {"@type":"Question","name":"Can I convert multiple images at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can add several images together, convert them all in one click, and download them individually or as a single ZIP file."}},
+    {"@type":"Question","name":"Does this reduce my image quality?","acceptedAnswer":{"@type":"Answer","text":"You control the JPG quality with a slider from 1 to 100. Higher values preserve more detail but produce larger files; lower values shrink the file size."}},
+    {"@type":"Question","name":"Can I target a specific file size, like under 200KB?","acceptedAnswer":{"@type":"Answer","text":"Yes. Turn on the target file size option and enter a size in KB — the converter automatically adjusts the JPG quality to get as close as possible to that size."}},
+    {"@type":"Question","name":"What happens with very large photos?","acceptedAnswer":{"@type":"Answer","text":"Extremely large images are automatically scaled down slightly before conversion to keep the process fast and reliable on phones, instead of risking a crash or freeze."}},
+    {"@type":"Question","name":"Is this converter free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
 
 <style>
-  .c2j-scope{
-    --ink:#17130F; --ink-soft:#6B6259; --paper:#FAF7F2; --card:#FFFFFF;
-    --line:#E7E1D8; --accent:#F2643B; --accent-deep:#C7431E; --accent-soft:#FFE4D9;
-    --success:#2FA36B; --success-soft:#E4F5EC; --warn:#B8860B; --warn-soft:#FBF0D9;
-    font-family:'Inter',system-ui,sans-serif; color:var(--ink); background:var(--paper); box-sizing:border-box;
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing
+     all come from style.css so this page matches every other page. */
+
+  .c2j-drop{
+    border:1.5px dashed var(--line);border-radius:12px;padding:26px 16px;text-align:center;
+    background:#FBFAF7;transition:.15s;cursor:pointer;
   }
-  .c2j-scope *, .c2j-scope *::before, .c2j-scope *::after{ box-sizing:inherit; }
-  .c2j-scope h1,.c2j-scope h2{ font-family:'Sora',sans-serif; margin:0; }
-  .c2j-scope button, .c2j-scope input, .c2j-scope select{ font-family:inherit; }
-  .c2j-scope button{ cursor:pointer; }
-  .c2j-scope :focus-visible{ outline:2px solid var(--accent-deep); outline-offset:2px; }
+  .c2j-drop.c2j-drag{border-color:var(--ink);background:#F4F0EA;}
+  .c2j-drop p{margin:0;font-size:14px;color:var(--ink);}
+  .c2j-drop .browse{color:var(--ink);text-decoration:underline;text-underline-offset:3px;font-weight:600;}
+  .c2j-drop .hint{margin-top:6px;font-size:12px;color:var(--ink-soft);}
+  .c2j-formats{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .c2j-formats span{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--ink-soft);border:1px solid var(--line);border-radius:7px;padding:3px 8px;}
 
-  /* ---------- Hero ---------- */
-  .c2j-hero{ background:var(--ink); padding:48px 20px 34px; position:relative; overflow:hidden; }
-  .c2j-hero::before{ content:""; position:absolute; inset:0;
-    background:radial-gradient(600px 240px at 85% -10%, rgba(242,100,59,.28), transparent 60%),
-      radial-gradient(500px 220px at 0% 0%, rgba(242,100,59,.14), transparent 55%); pointer-events:none; }
-  .c2j-hero-inner{ max-width:640px; margin:0 auto; position:relative; text-align:center; }
-  .c2j-eyebrow{ color:var(--accent); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 14px; }
-  .c2j-title{ color:#fff; font-size:clamp(28px,6vw,42px); line-height:1.12; font-weight:800; }
-  .c2j-title span{ color:var(--accent); }
-  .c2j-sub{ color:#CFC8BE; font-size:15.5px; line-height:1.55; max-width:480px; margin:14px auto 26px; }
+  .c2j-settings{margin-top:18px;display:none;}
+  .c2j-settings.show{display:block;}
+  .c2j-settings h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin:0 0 12px;}
 
-  /* Signature: format chips funnelling into one JPG badge */
-  .c2j-funnel{ display:flex; flex-direction:column; align-items:center; gap:6px; margin-bottom:26px; }
-  .c2j-funnel-row{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
-  .c2j-chip{ font-size:11.5px; font-weight:700; letter-spacing:.02em; color:#DCD5C9;
-    border:1px solid rgba(255,255,255,.22); border-radius:8px; padding:5px 10px; background:rgba(255,255,255,.03); }
-  .c2j-funnel-lines{ width:120px; height:20px; opacity:.5; }
-  .c2j-jpg-badge{ font-family:'Sora',sans-serif; font-weight:800; font-size:15px; color:#fff;
-    background:linear-gradient(135deg,var(--accent),var(--accent-deep)); border-radius:10px;
-    padding:8px 22px; box-shadow:0 6px 18px rgba(242,100,59,.35); animation:c2jPulse 2.8s ease-in-out infinite; }
-  @keyframes c2jPulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+  .c2j-field{display:block;margin-bottom:14px;font-size:13.5px;font-weight:600;}
+  .c2j-field > span{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .c2j-field > span b{color:var(--ink);font-weight:800;}
+  .c2j-field input[type=range]{width:100%;}
+  .c2j-field input[type=checkbox]{margin-right:6px;}
+  .c2j-target-row{display:flex;gap:6px;align-items:center;font-weight:500;color:var(--ink-soft);font-size:13px;}
+  .c2j-target-row input[type=number]{
+    flex:1;padding:9px 10px;border-radius:9px;border:1px solid var(--line);font-size:13.5px;
+  }
 
-  .c2j-drop{ background:rgba(255,255,255,.04); border:1.5px dashed rgba(255,255,255,.28); border-radius:18px;
-    padding:26px 20px; transition:border-color .2s,background .2s,transform .2s; }
-  .c2j-drop.c2j-drag{ border-color:var(--accent); background:rgba(242,100,59,.09); transform:scale(1.01); }
-  .c2j-drop-text{ color:#fff; font-size:15.5px; margin:0 0 4px; }
-  .c2j-browse{ color:var(--accent); text-decoration:underline; text-underline-offset:3px; font-weight:600; }
-  .c2j-drop-hint{ color:#8E867B; font-size:13px; margin:0; }
+  .c2j-swatches{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .c2j-swatch{width:30px;height:30px;border-radius:9px;border:2px solid var(--line);cursor:pointer;padding:0;}
+  .c2j-swatch.active{border-color:var(--ink);box-shadow:0 0 0 2px #EEE9DF;}
+  .c2j-swatch-custom{width:30px;height:30px;border-radius:9px;border:2px solid var(--line);padding:0;background:none;overflow:hidden;}
+  .c2j-swatch-custom input[type=color]{width:140%;height:140%;margin:-20%;border:none;cursor:pointer;}
 
-  /* ---------- Workspace ---------- */
-  .c2j-workspace{ max-width:980px; margin:0 auto; padding:28px 16px 60px; display:grid;
-    grid-template-columns:270px 1fr; gap:22px; align-items:start; }
-  .c2j-workspace[hidden]{ display:none !important; }
-  @media (max-width:820px){ .c2j-workspace{ grid-template-columns:1fr; } }
+  .c2j-note{font-size:12px;color:var(--ink-soft);background:#F4F0EA;border-radius:8px;padding:8px 10px;margin:14px 0;}
 
-  .c2j-settings{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; position:sticky; top:12px; }
-  @media (max-width:820px){ .c2j-settings{ position:static; } }
-  .c2j-settings h2{ font-size:16px; margin-bottom:14px; }
+  .btn-row{display:flex;gap:10px;margin-top:6px;}
+  .btn-row .btn-primary{margin-top:0;flex:1;}
+  .btn-reset{
+    padding:16px 20px;border-radius:14px;border:1.5px solid var(--line);
+    background:#fff;color:var(--ink-soft);font-family:'Inter',sans-serif;
+    font-size:14.5px;font-weight:600;cursor:pointer;flex-shrink:0;
+  }
+  .btn-reset:hover{border-color:var(--ink-soft);color:var(--ink);}
 
-  .c2j-field{ display:block; margin-bottom:16px; font-size:13.5px; font-weight:600; }
-  .c2j-field > span{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-  .c2j-field > span b{ color:var(--accent-deep); font-weight:800; }
-  .c2j-field input[type=range]{ width:100%; accent-color:var(--accent); }
-  .c2j-field input[type=number]{ width:100%; padding:9px 10px; border-radius:9px; border:1px solid var(--line); font-size:13.5px; }
-  .c2j-field input[type=checkbox]{ accent-color:var(--accent); margin-right:6px; }
-  .c2j-target-row{ display:flex; gap:6px; align-items:center; font-weight:500; color:var(--ink-soft); font-size:13px; }
-  .c2j-target-row input{ flex:1; }
+  .c2j-summary{
+    margin-top:18px;background:var(--ink);border-radius:12px;padding:14px 16px;color:#fff;
+    display:none;flex-direction:column;gap:10px;
+  }
+  .c2j-summary.show{display:flex;}
+  .c2j-summary-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .c2j-summary .n{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;}
+  .c2j-summary .l{font-size:11px;color:#C9C2B7;text-transform:uppercase;letter-spacing:.05em;}
+  .c2j-summary-actions{display:flex;gap:8px;}
+  .c2j-summary-actions button{
+    padding:9px 14px;border-radius:9px;font-size:12.5px;font-weight:700;border:none;cursor:pointer;
+  }
+  .c2j-summary-actions .dl{background:#fff;color:var(--ink);}
+  .c2j-summary-actions .clr{background:rgba(255,255,255,.12);color:#fff;}
+  .c2j-summary-stats{
+    display:flex;gap:14px;font-size:12px;color:#D8D2C6;border-top:1px solid rgba(255,255,255,.14);
+    padding-top:10px;flex-wrap:wrap;
+  }
+  .c2j-summary-stats b{color:#fff;font-weight:700;}
+  .c2j-summary-stats .save{color:#8FE0B4;font-weight:700;}
 
-  .c2j-swatches{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-  .c2j-swatch{ width:30px; height:30px; border-radius:9px; border:2px solid var(--line); cursor:pointer; padding:0; }
-  .c2j-swatch.active{ border-color:var(--accent-deep); box-shadow:0 0 0 2px var(--accent-soft); }
-  .c2j-swatch-custom{ width:30px; height:30px; border-radius:9px; border:2px solid var(--line); padding:0; background:none; overflow:hidden; }
-  .c2j-swatch-custom input[type=color]{ width:140%; height:140%; margin:-20%; border:none; cursor:pointer; }
+  .c2j-safety-note{display:none;font-size:11.5px;color:#8A6D2E;background:#FBF0D9;border-radius:8px;padding:8px 10px;margin-top:8px;}
+  .c2j-safety-note.show{display:block;}
 
-  .c2j-note{ font-size:12px; color:var(--ink-soft); background:#F4F0EA; border-radius:8px; padding:8px 10px; margin:0 0 16px; }
+  .c2j-file-actions{display:flex;gap:6px;}
+  .c2j-icon-btn.copy{opacity:.4;pointer-events:none;}
+  .c2j-icon-btn.copy.ready{opacity:1;pointer-events:auto;}
+  .c2j-icon-btn.copy.done{background:#E4F5EC;color:#2FA36B;border-color:#E4F5EC;}
 
-  .c2j-btn{ width:100%; border:none; border-radius:11px; padding:12px; font-weight:700; font-size:14.5px; }
-  .c2j-btn-primary{ background:var(--accent); color:#fff; transition:background .15s, transform .1s; }
-  .c2j-btn-primary:hover{ background:var(--accent-deep); }
-  .c2j-btn-primary:active{ transform:scale(.98); }
-  .c2j-btn-ghost{ background:#fff; color:var(--ink); border:1px solid var(--line); }
-  .c2j-btn-ghost:hover{ background:#F4F0EA; }
+  /* preview modal */
+  .c2j-modal{
+    display:none;position:fixed;inset:0;background:rgba(23,19,15,.72);z-index:999;
+    align-items:center;justify-content:center;padding:18px;
+  }
+  .c2j-modal.show{display:flex;}
+  .c2j-modal-box{background:#fff;border-radius:14px;max-width:480px;width:100%;max-height:88vh;overflow:auto;padding:16px;}
+  .c2j-modal-close{
+    float:right;border:none;background:none;font-size:20px;line-height:1;color:var(--ink-soft);cursor:pointer;padding:4px;
+  }
+  .c2j-modal-title{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin:0 0 12px;clear:both;}
+  .c2j-modal-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .c2j-modal-col{text-align:center;}
+  .c2j-modal-col img{width:100%;border-radius:8px;border:1px solid var(--line);background:#F4F0EA;object-fit:contain;max-height:220px;}
+  .c2j-modal-col p{font-size:11px;color:var(--ink-soft);margin:6px 0 0;}
+  .c2j-modal-col b{display:block;font-size:12.5px;color:var(--ink);}
 
-  /* ---------- Results ---------- */
-  .c2j-summary{ background:var(--ink); border-radius:16px; padding:18px 20px; color:#fff;
-    display:flex; align-items:center; gap:18px; margin-bottom:16px; flex-wrap:wrap; }
-  .c2j-summary[hidden]{ display:none !important; }
-  .c2j-summary-stat{ display:flex; flex-direction:column; }
-  .c2j-summary-stat .n{ font-family:'Sora',sans-serif; font-size:22px; font-weight:700; }
-  .c2j-summary-stat .l{ font-size:11.5px; color:#B9B0A5; text-transform:uppercase; letter-spacing:.05em; }
-  .c2j-summary-actions{ display:flex; gap:8px; width:100%; margin-top:4px; margin-left:auto; }
-  @media (min-width:640px){ .c2j-summary-actions{ width:auto; margin-top:0; } }
-  .c2j-summary-actions .c2j-btn{ width:auto; padding:10px 16px; font-size:13.5px; }
-  .c2j-summary-actions .c2j-btn-ghost{ background:transparent; border-color:rgba(255,255,255,.25); color:#fff; }
-  .c2j-summary-actions .c2j-btn-ghost:hover{ background:rgba(255,255,255,.08); }
+  .c2j-filelist{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;}
+  .c2j-file{
+    background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:10px;
+    display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;
+  }
+  .c2j-file-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#EFEAE1;}
+  .c2j-file-name{font-size:13px;font-weight:600;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;color:var(--ink);}
+  .c2j-file-meta{font-size:11.5px;color:var(--ink-soft);display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .c2j-badge-swap{display:inline-flex;align-items:center;gap:5px;font-weight:700;}
+  .c2j-badge-to{background:#E4F5EC;color:#2FA36B;border-radius:999px;padding:1px 8px;font-size:11px;}
+  .c2j-pending{color:var(--ink-soft);font-weight:600;}
+  .c2j-error{color:#B3261E;font-weight:600;}
+  .c2j-icon-btn{
+    width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:#fff;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-soft);text-decoration:none;
+  }
+  .c2j-icon-btn svg{width:15px;height:15px;}
+  .c2j-icon-btn.dl{opacity:.4;pointer-events:none;}
+  .c2j-icon-btn.dl.ready{opacity:1;pointer-events:auto;background:#EDE7DB;color:var(--ink);}
 
-  .c2j-filelist{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
-  .c2j-file{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px;
-    display:grid; grid-template-columns:52px 1fr auto; gap:12px; align-items:center; }
-  .c2j-file-thumb{ width:52px; height:52px; border-radius:9px; object-fit:cover; background:#F0EBE3; }
-  .c2j-file-name{ font-size:13.5px; font-weight:600; margin:0 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
-  .c2j-file-meta{ font-size:12px; color:var(--ink-soft); display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
-  .c2j-badge-swap{ display:inline-flex; align-items:center; gap:5px; font-weight:700; }
-  .c2j-badge-from{ color:var(--ink-soft); }
-  .c2j-badge-to{ background:var(--success-soft); color:var(--success); border-radius:999px; padding:1px 9px;
-    font-size:11.5px; transform:scale(.8); opacity:0; transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .25s; }
-  .c2j-badge-to.show{ transform:scale(1); opacity:1; }
-  .c2j-pending{ color:var(--accent-deep); font-weight:600; }
-  .c2j-error{ color:#B3261E; font-weight:600; }
+  .c2j-empty{text-align:center;padding:16px 8px;color:var(--ink-soft);font-size:13px;}
 
-  .c2j-file-actions{ display:flex; gap:6px; }
-  .c2j-icon-btn{ width:34px; height:34px; border-radius:9px; border:1px solid var(--line); background:#fff;
-    display:flex; align-items:center; justify-content:center; color:var(--ink-soft); }
-  .c2j-icon-btn svg{ width:16px; height:16px; }
-  .c2j-icon-btn.c2j-download{ background:var(--accent-soft); border-color:var(--accent-soft); color:var(--accent-deep); }
-  .c2j-icon-btn.c2j-download:hover{ background:var(--accent); color:#fff; }
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .fmt-table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:13px;}
+  .fmt-table th,.fmt-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);}
+  .fmt-table th{color:var(--ink-soft);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
 
-  .c2j-empty{ text-align:center; padding:30px 10px; color:var(--ink-soft); font-size:13.5px; }
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{
+    display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;
+    background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s;
+  }
+  .tool-grid a:hover{border-color:var(--ink);background:var(--hover);}
+  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
 
-  @media (prefers-reduced-motion:reduce){ .c2j-scope *{ transition:none !important; animation:none !important; } }
+  .more-toggle{
+    width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);
+    background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .more-toggle:hover{border-color:var(--ink);color:var(--ink);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{
+    display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
+    font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);
+  }
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
 </style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
 
-<section class="c2j-hero">
-  <div class="c2j-hero-inner">
-    <p class="c2j-eyebrow">Image Tools · Convert</p>
-    <h1 class="c2j-title">Any image.<br><span>One universal JPG.</span></h1>
-    <p class="c2j-sub">PNG, WebP, GIF, BMP, SVG or an iPhone HEIC photo — convert it to a JPG that opens anywhere, right in your browser.</p>
+<div class="wrap">
+  <h1>Convert to JPG</h1>
+  <p class="hero-p">Turn PNG, WebP, GIF, BMP, SVG, or an iPhone HEIC photo into a JPG that opens anywhere — right in your browser, nothing uploaded.</p>
 
-    <div class="c2j-funnel" aria-hidden="true">
-      <div class="c2j-funnel-row">
-        <span class="c2j-chip">PNG</span><span class="c2j-chip">WEBP</span><span class="c2j-chip">HEIC</span>
-        <span class="c2j-chip">GIF</span><span class="c2j-chip">SVG</span><span class="c2j-chip">BMP</span>
-      </div>
-      <svg class="c2j-funnel-lines" viewBox="0 0 120 20"><path d="M10 0 L58 20 M35 0 L58 20 M60 0 L60 20 M85 0 L62 20 M110 0 L62 20" stroke="#F2643B" stroke-width="1.5" fill="none"/></svg>
-      <span class="c2j-jpg-badge">JPG</span>
+  <div class="card">
+    <div class="c2j-formats" aria-hidden="true">
+      <span>PNG</span><span>WEBP</span><span>HEIC</span><span>GIF</span><span>SVG</span><span>BMP</span>
     </div>
 
     <div class="c2j-drop" id="c2jDrop" tabindex="0" role="button" aria-label="Upload images to convert">
-      <input type="file" id="c2jInput" accept="image/*,.heic,.heif" multiple hidden>
-      <p class="c2j-drop-text"><strong>Drop images here</strong> or <span class="c2j-browse">browse files</span></p>
-      <p class="c2j-drop-hint">PNG · WebP · GIF · BMP · SVG · HEIC — or press Ctrl+V to paste</p>
+      <input type="file" id="c2jInput" accept="image/*,.heic,.heif" multiple hidden/>
+      <p><strong>Drop images here</strong> or <span class="browse">browse files</span></p>
+      <p class="hint">PNG · WebP · GIF · BMP · SVG · HEIC — or press Ctrl+V to paste</p>
     </div>
-  </div>
-</section>
 
-<section class="c2j-workspace" id="c2jWorkspace" hidden>
-  <aside class="c2j-settings">
-    <h2>Conversion settings</h2>
+    <div class="c2j-settings" id="c2jSettings">
+      <h2>Conversion settings</h2>
 
-    <label class="c2j-field">
-      <span>JPG quality <b id="c2jQualityVal">90</b></span>
-      <input type="range" id="c2jQuality" min="1" max="100" value="90">
-    </label>
+      <label class="c2j-field">
+        <span>JPG quality <b id="c2jQualityVal">90</b></span>
+        <input type="range" id="c2jQuality" min="1" max="100" value="90"/>
+      </label>
 
-    <div class="c2j-field">
-      <span>Background for transparent areas</span>
-      <div class="c2j-swatches">
-        <button class="c2j-swatch active" data-color="#FFFFFF" style="background:#FFFFFF" aria-label="White"></button>
-        <button class="c2j-swatch" data-color="#000000" style="background:#000000" aria-label="Black"></button>
-        <button class="c2j-swatch" data-color="#F2643B" style="background:#F2643B" aria-label="Orange"></button>
-        <label class="c2j-swatch-custom" aria-label="Custom color"><input type="color" id="c2jCustomColor" value="#faf7f2"></label>
+      <div class="c2j-field">
+        <span>Background for transparent areas</span>
+        <div class="c2j-swatches">
+          <button class="c2j-swatch active" data-color="#FFFFFF" style="background:#FFFFFF" aria-label="White"></button>
+          <button class="c2j-swatch" data-color="#000000" style="background:#000000" aria-label="Black"></button>
+          <button class="c2j-swatch" data-color="#EFEAE1" style="background:#EFEAE1" aria-label="Beige"></button>
+          <label class="c2j-swatch-custom" aria-label="Custom color"><input type="color" id="c2jCustomColor" value="#ffffff"/></label>
+        </div>
+      </div>
+
+      <label class="c2j-field">
+        <span><input type="checkbox" id="c2jResizeToggle"/>Limit longest side</span>
+        <div class="c2j-target-row">
+          <input type="number" id="c2jResizeValue" min="1" value="1920" disabled/><span>px</span>
+        </div>
+      </label>
+
+      <label class="c2j-field">
+        <span><input type="checkbox" id="c2jTargetToggle"/>Target a file size (optional)</span>
+        <div class="c2j-target-row">
+          <input type="number" id="c2jTargetValue" min="10" value="200" disabled/><span>KB per image</span>
+        </div>
+      </label>
+
+      <label class="c2j-field">
+        <span>File name prefix (optional)</span>
+        <div class="c2j-target-row">
+          <input type="text" id="c2jPrefix" placeholder="e.g. trip-2026-"/>
+        </div>
+      </label>
+
+      <p class="c2j-note">JPG doesn't support transparency, so see-through areas are filled with your chosen background color. Animated GIFs convert using their first frame. Very large photos are automatically scaled down a little to keep conversion smooth and safe on mobile devices.</p>
+      <p class="c2j-safety-note" id="c2jSafetyNote"></p>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="c2jConvertAll">Convert all to JPG</button>
+        <button class="btn-reset" id="c2jClearAll">Clear</button>
       </div>
     </div>
 
-    <label class="c2j-field">
-      <span><input type="checkbox" id="c2jResizeToggle">Limit longest side</span>
-      <div class="c2j-target-row">
-        <input type="number" id="c2jResizeValue" min="1" value="1920" disabled><span>px</span>
+    <div class="c2j-summary" id="c2jSummary">
+      <div class="c2j-summary-top">
+        <div><span class="n" id="c2jDoneCount">0</span> <span class="l">converted</span></div>
+        <div class="c2j-summary-actions">
+          <button class="dl" id="c2jDownloadAll">Download all (ZIP)</button>
+        </div>
       </div>
-    </label>
-
-    <p class="c2j-note">JPG doesn't support transparency, so see-through areas are filled with your chosen background color. Animated GIFs convert using their first frame.</p>
-
-    <button class="c2j-btn c2j-btn-primary" id="c2jConvertAll">Convert all to JPG</button>
-  </aside>
-
-  <div class="c2j-results">
-    <div class="c2j-summary" id="c2jSummary" hidden>
-      <div class="c2j-summary-stat"><span class="n" id="c2jDoneCount">0</span><span class="l">Converted</span></div>
-      <div class="c2j-summary-actions">
-        <button class="c2j-btn c2j-btn-primary" id="c2jDownloadAll">Download all (ZIP)</button>
-        <button class="c2j-btn c2j-btn-ghost" id="c2jClearAll">Clear</button>
-      </div>
+      <div class="c2j-summary-stats" id="c2jStats"></div>
     </div>
+
     <ul class="c2j-filelist" id="c2jFileList"></ul>
     <p class="c2j-empty" id="c2jEmptyState">Your converted JPGs will appear here.</p>
   </div>
-</section>
+
+  <div class="c2j-modal" id="c2jModal">
+    <div class="c2j-modal-box">
+      <button class="c2j-modal-close" id="c2jModalClose" aria-label="Close preview">&times;</button>
+      <p class="c2j-modal-title" id="c2jModalTitle">Preview</p>
+      <div class="c2j-modal-compare">
+        <div class="c2j-modal-col">
+          <img id="c2jModalBefore" alt="Original"/>
+          <b>Original</b>
+          <p id="c2jModalBeforeMeta"></p>
+        </div>
+        <div class="c2j-modal-col">
+          <img id="c2jModalAfter" alt="Converted JPG"/>
+          <b>JPG</b>
+          <p id="c2jModalAfterMeta"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free Online Image to JPG Converter</h2>
+    <p>This tool converts PNG, WebP, GIF, BMP, SVG, and HEIC images into standard JPG files directly inside your browser. Add one or more images, adjust the quality and background settings if you like, and tap Convert — your JPGs are ready in seconds with no upload and no sign-up.</p>
+
+    <h2>Why Convert to JPG?</h2>
+    <p>JPG remains the most universally supported image format — every phone, website, printer, and document tool can open it without issue. If you have a screenshot in PNG, a webpage image in WebP, or an iPhone photo saved as HEIC, converting it to JPG makes it easy to share, upload, or print without compatibility problems.</p>
+
+    <h2>Supported Formats</h2>
+    <table class="fmt-table">
+      <tr><th>Format</th><th>Common source</th></tr>
+      <tr><td>PNG</td><td>Screenshots, graphics with transparency</td></tr>
+      <tr><td>WebP</td><td>Modern websites, Google Images</td></tr>
+      <tr><td>HEIC / HEIF</td><td>iPhone and iPad photos</td></tr>
+      <tr><td>GIF</td><td>Animated images (first frame used)</td></tr>
+      <tr><td>BMP</td><td>Windows Paint, older software</td></tr>
+      <tr><td>SVG</td><td>Vector graphics, icons, logos</td></tr>
+    </table>
+
+    <h2>How the Conversion Works</h2>
+    <p>Each image is drawn onto an in-memory canvas at its original size, or scaled down if you set a maximum dimension, then re-encoded as JPG at the quality level you choose. Because JPG has no transparency channel, any transparent pixels are filled with your selected background color first. HEIC photos are decoded to a standard image format before this same process runs. Everything happens locally — your files are never sent to a server.</p>
+
+    <h2>Batch Conversion and Downloads</h2>
+    <p>You can add several images at once and convert them all together — the tool shows live progress as each one finishes. Download each JPG individually, tap a thumbnail to compare the original against the converted version before saving, copy a single result straight to your clipboard, or use "Download all (ZIP)" to get every converted file bundled into one archive.</p>
+
+    <h2>Fine-Tuning Your Output</h2>
+    <p>Beyond the quality slider, you can optionally target a specific file size in KB — useful when a website or form has an upload limit — and the converter automatically finds a quality level that gets close to it. You can also add a custom file name prefix, applied to every download and to the ZIP, which is handy for keeping a batch organized.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What image formats can I convert to JPG?</strong> You can convert PNG, WebP, GIF, BMP, SVG, and HEIC (iPhone photo format) images to JPG.</p>
+    <p><strong>Does converting HEIC photos from my iPhone work?</strong> Yes. HEIC files are automatically decoded in your browser and converted to JPG, so iPhone photos work without any extra app.</p>
+    <p><strong>Are my images uploaded to a server?</strong> No. All conversion happens locally in your browser using the Canvas API. Your images never leave your device.</p>
+    <p><strong>Why does a background color option appear?</strong> JPG does not support transparency. If your source image has transparent areas, they are filled with the background color you choose before conversion.</p>
+    <p><strong>Can I convert multiple images at once?</strong> Yes. You can add several images together, convert them all in one click, and download them individually or as a single ZIP file.</p>
+    <p><strong>Does this reduce my image quality?</strong> You control the JPG quality with a slider from 1 to 100. Higher values preserve more detail but produce larger files; lower values shrink the file size.</p>
+    <p><strong>Can I target a specific file size, like under 200KB?</strong> Yes. Turn on the target file size option and enter a size in KB — the converter automatically adjusts the JPG quality to get as close as possible to that size.</p>
+    <p><strong>What happens with very large photos?</strong> Extremely large images are automatically scaled down slightly before conversion to keep the process fast and reliable on phones, instead of risking a crash or freeze.</p>
+    <p><strong>Is this converter free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+
+    <p class="disclaimer">
+      <strong>Note:</strong> Very large images or a large batch may take a few extra seconds to process on older phones, since all conversion runs on your device rather than a server. Images are converted one at a time and automatically resized if needed, to keep memory use low and avoid crashes.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'convert-to-jpg.html';
+  var CURRENT_CAT = 'Image Tools';
+
+  function buildMoreTools(){
+    var tools = window.COZYLEAF_TOOLS || [];
+    var icons = window.COZYLEAF_ICONS || {};
+    var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+    var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+    var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+    var grid = document.getElementById('categoryGrid');
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+
+    var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+    var listEl = document.getElementById('allToolsList');
+    listEl.innerHTML = otherCats.map(function(cat){
+      var hex = catHex[cat] || '#9AA0AC';
+      var catTools = tools.filter(function(t){ return t.cat === cat; });
+      if(!catTools.length) return '';
+      var head = '<div class="all-tools-cat"><span class="chip" style="background:'+hex+'"></span>'+cat+'</div>';
+      var rows = catTools.map(function(t){
+        var ic = icons[t.url] || '🔧';
+        return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+      }).join('');
+      return head + rows;
+    }).join('');
+
+    document.getElementById('moreToggle').addEventListener('click', function(){
+      listEl.classList.toggle('open');
+      this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+    });
+  }
+  buildMoreTools();
+});
+</script>
+
+<script defer>
 (function(){
   "use strict";
-  var scope = document.getElementById('c2jScope');
-  var $ = function(id){ return document.getElementById(id); };
 
-  var drop = $('c2jDrop'), input = $('c2jInput'), workspace = $('c2jWorkspace'),
-      fileList = $('c2jFileList'), emptyState = $('c2jEmptyState'), summary = $('c2jSummary'),
-      qualitySlider = $('c2jQuality'), qualityVal = $('c2jQualityVal'),
-      resizeToggle = $('c2jResizeToggle'), resizeValue = $('c2jResizeValue'),
-      convertAllBtn = $('c2jConvertAll'), downloadAllBtn = $('c2jDownloadAll'), clearAllBtn = $('c2jClearAll'),
-      swatches = scope.querySelectorAll('.c2j-swatch'), customColor = $('c2jCustomColor');
+  var drop = document.getElementById('c2jDrop'),
+      input = document.getElementById('c2jInput'),
+      settingsBox = document.getElementById('c2jSettings'),
+      fileList = document.getElementById('c2jFileList'),
+      emptyState = document.getElementById('c2jEmptyState'),
+      summary = document.getElementById('c2jSummary'),
+      statsEl = document.getElementById('c2jStats'),
+      qualitySlider = document.getElementById('c2jQuality'),
+      qualityVal = document.getElementById('c2jQualityVal'),
+      resizeToggle = document.getElementById('c2jResizeToggle'),
+      resizeValue = document.getElementById('c2jResizeValue'),
+      targetToggle = document.getElementById('c2jTargetToggle'),
+      targetValue = document.getElementById('c2jTargetValue'),
+      prefixInput = document.getElementById('c2jPrefix'),
+      safetyNote = document.getElementById('c2jSafetyNote'),
+      convertAllBtn = document.getElementById('c2jConvertAll'),
+      downloadAllBtn = document.getElementById('c2jDownloadAll'),
+      clearAllBtn = document.getElementById('c2jClearAll'),
+      swatches = document.querySelectorAll('.c2j-swatch'),
+      customColor = document.getElementById('c2jCustomColor'),
+      modal = document.getElementById('c2jModal'),
+      modalClose = document.getElementById('c2jModalClose'),
+      modalTitle = document.getElementById('c2jModalTitle'),
+      modalBefore = document.getElementById('c2jModalBefore'),
+      modalAfter = document.getElementById('c2jModalAfter'),
+      modalBeforeMeta = document.getElementById('c2jModalBeforeMeta'),
+      modalAfterMeta = document.getElementById('c2jModalAfterMeta');
 
   var entries = [];
   var uid = 0;
   var bgColor = '#FFFFFF';
   var heic2anyLoading = null;
+  var jszipLoading = null;
 
+  // Safety limits — protects mobile devices from running out of memory,
+  // the same class of problem that ruled out the background-removal tool.
+  var MAX_MEGAPIXELS = 24;          // auto-downscale anything larger than this
+  var MAX_FILE_SIZE = 60 * 1024 * 1024; // reject files bigger than 60MB outright
+  var MAX_BATCH = 40;               // soft cap on how many files can be queued at once
+
+  function safePrefix(){
+    return (prefixInput.value || '').replace(/[^a-zA-Z0-9\-_ ]/g, '').trim();
+  }
+  function outputFileName(entry){
+    var base = entry.file.name.replace(/\.[^.]+$/, '');
+    var p = safePrefix();
+    return (p ? p + base : base) + '.jpg';
+  }
   function fmtBytes(n){
     if (n < 1024) return n + ' B';
     if (n < 1024*1024) return (n/1024).toFixed(n < 10*1024 ? 1 : 0) + ' KB';
@@ -232,6 +484,17 @@
     });
     return heic2anyLoading;
   }
+  function ensureJSZip(){
+    if (window.JSZip) return Promise.resolve();
+    if (jszipLoading) return jszipLoading;
+    jszipLoading = new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    return jszipLoading;
+  }
 
   swatches.forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -246,11 +509,23 @@
   });
 
   function addFiles(fileArr){
-    var valid = Array.prototype.filter.call(fileArr, function(f){
+    var candidates = Array.prototype.filter.call(fileArr, function(f){
       return f.type.indexOf('image/') === 0 || isHeic(f);
     });
+    if (!candidates.length) return;
+
+    var oversized = candidates.filter(function(f){ return f.size > MAX_FILE_SIZE; });
+    var valid = candidates.filter(function(f){ return f.size <= MAX_FILE_SIZE; });
+
+    if (entries.length + valid.length > MAX_BATCH){
+      valid = valid.slice(0, Math.max(0, MAX_BATCH - entries.length));
+      showSafetyNote('Only the first ' + MAX_BATCH + ' images were added at once, to keep things smooth on mobile. Convert this batch, then add more.');
+    } else if (oversized.length){
+      showSafetyNote(oversized.length + ' file(s) were skipped — over 60MB is too large to safely convert on a phone.');
+    }
+
     if (!valid.length) return;
-    workspace.hidden = false;
+    settingsBox.classList.add('show');
     valid.forEach(function(file){
       var id = 'c2j' + (++uid);
       var entry = { id:id, file:file, status:'pending', heic:isHeic(file) };
@@ -261,10 +536,34 @@
         img.src = URL.createObjectURL(file);
         entry.thumbUrl = img.src;
       } else {
-        entry.thumbUrl = null; // shown as generic icon until converted
+        entry.thumbUrl = null;
       }
       renderFileList();
     });
+  }
+
+  function showSafetyNote(msg){
+    safetyNote.textContent = msg;
+    safetyNote.classList.add('show');
+  }
+
+  targetToggle.addEventListener('change', function(){ targetValue.disabled = !targetToggle.checked; });
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+  function closeModal(){ modal.classList.remove('show'); }
+  function openModal(entry){
+    modalTitle.textContent = entry.file.name;
+    modalBefore.src = entry.thumbUrl || '';
+    modalBeforeMeta.innerHTML = '<b>' + fmtBytes(entry.file.size) + '</b>' + (entry.w ? (entry.w + '×' + entry.h) : '');
+    if (entry.status === 'done'){
+      modalAfter.src = entry.outUrl;
+      modalAfterMeta.innerHTML = '<b>' + fmtBytes(entry.outSize) + '</b>JPG';
+    } else {
+      modalAfter.src = entry.thumbUrl || '';
+      modalAfterMeta.innerHTML = '<b>—</b>Not converted yet';
+    }
+    modal.classList.add('show');
   }
 
   drop.addEventListener('click', function(){ input.click(); });
@@ -288,6 +587,14 @@
       var longest = Math.max(w, h);
       if (longest > maxDim){ var scale = maxDim / longest; w = Math.round(w*scale); h = Math.round(h*scale); }
     }
+    // Hard safety cap, independent of the user's own resize setting — keeps
+    // canvas memory bounded so a huge photo can't stall or crash a phone.
+    var megapixels = (w * h) / 1e6;
+    if (megapixels > MAX_MEGAPIXELS){
+      var safeScale = Math.sqrt(MAX_MEGAPIXELS / megapixels);
+      w = Math.round(w * safeScale); h = Math.round(h * safeScale);
+      showSafetyNote('One or more very large photos were automatically scaled down a bit to keep conversion smooth on your device.');
+    }
     var canvas = document.createElement('canvas');
     canvas.width = w; canvas.height = h;
     var ctx = canvas.getContext('2d');
@@ -297,6 +604,29 @@
     return canvas;
   }
 
+  // Binary-searches JPG quality (bounded to 6 tries) to land close to a
+  // requested output size in KB. Falls back to the slider's quality if no
+  // target is set. All work stays on-canvas — no extra libraries needed.
+  function encodeToTarget(canvas){
+    var targetBytes = (targetToggle.checked ? (parseInt(targetValue.value, 10) || 200) : 0) * 1024;
+    var baseQ = qualitySlider.value / 100;
+    if (!targetBytes){
+      return canvasToBlob(canvas, 'image/jpeg', baseQ);
+    }
+    var lo = 0.1, hi = 0.98, tries = 0, bestBlob = null;
+    function step(){
+      var q = (lo + hi) / 2;
+      return canvasToBlob(canvas, 'image/jpeg', q).then(function(blob){
+        tries++;
+        if (!bestBlob || Math.abs(blob.size - targetBytes) < Math.abs(bestBlob.size - targetBytes)) bestBlob = blob;
+        if (tries >= 6) return bestBlob;
+        if (blob.size > targetBytes) hi = q; else lo = q;
+        return step();
+      });
+    }
+    return step();
+  }
+
   function convertEntry(entry){
     return new Promise(function(resolve){
       entry.status = 'converting';
@@ -304,7 +634,7 @@
 
       function finishWithImage(imgEl){
         var canvas = drawToCanvas(imgEl);
-        canvasToBlob(canvas, 'image/jpeg', qualitySlider.value / 100).then(function(blob){
+        encodeToTarget(canvas).then(function(blob){
           entry.outBlob = blob;
           entry.outSize = blob.size;
           entry.outUrl = URL.createObjectURL(blob);
@@ -343,16 +673,31 @@
 
   convertAllBtn.addEventListener('click', function(){
     convertAllBtn.disabled = true;
-    convertAllBtn.textContent = 'Converting…';
-    var pending = entries.filter(function(e){ return e.status !== 'converting'; });
-    Promise.all(pending.map(convertEntry)).then(function(){
+    var pending = entries.filter(function(e){ return e.status !== 'converting' && e.status !== 'done'; });
+    var total = pending.length, done = 0;
+    if (!total){ convertAllBtn.disabled = false; return; }
+    convertAllBtn.textContent = 'Converting 0 of ' + total + '…';
+    var chain = pending.reduce(function(p, entry){
+      return p.then(function(){
+        return convertEntry(entry).then(function(){
+          done++;
+          convertAllBtn.textContent = 'Converting ' + done + ' of ' + total + '…';
+        });
+      });
+    }, Promise.resolve());
+    chain.then(function(){
       convertAllBtn.disabled = false;
       convertAllBtn.textContent = 'Convert all to JPG';
       updateSummary();
     });
   });
 
-  clearAllBtn.addEventListener('click', function(){ entries = []; renderFileList(); });
+  clearAllBtn.addEventListener('click', function(){
+    entries = [];
+    settingsBox.classList.remove('show');
+    safetyNote.classList.remove('show');
+    renderFileList();
+  });
 
   function renderFileList(){
     fileList.innerHTML = '';
@@ -365,8 +710,10 @@
 
       var thumb = document.createElement('img');
       thumb.className = 'c2j-file-thumb';
-      thumb.src = entry.thumbUrl || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52"><rect width="52" height="52" fill="%23F0EBE3"/></svg>';
+      thumb.style.cursor = 'pointer';
+      thumb.src = entry.thumbUrl || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44"><rect width="44" height="44" fill="%23EFEAE1"/></svg>';
       thumb.alt = '';
+      thumb.addEventListener('click', function(){ openModal(entry); });
       li.appendChild(thumb);
 
       var mid = document.createElement('div');
@@ -378,7 +725,7 @@
       var meta = document.createElement('div');
       meta.className = 'c2j-file-meta';
       var fromExt = (entry.file.name.split('.').pop() || 'img').toUpperCase().slice(0,4);
-      var swapHtml = '<span class="c2j-badge-swap"><span class="c2j-badge-from">' + fromExt + '</span> &rarr; <span class="c2j-badge-to' + (entry.status === 'done' ? ' show' : '') + '">JPG</span></span>';
+      var swapHtml = '<span class="c2j-badge-swap">' + fromExt + ' → ' + (entry.status === 'done' ? '<span class="c2j-badge-to">JPG</span>' : 'JPG') + '</span>';
       if (entry.status === 'done'){
         meta.innerHTML = swapHtml + '<span>' + fmtBytes(entry.outSize) + '</span>';
       } else if (entry.status === 'converting'){
@@ -393,15 +740,33 @@
 
       var actions = document.createElement('div');
       actions.className = 'c2j-file-actions';
+
+      if (navigator.clipboard && window.ClipboardItem){
+        var copyBtn = document.createElement('button');
+        copyBtn.className = 'c2j-icon-btn copy' + (entry.status === 'done' ? ' ready' : '');
+        copyBtn.type = 'button';
+        copyBtn.setAttribute('aria-label', 'Copy JPG to clipboard');
+        copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+        if (entry.status === 'done'){
+          copyBtn.addEventListener('click', function(){
+            navigator.clipboard.write([ new ClipboardItem({ 'image/jpeg': entry.outBlob }) ])
+              .then(function(){
+                copyBtn.classList.add('done');
+                setTimeout(function(){ copyBtn.classList.remove('done'); }, 1500);
+              })
+              .catch(function(){ /* clipboard image write unsupported in this browser — download still works */ });
+          });
+        }
+        actions.appendChild(copyBtn);
+      }
+
       var dlBtn = document.createElement('a');
-      dlBtn.className = 'c2j-icon-btn c2j-download';
+      dlBtn.className = 'c2j-icon-btn dl' + (entry.status === 'done' ? ' ready' : '');
       dlBtn.setAttribute('aria-label', 'Download JPG');
       dlBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0l-5-5m5 5l5-5M4 21h16"/></svg>';
       if (entry.status === 'done'){
         dlBtn.href = entry.outUrl;
-        dlBtn.download = entry.file.name.replace(/\.[^.]+$/, '') + '.jpg';
-      } else {
-        dlBtn.style.opacity = '.4'; dlBtn.style.pointerEvents = 'none';
+        dlBtn.download = outputFileName(entry);
       }
       actions.appendChild(dlBtn);
       li.appendChild(actions);
@@ -412,22 +777,25 @@
 
   function updateSummary(){
     var done = entries.filter(function(e){ return e.status === 'done'; });
-    summary.hidden = done.length === 0;
-    $('c2jDoneCount').textContent = done.length;
+    if (done.length){ summary.classList.add('show'); } else { summary.classList.remove('show'); }
+    document.getElementById('c2jDoneCount').textContent = done.length;
+
+    if (!done.length){ statsEl.innerHTML = ''; return; }
+    var origTotal = done.reduce(function(s,e){ return s + e.file.size; }, 0);
+    var outTotal = done.reduce(function(s,e){ return s + e.outSize; }, 0);
+    var savedPct = origTotal > 0 ? Math.round((1 - (outTotal / origTotal)) * 100) : 0;
+    var savedHtml = '';
+    if (savedPct > 0){
+      savedHtml = '<span class="save">↓ ' + savedPct + '% smaller</span>';
+    } else if (savedPct < 0){
+      savedHtml = '<span>↑ ' + Math.abs(savedPct) + '% larger (try lowering quality)</span>';
+    }
+    statsEl.innerHTML =
+      '<span>Original: <b>' + fmtBytes(origTotal) + '</b></span>' +
+      '<span>Converted: <b>' + fmtBytes(outTotal) + '</b></span>' +
+      savedHtml;
   }
 
-  var jszipLoading = null;
-  function ensureJSZip(){
-    if (window.JSZip) return Promise.resolve();
-    if (jszipLoading) return jszipLoading;
-    jszipLoading = new Promise(function(resolve, reject){
-      var s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-      s.onload = resolve; s.onerror = reject;
-      document.head.appendChild(s);
-    });
-    return jszipLoading;
-  }
   downloadAllBtn.addEventListener('click', function(){
     var done = entries.filter(function(e){ return e.status === 'done'; });
     if (!done.length) return;
@@ -436,7 +804,7 @@
     downloadAllBtn.textContent = 'Zipping…';
     ensureJSZip().then(function(){
       var zip = new window.JSZip();
-      done.forEach(function(e){ zip.file(e.file.name.replace(/\.[^.]+$/, '') + '.jpg', e.outBlob); });
+      done.forEach(function(e){ zip.file(outputFileName(e), e.outBlob); });
       return zip.generateAsync({ type: 'blob' });
     }).then(function(blob){
       var a = document.createElement('a');
@@ -452,4 +820,5 @@
 
 })();
 </script>
-</div>
+</body>
+</html>
