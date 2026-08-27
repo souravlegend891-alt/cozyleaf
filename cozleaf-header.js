@@ -17,7 +17,12 @@
     {name:"GPA / CGPA Calculator", cat:"Calculators",          url:"gpa-cgpa-calculator.html"},
     {name:"Dog Food Calculator",   cat:"Calculators",          url:"dog-food-calculator.html"},
     {name:"Typing Speed Test",     cat:"Text Tools",           url:"typing-speed-test.html"},
-    {name:"Stylish Name Generator",cat:"Name Generator Tools", url:"name-style.html"}
+    {name:"Stylish Name Generator",cat:"Name Generator Tools", url:"name-style.html"},
+    {name:"GMT to IST Converter",  cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
+    {name:"PST to IST Converter",  cat:"World Time Zone Converter", url:"pst-to-ist.html"},
+    {name:"EST to IST Converter",  cat:"World Time Zone Converter", url:"est-to-ist.html"},
+    {name:"CST to EST Converter",  cat:"World Time Zone Converter", url:"cst-to-est.html"},
+    {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"}
   ];
 
   // Policy / trust pages — AdSense reviewers specifically check that these
@@ -29,10 +34,11 @@
     {name:"Terms of Service", url:"terms.html"}
   ];
 
-  const CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","Image Tools"];
+  const CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Image Tools"];
   const CATEGORY_HEX = {
     "Image Tools":"#FF6B4A","Calculators":"#2EC4B6",
-    "Text Tools":"#8676FF","Name Generator Tools":"#8676FF"
+    "Text Tools":"#8676FF","Name Generator Tools":"#8676FF",
+    "World Time Zone Converter":"#0077B6"
   };
 
   // Expose so individual tool pages can build "More Tools" sections
@@ -46,7 +52,12 @@
     "gpa-cgpa-calculator.html":"🎓",
     "dog-food-calculator.html":"🐶",
     "typing-speed-test.html":"⌨️",
-    "name-style.html":"✨"
+    "name-style.html":"✨",
+    "gmt-to-ist.html":"🕐",
+    "pst-to-ist.html":"🕐",
+    "est-to-ist.html":"🕐",
+    "cst-to-est.html":"🕐",
+    "ist-to-est.html":"🕐"
   };
   window.COZYLEAF_TOOLS = MAIN_TOOLS;
   window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
