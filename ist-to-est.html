@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>IST to EST Converter - Convert India Time to Eastern Time | Cozyleaf</title>
+<meta name="description" content="Free IST to EST converter with live clocks, automatic DST handling, meeting planner, and instant results for India to US Eastern time conversion."/>
+<meta name="keywords" content="ist to est, ist to est converter, india time to eastern time, convert ist to est, time zone converter"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<link rel="canonical" href="https://cozyleaf.in/ist-to-est.html"/>
+<meta name="theme-color" content="#1B1D29"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Cozyleaf"/>
+<meta property="og:title" content="IST to EST Converter - Convert India Time to Eastern Time | Cozyleaf"/>
+<meta property="og:description" content="Free IST to EST converter with live clocks, automatic DST handling, meeting planner, and instant results for India to US Eastern time conversion."/>
+<meta property="og:url" content="https://cozyleaf.in/ist-to-est.html"/>
+<meta property="og:locale" content="en_US"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="IST to EST Converter - Cozyleaf"/>
+<meta name="twitter:description" content="Free IST to EST converter with live clocks, automatic DST handling, meeting planner, and instant results for India to US Eastern time conversion."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf IST to EST Converter",
+  "url": "https://cozyleaf.in/ist-to-est.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free IST to EST converter with live clocks, automatic DST handling, meeting planner, and instant results for India to US Eastern time conversion."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the time difference between IST and EST?","acceptedAnswer":{"@type":"Answer","text":"EST is 10 hours and 30 minutes behind IST in winter, and EDT is 9 hours and 30 minutes behind IST during US Daylight Saving Time."}},
+    {"@type":"Question","name":"Does IST to EST conversion account for Daylight Saving Time?","acceptedAnswer":{"@type":"Answer","text":"Yes, this converter automatically detects whether the selected date falls in EST or EDT and adjusts the result accordingly."}},
+    {"@type":"Question","name":"What is 7 PM IST in EST?","acceptedAnswer":{"@type":"Answer","text":"7:00 PM IST is 8:30 AM EST (winter) the same day, or 9:30 AM EDT (summer)."}},
+    {"@type":"Question","name":"What is a good meeting time between India and US East Coast?","acceptedAnswer":{"@type":"Answer","text":"Late evening IST (around 6–9 PM) generally overlaps with morning hours on the US East Coast — use the meeting planner above to see the exact overlap for any date."}},
+    {"@type":"Question","name":"Is this IST to EST converter free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it's completely free, works instantly in your browser, and does not require any sign-up."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+
+<style>
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing come from style.css */
+
+  .tc-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .tc-live-card{
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center;position:relative;overflow:hidden;
+  }
+  .tc-live-card.is-you{border-color:var(--c-convert);box-shadow:0 0 0 1px var(--c-convert) inset;}
+  .tc-live-tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);}
+  .tc-live-zone{font-family:'Space Grotesk',sans-serif;font-size:14.5px;font-weight:700;margin-top:2px;color:var(--ink);}
+  .tc-live-time{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;margin-top:8px;color:var(--c-convert);letter-spacing:.01em;}
+  .tc-live-date{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+  .tc-live-off{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:700;color:#fff;background:var(--c-convert);padding:3px 9px;border-radius:20px;}
+  .tc-you-row{margin-bottom:16px;}
+  .tc-you-card{
+    background:#FBFAF7;border:1.5px dashed var(--line);border-radius:12px;padding:10px 14px;
+    display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--ink-soft);
+  }
+  .tc-you-card b{color:var(--ink);font-weight:700;}
+  .tc-you-card button{
+    border:none;background:var(--c-convert);color:#fff;font-size:11.5px;font-weight:700;
+    padding:6px 11px;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;
+  }
+
+  .tc-swap-row{display:flex;align-items:center;gap:10px;margin:4px 0 14px;}
+  .tc-swap-row .line{flex:1;height:1px;background:var(--line);}
+  .tc-swap-btn{
+    width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:#fff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:.15s;
+  }
+  .tc-swap-btn:hover{border-color:var(--c-convert);background:#F0FBFA;transform:rotate(180deg);}
+
+  .tc-row{display:flex;gap:10px;}
+  .tc-row .field{flex:1;}
+  .tc-fmt-toggle{display:flex;gap:6px;margin-top:10px;}
+  .tc-fmt-toggle button{
+    flex:1;padding:8px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
+    font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:.15s;
+  }
+  .tc-fmt-toggle button.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  .tc-result{
+    margin-top:18px;padding:18px;border-radius:14px;background:linear-gradient(135deg,#F0FBFA,#FBFAF7);
+    border:1px solid var(--line);text-align:center;
+  }
+  .tc-result .lbl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);}
+  .tc-result .val{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--ink);margin-top:4px;}
+  .tc-result .sub{font-size:12.5px;color:var(--ink-soft);margin-top:4px;}
+  .tc-daybadge{
+    display:inline-block;margin-top:8px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+  }
+  .tc-daybadge.same{background:#E4F9F6;color:#159C8F;}
+  .tc-daybadge.next{background:#FFF3E0;color:#F4A527;}
+  .tc-daybadge.prev{background:#FBE9E9;color:#C0392B;}
+
+  .tc-actions{display:flex;gap:8px;margin-top:14px;}
+  .tc-actions button{
+    flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--line);background:#fff;
+    font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;
+  }
+  .tc-actions button:hover{border-color:var(--c-convert);color:var(--c-convert);}
+  .tc-actions button.copied{border-color:#159C8F;color:#159C8F;background:#E4F9F6;}
+
+  .tc-planner{margin-top:26px;}
+  .tc-planner h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin-bottom:4px;}
+  .tc-planner p{font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .tc-strip-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;}
+  .tc-strip-label{font-size:11px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;display:flex;justify-content:space-between;}
+  .tc-strip{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-bottom:10px;}
+  .tc-strip .cell{height:26px;border-radius:4px;background:#EEE;position:relative;cursor:default;}
+  .tc-strip .cell.good{background:#159C8F;}
+  .tc-strip .cell.ok{background:#8FD9CE;}
+  .tc-strip .cell.poor{background:#F0EFEA;}
+  .tc-strip .cell.now{box-shadow:0 0 0 2px var(--ink) inset;}
+  .tc-legend{display:flex;gap:14px;font-size:11px;color:var(--ink-soft);flex-wrap:wrap;}
+  .tc-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .tc-legend i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+  .tc-quickref{margin-top:26px;}
+  .tc-quickref h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin-bottom:10px;}
+  .tc-table-wrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  table.tc-table{width:100%;border-collapse:collapse;font-size:13px;}
+  table.tc-table th{background:#FBFAF7;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);}
+  table.tc-table td{padding:7px 10px;border-top:1px solid var(--line);}
+  table.tc-table tr.now-row td{background:#E4F9F6;font-weight:700;}
+
+  .seo-content{color:#4A4E56;margin-top:26px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .seo-content p strong{color:var(--ink);}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{
+    display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;
+    background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s;
+  }
+  .tool-grid a:hover{border-color:var(--c-convert);background:#F0FBFA;}
+  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
+
+  .more-toggle{
+    width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);
+    background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .more-toggle:hover{border-color:var(--c-convert);color:var(--c-convert);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{
+    display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
+    font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);
+  }
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
+
+  @media (max-width:380px){
+    .tc-live-time{font-size:20px;}
+    .tc-strip{grid-template-columns:repeat(12,1fr);}
+  }
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <h1>IST to EST Converter</h1>
+  <p class="hero-p">Convert IST (Indian Standard Time) to US Eastern Time (EST/EDT) instantly — automatically adjusts for Daylight Saving Time.</p>
+
+  <div class="tc-you-row" id="youRow" style="display:none;">
+    <div class="tc-you-card">
+      <span>🌍 Detected your time zone as <b id="youTzName">—</b></span>
+      <button id="useYouBtn" type="button">Use mine</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tc-live-grid">
+      <div class="tc-live-card">
+        <div class="tc-live-tag">From</div>
+        <div class="tc-live-zone" id="fromZoneLabel">IST</div>
+        <div class="tc-live-time" id="fromLiveTime">--:--:--</div>
+        <div class="tc-live-date" id="fromLiveDate">—</div>
+        <div class="tc-live-off" id="fromLiveOff">—</div>
+      </div>
+      <div class="tc-live-card">
+        <div class="tc-live-tag">To</div>
+        <div class="tc-live-zone" id="toZoneLabel">EST</div>
+        <div class="tc-live-time" id="toLiveTime">--:--:--</div>
+        <div class="tc-live-date" id="toLiveDate">—</div>
+        <div class="tc-live-off" id="toLiveOff">—</div>
+      </div>
+    </div>
+
+    <div class="tc-swap-row">
+      <div class="line"></div>
+      <button class="tc-swap-btn" id="swapBtn" title="Swap zones" type="button">⇅</button>
+      <div class="line"></div>
+    </div>
+
+    <div class="tc-row">
+      <div class="field">
+        <label class="small">Date</label>
+        <input type="date" id="dateInput"/>
+      </div>
+      <div class="field">
+        <label class="small">Time (IST)</label>
+        <input type="time" id="timeInput"/>
+      </div>
+    </div>
+
+    <div class="tc-fmt-toggle">
+      <button id="fmt12" class="active" type="button">12-hour (AM/PM)</button>
+      <button id="fmt24" type="button">24-hour</button>
+    </div>
+
+    <button class="btn-primary" id="nowBtn" style="margin-top:12px;background:#fff;color:var(--c-convert);border:1.5px solid var(--c-convert);box-shadow:none;" type="button">Use current time</button>
+
+    <div class="tc-result">
+      <div class="lbl">Converted time in EST</div>
+      <div class="val" id="resultVal">--:-- --</div>
+      <div class="sub" id="resultDate">—</div>
+      <span class="tc-daybadge same" id="dayBadge">Same day</span>
+
+      <div class="tc-actions">
+        <button id="copyBtn" type="button">📋 Copy result</button>
+        <button id="shareBtn" type="button">🔗 Share link</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tc-planner">
+    <h2>Meeting Planner — best overlap hours</h2>
+    <p>Each block is one hour of the selected date in IST. Darker green = good overlap (9 AM–6 PM in both zones); light = workable in one zone; grey = outside business hours for both.</p>
+    <div class="tc-strip-wrap">
+      <div class="tc-strip-label"><span>12 AM</span><span>12 PM</span><span>11 PM</span></div>
+      <div class="tc-strip" id="plannerStrip"></div>
+      <div class="tc-legend">
+        <span><i style="background:#159C8F"></i> Good for both</span>
+        <span><i style="background:#8FD9CE"></i> Okay for one side</span>
+        <span><i style="background:#F0EFEA"></i> Outside working hours</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tc-quickref">
+    <h2>Quick Reference — IST to EST</h2>
+    <div class="tc-table-wrap">
+      <table class="tc-table" id="quickRefTable">
+        <tr><th>IST</th><th>EST</th></tr>
+      </table>
+    </div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2 id="relatedHeading">Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free IST to EST Converter</h2>
+    <p>This tool converts Indian Standard Time to US Eastern Time instantly and automatically accounts for Daylight Saving Time — showing EST (UTC−5) in winter and EDT (UTC−4) in summer, so your converted time is always correct for the exact date you choose.</p>
+    <h2>IST to EST Time Difference</h2>
+    <p>Eastern Standard Time is <strong>10 hours and 30 minutes behind</strong> IST in winter, or <strong>9 hours and 30 minutes behind</strong> during US Daylight Saving Time (EDT). Because the gap shifts with US Daylight Saving Time, always check the exact date rather than assuming a fixed difference.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What is the time difference between IST and EST?</strong> EST is 10 hours and 30 minutes behind IST in winter, and EDT is 9 hours and 30 minutes behind IST during US Daylight Saving Time.</p>
+    <p><strong>Does IST to EST conversion account for Daylight Saving Time?</strong> Yes, this converter automatically detects whether the selected date falls in EST or EDT and adjusts the result accordingly.</p>
+    <p><strong>What is 7 PM IST in EST?</strong> 7:00 PM IST is 8:30 AM EST (winter) the same day, or 9:30 AM EDT (summer).</p>
+    <p><strong>What is a good meeting time between India and US East Coast?</strong> Late evening IST (around 6–9 PM) generally overlaps with morning hours on the US East Coast — use the meeting planner above to see the exact overlap for any date.</p>
+    <p><strong>Is this IST to EST converter free to use?</strong> Yes, it's completely free, works instantly in your browser, and does not require any sign-up.</p>
+
+    <p class="disclaimer">
+      <strong>Note:</strong> This converter uses your browser's built-in time zone database and automatically accounts for Daylight Saving Time changes for the selected date, so results stay accurate year-round.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'ist-to-est.html';
+  var CURRENT_CAT = 'World Time Zone Converter';
+
+  /* Fallback tool list — mirrors index.html's MAIN_TOOLS.
+     Used only if cozleaf-header.js hasn't defined window.COZYLEAF_TOOLS yet,
+     so Related Tools / More Tools work on this page right away either way. */
+  var FALLBACK_TOOLS = [
+    {name:"Image Converter", cat:"Image Tools", url:"Image-converter.html"},
+    {name:"BMI Calculator", cat:"Calculators", url:"bmi-calculator.html"},
+    {name:"Calorie Calculator", cat:"Calculators", url:"calorie-calculator.html"},
+    {name:"BMR Calculator", cat:"Calculators", url:"bmr-calculator.html"},
+    {name:"Love Calculator", cat:"Calculators", url:"love-calculator.html"},
+    {name:"GPA / CGPA Calculator", cat:"Calculators", url:"gpa-cgpa-calculator.html"},
+    {name:"Dog Food Calculator", cat:"Calculators", url:"dog-food-calculator.html"},
+    {name:"Typing Speed Test", cat:"Text Tools", url:"typing-speed-test.html"},
+    {name:"Stylish Name Generator", cat:"Name Generator Tools", url:"name-style.html"},
+    {name:"GMT to IST Converter", cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
+    {name:"PST to IST Converter", cat:"World Time Zone Converter", url:"pst-to-ist.html"},
+    {name:"EST to IST Converter", cat:"World Time Zone Converter", url:"est-to-ist.html"},
+    {name:"CST to EST Converter", cat:"World Time Zone Converter", url:"cst-to-est.html"},
+    {name:"IST to EST Converter", cat:"World Time Zone Converter", url:"ist-to-est.html"}
+  ];
+  var FALLBACK_ICONS = {
+    "Image-converter.html":"🖼️", "bmi-calculator.html":"⚖️", "calorie-calculator.html":"🔥",
+    "bmr-calculator.html":"🔥", "love-calculator.html":"❤️", "gpa-cgpa-calculator.html":"🎓",
+    "dog-food-calculator.html":"🐶", "typing-speed-test.html":"⌨️", "name-style.html":"✨",
+    "gmt-to-ist.html":"🕐", "pst-to-ist.html":"🕐", "est-to-ist.html":"🕐",
+    "cst-to-est.html":"🕐", "ist-to-est.html":"🕐"
+  };
+  var FALLBACK_CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Image Tools"];
+  var FALLBACK_CATEGORY_HEX = {
+    "Image Tools":"#FF6B4A", "Calculators":"#2EC4B6", "Converters & Media":"#F4A527",
+    "Text Tools":"#8676FF", "Name Generator Tools":"#8676FF", "World Time Zone Converter":"#0077B6",
+    "Document & Translate":"#4CA8FF", "Document & PDF Tools":"#4CA8FF", "QR & Barcode Tools":"#9AA0AC"
+  };
+
+  function buildMoreTools(){
+    var tools = (window.COZYLEAF_TOOLS && window.COZYLEAF_TOOLS.length) ? window.COZYLEAF_TOOLS : FALLBACK_TOOLS;
+    var icons = (window.COZYLEAF_ICONS && Object.keys(window.COZYLEAF_ICONS).length) ? window.COZYLEAF_ICONS : FALLBACK_ICONS;
+    var catOrder = (window.COZYLEAF_CATEGORY_ORDER && window.COZYLEAF_CATEGORY_ORDER.length) ? window.COZYLEAF_CATEGORY_ORDER : FALLBACK_CATEGORY_ORDER;
+    var catHex = (window.COZYLEAF_CATEGORY_HEX && Object.keys(window.COZYLEAF_CATEGORY_HEX).length) ? window.COZYLEAF_CATEGORY_HEX : FALLBACK_CATEGORY_HEX;
+
+    var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+    var grid = document.getElementById('categoryGrid');
+    var relatedHeading = document.getElementById('relatedHeading');
+    var toggleBtn = document.getElementById('moreToggle');
+
+    if (sameCat.length > 0){
+      // This tool has siblings in its own category — show "Related Tools" normally.
+      if (relatedHeading) relatedHeading.style.display = '';
+      if (grid){
+        grid.style.display = '';
+        grid.innerHTML = sameCat.map(function(t){
+          var ic = icons[t.url] || '🔧';
+          return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+        }).join('');
+      }
+      if (toggleBtn) toggleBtn.textContent = '+ More tools';
+    } else {
+      // No related tools in this category (e.g. a single-tool category) —
+      // skip the empty "Related Tools" heading/grid entirely and go straight
+      // to the full tool list, so there's no empty section for visitors or Google to see.
+      if (relatedHeading) relatedHeading.style.display = 'none';
+      if (grid) grid.style.display = 'none';
+      if (toggleBtn) toggleBtn.textContent = '+ More Tools';
+    }
+
+    var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+    var listEl = document.getElementById('allToolsList');
+    if(listEl){
+      listEl.innerHTML = otherCats.map(function(cat){
+        var hex = catHex[cat] || '#9AA0AC';
+        var catTools = tools.filter(function(t){ return t.cat === cat; });
+        if(!catTools.length) return '';
+        var head = '<div class="all-tools-cat"><span class="chip" style="background:'+hex+'"></span>'+cat+'</div>';
+        var rows = catTools.map(function(t){
+          var ic = icons[t.url] || '🔧';
+          return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+        }).join('');
+        return head + rows;
+      }).join('');
+      if(toggleBtn){
+        toggleBtn.addEventListener('click', function(){
+          listEl.classList.toggle('open');
+          var base = sameCat.length > 0 ? 'More tools' : 'More Tools';
+          this.textContent = listEl.classList.contains('open') ? '− Show less' : ('+ ' + base);
+        });
+      }
+    }
+  }
+  buildMoreTools();
+});
+</script>
+
+<script defer>
+(function(){
+  /* ===== Config ===== */
+  var FROM_TZ = 'Asia/Kolkata';
+  var TO_TZ = 'America/New_York';
+  var FROM_LABEL = 'IST';
+  var TO_LABEL = 'EST';
+
+  var use24 = false;
+
+  /* ===== Helpers: timezone-safe formatting & conversion ===== */
+
+  function offsetMinutes(date, tz){
+    var dtf = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hourCycle: 'h23',
+      year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit'
+    });
+    var p = {};
+    dtf.formatToParts(date).forEach(function(x){ p[x.type] = x.value; });
+    var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    return (asUTC - date.getTime()) / 60000;
+  }
+
+  // Convert a wall-clock date/time meant to be in `tz` into the actual UTC instant.
+  function wallTimeToUTC(y, m, d, h, mi, tz){
+    var guess = new Date(Date.UTC(y, m - 1, d, h, mi, 0));
+    for (var i = 0; i < 2; i++){
+      var off = offsetMinutes(guess, tz);
+      guess = new Date(Date.UTC(y, m - 1, d, h, mi, 0) - off * 60000);
+    }
+    return guess;
+  }
+
+  function todayInTZ(tz){
+    return new Intl.DateTimeFormat('en-CA', {timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
+  }
+  function nowTimeInTZ(tz){
+    return new Intl.DateTimeFormat('en-GB', {timeZone: tz, hour:'2-digit', minute:'2-digit', hour12:false}).format(new Date());
+  }
+  function dateKeyInTZ(date, tz){
+    return new Intl.DateTimeFormat('en-CA', {timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).format(date);
+  }
+  function zoneAbbrev(date, tz){
+    var parts = new Intl.DateTimeFormat('en-US', {timeZone: tz, timeZoneName:'short', hour:'2-digit'}).formatToParts(date);
+    var tzPart = parts.find(function(p){ return p.type === 'timeZoneName'; });
+    return tzPart ? tzPart.value : tz;
+  }
+  function gmtOffsetStr(date, tz){
+    var mins = offsetMinutes(date, tz);
+    var sign = mins >= 0 ? '+' : '-';
+    mins = Math.abs(mins);
+    var h = Math.floor(mins / 60), m = mins % 60;
+    return 'GMT' + sign + h + (m ? ':' + String(m).padStart(2,'0') : '');
+  }
+  function fmtClock(date, tz, with24, withSeconds){
+    var opt = {timeZone: tz, hour:'2-digit', minute:'2-digit', hour12: !with24};
+    if (withSeconds) opt.second = '2-digit';
+    return new Intl.DateTimeFormat('en-US', opt).format(date);
+  }
+  function fmtDateLong(date, tz){
+    return new Intl.DateTimeFormat('en-US', {timeZone: tz, weekday:'short', month:'short', day:'numeric', year:'numeric'}).format(date);
+  }
+
+  /* ===== Live clocks ===== */
+  function tickLive(){
+    var now = new Date();
+    document.getElementById('fromLiveTime').textContent = fmtClock(now, FROM_TZ, use24, true);
+    document.getElementById('fromLiveDate').textContent = fmtDateLong(now, FROM_TZ);
+    document.getElementById('fromLiveOff').textContent = zoneAbbrev(now, FROM_TZ) + ' · ' + gmtOffsetStr(now, FROM_TZ);
+    document.getElementById('toLiveTime').textContent = fmtClock(now, TO_TZ, use24, true);
+    document.getElementById('toLiveDate').textContent = fmtDateLong(now, TO_TZ);
+    document.getElementById('toLiveOff').textContent = zoneAbbrev(now, TO_TZ) + ' · ' + gmtOffsetStr(now, TO_TZ);
+  }
+  tickLive();
+  setInterval(tickLive, 1000);
+
+  /* ===== Detect visitor's own zone ===== */
+  try{
+    var youTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (youTz && youTz !== FROM_TZ && youTz !== TO_TZ){
+      document.getElementById('youTzName').textContent = youTz.replace('_',' ');
+      document.getElementById('youRow').style.display = 'block';
+      document.getElementById('useYouBtn').addEventListener('click', function(){
+        TO_TZ = youTz;
+        document.getElementById('toZoneLabel').textContent = youTz.split('/').pop().replace('_',' ');
+        tickLive();
+        runConvert();
+        buildStrip();
+        buildQuickRef();
+      });
+    }
+  } catch(e){}
+
+  /* ===== Convert form ===== */
+  var dateInput = document.getElementById('dateInput');
+  var timeInput = document.getElementById('timeInput');
+
+  dateInput.value = todayInTZ(FROM_TZ);
+  timeInput.value = nowTimeInTZ(FROM_TZ);
+
+  function readInputAsUTC(){
+    var dparts = dateInput.value.split('-').map(Number);
+    var tparts = timeInput.value.split(':').map(Number);
+    return wallTimeToUTC(dparts[0], dparts[1], dparts[2], tparts[0], tparts[1], FROM_TZ);
+  }
+
+  function runConvert(){
+    if(!dateInput.value || !timeInput.value) return;
+    var utc = readInputAsUTC();
+
+    document.getElementById('resultVal').textContent = fmtClock(utc, TO_TZ, use24, false);
+    document.getElementById('resultDate').textContent = fmtDateLong(utc, TO_TZ) + ' · ' + zoneAbbrev(utc, TO_TZ);
+
+    var fromKey = dateInput.value;
+    var toKey = dateKeyInTZ(utc, TO_TZ);
+    var badge = document.getElementById('dayBadge');
+    if (toKey === fromKey){
+      badge.textContent = 'Same day'; badge.className = 'tc-daybadge same';
+    } else if (toKey > fromKey){
+      badge.textContent = 'Next day (+1)'; badge.className = 'tc-daybadge next';
+    } else {
+      badge.textContent = 'Previous day (−1)'; badge.className = 'tc-daybadge prev';
+    }
+  }
+
+  dateInput.addEventListener('input', function(){ runConvert(); buildStrip(); buildQuickRef(); });
+  timeInput.addEventListener('input', runConvert);
+
+  document.getElementById('nowBtn').addEventListener('click', function(){
+    dateInput.value = todayInTZ(FROM_TZ);
+    timeInput.value = nowTimeInTZ(FROM_TZ);
+    runConvert(); buildStrip(); buildQuickRef();
+  });
+
+  document.getElementById('fmt12').addEventListener('click', function(){
+    use24 = false;
+    this.classList.add('active');
+    document.getElementById('fmt24').classList.remove('active');
+    runConvert(); buildQuickRef();
+  });
+  document.getElementById('fmt24').addEventListener('click', function(){
+    use24 = true;
+    this.classList.add('active');
+    document.getElementById('fmt12').classList.remove('active');
+    runConvert(); buildQuickRef();
+  });
+
+  document.getElementById('swapBtn').addEventListener('click', function(){
+    var t = FROM_TZ; FROM_TZ = TO_TZ; TO_TZ = t;
+    var lt = FROM_LABEL; FROM_LABEL = TO_LABEL; TO_LABEL = lt;
+    document.getElementById('fromZoneLabel').textContent = FROM_LABEL;
+    document.getElementById('toZoneLabel').textContent = TO_LABEL;
+    dateInput.value = todayInTZ(FROM_TZ);
+    timeInput.value = nowTimeInTZ(FROM_TZ);
+    var timeLbl = timeInput.previousElementSibling;
+    if (timeLbl) timeLbl.textContent = 'Time (' + FROM_LABEL + ')';
+    var resLbl = document.querySelector('.tc-result .lbl');
+    if (resLbl) resLbl.textContent = 'Converted time in ' + TO_LABEL;
+    tickLive(); runConvert(); buildStrip(); buildQuickRef();
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var txt = document.getElementById('resultVal').textContent + ' (' + TO_LABEL + '), ' + document.getElementById('resultDate').textContent;
+    var btn = this;
+    function done(){ btn.textContent = '✓ Copied'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent = '📋 Copy result'; btn.classList.remove('copied'); }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(function(){ prompt('Copy this:', txt); });
+    } else { prompt('Copy this:', txt); }
+  });
+
+  document.getElementById('shareBtn').addEventListener('click', function(){
+    var url = location.origin + location.pathname + '?d=' + dateInput.value + '&t=' + timeInput.value;
+    if (navigator.share){
+      navigator.share({title: document.title, url: url}).catch(function(){});
+    } else if (navigator.clipboard){
+      navigator.clipboard.writeText(url).then(function(){
+        var btn = document.getElementById('shareBtn');
+        btn.textContent = '✓ Link copied'; btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = '🔗 Share link'; btn.classList.remove('copied'); }, 1800);
+      });
+    } else { prompt('Copy this link:', url); }
+  });
+
+  /* Prefill from shared link */
+  (function(){
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('d')) dateInput.value = qs.get('d');
+    if (qs.get('t')) timeInput.value = qs.get('t');
+  })();
+
+  /* ===== Meeting planner strip ===== */
+  function buildStrip(){
+    var strip = document.getElementById('plannerStrip');
+    var dparts = (dateInput.value || todayInTZ(FROM_TZ)).split('-').map(Number);
+    var nowKeyFrom = dateKeyInTZ(new Date(), FROM_TZ);
+    var nowHourFrom = +nowTimeInTZ(FROM_TZ).split(':')[0];
+    var html = '';
+    for (var h = 0; h < 24; h++){
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
+      var toHour = +new Intl.DateTimeFormat('en-GB', {timeZone: TO_TZ, hour:'2-digit', hour12:false}).format(utc);
+      var fromBiz = (h >= 9 && h < 18);
+      var toBiz = (toHour >= 9 && toHour < 18);
+      var cls = 'poor';
+      if (fromBiz && toBiz) cls = 'good';
+      else if (fromBiz || toBiz) cls = 'ok';
+      var isNow = (dateInput.value === nowKeyFrom && h === nowHourFrom);
+      html += '<div class="cell ' + cls + (isNow ? ' now' : '') + '" title="' + (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? 'AM' : 'PM') + ' ' + FROM_LABEL + ' → ' + (toHour % 12 === 0 ? 12 : toHour % 12) + (toHour < 12 ? 'AM' : 'PM') + ' ' + TO_LABEL + '"></div>';
+    }
+    strip.innerHTML = html;
+  }
+  buildStrip();
+
+  /* ===== Quick reference table ===== */
+  function buildQuickRef(){
+    var table = document.getElementById('quickRefTable');
+    var dparts = (dateInput.value || todayInTZ(FROM_TZ)).split('-').map(Number);
+    var nowHourFrom = (dateInput.value === todayInTZ(FROM_TZ)) ? +nowTimeInTZ(FROM_TZ).split(':')[0] : -1;
+    var rows = '<tr><th>' + FROM_LABEL + '</th><th>' + TO_LABEL + '</th></tr>';
+    [0,3,6,9,12,15,18,21].forEach(function(h){
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
+      var fromStr = fmtClock(wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ), FROM_TZ, use24, false);
+      var toStr = fmtClock(utc, TO_TZ, use24, false);
+      var toDay = dateKeyInTZ(utc, TO_TZ) === dateInput.value ? '' : (dateKeyInTZ(utc, TO_TZ) > dateInput.value ? ' (+1d)' : ' (−1d)');
+      rows += '<tr' + (h === nowHourFrom ? ' class="now-row"' : '') + '><td>' + fromStr + '</td><td>' + toStr + toDay + '</td></tr>';
+    });
+    table.innerHTML = rows;
+  }
+  buildQuickRef();
+
+  runConvert();
+})();
+</script>
+</body>
+</html>
