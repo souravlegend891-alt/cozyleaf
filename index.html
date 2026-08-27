@@ -66,7 +66,12 @@
     {"@type":"ListItem","position":6,"name":"GPA / CGPA Calculator","url":"https://cozyleaf.in/gpa-cgpa-calculator.html"},
     {"@type":"ListItem","position":7,"name":"Dog Food Calculator","url":"https://cozyleaf.in/dog-food-calculator.html"},
     {"@type":"ListItem","position":8,"name":"Typing Speed Test","url":"https://cozyleaf.in/typing-speed-test.html"},
-    {"@type":"ListItem","position":9,"name":"Stylish Name Generator","url":"https://cozyleaf.in/name-style.html"}
+    {"@type":"ListItem","position":9,"name":"Stylish Name Generator","url":"https://cozyleaf.in/name-style.html"},
+    {"@type":"ListItem","position":10,"name":"GMT to IST Converter","url":"https://cozyleaf.in/gmt-to-ist.html"},
+    {"@type":"ListItem","position":11,"name":"PST to IST Converter","url":"https://cozyleaf.in/pst-to-ist.html"},
+    {"@type":"ListItem","position":12,"name":"EST to IST Converter","url":"https://cozyleaf.in/est-to-ist.html"},
+    {"@type":"ListItem","position":13,"name":"CST to EST Converter","url":"https://cozyleaf.in/cst-to-est.html"},
+    {"@type":"ListItem","position":14,"name":"IST to EST Converter","url":"https://cozyleaf.in/ist-to-est.html"}
   ]
 }
 </script>
@@ -165,7 +170,12 @@ const MAIN_TOOLS = [
   {name:"GPA / CGPA Calculator", cat:"Calculators", formats:"", usage:50000, url:"gpa-cgpa-calculator.html"},
   {name:"Dog Food Calculator", cat:"Calculators", formats:"", usage:20000, url:"dog-food-calculator.html"},
   {name:"Typing Speed Test", cat:"Text Tools", formats:"", usage:3000000, url:"typing-speed-test.html" },
-  {name:"Stylish Name Generator", cat:"Name Generator Tools", formats:"", usage:1000000, url:"name-style.html"}
+  {name:"Stylish Name Generator", cat:"Name Generator Tools", formats:"", usage:1000000, url:"name-style.html"},
+  {name:"GMT to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"gmt-to-ist.html"},
+  {name:"PST to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"pst-to-ist.html"},
+  {name:"EST to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"est-to-ist.html"},
+  {name:"CST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"cst-to-est.html"},
+  {name:"IST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"ist-to-est.html"}
 ];
 
 const CATEGORY_META = {
@@ -174,6 +184,7 @@ const CATEGORY_META = {
   "Converters & Media": "var(--c-convert)",
   "Text Tools": "var(--c-fun)",
   "Name Generator Tools": "var(--c-fun)",
+  "World Time Zone Converter": "#0077B6",
   "Document & Translate": "var(--c-doc)",
   "Document & PDF Tools": "var(--c-doc)",
   "QR & Barcode Tools": "var(--c-qr)"
@@ -185,6 +196,7 @@ const CATEGORY_HEX = {
   "Converters & Media": "#F4A527",
   "Text Tools": "#8676FF",
   "Name Generator Tools": "#8676FF",
+  "World Time Zone Converter": "#0077B6",
   "Document & Translate": "#4CA8FF",
   "Document & PDF Tools": "#4CA8FF",
   "QR & Barcode Tools": "#9AA0AC"
@@ -205,6 +217,7 @@ const CATEGORY_ORDER = [
   "Text Tools",
   "Name Generator Tools",
   "Calculators",
+  "World Time Zone Converter",
   "Image Tools"
 ];
 const MAIN_CATS_ORDER = [...new Set(MAIN_TOOLS.map(t=>t.cat))]
