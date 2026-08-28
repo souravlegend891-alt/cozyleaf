@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v9-2026-08-22 (exposes window.COZYLEAF_TOOLS)
+   VERSION: cozyleaf-v10-2026-08-28 (adds Kaomoji Generator)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -17,6 +17,7 @@
     {name:"GPA / CGPA Calculator", cat:"Calculators",          url:"gpa-cgpa-calculator.html"},
     {name:"Dog Food Calculator",   cat:"Calculators",          url:"dog-food-calculator.html"},
     {name:"Typing Speed Test",     cat:"Text Tools",           url:"typing-speed-test.html"},
+    {name:"Kaomoji Generator",     cat:"Text Tools",           url:"kaomoji.html"},
     {name:"Stylish Name Generator",cat:"Name Generator Tools", url:"name-style.html"},
     {name:"GMT to IST Converter",  cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
     {name:"PST to IST Converter",  cat:"World Time Zone Converter", url:"pst-to-ist.html"},
@@ -52,6 +53,7 @@
     "gpa-cgpa-calculator.html":"🎓",
     "dog-food-calculator.html":"🐶",
     "typing-speed-test.html":"⌨️",
+    "kaomoji.html":"🙂",
     "name-style.html":"✨",
     "gmt-to-ist.html":"🕐",
     "pst-to-ist.html":"🕐",
