@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaomoji Generator — 150+ Cute Japanese Text Emoticons | Cozyleaf</title>
+<meta name="description" content="Free kaomoji generator with 150+ Japanese text emoticons — happy, sad, love, angry, cute, table-flip and more. Tap to copy, paste anywhere. No sign-up needed.">
+<meta name="keywords" content="kaomoji, kaomoji generator, japanese emoticons, text faces, ascii emoticons, cute emoticons copy paste, table flip emoticon, shrug emoticon">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/kaomoji.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Kaomoji Generator — 150+ Cute Japanese Text Emoticons">
+<meta property="og:description" content="Browse 150+ kaomoji by mood — happy, sad, love, angry, cute and more. Tap to copy, paste anywhere. Free and instant.">
+<meta property="og:url" content="https://cozyleaf.in/kaomoji.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kaomoji Generator | Cozyleaf">
+<meta name="twitter:description" content="150+ Japanese text emoticons, organized by mood. Copy and paste, free.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Kaomoji Generator",
+  "url": "https://cozyleaf.in/kaomoji.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool with 150+ kaomoji (Japanese text emoticons) organized by mood, searchable and ready to copy and paste."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What does kaomoji mean?","acceptedAnswer":{"@type":"Answer","text":"Kaomoji combines the Japanese words for face (kao) and character (moji). It refers to emoticons built from text characters and read upright, like (^_^), rather than sideways like a Western emoticon such as :)."}},
+    {"@type":"Question","name":"How do I type the shrug emoticon?","acceptedAnswer":{"@type":"Answer","text":"Rather than typing it manually, search for it in this tool and tap Copy — the shrug uses a specific Unicode katakana character that's easy to mistype by hand, so copying the exact string avoids a broken face."}},
+    {"@type":"Question","name":"Will kaomoji work on Discord, Instagram, and other apps?","acceptedAnswer":{"@type":"Answer","text":"Yes — this collection is curated around widely-supported Unicode characters, so these kaomoji display correctly on Discord, Instagram, WhatsApp, X, Facebook, and most modern chat and social apps."}},
+    {"@type":"Question","name":"Are kaomoji the same as emojis?","acceptedAnswer":{"@type":"Answer","text":"No. Emoji are picture icons built into a device's font and can render differently between platforms. Kaomoji are made purely of text and Unicode symbols, so they look identical everywhere and can be typed or edited like any other text."}},
+    {"@type":"Question","name":"Is this kaomoji generator free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no account or sign-up required, and everything runs instantly in your browser."}},
+    {"@type":"Question","name":"Is my search activity uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No — searching, filtering, and copying all happen locally in your browser. Nothing you type or select is sent to any server."}},
+    {"@type":"Question","name":"Why does a kaomoji sometimes show as a box or missing character?","acceptedAnswer":{"@type":"Answer","text":"That means the specific device or font doesn't support one of the less-common Unicode symbols in that face. It's rare with this curated set, but if it happens, try a simpler kaomoji from the same mood category instead."}},
+    {"@type":"Question","name":"Can I use kaomoji in a username or bio with a character limit?","acceptedAnswer":{"@type":"Answer","text":"Yes, but check the limit first — some platforms count every symbol in a kaomoji individually, so a longer face can use up more of a short character limit than it visually appears to."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* Page-specific only — colors/size/header come from style.css.
+     Accent uses the same purple family as this site's Text Tools /
+     Name Generator categories, with a safe fallback in case
+     --c-fun isn't in scope on this page load. */
+  :root{ --c-kao: var(--c-fun, #6C5CE7); }
+
+  .stat-row{display:flex;justify-content:center;gap:8px;margin:14px 0 4px;flex-wrap:wrap;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#F5F4FF;border:1px solid #D9D4FF;color:var(--c-kao);padding:6px 12px;border-radius:999px;}
+
+  #searchInput{
+    width:100%;border:none;border-top:2px solid var(--line);background:transparent;
+    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;
+    padding-top:12px;color:var(--ink);outline:none;
+  }
+  #searchInput::placeholder{color:var(--ink-soft);font-weight:500;}
+  #searchInput:focus-visible{outline:2px solid var(--c-kao);outline-offset:3px;border-radius:4px;}
+
+  .chip-row{display:flex;gap:8px;overflow-x:auto;padding:16px 0 4px;scrollbar-width:none;}
+  .chip-row::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.02em;
+    padding:9px 15px 9px 12px;border-radius:999px;border:1px solid var(--line);background:#FBFAF7;
+    color:var(--ink-soft);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;
+  }
+  .chip:focus-visible{outline:2px solid var(--c-kao);outline-offset:2px;}
+  .chip .n{opacity:.55;font-size:10px;}
+  .chip.active{background:var(--c-kao);border-color:var(--c-kao);color:#fff;font-weight:600;}
+  .chip.active .n{opacity:.8;}
+
+  #results{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .result-card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 12px 10px;
+    text-align:center;opacity:0;animation:cardIn .35s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes cardIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){ .result-card{animation:none;opacity:1;} }
+  .result-text{font-size:19px;margin:4px 0 10px;word-break:break-word;line-height:1.5;color:var(--ink);min-height:30px;}
+  .result-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--c-kao);margin-bottom:2px;}
+  .result-actions{display:flex;gap:6px;}
+  .btn{
+    font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:600;border:none;
+    border-radius:9px;padding:8px 10px;cursor:pointer;display:flex;align-items:center;gap:5px;
+  }
+  .btn.copy{background:var(--hover);color:var(--ink);flex:1;justify-content:center;transition:.15s;}
+  .btn.copy:active, .btn.copy.copied{background:var(--c-kao);color:#fff;}
+  .btn.heart{background:var(--hover);color:#E8486B;width:36px;justify-content:center;transition:.15s;flex-shrink:0;}
+  .btn.heart.on{background:#E8486B;color:#fff;}
+
+  .load-more-wrap{margin-top:10px;}
+  .btn.loadmore{
+    width:100%;background:none;color:var(--c-kao);border:1.5px dashed #D9D4FF;
+    justify-content:center;padding:11px;font-size:13px;
+  }
+  .empty-note{grid-column:1/-1;padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-kao);background:#F5F4FF;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-kao);color:var(--c-kao);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .seo-content li{font-size:13.5px;line-height:1.7;margin-bottom:6px;color:#4A4E56;}
+
+  /* Numbered step cards for "How to Use" */
+  .step-card{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;}
+  .step-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--c-kao);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+  .step-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:2px;}
+  .step-desc{font-size:13px;line-height:1.6;color:#4A4E56;}
+
+  /* Meaning table */
+  .kmeaning-table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13px;}
+  .kmeaning-table th{padding:8px 8px;text-align:left;color:var(--ink-soft);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);}
+  .kmeaning-table td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .kmeaning-table td:first-child{font-size:16px;white-space:nowrap;}
+  .kmeaning-table td:last-child{color:#4A4E56;}
+
+  /* Example-in-context cards */
+  .example-box{background:#F5F4FF;border:1px solid #E1DBFA;border-radius:12px;padding:14px 16px;margin-bottom:10px;}
+  .example-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--c-kao);font-weight:700;margin-bottom:6px;}
+  .example-chat{font-size:14px;color:var(--ink);background:#fff;border-radius:9px;padding:9px 12px;border:1px solid var(--line);display:inline-block;}
+
+  /* FAQ accordion */
+  .faq-item{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px;overflow:hidden;}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:14px 16px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .faq-q .chev{flex-shrink:0;color:var(--c-kao);transition:transform .2s;font-size:13px;}
+  .faq-q.open .chev{transform:rotate(180deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{font-size:13.5px;line-height:1.7;color:#4A4E56;padding:0 16px 14px;margin:0;}
+
+  .trust-note{font-size:12px;color:var(--ink-soft);background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:6px;line-height:1.6;}
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Text Tools</div>
+  <h1>Kaomoji Generator — Cute Japanese Text Emoticons</h1>
+  <p class="hero-p">Browse 150+ kaomoji by mood — happy, sad, love, angry, cute, table-flip and more. Tap Copy and paste anywhere text works.</p>
+  <div class="stat-row">
+    <span class="stat-pill">150+ kaomoji</span>
+    <span class="stat-pill">29 moods</span>
+    <span class="stat-pill">No signup</span>
+  </div>
+
+  <div class="card">
+    <input id="searchInput" type="text" maxlength="40" placeholder="Search by mood — happy, cry, love, flip…" autocomplete="off">
+    <div class="chip-row" id="chipRow"></div>
+  </div>
+
+  <div id="results"></div>
+  <div class="load-more-wrap">
+    <button class="btn loadmore" id="loadMoreBtn">Show more kaomoji</button>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>What Is a Kaomoji?</h2>
+    <p>A kaomoji is a face built entirely from text characters, made to be read straight on rather than sideways. Where a Western emoticon like :) needs a slight head-tilt to read as a smile, a kaomoji such as (^_^) is drawn upright — the eyes, mouth, and sometimes arms or ears are arranged so the face reads naturally without turning your head. The word itself comes from the Japanese "kao" (face) and "moji" (character), and the style originated in Japan in the early days of text-based online forums, long before picture-based emoji existed.</p>
+
+    <h2>Kaomoji vs. Emoji — What's the Difference?</h2>
+    <p>Emoji are small picture icons baked into a device or app's font — the same 😀 renders as an actual image, and its exact look varies slightly between iOS, Android, and different apps, sometimes changing meaning entirely between platforms. A kaomoji like (◕‿◕) is pure text and Unicode punctuation, not an image, so it looks identical everywhere it's supported. That also means a kaomoji can be typed character by character, edited mid-face, or dropped into places that strip out image-based emoji — old chat clients, some plain-text fields, and certain usernames that reject image characters but accept regular Unicode text.</p>
+
+    <h2>Popular Kaomoji and What They Mean</h2>
+    <p>A handful of kaomoji have become so widely recognized that they're used almost like their own language. Here's a quick reference for the ones you'll see most often, and when people typically reach for each one.</p>
+    <table class="kmeaning-table">
+      <tr><th>Face</th><th>Name</th><th>Typically used for</th></tr>
+      <tr><td>¯\\_(ツ)_/¯</td><td>Shrug</td><td>"I don't know" / "not my problem"</td></tr>
+      <tr><td>(╯°□°）╯︵ ┻━┻</td><td>Table flip</td><td>Frustration, giving up, mock-rage</td></tr>
+      <tr><td>(^_^)</td><td>Smile</td><td>Friendly, warm, everyday happy</td></tr>
+      <tr><td>(づ ●─● )づ</td><td>Hug</td><td>Sending comfort or affection</td></tr>
+      <tr><td>ಠ_ಠ</td><td>Disapproval</td><td>Skeptical or unimpressed stare</td></tr>
+      <tr><td>(ノ_&lt;。)</td><td>Pouting</td><td>Sadness, disappointment</td></tr>
+      <tr><td>(⌐■_■)</td><td>Cool</td><td>Confidence, "nailed it" moments</td></tr>
+    </table>
+
+    <h2>How to Use This Tool</h2>
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Pick a mood</div>
+        <div class="step-desc">Tap a category chip — Happy, Love, Sad, Angry, Shrug, Cute, Animals and more — to narrow the list to that feeling.</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Or search instead</div>
+        <div class="step-desc">Type a mood word like "bear", "shrug", or "flip" into the search box to filter the faces directly, with or without a category selected.</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Tap to copy</div>
+        <div class="step-desc">Tap the Copy button on any card to instantly copy that kaomoji to your clipboard — no extra steps, no pop-ups.</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Paste anywhere</div>
+        <div class="step-desc">Paste into Discord, Instagram, WhatsApp, a text message, a forum post, or anywhere else plain text is accepted.</div>
+      </div>
+    </div>
+
+    <h2>Kaomoji Examples to Try</h2>
+    <p>A kaomoji works best dropped at the end of a message to set the tone without needing an image — here's how a couple of the most useful ones look in context.</p>
+    <div class="example-box">
+      <div class="example-label">Reacting in a chat</div>
+      <div class="example-chat">Guess who forgot the meeting again ¯\\_(ツ)_/¯</div>
+    </div>
+    <div class="example-box">
+      <div class="example-label">Ending on a warm note</div>
+      <div class="example-chat">Made it home safe, love you (´∀`)♡</div>
+    </div>
+    <div class="example-box">
+      <div class="example-label">Venting without sounding too serious</div>
+      <div class="example-chat">My code broke again (╯°□°）╯︵ ┻━┻</div>
+    </div>
+
+    <h2>Browsing by Mood</h2>
+    <p>This generator groups every kaomoji into one of 24 moods — Happy, Sad, Love, Angry, Cute, Shrug, Table Flip, Laughing, Crying, Sleepy, Confused, Animals, Music and more — so you can jump straight to the feeling you're after instead of scrolling through everything at once. The search box works the same way as the category chips: typing a mood word like "flip" or "shrug" filters the list instantly, whether or not a category is already selected.</p>
+
+    <h2>Where Kaomoji Work Best</h2>
+    <p>Because kaomoji are ordinary text, they paste cleanly into chat apps, social captions and comments, forum posts, usernames, and even plain SMS messages that don't support image-based emoji at all. The shrug ¯\\_(ツ)_/¯ and table-flip (╯°□°）╯︵ ┻━┻ have become widely recognized precisely because they're plain text — they render correctly almost anywhere, from Discord to a basic text editor, without depending on a particular emoji font being installed on the receiving end.</p>
+
+    <h2>Common Mistakes to Avoid</h2>
+    <ul>
+      <li><strong>Retyping a face by hand instead of copying it.</strong> It's easy to drop or mistype one of the small Unicode symbols and break the face entirely — copying the whole string with the Copy button avoids this.</li>
+      <li><strong>Using a very symbol-heavy kaomoji in a field with a strict character limit.</strong> Some platforms count every character in a face separately, so an elaborate style can eat into a short bio or username limit faster than expected.</li>
+      <li><strong>Pasting into a system that strips non-ASCII text.</strong> A few very old forms or legacy systems only accept basic keyboard characters — if a kaomoji disappears after pasting, try a simpler one built from more common punctuation.</li>
+    </ul>
+    <p class="trust-note">Every kaomoji in this collection is curated to use widely-supported Unicode characters, so they're built to display consistently across major platforms like Discord, Instagram, WhatsApp, and X — rather than relying on rare symbol blocks that only render correctly on certain devices.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">What does kaomoji mean?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Kaomoji combines the Japanese words for "face" (kao) and "character" (moji). It refers to emoticons built from text characters and read upright, like (^_^), rather than sideways like a Western emoticon such as :).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I type the shrug ¯\\_(ツ)_/¯?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Rather than typing it manually, search "shrug" in this tool and tap Copy — the shrug uses a specific Unicode katakana character (ツ) that's easy to mistype by hand, so copying the exact string avoids a broken face.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Will kaomoji work on Discord, Instagram, and other apps?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Yes — this collection is curated around widely-supported Unicode characters, so these kaomoji display correctly on Discord, Instagram, WhatsApp, X, Facebook, and most modern chat and social apps.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are kaomoji the same as emojis?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>No. Emoji are picture icons built into a device's font and can render differently between platforms. Kaomoji are made purely of text and Unicode symbols, so they look identical everywhere and can be typed or edited like any other text.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is this kaomoji generator free to use?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Yes, completely free with no account or sign-up required, and everything runs instantly in your browser.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my search activity uploaded anywhere?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>No — searching, filtering, and copying all happen locally in your browser. Nothing you type or select is sent to any server.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Why does a kaomoji sometimes show as a box or missing character?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>That means the specific device or font doesn't support one of the less-common Unicode symbols in that face. It's rare with this curated set, but if it happens, try a simpler kaomoji from the same mood category instead.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I use kaomoji in a username or bio with a character limit?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Yes, but check the limit first — some platforms count every symbol in a kaomoji individually, so a longer face can use up more of a short character limit than it visually appears to.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'kaomoji.html';
+  var CURRENT_CAT = 'Text Tools';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
+
+<script>
+// --- Kaomoji dataset, grouped by mood ---
+const KAOMOJI = [
+  // Happy
+  {cat:"Happy", tag:"Big Smile", text:"(^▽^)"},
+  {cat:"Happy", tag:"Cheerful", text:"(´▽`)"},
+  {cat:"Happy", tag:"Bright Eyes", text:"(◕‿◕)"},
+  {cat:"Happy", tag:"Joyful Jump", text:"ヽ(^o^)丿"},
+  {cat:"Happy", tag:"Sparkling", text:"(*^▽^*)"},
+  {cat:"Happy", tag:"Warm Smile", text:"(⌒▽⌒)"},
+  {cat:"Happy", tag:"Content", text:"(´ω`)"},
+  {cat:"Happy", tag:"Overjoyed", text:"(≧▽≦)"},
+  {cat:"Happy", tag:"Gentle Grin", text:"(*´▽`*)"},
+  {cat:"Happy", tag:"Sunny Mood", text:"٩(◕‿◕)۶"},
+
+  // Sad
+  {cat:"Sad", tag:"Tears", text:"(T_T)"},
+  {cat:"Sad", tag:"Quiet Tears", text:"(;_;)"},
+  {cat:"Sad", tag:"Overflowing", text:"(╥﹏╥)"},
+  {cat:"Sad", tag:"Heartbroken", text:"(´；ω；`)"},
+  {cat:"Sad", tag:"Curled Up", text:"(っ˘̩╭╮˘̩)っ"},
+  {cat:"Sad", tag:"Down Look", text:"(ノ_<。)"},
+  {cat:"Sad", tag:"Soft Cry", text:"(´;ω;`)"},
+  {cat:"Sad", tag:"River Eyes", text:"(πーπ)"},
+  {cat:"Sad", tag:"Fading", text:"・゚・(つω`)・゚・"},
+  {cat:"Sad", tag:"Gloomy", text:"(-_-;)"},
+
+  // Love
+  {cat:"Love", tag:"Loving Eyes", text:"(♡μ_μ)"},
+  {cat:"Love", tag:"Heart Eyes", text:"(♥ω♥)"},
+  {cat:"Love", tag:"Shy Love", text:"(ノ´з`)ノ"},
+  {cat:"Love", tag:"Full Heart", text:"(´∀`)♡"},
+  {cat:"Love", tag:"Warm Hug Heart", text:"(๑♡⌓♡๑)"},
+  {cat:"Love", tag:"Blushing Love", text:"♡(。-ω-)"},
+  {cat:"Love", tag:"Sweet Love", text:"(´ ▽ ` ).｡o♡"},
+  {cat:"Love", tag:"Small Heart", text:"( ˘ ³˘)♥"},
+  {cat:"Love", tag:"Bring It In", text:"(づ ●─● )づ"},
+  {cat:"Love", tag:"Crush", text:"(*¯︶¯*)"},
+
+  // Angry
+  {cat:"Angry", tag:"Furious", text:"(╬ Ò﹏Ó)"},
+  {cat:"Angry", tag:"Grumpy", text:"(`皿´)"},
+  {cat:"Angry", tag:"Rage", text:"ヽ(`Д´)ノ"},
+  {cat:"Angry", tag:"Side Eye", text:"(≖͞_≖̥)"},
+  {cat:"Angry", tag:"Stern", text:"( `н´ )"},
+  {cat:"Angry", tag:"Fuming", text:"Σ(▼□▼メ)"},
+  {cat:"Angry", tag:"Boiling", text:"(╬ ಠ益ಠ)"},
+  {cat:"Angry", tag:"Ready to Fight", text:"٩(╬ʘ益ʘ╬)۶"},
+  {cat:"Angry", tag:"Annoyed", text:"(≧д≦ヾ)"},
+  {cat:"Angry", tag:"Cross", text:"(－‸ლ)"},
+
+  // Cute
+  {cat:"Cute", tag:"Puppy Eyes", text:"(◕ᴥ◕)"},
+  {cat:"Cute", tag:"Kitty Face", text:"(=^・ω・^=)"},
+  {cat:"Cute", tag:"Bear Face", text:"ʕ•ᴥ•ʔ"},
+  {cat:"Cute", tag:"Soft Smile", text:"(◍•ᴗ•◍)"},
+  {cat:"Cute", tag:"Sweet Face", text:"(｡◕‿◕｡)"},
+  {cat:"Cute", tag:"Bouncy Cute", text:"٩(◕‿◕｡)۶"},
+  {cat:"Cute", tag:"Squish", text:"(๑>ᴗ<๑)"},
+  {cat:"Cute", tag:"Fighting Cute", text:"(๑˃̵ᴗ˂̵)و"},
+  {cat:"Cute", tag:"Tiny Smile", text:"(｡♥‿♥｡)"},
+  {cat:"Cute", tag:"Chubby Cheeks", text:"(◠‿◠)"},
+
+  // Shrug
+  {cat:"Shrug", tag:"Classic Shrug", text:"¯\\_(ツ)_/¯"},
+  {cat:"Shrug", tag:"Confused Shrug", text:"¯\\(°_o)/¯"},
+  {cat:"Shrug", tag:"Tired Shrug", text:"┐(´д｀)┌"},
+  {cat:"Shrug", tag:"Whatever Shrug", text:"┐(´～｀)┌"},
+  {cat:"Shrug", tag:"Small Shrug", text:"¯\\(ツ)/¯"},
+  {cat:"Shrug", tag:"Not My Problem", text:"┐(￣ヘ￣;)┌"},
+  {cat:"Shrug", tag:"I Dunno", text:"╮(￣ω￣)╭"},
+  {cat:"Shrug", tag:"Meh Shrug", text:"┐(-。-;)┌"},
+
+  // Table Flip
+  {cat:"Table Flip", tag:"Classic Flip", text:"(╯°□°）╯︵ ┻━┻"},
+  {cat:"Table Flip", tag:"Angry Flip", text:"(ノಠ益ಠ)ノ彡┻━┻"},
+  {cat:"Table Flip", tag:"Fix the Table", text:"┬─┬ノ( º _ ºノ)"},
+  {cat:"Table Flip", tag:"Small Flip", text:"(╯'□')╯ ┻━┻"},
+  {cat:"Table Flip", tag:"Double Flip", text:"(ﾉ益)ﾉ┻━┻"},
+  {cat:"Table Flip", tag:"Calm Restore", text:"┬─┬ ノ( ゜-゜ノ)"},
+
+  // Laughing
+  {cat:"Laughing", tag:"Big Laugh", text:"(≧▽≦)"},
+  {cat:"Laughing", tag:"Bursting", text:"ヽ(*⌒▽⌒*)ﾉ"},
+  {cat:"Laughing", tag:"Cracking Up", text:"ｗ(ﾟｏﾟ)ｗ"},
+  {cat:"Laughing", tag:"Giggling", text:"( ´ ▽ ` )ﾉ"},
+  {cat:"Laughing", tag:"Chuckle", text:"(*≧艸≦)"},
+  {cat:"Laughing", tag:"Roaring", text:"｡ﾟ( ﾟ^∀^ﾟ)ﾟ｡"},
+
+  // Crying
+  {cat:"Crying", tag:"Sobbing", text:"(╥_╥)"},
+  {cat:"Crying", tag:"Waterfall", text:"(ಥ﹏ಥ)"},
+  {cat:"Crying", tag:"Happy Tears", text:"(T▽T)"},
+  {cat:"Crying", tag:"Silent Cry", text:"(இ﹏இ`｡)"},
+  {cat:"Crying", tag:"Streaming", text:"(TдT)"},
+
+  // Surprised
+  {cat:"Surprised", tag:"Wide Eyes", text:"(⊙_⊙)"},
+  {cat:"Surprised", tag:"Shocked", text:"(°o°)"},
+  {cat:"Surprised", tag:"Startled", text:"Σ(ﾟДﾟ)"},
+  {cat:"Surprised", tag:"Blinking Fast", text:"(⊙_⊙;)"},
+  {cat:"Surprised", tag:"Gasp", text:"Σ(°Δ°)"},
+  {cat:"Surprised", tag:"Whoa", text:"(ﾟдﾟ)"},
+
+  // Sleepy
+  {cat:"Sleepy", tag:"Dozing Off", text:"(-_-)zzz"},
+  {cat:"Sleepy", tag:"Cozy Nap", text:"(｡-ω-)zzz"},
+  {cat:"Sleepy", tag:"Drowsy", text:"(=_=)"},
+  {cat:"Sleepy", tag:"Peaceful Sleep", text:"( ˘ω˘ )スヤァ"},
+  {cat:"Sleepy", tag:"Yawning", text:"(￣o￣) zzZ"},
+
+  // Confused
+  {cat:"Confused", tag:"Head Tilt", text:"(・_・ヾ"},
+  {cat:"Confused", tag:"Puzzled", text:"(・・？"},
+  {cat:"Confused", tag:"Lost", text:"ლ(・﹏・ლ)"},
+  {cat:"Confused", tag:"Doubting", text:"(￢_￢;)"},
+  {cat:"Confused", tag:"Not Sure", text:"(・∀・;)"},
+
+  // Embarrassed
+  {cat:"Embarrassed", tag:"Blushing", text:"(⁄ ⁄•⁄ω⁄•⁄ ⁄)"},
+  {cat:"Embarrassed", tag:"Shy Smile", text:"(*/ω\\*)"},
+  {cat:"Embarrassed", tag:"Hiding Face", text:"(ノ▽ノ)"},
+  {cat:"Embarrassed", tag:"Flustered", text:"(///ω///)"},
+
+  // Excited
+  {cat:"Excited", tag:"Thrilled", text:"ヽ(=^･ω･^=)丿"},
+  {cat:"Excited", tag:"Woohoo", text:"٩(◕‿◕)۶"},
+  {cat:"Excited", tag:"Pumped", text:"\\(^ᴗ^)/"},
+  {cat:"Excited", tag:"Jumping", text:"ヽ(★ω★)ノ"},
+
+  // Greeting
+  {cat:"Greeting", tag:"Wave Hello", text:"(^-^)/"},
+  {cat:"Greeting", tag:"Friendly Wave", text:"( ´ ▽ ` )ﾉ"},
+  {cat:"Greeting", tag:"Cheerful Wave", text:"ヾ(＾-＾)ノ"},
+  {cat:"Greeting", tag:"Goodbye", text:"(=ﾟωﾟ)ﾉ"},
+
+  // Dance
+  {cat:"Dance", tag:"Happy Dance", text:"ヽ(^o^)ノ"},
+  {cat:"Dance", tag:"Groove", text:"┏(・o・)┛♪"},
+  {cat:"Dance", tag:"Sway", text:"└(￣▽￣└)"},
+  {cat:"Dance", tag:"Party Move", text:"ᕕ(⌐■_■)ᕗ"},
+
+  // Flirty
+  {cat:"Flirty", tag:"Wink", text:"(^_-)"},
+  {cat:"Flirty", tag:"Sweet Wink", text:"(｡•́‿•̀｡)"},
+  {cat:"Flirty", tag:"Charming", text:"( ˘ ³˘)♥"},
+  {cat:"Flirty", tag:"Coy", text:"( ｡ˇ ‿ˇ｡)"},
+
+  // Scared
+  {cat:"Scared", tag:"Terrified", text:"(((( ；ﾟДﾟ))))"},
+  {cat:"Scared", tag:"Startled Fear", text:"Σ(oﾟ□ﾟo)"},
+  {cat:"Scared", tag:"Nervous", text:"(((( ;°Д°))))"},
+
+  // Cool
+  {cat:"Cool", tag:"Sunglasses", text:"(⌐■_■)"},
+  {cat:"Cool", tag:"Chill", text:"( ・_・)ノ"},
+  {cat:"Cool", tag:"Smooth", text:"(¬‿¬)"},
+
+  // Disapproval
+  {cat:"Disapproval", tag:"Side Glance", text:"ಠ_ಠ"},
+  {cat:"Disapproval", tag:"Unimpressed", text:"(¬_¬)"},
+  {cat:"Disapproval", tag:"Sigh", text:"ヽ(´ー`)ノ"},
+  {cat:"Disapproval", tag:"Really?", text:"(￣ヘ￣)"},
+
+  // Sparkle
+  {cat:"Sparkle", tag:"Glowing", text:"(￫ｏ￩)"},
+  {cat:"Sparkle", tag:"Star Sparkle", text:"☆*:.｡.o(≧▽≦)o.｡.:*☆"},
+  {cat:"Sparkle", tag:"Twinkle", text:"✧◝(⁰▿⁰)◜✧"},
+  {cat:"Sparkle", tag:"Radiant", text:"(*✧×✧*)"},
+
+  // Animals
+  {cat:"Animals", tag:"Bear", text:"ʕ•ᴥ•ʔ"},
+  {cat:"Animals", tag:"Cat", text:"(=^･ω･^=)"},
+  {cat:"Animals", tag:"Rabbit", text:"(★‿★)"},
+  {cat:"Animals", tag:"Dog", text:"U ´꓃ ` U"},
+
+  // Music
+  {cat:"Music", tag:"Humming", text:"♪(┌・∀・)┌"},
+  {cat:"Music", tag:"Dancing to Music", text:"ヽ(^o^)ノ♪"},
+  {cat:"Music", tag:"Singing", text:"(๑′ᴗ‵๑)♪"},
+
+  // Party
+  {cat:"Party", tag:"Celebration", text:"\\(^o^)/"},
+  {cat:"Party", tag:"Woo Party", text:"ヽ(´▽`)/"},
+  {cat:"Party", tag:"Confetti Mood", text:"☆〜(ゝ。∂)"},
+
+  // Determined
+  {cat:"Determined", tag:"Fighting Spirit", text:"(๑•̀ㅂ•́)و✧"},
+  {cat:"Determined", tag:"Focused", text:"(ง •̀_•́)ง"},
+  {cat:"Determined", tag:"Never Give Up", text:"φ(・ω・ )"},
+  {cat:"Determined", tag:"Ready", text:"(ง'̀-'́)ง"},
+
+  // Grateful
+  {cat:"Grateful", tag:"Thank You", text:"(⁠人⁠•⁠͈⁠ᴗ⁠•⁠͈⁠)"},
+  {cat:"Grateful", tag:"Deep Bow", text:"m(_ _)m"},
+  {cat:"Grateful", tag:"Appreciation", text:"(´｡• ᵕ •｡`)"},
+
+  // Proud
+  {cat:"Proud", tag:"Smug", text:"(￣ω￣)"},
+  {cat:"Proud", tag:"Victory", text:"(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧"},
+  {cat:"Proud", tag:"Nailed It", text:"(⌐■_■)b"},
+
+  // Hug
+  {cat:"Hug", tag:"Open Arms", text:"(っ˘̩╭╮˘̩)っ"},
+  {cat:"Hug", tag:"Big Hug", text:"(づ￣ 3￣)づ"},
+  {cat:"Hug", tag:"Warm Hug", text:"(っ´▽`)っ"},
+
+  // Bored
+  {cat:"Bored", tag:"Nothing to Do", text:"(´-ω-`)"},
+  {cat:"Bored", tag:"Blank Stare", text:"(-.-)"},
+  {cat:"Bored", tag:"Whatever Mood", text:"(￣～￣;)"},
+];
+
+const categories = ["All","Happy","Sad","Love","Angry","Cute","Shrug","Table Flip","Laughing",
+  "Crying","Surprised","Sleepy","Confused","Embarrassed","Excited","Greeting","Dance",
+  "Flirty","Scared","Cool","Disapproval","Sparkle","Animals","Music","Party",
+  "Determined","Grateful","Proud","Hug","Bored"];
+
+let activeCat = "All";
+let liked = new Set();
+let visibleCount = 24;
+const PAGE_SIZE = 24;
+
+function matchesSearch(item, q){
+  if(!q) return true;
+  const hay = (item.tag + " " + item.cat).toLowerCase();
+  return hay.includes(q);
+}
+
+function filteredList(){
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  return KAOMOJI.filter(item=>{
+    const catOk = activeCat === "All" || item.cat === activeCat;
+    return catOk && matchesSearch(item, q);
+  });
+}
+
+function render(){
+  const filtered = filteredList();
+  const results = document.getElementById('results');
+  results.innerHTML = "";
+
+  if(!filtered.length){
+    results.innerHTML = `<div class="empty-note">No kaomoji match that search — try a different mood word.</div>`;
+    document.getElementById('loadMoreBtn').style.display = 'none';
+    return;
+  }
+
+  const shown = filtered.slice(0, visibleCount);
+  shown.forEach((s, i)=>{
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.style.animationDelay = `${Math.min(i,16) * 35}ms`;
+    const likedKey = s.cat + "_" + s.tag;
+    card.innerHTML = `
+      <div class="result-tag">${s.tag}</div>
+      <div class="result-text">${s.text}</div>
+      <div class="result-actions">
+        <button class="btn copy" data-text="${encodeURIComponent(s.text)}">Copy</button>
+        <button class="btn heart ${liked.has(likedKey)?'on':''}" data-key="${likedKey}">♡</button>
+      </div>`;
+    results.appendChild(card);
+  });
+
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if(visibleCount < filtered.length){
+    loadMoreBtn.style.display = 'flex';
+    loadMoreBtn.textContent = `Show more kaomoji (${filtered.length - visibleCount} left)`;
+  } else {
+    loadMoreBtn.style.display = 'none';
+  }
+}
+
+function buildChips(){
+  const row = document.getElementById('chipRow');
+  row.innerHTML = "";
+  categories.forEach(cat=>{
+    const count = cat === "All" ? KAOMOJI.length : KAOMOJI.filter(s=>s.cat===cat).length;
+    const chip = document.createElement('button');
+    chip.className = 'chip' + (cat===activeCat?' active':'');
+    chip.innerHTML = `${cat}<span class="n">${count}</span>`;
+    chip.onclick = ()=>{ activeCat = cat; visibleCount = PAGE_SIZE; buildChips(); render(); };
+    row.appendChild(chip);
+  });
+}
+
+document.getElementById('searchInput').addEventListener('input', ()=>{ visibleCount = PAGE_SIZE; render(); });
+document.getElementById('loadMoreBtn').addEventListener('click', ()=>{ visibleCount += PAGE_SIZE; render(); });
+
+function copyToClipboard(text, btn){
+  const done = (ok)=>{
+    btn.textContent = ok ? "Copied ✓" : "Hold to copy";
+    btn.classList.toggle('copied', ok);
+    setTimeout(()=>{ btn.textContent="Copy"; btn.classList.remove('copied'); }, 1400);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+function fallbackCopy(text, done){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    ta.style.top = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    done(ok);
+  } catch(e){ done(false); }
+}
+
+document.getElementById('results').addEventListener('click', (e)=>{
+  const copyBtn = e.target.closest('.btn.copy');
+  if(copyBtn){
+    const text = decodeURIComponent(copyBtn.dataset.text);
+    copyToClipboard(text, copyBtn);
+  }
+  const heartBtn = e.target.closest('.btn.heart');
+  if(heartBtn){
+    const key = heartBtn.dataset.key;
+    if(liked.has(key)){ liked.delete(key); heartBtn.classList.remove('on'); }
+    else { liked.add(key); heartBtn.classList.add('on'); }
+  }
+});
+
+buildChips();
+render();
+
+// --- FAQ accordion ---
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const item = this.closest('.faq-item');
+    const answer = item.querySelector('.faq-a');
+    const isOpen = this.classList.contains('open');
+    document.querySelectorAll('.faq-q.open').forEach(openBtn=>{
+      if(openBtn !== this){
+        openBtn.classList.remove('open');
+        openBtn.closest('.faq-item').querySelector('.faq-a').style.maxHeight = null;
+      }
+    });
+    if(isOpen){
+      this.classList.remove('open');
+      answer.style.maxHeight = null;
+    } else {
+      this.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+</body>
+</html>
