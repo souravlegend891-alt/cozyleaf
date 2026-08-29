@@ -65,7 +65,7 @@
   .tc-live-zone{font-family:'Space Grotesk',sans-serif;font-size:14.5px;font-weight:700;margin-top:2px;color:var(--ink);}
   .tc-live-time{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;margin-top:8px;color:var(--c-convert);letter-spacing:.01em;}
   .tc-live-date{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
-  .tc-live-off{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:700;color:#fff;background:var(--c-convert);padding:3px 9px;border-radius:20px;}
+  .tc-live-off{display:inline-block;max-width:100%;margin-top:8px;font-size:10.5px;font-weight:700;color:#fff;background:var(--c-convert);padding:4px 10px;border-radius:12px;white-space:normal;word-break:break-word;line-height:1.4;}
   .tc-you-row{margin-bottom:16px;}
   .tc-you-card{
     background:#FBFAF7;border:1.5px dashed var(--line);border-radius:12px;padding:10px 14px;
@@ -427,7 +427,11 @@ document.addEventListener('DOMContentLoaded', function(){
     var p = {};
     dtf.formatToParts(date).forEach(function(x){ p[x.type] = x.value; });
     var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
-    return (asUTC - date.getTime()) / 60000;
+    // Real-world UTC offsets are always whole minutes. The formatter above only
+    // resolves to whole seconds, so subtracting a millisecond-precision `date`
+    // leaves up to ±999ms of noise — round it away so displayed offsets are
+    // always clean (e.g. "GMT+5:30", never "GMT+5:29.988...").
+    return Math.round((asUTC - date.getTime()) / 60000);
   }
 
   // Convert a wall-clock date/time meant to be in `tz` into the actual UTC instant.
@@ -485,8 +489,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Detect visitor's own zone ===== */
   try{
+    // Some browsers/OS report legacy IANA aliases (e.g. "Asia/Calcutta" instead of
+    // "Asia/Kolkata") which are the *same* zone under a different name. Comparing
+    // raw strings would wrongly treat them as different and show a "Use mine"
+    // button that changes nothing. Canonicalize both sides via Intl before comparing.
+    function canonicalTZ(tz){
+      try { return new Intl.DateTimeFormat('en-US', {timeZone: tz}).resolvedOptions().timeZone; }
+      catch(e){ return tz; }
+    }
     var youTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (youTz && youTz !== FROM_TZ && youTz !== TO_TZ){
+    var youCanon = canonicalTZ(youTz);
+    if (youTz && youCanon !== canonicalTZ(FROM_TZ) && youCanon !== canonicalTZ(TO_TZ)){
       document.getElementById('youTzName').textContent = youTz.replace('_',' ');
       document.getElementById('youRow').style.display = 'block';
       document.getElementById('useYouBtn').addEventListener('click', function(){
