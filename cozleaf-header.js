@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v9-2026-08-22 (exposes window.COZYLEAF_TOOLS)
+   VERSION: cozyleaf-v10-2026-08-28 (adds Kaomoji Generator)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -17,13 +17,13 @@
     {name:"GPA / CGPA Calculator", cat:"Calculators",          url:"gpa-cgpa-calculator.html"},
     {name:"Dog Food Calculator",   cat:"Calculators",          url:"dog-food-calculator.html"},
     {name:"Typing Speed Test",     cat:"Text Tools",           url:"typing-speed-test.html"},
+    {name:"Kaomoji Generator",     cat:"Text Tools",           url:"kaomoji.html"},
     {name:"Stylish Name Generator",cat:"Name Generator Tools", url:"name-style.html"},
     {name:"GMT to IST Converter",  cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
     {name:"PST to IST Converter",  cat:"World Time Zone Converter", url:"pst-to-ist.html"},
     {name:"EST to IST Converter",  cat:"World Time Zone Converter", url:"est-to-ist.html"},
     {name:"CST to EST Converter",  cat:"World Time Zone Converter", url:"cst-to-est.html"},
-    {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"},
-    {name:"World Time Converter (Any City)", cat:"World Time Zone Converter", url:"world-time-converter.html"}
+    {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"}
   ];
 
   // Policy / trust pages — AdSense reviewers specifically check that these
@@ -53,13 +53,13 @@
     "gpa-cgpa-calculator.html":"🎓",
     "dog-food-calculator.html":"🐶",
     "typing-speed-test.html":"⌨️",
+    "kaomoji.html":"🙂",
     "name-style.html":"✨",
     "gmt-to-ist.html":"🕐",
     "pst-to-ist.html":"🕐",
     "est-to-ist.html":"🕐",
     "cst-to-est.html":"🕐",
-    "ist-to-est.html":"🕐",
-    "world-time-converter.html":"🌍"
+    "ist-to-est.html":"🕐"
   };
   window.COZYLEAF_TOOLS = MAIN_TOOLS;
   window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
