@@ -39,7 +39,7 @@
   const CATEGORY_HEX = {
     "Image Tools":"#FF6B4A","Calculators":"#2EC4B6",
     "Text Tools":"#8676FF","Name Generator Tools":"#8676FF",
-    "Earth Time Zone Converter":"#0077B6"
+    "World Time Zone Converter":"#0077B6"
   };
 
   // Expose so individual tool pages can build "More Tools" sections
