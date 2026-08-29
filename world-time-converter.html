@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>World Time Converter - Compare Any Two Cities' Time Instantly | Cozyleaf</title>
+<meta name="description" content="Free world time converter — search any city or country and compare its time with any other, instantly. Live clocks, DST-aware conversion, and a meeting planner for any two time zones."/>
+<meta name="keywords" content="world time converter, world clock, time zone converter, compare time zones, city time converter, international time converter"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<link rel="canonical" href="https://cozyleaf.in/world-time-converter.html"/>
+<meta name="theme-color" content="#1B1D29"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Cozyleaf"/>
+<meta property="og:title" content="World Time Converter - Compare Any Two Cities' Time Instantly"/>
+<meta property="og:description" content="Search any city or country and compare its time with any other, instantly. Live clocks, DST-aware conversion, and a meeting planner for any two time zones."/>
+<meta property="og:url" content="https://cozyleaf.in/world-time-converter.html"/>
+<meta property="og:locale" content="en_US"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="World Time Converter - Cozyleaf"/>
+<meta name="twitter:description" content="Search any city or country and compare its time with any other, instantly."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf World Time Converter",
+  "url": "https://cozyleaf.in/world-time-converter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free world time converter for comparing the time in any two cities or countries, with live clocks and DST-aware conversion."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Can I compare the time between any two cities in the world?","acceptedAnswer":{"@type":"Answer","text":"Yes. Search for any city or country on either side and the converter instantly shows the live time and lets you convert any date and time between them."}},
+    {"@type":"Question","name":"Does this world time converter handle Daylight Saving Time?","acceptedAnswer":{"@type":"Answer","text":"Yes. It uses your browser's built-in time zone database, so Daylight Saving Time transitions are applied automatically and correctly for the exact date you choose, in both directions."}},
+    {"@type":"Question","name":"What if my city isn't in the list?","acceptedAnswer":{"@type":"Answer","text":"Search for the nearest major city in the same country — most places in a country share the same time zone, so a nearby major city will almost always give you the correct result."}},
+    {"@type":"Question","name":"Can I find the best meeting time between two zones?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Meeting Planner section below the converter shows a full 24-hour overlap view for the selected date, highlighting hours that fall within typical business hours (9 AM–6 PM) in both zones."}},
+    {"@type":"Question","name":"Is this world time converter free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it's completely free, works instantly in your browser, and does not require any sign-up."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+
+<style>
+  .tc-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .tc-live-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center;position:relative;}
+  .tc-live-tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);}
+  .tc-city-search{position:relative;margin-top:8px;}
+  .tc-city-search input{
+    width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--ink);text-align:center;
+  }
+  .tc-city-search input:focus{border-color:var(--c-convert);outline:none;}
+  .tc-city-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+  .tc-city-dropdown{
+    position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 12px 30px rgba(20,22,26,.15);max-height:240px;overflow-y:auto;
+    z-index:50;display:none;text-align:left;
+  }
+  .tc-city-dropdown.open{display:block;}
+  .tc-city-dropdown .opt{padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--line);}
+  .tc-city-dropdown .opt:last-child{border-bottom:none;}
+  .tc-city-dropdown .opt:hover,.tc-city-dropdown .opt.hi{background:var(--hover);}
+  .tc-city-dropdown .opt .sub{font-size:11.5px;color:var(--ink-soft);font-weight:500;}
+  .tc-city-dropdown .empty{padding:14px;font-size:13px;color:var(--ink-soft);text-align:center;}
+
+  .tc-live-time{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;margin-top:10px;color:var(--c-convert);letter-spacing:.01em;}
+  .tc-live-date{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+  .tc-live-off{display:inline-block;max-width:100%;margin-top:8px;font-size:10.5px;font-weight:700;color:#fff;background:var(--c-convert);padding:4px 10px;border-radius:12px;white-space:normal;word-break:break-word;line-height:1.4;}
+
+  .tc-swap-row{display:flex;align-items:center;gap:10px;margin:4px 0 14px;}
+  .tc-swap-row .line{flex:1;height:1px;background:var(--line);}
+  .tc-swap-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:.15s;}
+  .tc-swap-btn:hover{border-color:var(--c-convert);background:#F0FBFA;transform:rotate(180deg);}
+
+  .tc-row{display:flex;gap:10px;}
+  .tc-row .field{flex:1;}
+  .tc-fmt-toggle{display:flex;gap:6px;margin-top:10px;}
+  .tc-fmt-toggle button{flex:1;padding:8px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:.15s;}
+  .tc-fmt-toggle button.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  .tc-result{margin-top:18px;padding:18px;border-radius:14px;background:linear-gradient(135deg,#F0FBFA,#FBFAF7);border:1px solid var(--line);text-align:center;}
+  .tc-result .lbl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);}
+  .tc-result .val{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--ink);margin-top:4px;}
+  .tc-result .sub{font-size:12.5px;color:var(--ink-soft);margin-top:4px;}
+  .tc-daybadge{display:inline-block;margin-top:8px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+  .tc-daybadge.same{background:#E4F9F6;color:#159C8F;}
+  .tc-daybadge.next{background:#FFF3E0;color:#F4A527;}
+  .tc-daybadge.prev{background:#FBE9E9;color:#C0392B;}
+
+  .tc-actions{display:flex;gap:8px;margin-top:14px;}
+  .tc-actions button{flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;}
+  .tc-actions button:hover{border-color:var(--c-convert);color:var(--c-convert);}
+  .tc-actions button.copied{border-color:#159C8F;color:#159C8F;background:#E4F9F6;}
+
+  .tc-popular{margin-top:16px;}
+  .tc-popular .lbl2{font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  .tc-chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .tc-chip{padding:7px 12px;border-radius:20px;border:1.5px solid var(--line);background:#fff;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;transition:.15s;}
+  .tc-chip:hover{border-color:var(--c-convert);background:#F0FBFA;color:var(--c-convert);}
+
+  .tc-planner{margin-top:26px;}
+  .tc-planner h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin-bottom:4px;}
+  .tc-planner p{font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .tc-strip-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;}
+  .tc-strip-label{font-size:11px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;display:flex;justify-content:space-between;}
+  .tc-strip{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-bottom:10px;}
+  .tc-strip .cell{height:26px;border-radius:4px;background:#EEE;position:relative;cursor:default;}
+  .tc-strip .cell.good{background:#159C8F;}
+  .tc-strip .cell.ok{background:#8FD9CE;}
+  .tc-strip .cell.poor{background:#F0EFEA;}
+  .tc-strip .cell.now{box-shadow:0 0 0 2px var(--ink) inset;}
+  .tc-legend{display:flex;gap:14px;font-size:11px;color:var(--ink-soft);flex-wrap:wrap;}
+  .tc-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .tc-legend i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+  .tc-quickref{margin-top:26px;}
+  .tc-quickref h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin-bottom:10px;}
+  .tc-table-wrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  table.tc-table{width:100%;border-collapse:collapse;font-size:13px;}
+  table.tc-table th{background:#FBFAF7;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);}
+  table.tc-table td{padding:7px 10px;border-top:1px solid var(--line);}
+  table.tc-table tr.now-row td{background:#E4F9F6;font-weight:700;}
+
+  .seo-content{color:#4A4E56;margin-top:26px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .seo-content p strong{color:var(--ink);}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-convert);background:#F0FBFA;}
+  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-convert);color:var(--c-convert);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
+
+  @media (max-width:380px){
+    .tc-live-time{font-size:20px;}
+    .tc-strip{grid-template-columns:repeat(12,1fr);}
+  }
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <h1>World Time Converter</h1>
+  <p class="hero-p">Search any city in the world and compare its time with any other — live clocks, DST-aware conversion, and a meeting planner, for any two places on Earth.</p>
+
+  <div class="card">
+    <div class="tc-live-grid">
+      <div class="tc-live-card">
+        <div class="tc-live-tag">From</div>
+        <div class="tc-city-search">
+          <input type="text" id="fromSearch" placeholder="Search a city..." autocomplete="off"/>
+          <div class="tc-city-dropdown" id="fromDropdown"></div>
+        </div>
+        <div class="tc-city-sub" id="fromSub">—</div>
+        <div class="tc-live-time" id="fromLiveTime">--:--:--</div>
+        <div class="tc-live-date" id="fromLiveDate">—</div>
+        <div class="tc-live-off" id="fromLiveOff">—</div>
+      </div>
+      <div class="tc-live-card">
+        <div class="tc-live-tag">To</div>
+        <div class="tc-city-search">
+          <input type="text" id="toSearch" placeholder="Search a city..." autocomplete="off"/>
+          <div class="tc-city-dropdown" id="toDropdown"></div>
+        </div>
+        <div class="tc-city-sub" id="toSub">—</div>
+        <div class="tc-live-time" id="toLiveTime">--:--:--</div>
+        <div class="tc-live-date" id="toLiveDate">—</div>
+        <div class="tc-live-off" id="toLiveOff">—</div>
+      </div>
+    </div>
+
+    <div class="tc-popular">
+      <div class="lbl2">Popular comparisons</div>
+      <div class="tc-chip-row" id="popularChips"></div>
+    </div>
+
+    <div class="tc-swap-row">
+      <div class="line"></div>
+      <button class="tc-swap-btn" id="swapBtn" title="Swap cities" type="button">⇅</button>
+      <div class="line"></div>
+    </div>
+
+    <div class="tc-row">
+      <div class="field">
+        <label class="small">Date</label>
+        <input type="date" id="dateInput"/>
+      </div>
+      <div class="field">
+        <label class="small" id="timeInputLabel">Time (From)</label>
+        <input type="time" id="timeInput"/>
+      </div>
+    </div>
+
+    <div class="tc-fmt-toggle">
+      <button id="fmt12" class="active" type="button">12-hour (AM/PM)</button>
+      <button id="fmt24" type="button">24-hour</button>
+    </div>
+
+    <button class="btn-primary" id="nowBtn" style="margin-top:12px;background:#fff;color:var(--c-convert);border:1.5px solid var(--c-convert);box-shadow:none;" type="button">Use current time</button>
+
+    <div class="tc-result">
+      <div class="lbl" id="resultLbl">Converted time in —</div>
+      <div class="val" id="resultVal">--:-- --</div>
+      <div class="sub" id="resultDate">—</div>
+      <span class="tc-daybadge same" id="dayBadge">Same day</span>
+
+      <div class="tc-actions">
+        <button id="copyBtn" type="button">📋 Copy result</button>
+        <button id="shareBtn" type="button">🔗 Share link</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tc-planner">
+    <h2>Meeting Planner — best overlap hours</h2>
+    <p id="plannerDesc">Each block is one hour of the selected date. Darker green = good overlap (9 AM–6 PM in both zones); light = workable in one zone; grey = outside business hours for both.</p>
+    <div class="tc-strip-wrap">
+      <div class="tc-strip-label"><span>12 AM</span><span>12 PM</span><span>11 PM</span></div>
+      <div class="tc-strip" id="plannerStrip"></div>
+      <div class="tc-legend">
+        <span><i style="background:#159C8F"></i> Good for both</span>
+        <span><i style="background:#8FD9CE"></i> Okay for one side</span>
+        <span><i style="background:#F0EFEA"></i> Outside working hours</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tc-quickref">
+    <h2 id="quickRefTitle">Quick Reference</h2>
+    <div class="tc-table-wrap">
+      <table class="tc-table" id="quickRefTable"><tr><th>From</th><th>To</th></tr></table>
+    </div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2 id="relatedHeading">Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>Free World Time Converter — Any City, Any Time</h2>
+    <p>Most time converters only handle one fixed pair of zones. This tool works the way the big international time-zone sites do — search for any city or country on either side, and it instantly shows live clocks and lets you convert any date and time between the two, anywhere in the world.</p>
+
+    <h2>Built for Global Use</h2>
+    <p>Whether you're in Europe scheduling a call with someone in Asia, in the US comparing notes with a colleague in Africa, or anywhere else entirely, this converter isn't limited to a handful of pre-set regions — it covers major cities across North and South America, Europe, Africa, the Middle East, South and East Asia, and Oceania, so anyone, anywhere, can look up their own comparison.</p>
+
+    <h2>How It Handles Daylight Saving Time</h2>
+    <p>Every conversion runs through your browser's built-in time zone database rather than a fixed offset table, so Daylight Saving Time changes are applied automatically and correctly for the exact date you pick — even for zones where DST starts and ends on different dates than your own.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>Can I compare the time between any two cities in the world?</strong> Yes. Search for any city or country on either side and the converter instantly shows the live time and lets you convert any date and time between them.</p>
+    <p><strong>Does this world time converter handle Daylight Saving Time?</strong> Yes. It uses your browser's built-in time zone database, so Daylight Saving Time transitions are applied automatically and correctly for the exact date you choose, in both directions.</p>
+    <p><strong>What if my city isn't in the list?</strong> Search for the nearest major city in the same country — most places in a country share the same time zone, so a nearby major city will almost always give you the correct result.</p>
+    <p><strong>Can I find the best meeting time between two zones?</strong> Yes. The Meeting Planner section below the converter shows a full 24-hour overlap view for the selected date, highlighting hours that fall within typical business hours (9 AM–6 PM) in both zones.</p>
+    <p><strong>Is this world time converter free to use?</strong> Yes, it's completely free, works instantly in your browser, and does not require any sign-up.</p>
+
+    <p class="disclaimer">
+      <strong>Note:</strong> This converter uses your browser's built-in time zone database and automatically accounts for Daylight Saving Time changes for the selected date and cities, so results stay accurate year-round.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'world-time-converter.html';
+  var CURRENT_CAT = 'World Time Zone Converter';
+
+  var FALLBACK_TOOLS = [
+    {name:"Image Converter", cat:"Image Tools", url:"Image-converter.html"},
+    {name:"BMI Calculator", cat:"Calculators", url:"bmi-calculator.html"},
+    {name:"Calorie Calculator", cat:"Calculators", url:"calorie-calculator.html"},
+    {name:"BMR Calculator", cat:"Calculators", url:"bmr-calculator.html"},
+    {name:"Love Calculator", cat:"Calculators", url:"love-calculator.html"},
+    {name:"GPA / CGPA Calculator", cat:"Calculators", url:"gpa-cgpa-calculator.html"},
+    {name:"Dog Food Calculator", cat:"Calculators", url:"dog-food-calculator.html"},
+    {name:"Typing Speed Test", cat:"Text Tools", url:"typing-speed-test.html"},
+    {name:"Stylish Name Generator", cat:"Name Generator Tools", url:"name-style.html"},
+    {name:"GMT to IST Converter", cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
+    {name:"PST to IST Converter", cat:"World Time Zone Converter", url:"pst-to-ist.html"},
+    {name:"EST to IST Converter", cat:"World Time Zone Converter", url:"est-to-ist.html"},
+    {name:"CST to EST Converter", cat:"World Time Zone Converter", url:"cst-to-est.html"},
+    {name:"IST to EST Converter", cat:"World Time Zone Converter", url:"ist-to-est.html"},
+    {name:"World Time Converter (Any City)", cat:"World Time Zone Converter", url:"world-time-converter.html"}
+  ];
+  var FALLBACK_ICONS = {
+    "Image-converter.html":"🖼️", "bmi-calculator.html":"⚖️", "calorie-calculator.html":"🔥",
+    "bmr-calculator.html":"🔥", "love-calculator.html":"❤️", "gpa-cgpa-calculator.html":"🎓",
+    "dog-food-calculator.html":"🐶", "typing-speed-test.html":"⌨️", "name-style.html":"✨",
+    "gmt-to-ist.html":"🕐", "pst-to-ist.html":"🕐", "est-to-ist.html":"🕐",
+    "cst-to-est.html":"🕐", "ist-to-est.html":"🕐", "world-time-converter.html":"🌍"
+  };
+  var FALLBACK_CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Image Tools"];
+  var FALLBACK_CATEGORY_HEX = {
+    "Image Tools":"#FF6B4A", "Calculators":"#2EC4B6", "Converters & Media":"#F4A527",
+    "Text Tools":"#8676FF", "Name Generator Tools":"#8676FF", "World Time Zone Converter":"#0077B6",
+    "Document & Translate":"#4CA8FF", "Document & PDF Tools":"#4CA8FF", "QR & Barcode Tools":"#9AA0AC"
+  };
+
+  function buildMoreTools(){
+    var tools = (window.COZYLEAF_TOOLS && window.COZYLEAF_TOOLS.length) ? window.COZYLEAF_TOOLS : FALLBACK_TOOLS;
+    var icons = (window.COZYLEAF_ICONS && Object.keys(window.COZYLEAF_ICONS).length) ? window.COZYLEAF_ICONS : FALLBACK_ICONS;
+    var catOrder = (window.COZYLEAF_CATEGORY_ORDER && window.COZYLEAF_CATEGORY_ORDER.length) ? window.COZYLEAF_CATEGORY_ORDER : FALLBACK_CATEGORY_ORDER;
+    var catHex = (window.COZYLEAF_CATEGORY_HEX && Object.keys(window.COZYLEAF_CATEGORY_HEX).length) ? window.COZYLEAF_CATEGORY_HEX : FALLBACK_CATEGORY_HEX;
+
+    var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+    var grid = document.getElementById('categoryGrid');
+    var relatedHeading = document.getElementById('relatedHeading');
+    var toggleBtn = document.getElementById('moreToggle');
+
+    if (sameCat.length > 0){
+      if (relatedHeading) relatedHeading.style.display = '';
+      if (grid){
+        grid.style.display = '';
+        grid.innerHTML = sameCat.map(function(t){
+          var ic = icons[t.url] || '🔧';
+          return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+        }).join('');
+      }
+      if (toggleBtn) toggleBtn.textContent = '+ More tools';
+    } else {
+      if (relatedHeading) relatedHeading.style.display = 'none';
+      if (grid) grid.style.display = 'none';
+      if (toggleBtn) toggleBtn.textContent = '+ More Tools';
+    }
+
+    var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+    var listEl = document.getElementById('allToolsList');
+    if(listEl){
+      listEl.innerHTML = otherCats.map(function(cat){
+        var hex = catHex[cat] || '#9AA0AC';
+        var catTools = tools.filter(function(t){ return t.cat === cat; });
+        if(!catTools.length) return '';
+        var head = '<div class="all-tools-cat"><span class="chip" style="background:'+hex+'"></span>'+cat+'</div>';
+        var rows = catTools.map(function(t){
+          var ic = icons[t.url] || '🔧';
+          return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+        }).join('');
+        return head + rows;
+      }).join('');
+      if(toggleBtn){
+        toggleBtn.addEventListener('click', function(){
+          listEl.classList.toggle('open');
+          var base = sameCat.length > 0 ? 'More tools' : 'More Tools';
+          this.textContent = listEl.classList.contains('open') ? '− Show less' : ('+ ' + base);
+        });
+      }
+    }
+  }
+  buildMoreTools();
+});
+</script>
+
+<script defer>
+(function(){
+  /* ===== City database ===== */
+  var CITIES = [['New York','United States','America/New_York'],['Los Angeles','United States','America/Los_Angeles'],['Chicago','United States','America/Chicago'],['Houston','United States','America/Chicago'],['Denver','United States','America/Denver'],['Phoenix','United States','America/Phoenix'],['San Francisco','United States','America/Los_Angeles'],['Seattle','United States','America/Los_Angeles'],['Miami','United States','America/New_York'],['Boston','United States','America/New_York'],['Washington D.C.','United States','America/New_York'],['Atlanta','United States','America/New_York'],['Dallas','United States','America/Chicago'],['Honolulu','United States','Pacific/Honolulu'],['Anchorage','United States','America/Anchorage'],['Toronto','Canada','America/Toronto'],['Vancouver','Canada','America/Vancouver'],['Montreal','Canada','America/Toronto'],['Mexico City','Mexico','America/Mexico_City'],['São Paulo','Brazil','America/Sao_Paulo'],['Rio de Janeiro','Brazil','America/Sao_Paulo'],['Buenos Aires','Argentina','America/Argentina/Buenos_Aires'],['Santiago','Chile','America/Santiago'],['Bogotá','Colombia','America/Bogota'],['Lima','Peru','America/Lima'],['London','United Kingdom','Europe/London'],['Dublin','Ireland','Europe/Dublin'],['Paris','France','Europe/Paris'],['Berlin','Germany','Europe/Berlin'],['Frankfurt','Germany','Europe/Berlin'],['Madrid','Spain','Europe/Madrid'],['Barcelona','Spain','Europe/Madrid'],['Rome','Italy','Europe/Rome'],['Milan','Italy','Europe/Rome'],['Amsterdam','Netherlands','Europe/Amsterdam'],['Brussels','Belgium','Europe/Brussels'],['Zurich','Switzerland','Europe/Zurich'],['Vienna','Austria','Europe/Vienna'],['Stockholm','Sweden','Europe/Stockholm'],['Oslo','Norway','Europe/Oslo'],['Copenhagen','Denmark','Europe/Copenhagen'],['Helsinki','Finland','Europe/Helsinki'],['Warsaw','Poland','Europe/Warsaw'],['Prague','Czech Republic','Europe/Prague'],['Athens','Greece','Europe/Athens'],['Lisbon','Portugal','Europe/Lisbon'],['Moscow','Russia','Europe/Moscow'],['Istanbul','Turkey','Europe/Istanbul'],['Cairo','Egypt','Africa/Cairo'],['Lagos','Nigeria','Africa/Lagos'],['Nairobi','Kenya','Africa/Nairobi'],['Johannesburg','South Africa','Africa/Johannesburg'],['Casablanca','Morocco','Africa/Casablanca'],['Dubai','United Arab Emirates','Asia/Dubai'],['Abu Dhabi','United Arab Emirates','Asia/Dubai'],['Riyadh','Saudi Arabia','Asia/Riyadh'],['Doha','Qatar','Asia/Qatar'],['Tel Aviv','Israel','Asia/Jerusalem'],['Jerusalem','Israel','Asia/Jerusalem'],['Tehran','Iran','Asia/Tehran'],['Karachi','Pakistan','Asia/Karachi'],['Islamabad','Pakistan','Asia/Karachi'],['Lahore','Pakistan','Asia/Karachi'],['New Delhi','India','Asia/Kolkata'],['Mumbai','India','Asia/Kolkata'],['Bangalore','India','Asia/Kolkata'],['Kolkata','India','Asia/Kolkata'],['Chennai','India','Asia/Kolkata'],['Hyderabad','India','Asia/Kolkata'],['Dhaka','Bangladesh','Asia/Dhaka'],['Kathmandu','Nepal','Asia/Kathmandu'],['Colombo','Sri Lanka','Asia/Colombo'],['Bangkok','Thailand','Asia/Bangkok'],['Jakarta','Indonesia','Asia/Jakarta'],['Manila','Philippines','Asia/Manila'],['Kuala Lumpur','Malaysia','Asia/Kuala_Lumpur'],['Singapore','Singapore','Asia/Singapore'],['Ho Chi Minh City','Vietnam','Asia/Ho_Chi_Minh'],['Hanoi','Vietnam','Asia/Ho_Chi_Minh'],['Hong Kong','China','Asia/Hong_Kong'],['Shanghai','China','Asia/Shanghai'],['Beijing','China','Asia/Shanghai'],['Taipei','Taiwan','Asia/Taipei'],['Seoul','South Korea','Asia/Seoul'],['Tokyo','Japan','Asia/Tokyo'],['Osaka','Japan','Asia/Tokyo'],['Sydney','Australia','Australia/Sydney'],['Melbourne','Australia','Australia/Melbourne'],['Brisbane','Australia','Australia/Brisbane'],['Perth','Australia','Australia/Perth'],['Auckland','New Zealand','Pacific/Auckland'],['UTC / GMT','—','Etc/UTC']];
+
+  var use24 = false;
+
+  /* ===== Timezone helpers (DST-safe) ===== */
+  function offsetMinutes(date, tz){
+    var dtf = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hourCycle: 'h23',
+      year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit'
+    });
+    var p = {};
+    dtf.formatToParts(date).forEach(function(x){ p[x.type] = x.value; });
+    var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    return Math.round((asUTC - date.getTime()) / 60000);
+  }
+  function wallTimeToUTC(y, m, d, h, mi, tz){
+    var guess = new Date(Date.UTC(y, m - 1, d, h, mi, 0));
+    for (var i = 0; i < 2; i++){
+      var off = offsetMinutes(guess, tz);
+      guess = new Date(Date.UTC(y, m - 1, d, h, mi, 0) - off * 60000);
+    }
+    return guess;
+  }
+  function todayInTZ(tz){ return new Intl.DateTimeFormat('en-CA', {timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date()); }
+  function nowTimeInTZ(tz){ return new Intl.DateTimeFormat('en-GB', {timeZone: tz, hour:'2-digit', minute:'2-digit', hour12:false}).format(new Date()); }
+  function dateKeyInTZ(date, tz){ return new Intl.DateTimeFormat('en-CA', {timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).format(date); }
+  function zoneAbbrev(date, tz){
+    var parts = new Intl.DateTimeFormat('en-US', {timeZone: tz, timeZoneName:'short', hour:'2-digit'}).formatToParts(date);
+    var tzPart = parts.find(function(p){ return p.type === 'timeZoneName'; });
+    return tzPart ? tzPart.value : tz;
+  }
+  function gmtOffsetStr(date, tz){
+    var mins = offsetMinutes(date, tz);
+    var sign = mins >= 0 ? '+' : '-';
+    mins = Math.abs(mins);
+    var h = Math.floor(mins / 60), m = mins % 60;
+    return 'GMT' + sign + h + (m ? ':' + String(m).padStart(2,'0') : '');
+  }
+  function fmtClock(date, tz, with24, withSeconds){
+    var opt = {timeZone: tz, hour:'2-digit', minute:'2-digit', hour12: !with24};
+    if (withSeconds) opt.second = '2-digit';
+    return new Intl.DateTimeFormat('en-US', opt).format(date);
+  }
+  function fmtDateLong(date, tz){
+    return new Intl.DateTimeFormat('en-US', {timeZone: tz, weekday:'short', month:'short', day:'numeric', year:'numeric'}).format(date);
+  }
+  function canonicalTZ(tz){
+    try { return new Intl.DateTimeFormat('en-US', {timeZone: tz}).resolvedOptions().timeZone; }
+    catch(e){ return tz; }
+  }
+
+  /* ===== State: two selected cities ===== */
+  var fromCity = null; // {city,country,tz}
+  var toCity = null;
+
+  function findCityByTZ(tz){
+    var canon = canonicalTZ(tz);
+    for (var i=0;i<CITIES.length;i++){
+      if (canonicalTZ(CITIES[i][2]) === canon) return {city:CITIES[i][0], country:CITIES[i][1], tz:CITIES[i][2]};
+    }
+    return {city: tz.split('/').pop().replace(/_/g,' '), country:'', tz: tz};
+  }
+
+  /* Default: visitor's own zone on the From side, a sensible different city on To side */
+  var visitorTz = 'Etc/UTC';
+  try { visitorTz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e){}
+  fromCity = findCityByTZ(visitorTz);
+  var defaultToTz = canonicalTZ(visitorTz) === canonicalTZ('America/New_York') ? 'Europe/London' : 'America/New_York';
+  toCity = findCityByTZ(defaultToTz);
+
+  /* ===== Searchable city dropdowns ===== */
+  function wireCitySearch(inputId, dropdownId, subId, onPick, initial){
+    var input = document.getElementById(inputId);
+    var dropdown = document.getElementById(dropdownId);
+    var sub = document.getElementById(subId);
+
+    function label(c){ return c.country && c.country !== '—' ? c.city + ', ' + c.country : c.city; }
+    function setDisplay(c){
+      input.value = label(c);
+      sub.textContent = c.tz.replace(/_/g,' ');
+    }
+    setDisplay(initial);
+
+    function renderList(query){
+      var q = query.trim().toLowerCase();
+      var matches = !q ? CITIES.slice(0, 12) : CITIES.filter(function(c){
+        return c[0].toLowerCase().indexOf(q) !== -1 || c[1].toLowerCase().indexOf(q) !== -1 || c[2].toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 20);
+      if (!matches.length){
+        dropdown.innerHTML = '<div class="empty">No matching city — try a nearby major city instead.</div>';
+      } else {
+        dropdown.innerHTML = matches.map(function(c){
+          return '<div class="opt" data-city="'+c[0].replace(/"/g,'&quot;')+'" data-country="'+c[1].replace(/"/g,'&quot;')+'" data-tz="'+c[2]+'">'+c[0]+
+            '<div class="sub">'+ (c[1] && c[1] !== '—' ? c[1]+' · ' : '') + c[2].replace(/_/g,' ') +'</div></div>';
+        }).join('');
+      }
+      dropdown.classList.add('open');
+    }
+
+    input.addEventListener('focus', function(){ renderList(''); input.select(); });
+    input.addEventListener('input', function(){ renderList(input.value); });
+    dropdown.addEventListener('click', function(e){
+      var opt = e.target.closest('.opt');
+      if (!opt) return;
+      var c = {city: opt.getAttribute('data-city'), country: opt.getAttribute('data-country'), tz: opt.getAttribute('data-tz')};
+      setDisplay(c);
+      dropdown.classList.remove('open');
+      onPick(c);
+    });
+    document.addEventListener('click', function(e){
+      if (!e.target.closest('.tc-city-search')) dropdown.classList.remove('open');
+    });
+
+    return { setDisplay: setDisplay };
+  }
+
+  var fromCtl = wireCitySearch('fromSearch', 'fromDropdown', 'fromSub', function(c){ fromCity = c; onCityChange(); }, fromCity);
+  var toCtl = wireCitySearch('toSearch', 'toDropdown', 'toSub', function(c){ toCity = c; onCityChange(); }, toCity);
+
+  function onCityChange(){
+    dateInput.value = todayInTZ(fromCity.tz);
+    timeInput.value = nowTimeInTZ(fromCity.tz);
+    document.getElementById('timeInputLabel').textContent = 'Time (' + fromCity.city + ')';
+    document.getElementById('resultLbl').textContent = 'Converted time in ' + toCity.city;
+    document.getElementById('plannerDesc').textContent = 'Each block is one hour of the selected date in ' + fromCity.city + '. Darker green = good overlap (9 AM–6 PM in both zones); light = workable in one zone; grey = outside business hours for both.';
+    document.getElementById('quickRefTitle').textContent = 'Quick Reference — ' + fromCity.city + ' to ' + toCity.city;
+    tickLive();
+    runConvert();
+    buildStrip();
+    buildQuickRef();
+  }
+
+  /* ===== Popular comparisons ===== */
+  var POPULAR = [
+    ['New York','London'], ['Los Angeles','Tokyo'], ['New Delhi','Dubai'],
+    ['London','Sydney'], ['Berlin','New York'], ['Singapore','London']
+  ];
+  (function(){
+    var row = document.getElementById('popularChips');
+    row.innerHTML = POPULAR.map(function(p){
+      return '<button class="tc-chip" data-a="'+p[0]+'" data-b="'+p[1]+'" type="button">'+p[0]+' ↔ '+p[1]+'</button>';
+    }).join('');
+    row.addEventListener('click', function(e){
+      var chip = e.target.closest('.tc-chip');
+      if (!chip) return;
+      var a = CITIES.find(function(c){ return c[0] === chip.getAttribute('data-a'); });
+      var b = CITIES.find(function(c){ return c[0] === chip.getAttribute('data-b'); });
+      if (!a || !b) return;
+      fromCity = {city:a[0], country:a[1], tz:a[2]};
+      toCity = {city:b[0], country:b[1], tz:b[2]};
+      fromCtl.setDisplay(fromCity);
+      toCtl.setDisplay(toCity);
+      onCityChange();
+    });
+  })();
+
+  /* ===== Live clocks ===== */
+  function tickLive(){
+    var now = new Date();
+    document.getElementById('fromLiveTime').textContent = fmtClock(now, fromCity.tz, use24, true);
+    document.getElementById('fromLiveDate').textContent = fmtDateLong(now, fromCity.tz);
+    document.getElementById('fromLiveOff').textContent = zoneAbbrev(now, fromCity.tz) + ' · ' + gmtOffsetStr(now, fromCity.tz);
+    document.getElementById('toLiveTime').textContent = fmtClock(now, toCity.tz, use24, true);
+    document.getElementById('toLiveDate').textContent = fmtDateLong(now, toCity.tz);
+    document.getElementById('toLiveOff').textContent = zoneAbbrev(now, toCity.tz) + ' · ' + gmtOffsetStr(now, toCity.tz);
+  }
+  setInterval(tickLive, 1000);
+
+  /* ===== Convert form ===== */
+  var dateInput = document.getElementById('dateInput');
+  var timeInput = document.getElementById('timeInput');
+  dateInput.value = todayInTZ(fromCity.tz);
+  timeInput.value = nowTimeInTZ(fromCity.tz);
+  document.getElementById('timeInputLabel').textContent = 'Time (' + fromCity.city + ')';
+  document.getElementById('resultLbl').textContent = 'Converted time in ' + toCity.city;
+
+  function readInputAsUTC(){
+    var dparts = dateInput.value.split('-').map(Number);
+    var tparts = timeInput.value.split(':').map(Number);
+    return wallTimeToUTC(dparts[0], dparts[1], dparts[2], tparts[0], tparts[1], fromCity.tz);
+  }
+
+  function runConvert(){
+    if(!dateInput.value || !timeInput.value) return;
+    var utc = readInputAsUTC();
+    document.getElementById('resultVal').textContent = fmtClock(utc, toCity.tz, use24, false);
+    document.getElementById('resultDate').textContent = fmtDateLong(utc, toCity.tz) + ' · ' + zoneAbbrev(utc, toCity.tz);
+
+    var fromKey = dateInput.value;
+    var toKey = dateKeyInTZ(utc, toCity.tz);
+    var badge = document.getElementById('dayBadge');
+    if (toKey === fromKey){ badge.textContent = 'Same day'; badge.className = 'tc-daybadge same'; }
+    else if (toKey > fromKey){ badge.textContent = 'Next day (+1)'; badge.className = 'tc-daybadge next'; }
+    else { badge.textContent = 'Previous day (−1)'; badge.className = 'tc-daybadge prev'; }
+  }
+
+  dateInput.addEventListener('input', function(){ runConvert(); buildStrip(); buildQuickRef(); });
+  timeInput.addEventListener('input', runConvert);
+
+  document.getElementById('nowBtn').addEventListener('click', function(){
+    dateInput.value = todayInTZ(fromCity.tz);
+    timeInput.value = nowTimeInTZ(fromCity.tz);
+    runConvert(); buildStrip(); buildQuickRef();
+  });
+
+  document.getElementById('fmt12').addEventListener('click', function(){
+    use24 = false; this.classList.add('active');
+    document.getElementById('fmt24').classList.remove('active');
+    runConvert(); buildQuickRef();
+  });
+  document.getElementById('fmt24').addEventListener('click', function(){
+    use24 = true; this.classList.add('active');
+    document.getElementById('fmt12').classList.remove('active');
+    runConvert(); buildQuickRef();
+  });
+
+  document.getElementById('swapBtn').addEventListener('click', function(){
+    var t = fromCity; fromCity = toCity; toCity = t;
+    fromCtl.setDisplay(fromCity);
+    toCtl.setDisplay(toCity);
+    onCityChange();
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var txt = document.getElementById('resultVal').textContent + ' (' + toCity.city + '), ' + document.getElementById('resultDate').textContent;
+    var btn = this;
+    function done(){ btn.textContent = '✓ Copied'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent = '📋 Copy result'; btn.classList.remove('copied'); }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(function(){ prompt('Copy this:', txt); }); }
+    else { prompt('Copy this:', txt); }
+  });
+
+  document.getElementById('shareBtn').addEventListener('click', function(){
+    var url = location.origin + location.pathname + '?from=' + encodeURIComponent(fromCity.tz) + '&to=' + encodeURIComponent(toCity.tz) + '&d=' + dateInput.value + '&t=' + timeInput.value;
+    if (navigator.share){ navigator.share({title: document.title, url: url}).catch(function(){}); }
+    else if (navigator.clipboard){
+      navigator.clipboard.writeText(url).then(function(){
+        var btn = document.getElementById('shareBtn');
+        btn.textContent = '✓ Link copied'; btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = '🔗 Share link'; btn.classList.remove('copied'); }, 1800);
+      });
+    } else { prompt('Copy this link:', url); }
+  });
+
+  /* Prefill from shared link */
+  (function(){
+    var qs = new URLSearchParams(location.search);
+    var qFrom = qs.get('from'), qTo = qs.get('to');
+    if (qFrom) { fromCity = findCityByTZ(qFrom); fromCtl.setDisplay(fromCity); }
+    if (qTo) { toCity = findCityByTZ(qTo); toCtl.setDisplay(toCity); }
+    if (qs.get('d')) dateInput.value = qs.get('d');
+    if (qs.get('t')) timeInput.value = qs.get('t');
+  })();
+
+  /* ===== Meeting planner strip ===== */
+  function buildStrip(){
+    var strip = document.getElementById('plannerStrip');
+    var dparts = (dateInput.value || todayInTZ(fromCity.tz)).split('-').map(Number);
+    var nowKeyFrom = dateKeyInTZ(new Date(), fromCity.tz);
+    var nowHourFrom = +nowTimeInTZ(fromCity.tz).split(':')[0];
+    var html = '';
+    for (var h = 0; h < 24; h++){
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, fromCity.tz);
+      var toHour = +new Intl.DateTimeFormat('en-GB', {timeZone: toCity.tz, hour:'2-digit', hour12:false}).format(utc);
+      var fromBiz = (h >= 9 && h < 18);
+      var toBiz = (toHour >= 9 && toHour < 18);
+      var cls = 'poor';
+      if (fromBiz && toBiz) cls = 'good'; else if (fromBiz || toBiz) cls = 'ok';
+      var isNow = (dateInput.value === nowKeyFrom && h === nowHourFrom);
+      html += '<div class="cell ' + cls + (isNow ? ' now' : '') + '" title="' + (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? 'AM' : 'PM') + ' ' + fromCity.city + ' → ' + (toHour % 12 === 0 ? 12 : toHour % 12) + (toHour < 12 ? 'AM' : 'PM') + ' ' + toCity.city + '"></div>';
+    }
+    strip.innerHTML = html;
+  }
+
+  /* ===== Quick reference table ===== */
+  function buildQuickRef(){
+    var table = document.getElementById('quickRefTable');
+    var dparts = (dateInput.value || todayInTZ(fromCity.tz)).split('-').map(Number);
+    var nowHourFrom = (dateInput.value === todayInTZ(fromCity.tz)) ? +nowTimeInTZ(fromCity.tz).split(':')[0] : -1;
+    var rows = '<tr><th>' + fromCity.city + '</th><th>' + toCity.city + '</th></tr>';
+    [0,3,6,9,12,15,18,21].forEach(function(h){
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, fromCity.tz);
+      var fromStr = fmtClock(utc, fromCity.tz, use24, false);
+      var toStr = fmtClock(utc, toCity.tz, use24, false);
+      var toDay = dateKeyInTZ(utc, toCity.tz) === dateInput.value ? '' : (dateKeyInTZ(utc, toCity.tz) > dateInput.value ? ' (+1d)' : ' (−1d)');
+      rows += '<tr' + (h === nowHourFrom ? ' class="now-row"' : '') + '><td>' + fromStr + '</td><td>' + toStr + toDay + '</td></tr>';
+    });
+    table.innerHTML = rows;
+  }
+
+  tickLive();
+  runConvert();
+  buildStrip();
+  buildQuickRef();
+})();
+</script>
+</body>
+</html>
