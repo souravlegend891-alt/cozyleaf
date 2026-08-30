@@ -66,6 +66,14 @@
   .tc-live-time{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;margin-top:8px;color:var(--c-convert);letter-spacing:.01em;}
   .tc-live-date{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
   .tc-live-off{display:inline-block;max-width:100%;margin-top:8px;font-size:10.5px;font-weight:700;color:#fff;background:var(--c-convert);padding:4px 10px;border-radius:12px;white-space:normal;word-break:break-word;line-height:1.4;}
+  .tc-offset-note{font-size:11px;color:var(--ink-soft);margin-top:8px;line-height:1.45;text-align:left;}
+
+  .tc-cities{margin-top:26px;}
+  .tc-cities h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin-bottom:4px;}
+  .tc-cities .grp{margin-bottom:16px;}
+  .tc-cities .grp-title{font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:8px;}
+  .tc-city-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .tc-city-chip{padding:7px 12px;border-radius:20px;background:#fff;border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--ink);}
   .tc-you-row{margin-bottom:16px;}
   .tc-you-card{
     background:#FBFAF7;border:1.5px dashed var(--line);border-radius:12px;padding:10px 14px;
@@ -174,6 +182,31 @@
 
   .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
 
+  .tc-quickpicks{margin-top:12px;}
+  .tc-qp-label{font-size:11px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;}
+  .tc-chip-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+  .tc-chip-scroll::-webkit-scrollbar{height:4px;}
+  .tc-qchip{flex:0 0 auto;padding:8px 14px;border-radius:20px;border:1.5px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;cursor:pointer;font-family:'Inter',sans-serif;}
+  .tc-qchip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  .tc-tl-wrap{margin-bottom:4px;}
+  .tc-tl-label{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+  .tc-tl-label span:last-child{font-size:10.5px;font-weight:600;color:var(--ink-soft);}
+  .tc-tl-bar{position:relative;display:flex;height:32px;border-radius:16px;overflow:hidden;background:#EEE;}
+  .tc-tl-bar .seg{flex:1;}
+  .tc-tl-bar .seg.night{background:#EDEBE4;}
+  .tc-tl-bar .seg.edge{background:#FCEFDD;}
+  .tc-tl-bar .seg.work{background:#8FD9CE;}
+  .tc-tl-marker{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);pointer-events:none;}
+  .tc-tl-marker.now{background:#E85436;width:2px;z-index:2;}
+  .tc-tl-marker.now .dot{position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:#E85436;box-shadow:0 0 0 3px rgba(232,84,54,.22);}
+  .tc-tl-hours{display:flex;justify-content:space-between;font-size:9.5px;color:var(--ink-soft);margin-top:4px;padding:0 2px;}
+
+  .tc-row-copy{border:none;background:none;cursor:pointer;font-size:13px;padding:2px 4px;color:var(--ink-soft);}
+  .tc-row-copy:hover{color:var(--c-convert);}
+  table.tc-table th:last-child, table.tc-table td:last-child{width:34px;text-align:center;padding-left:0;padding-right:6px;}
+
+
   @media (max-width:380px){
     .tc-live-time{font-size:20px;}
     .tc-strip{grid-template-columns:repeat(12,1fr);}
@@ -202,6 +235,7 @@
         <div class="tc-live-time" id="fromLiveTime">--:--:--</div>
         <div class="tc-live-date" id="fromLiveDate">—</div>
         <div class="tc-live-off" id="fromLiveOff">—</div>
+        <div class="tc-offset-note" id="fromOffsetNote"></div>
       </div>
       <div class="tc-live-card">
         <div class="tc-live-tag">To</div>
@@ -209,6 +243,7 @@
         <div class="tc-live-time" id="toLiveTime">--:--:--</div>
         <div class="tc-live-date" id="toLiveDate">—</div>
         <div class="tc-live-off" id="toLiveOff">—</div>
+        <div class="tc-offset-note" id="toOffsetNote"></div>
       </div>
     </div>
 
@@ -229,6 +264,15 @@
       </div>
     </div>
 
+    <div class="tc-quickpicks">
+      <div class="tc-qp-label">Jump to a date</div>
+      <div class="tc-chip-scroll" id="dateChips"></div>
+    </div>
+    <div class="tc-quickpicks">
+      <div class="tc-qp-label">Jump to a time</div>
+      <div class="tc-chip-scroll" id="timeChips"></div>
+    </div>
+
     <div class="tc-fmt-toggle">
       <button id="fmt12" class="active" type="button">12-hour (AM/PM)</button>
       <button id="fmt24" type="button">24-hour</button>
@@ -245,20 +289,30 @@
       <div class="tc-actions">
         <button id="copyBtn" type="button">📋 Copy result</button>
         <button id="shareBtn" type="button">🔗 Share link</button>
+        <button id="addCalBtn" type="button">📅 Add to Calendar</button>
       </div>
     </div>
   </div>
 
   <div class="tc-planner">
-    <h2>Meeting Planner — best overlap hours</h2>
-    <p>Each block is one hour of the selected date in PST. Darker green = good overlap (9 AM–6 PM in both zones); light = workable in one zone; grey = outside business hours for both.</p>
+    <h2>Meeting Planner — live overlap timeline</h2>
+    <p>Mint = business hours (9 AM–6 PM) in that zone; peach = early/late hours; grey = overnight. The dark line marks your selected time<span id="nowMarkerNote"></span>.</p>
     <div class="tc-strip-wrap">
-      <div class="tc-strip-label"><span>12 AM</span><span>12 PM</span><span>11 PM</span></div>
-      <div class="tc-strip" id="plannerStrip"></div>
-      <div class="tc-legend">
-        <span><i style="background:#159C8F"></i> Good for both</span>
-        <span><i style="background:#8FD9CE"></i> Okay for one side</span>
-        <span><i style="background:#F0EFEA"></i> Outside working hours</span>
+      <div class="tc-tl-wrap">
+        <div class="tc-tl-label"><span id="tlFromLabel">PST</span><span id="tlFromDateRange"></span></div>
+        <div class="tc-tl-bar" id="tlFromBar"></div>
+        <div class="tc-tl-hours" id="tlFromHours"></div>
+      </div>
+      <div class="tc-tl-wrap" style="margin-top:14px;">
+        <div class="tc-tl-label"><span id="tlToLabel">IST</span><span id="tlToDateRange"></span></div>
+        <div class="tc-tl-bar" id="tlToBar"></div>
+        <div class="tc-tl-hours" id="tlToHours"></div>
+      </div>
+      <div class="tc-legend" style="margin-top:12px;">
+        <span><i style="background:#8FD9CE"></i> Business hours</span>
+        <span><i style="background:#FCEFDD"></i> Early / late</span>
+        <span><i style="background:#EDEBE4"></i> Overnight</span>
+        <span><i style="background:#E85436;border-radius:50%;"></i> Now</span>
       </div>
     </div>
   </div>
@@ -267,8 +321,20 @@
     <h2>Quick Reference — PST to IST</h2>
     <div class="tc-table-wrap">
       <table class="tc-table" id="quickRefTable">
-        <tr><th>PST</th><th>IST</th></tr>
+        <tr><th>PST</th><th>IST</th><th></th></tr>
       </table>
+    </div>
+  </div>
+
+  <div class="tc-cities">
+    <h2>Popular Cities</h2>
+    <div class="grp">
+      <div class="grp-title" id="fromCitiesTitle">Cities using PST</div>
+      <div class="tc-city-chips" id="fromCityChips"></div>
+    </div>
+    <div class="grp">
+      <div class="grp-title" id="toCitiesTitle">Cities using IST</div>
+      <div class="tc-city-chips" id="toCityChips"></div>
     </div>
   </div>
 
@@ -474,17 +540,71 @@ document.addEventListener('DOMContentLoaded', function(){
     return new Intl.DateTimeFormat('en-US', {timeZone: tz, weekday:'short', month:'short', day:'numeric', year:'numeric'}).format(date);
   }
 
+  // Does this zone ever change its offset across the year (i.e. observes DST)?
+  function zoneObservesDST(tz){
+    var y = new Date().getFullYear();
+    var jan = offsetMinutes(new Date(Date.UTC(y, 0, 1)), tz);
+    var jul = offsetMinutes(new Date(Date.UTC(y, 6, 1)), tz);
+    return jan !== jul;
+  }
+
+  // Plain-English explanation of a zone's current offset from UTC, e.g.
+  // "PST is currently 7 hours ahead... " -> shown under each live clock.
+  function offsetSentence(label, tz){
+    var now = new Date();
+    var mins = offsetMinutes(now, tz);
+    if (mins === 0){
+      return label + ' is the same as Universal Time (UTC+0) right now.';
+    }
+    var sign = mins > 0 ? 'ahead of' : 'behind';
+    var absMin = Math.abs(mins);
+    var h = Math.floor(absMin / 60), m = absMin % 60;
+    var phrase = h + (h === 1 ? ' hour' : ' hours') + (m ? ' ' + m + ' minutes' : '');
+    var utcStr = gmtOffsetStr(now, tz).replace('GMT', 'UTC');
+    var sentence = label + ' is currently ' + phrase + ' ' + sign + ' Universal Time (' + utcStr + ').';
+    if (zoneObservesDST(tz)){
+      sentence += ' ' + zoneAbbrev(now, tz) + ' is in effect right now.';
+    } else {
+      sentence += ' This zone does not observe Daylight Saving Time.';
+    }
+    return sentence;
+  }
+
+  // Popular cities shown per named zone, for context and internal search coverage.
+  var CITY_LISTS = {
+    'GMT': ['London','Dublin','Lisbon','Edinburgh','Manchester','Accra','Dakar','Reykjavik'],
+    'PST': ['Los Angeles','San Francisco','Seattle','San Diego','Portland','Sacramento','Las Vegas','Vancouver'],
+    'EST': ['New York','Miami','Boston','Washington D.C.','Atlanta','Philadelphia','Orlando','Toronto'],
+    'CST': ['Chicago','Houston','Dallas','Austin','San Antonio','Minneapolis','New Orleans','Kansas City'],
+    'IST': ['New Delhi','Mumbai','Bangalore','Kolkata','Chennai','Hyderabad','Pune','Ahmedabad']
+  };
+  function renderCityChips(elId, titleId, label){
+    var el = document.getElementById(elId);
+    var titleEl = document.getElementById(titleId);
+    if (titleEl) titleEl.textContent = 'Cities using ' + label;
+    if (!el) return;
+    var list = CITY_LISTS[label];
+    var section = el.closest('.grp');
+    if (!list){ if (section) section.style.display = 'none'; return; }
+    if (section) section.style.display = '';
+    el.innerHTML = list.map(function(c){ return '<span class="tc-city-chip">' + c + '</span>'; }).join('');
+  }
+
   /* ===== Live clocks ===== */
   function tickLive(){
     var now = new Date();
     document.getElementById('fromLiveTime').textContent = fmtClock(now, FROM_TZ, use24, true);
     document.getElementById('fromLiveDate').textContent = fmtDateLong(now, FROM_TZ);
     document.getElementById('fromLiveOff').textContent = zoneAbbrev(now, FROM_TZ) + ' · ' + gmtOffsetStr(now, FROM_TZ);
+    document.getElementById('fromOffsetNote').textContent = offsetSentence(FROM_LABEL, FROM_TZ);
     document.getElementById('toLiveTime').textContent = fmtClock(now, TO_TZ, use24, true);
     document.getElementById('toLiveDate').textContent = fmtDateLong(now, TO_TZ);
     document.getElementById('toLiveOff').textContent = zoneAbbrev(now, TO_TZ) + ' · ' + gmtOffsetStr(now, TO_TZ);
+    document.getElementById('toOffsetNote').textContent = offsetSentence(TO_LABEL, TO_TZ);
   }
   tickLive();
+  renderCityChips('fromCityChips', 'fromCitiesTitle', FROM_LABEL);
+  renderCityChips('toCityChips', 'toCitiesTitle', TO_LABEL);
   setInterval(tickLive, 1000);
 
   /* ===== Detect visitor's own zone ===== */
@@ -504,7 +624,12 @@ document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('youRow').style.display = 'block';
       document.getElementById('useYouBtn').addEventListener('click', function(){
         TO_TZ = youTz;
-        document.getElementById('toZoneLabel').textContent = youTz.split('/').pop().replace('_',' ');
+        TO_LABEL = youTz.split('/').pop().replace(/_/g, ' ');
+        document.getElementById('toZoneLabel').textContent = TO_LABEL;
+        var resLbl = document.querySelector('.tc-result .lbl');
+        if (resLbl) resLbl.textContent = 'Converted time in ' + TO_LABEL;
+        renderCityChips('fromCityChips', 'fromCitiesTitle', FROM_LABEL);
+        renderCityChips('toCityChips', 'toCitiesTitle', TO_LABEL);
         tickLive();
         runConvert();
         buildStrip();
@@ -545,13 +670,13 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  dateInput.addEventListener('input', function(){ runConvert(); buildStrip(); buildQuickRef(); });
-  timeInput.addEventListener('input', runConvert);
+  dateInput.addEventListener('input', function(){ runConvert(); buildStrip(); buildQuickRef(); syncChips(); });
+  timeInput.addEventListener('input', function(){ runConvert(); buildStrip(); buildQuickRef(); syncChips(); });
 
   document.getElementById('nowBtn').addEventListener('click', function(){
     dateInput.value = todayInTZ(FROM_TZ);
     timeInput.value = nowTimeInTZ(FROM_TZ);
-    runConvert(); buildStrip(); buildQuickRef();
+    runConvert(); buildStrip(); buildQuickRef(); buildDateChips(); syncChips();
   });
 
   document.getElementById('fmt12').addEventListener('click', function(){
@@ -578,7 +703,9 @@ document.addEventListener('DOMContentLoaded', function(){
     if (timeLbl) timeLbl.textContent = 'Time (' + FROM_LABEL + ')';
     var resLbl = document.querySelector('.tc-result .lbl');
     if (resLbl) resLbl.textContent = 'Converted time in ' + TO_LABEL;
-    tickLive(); runConvert(); buildStrip(); buildQuickRef();
+    renderCityChips('fromCityChips', 'fromCitiesTitle', FROM_LABEL);
+    renderCityChips('toCityChips', 'toCitiesTitle', TO_LABEL);
+    tickLive(); runConvert(); buildStrip(); buildQuickRef(); buildDateChips(); syncChips();
   });
 
   document.getElementById('copyBtn').addEventListener('click', function(){
@@ -603,6 +730,171 @@ document.addEventListener('DOMContentLoaded', function(){
     } else { prompt('Copy this link:', url); }
   });
 
+  document.getElementById('addCalBtn').addEventListener('click', function(){
+    var startUtc = readInputAsUTC();
+    var endUtc = new Date(startUtc.getTime() + 30 * 60000);
+    function fmtG(d){ return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'; }
+    var title = encodeURIComponent(FROM_LABEL + ' \u2194 ' + TO_LABEL + ' — ' + document.getElementById('resultVal').textContent + ' ' + TO_LABEL);
+    var details = encodeURIComponent(
+      'Scheduled for ' + fmtClock(startUtc, FROM_TZ, use24, false) + ' ' + FROM_LABEL +
+      ', which is ' + document.getElementById('resultVal').textContent + ' ' + TO_LABEL +
+      ' (' + document.getElementById('resultDate').textContent + '). Created with the Cozyleaf Time Zone Converter.'
+    );
+    var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + title +
+      '&dates=' + fmtG(startUtc) + '/' + fmtG(endUtc) + '&details=' + details;
+    window.open(url, '_blank');
+  });
+
+  /* ===== Meeting planner: dual timeline bars ===== */
+  function classifyHour(h){
+    if (h >= 9 && h < 18) return 'work';
+    if ((h >= 7 && h < 9) || (h >= 18 && h < 21)) return 'edge';
+    return 'night';
+  }
+  function fmtShortDateFromParts(y,m,d){
+    return new Intl.DateTimeFormat('en-US', {month:'short', day:'numeric'}).format(new Date(Date.UTC(y, m-1, d)));
+  }
+  function fmtShortDateFromKey(key){
+    var p = key.split('-').map(Number);
+    return fmtShortDateFromParts(p[0], p[1], p[2]);
+  }
+  function renderBar(id, segs, selFraction, nowFraction){
+    var bar = document.getElementById(id);
+    if (!bar) return;
+    var html = segs.map(function(c){ return '<div class="seg ' + c + '"></div>'; }).join('');
+    html += '<div class="tc-tl-marker" style="left:' + (selFraction * 100) + '%"></div>';
+    if (nowFraction !== null && nowFraction !== undefined){
+      html += '<div class="tc-tl-marker now" style="left:' + (nowFraction * 100) + '%"><span class="dot"></span></div>';
+    }
+    bar.innerHTML = html;
+  }
+  function renderHourTicks(id, tz, dparts){
+    var el = document.getElementById(id);
+    if (!el) return;
+    var marks = [0, 6, 12, 18];
+    el.innerHTML = marks.map(function(h){
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
+      return '<span>' + fmtClock(utc, tz, false, false) + '</span>';
+    }).join('');
+  }
+
+  function buildStrip(){
+    var dparts = (dateInput.value || todayInTZ(FROM_TZ)).split('-').map(Number);
+    var selH = timeInput.value ? +timeInput.value.split(':')[0] : 0;
+    var selM = timeInput.value ? +timeInput.value.split(':')[1] : 0;
+    var selFraction = (selH + selM / 60) / 24;
+
+    var nowKeyFrom = dateKeyInTZ(new Date(), FROM_TZ);
+    var isToday = (dateInput.value === nowKeyFrom);
+    var nowFraction = null;
+    if (isToday){
+      var nowT = nowTimeInTZ(FROM_TZ).split(':');
+      nowFraction = (+nowT[0] + (+nowT[1]) / 60) / 24;
+    }
+
+    var fromSegs = [], toSegs = [], toDateKeys = [];
+    for (var h = 0; h < 24; h++){
+      fromSegs.push(classifyHour(h));
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
+      var toHour = +new Intl.DateTimeFormat('en-GB', {timeZone: TO_TZ, hour:'2-digit', hour12:false}).format(utc);
+      toSegs.push(classifyHour(toHour));
+      toDateKeys.push(dateKeyInTZ(utc, TO_TZ));
+    }
+
+    renderBar('tlFromBar', fromSegs, selFraction, isToday ? nowFraction : null);
+    renderBar('tlToBar', toSegs, selFraction, isToday ? nowFraction : null);
+    renderHourTicks('tlFromHours', FROM_TZ, dparts);
+    renderHourTicks('tlToHours', TO_TZ, dparts);
+
+    var fromLbl = document.getElementById('tlFromLabel');
+    var toLbl = document.getElementById('tlToLabel');
+    if (fromLbl) fromLbl.textContent = FROM_LABEL;
+    if (toLbl) toLbl.textContent = TO_LABEL;
+
+    var fromRangeEl = document.getElementById('tlFromDateRange');
+    if (fromRangeEl) fromRangeEl.textContent = fmtShortDateFromParts(dparts[0], dparts[1], dparts[2]);
+    var toRangeEl = document.getElementById('tlToDateRange');
+    if (toRangeEl){
+      var toStart = toDateKeys[0], toEnd = toDateKeys[23];
+      toRangeEl.textContent = toStart === toEnd
+        ? fmtShortDateFromKey(toStart)
+        : (fmtShortDateFromKey(toStart) + ' → ' + fmtShortDateFromKey(toEnd));
+    }
+
+    var noteEl = document.getElementById('nowMarkerNote');
+    if (noteEl) noteEl.textContent = isToday ? '; the red dot marks the current moment.' : '.';
+  }
+
+  /* ===== Quick reference table (with per-row copy) ===== */
+  function buildQuickRef(){
+    var table = document.getElementById('quickRefTable');
+    var dparts = (dateInput.value || todayInTZ(FROM_TZ)).split('-').map(Number);
+    var nowHourFrom = (dateInput.value === todayInTZ(FROM_TZ)) ? +nowTimeInTZ(FROM_TZ).split(':')[0] : -1;
+    var rows = '<tr><th>' + FROM_LABEL + '</th><th>' + TO_LABEL + '</th><th></th></tr>';
+    [0,3,6,9,12,15,18,21].forEach(function(h){
+      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
+      var fromStr = fmtClock(utc, FROM_TZ, use24, false);
+      var toStr = fmtClock(utc, TO_TZ, use24, false);
+      var toDay = dateKeyInTZ(utc, TO_TZ) === dateInput.value ? '' : (dateKeyInTZ(utc, TO_TZ) > dateInput.value ? ' (+1d)' : ' (−1d)');
+      var copyText = (fromStr + ' ' + FROM_LABEL + ' = ' + toStr + toDay + ' ' + TO_LABEL).replace(/"/g, '&quot;');
+      rows += '<tr' + (h === nowHourFrom ? ' class="now-row"' : '') + '><td>' + fromStr + '</td><td>' + toStr + toDay + '</td><td><button type="button" class="tc-row-copy" data-text="' + copyText + '" title="Copy this row">📋</button></td></tr>';
+    });
+    table.innerHTML = rows;
+  }
+  document.getElementById('quickRefTable').addEventListener('click', function(e){
+    var btn = e.target.closest('.tc-row-copy');
+    if (!btn) return;
+    var txt = btn.getAttribute('data-text');
+    function done(){ btn.textContent = '✓'; setTimeout(function(){ btn.textContent = '📋'; }, 1400); }
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(function(){ prompt('Copy this:', txt); }); }
+    else { prompt('Copy this:', txt); }
+  });
+
+  /* ===== Quick-pick chips: date and time ===== */
+  function buildDateChips(){
+    var row = document.getElementById('dateChips');
+    if (!row) return;
+    var todayStr = todayInTZ(FROM_TZ);
+    var tp = todayStr.split('-').map(Number);
+    var html = '';
+    for (var i = 0; i < 6; i++){
+      var d = new Date(Date.UTC(tp[0], tp[1] - 1, tp[2] + i));
+      var key = d.toISOString().slice(0, 10);
+      var label = i === 0 ? 'Today' : new Intl.DateTimeFormat('en-US', {weekday:'short', day:'numeric'}).format(d);
+      html += '<button type="button" class="tc-qchip" data-d="' + key + '">' + label + '</button>';
+    }
+    row.innerHTML = html;
+    syncChips();
+  }
+  function buildTimeChips(){
+    var row = document.getElementById('timeChips');
+    if (!row) return;
+    var html = '';
+    for (var h = 0; h < 24; h++){
+      var label = (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? ' AM' : ' PM');
+      html += '<button type="button" class="tc-qchip" data-h="' + h + '">' + label + '</button>';
+    }
+    row.innerHTML = html;
+    syncChips();
+  }
+  function syncChips(){
+    var dChips = document.querySelectorAll('#dateChips .tc-qchip');
+    dChips.forEach(function(c){ c.classList.toggle('active', c.getAttribute('data-d') === dateInput.value); });
+    var curH = timeInput.value ? +timeInput.value.split(':')[0] : -1;
+    var tChips = document.querySelectorAll('#timeChips .tc-qchip');
+    tChips.forEach(function(c){ c.classList.toggle('active', +c.getAttribute('data-h') === curH); });
+  }
+  document.getElementById('dateChips').addEventListener('click', function(e){
+    var chip = e.target.closest('.tc-qchip'); if (!chip) return;
+    dateInput.value = chip.getAttribute('data-d');
+    runConvert(); buildStrip(); buildQuickRef(); buildDateChips();
+  });
+  document.getElementById('timeChips').addEventListener('click', function(e){
+    var chip = e.target.closest('.tc-qchip'); if (!chip) return;
+    timeInput.value = String(chip.getAttribute('data-h')).padStart(2, '0') + ':00';
+    runConvert(); buildStrip(); buildQuickRef(); syncChips();
+  });
+
   /* Prefill from shared link */
   (function(){
     var qs = new URLSearchParams(location.search);
@@ -610,47 +902,16 @@ document.addEventListener('DOMContentLoaded', function(){
     if (qs.get('t')) timeInput.value = qs.get('t');
   })();
 
-  /* ===== Meeting planner strip ===== */
-  function buildStrip(){
-    var strip = document.getElementById('plannerStrip');
-    var dparts = (dateInput.value || todayInTZ(FROM_TZ)).split('-').map(Number);
-    var nowKeyFrom = dateKeyInTZ(new Date(), FROM_TZ);
-    var nowHourFrom = +nowTimeInTZ(FROM_TZ).split(':')[0];
-    var html = '';
-    for (var h = 0; h < 24; h++){
-      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
-      var toHour = +new Intl.DateTimeFormat('en-GB', {timeZone: TO_TZ, hour:'2-digit', hour12:false}).format(utc);
-      var fromBiz = (h >= 9 && h < 18);
-      var toBiz = (toHour >= 9 && toHour < 18);
-      var cls = 'poor';
-      if (fromBiz && toBiz) cls = 'good';
-      else if (fromBiz || toBiz) cls = 'ok';
-      var isNow = (dateInput.value === nowKeyFrom && h === nowHourFrom);
-      html += '<div class="cell ' + cls + (isNow ? ' now' : '') + '" title="' + (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? 'AM' : 'PM') + ' ' + FROM_LABEL + ' → ' + (toHour % 12 === 0 ? 12 : toHour % 12) + (toHour < 12 ? 'AM' : 'PM') + ' ' + TO_LABEL + '"></div>';
-    }
-    strip.innerHTML = html;
-  }
+  /* ===== Initial render ===== */
+  buildDateChips();
+  buildTimeChips();
   buildStrip();
-
-  /* ===== Quick reference table ===== */
-  function buildQuickRef(){
-    var table = document.getElementById('quickRefTable');
-    var dparts = (dateInput.value || todayInTZ(FROM_TZ)).split('-').map(Number);
-    var nowHourFrom = (dateInput.value === todayInTZ(FROM_TZ)) ? +nowTimeInTZ(FROM_TZ).split(':')[0] : -1;
-    var rows = '<tr><th>' + FROM_LABEL + '</th><th>' + TO_LABEL + '</th></tr>';
-    [0,3,6,9,12,15,18,21].forEach(function(h){
-      var utc = wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ);
-      var fromStr = fmtClock(wallTimeToUTC(dparts[0], dparts[1], dparts[2], h, 0, FROM_TZ), FROM_TZ, use24, false);
-      var toStr = fmtClock(utc, TO_TZ, use24, false);
-      var toDay = dateKeyInTZ(utc, TO_TZ) === dateInput.value ? '' : (dateKeyInTZ(utc, TO_TZ) > dateInput.value ? ' (+1d)' : ' (−1d)');
-      rows += '<tr' + (h === nowHourFrom ? ' class="now-row"' : '') + '><td>' + fromStr + '</td><td>' + toStr + toDay + '</td></tr>';
-    });
-    table.innerHTML = rows;
-  }
   buildQuickRef();
-
+  syncChips();
   runConvert();
 })();
+
+
 </script>
 </body>
 </html>
