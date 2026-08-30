@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Glitch Text Generator - Zalgo & Corrupted Text Online | Cozyleaf</title>
+<meta name="description" content="Free glitch text generator with an adjustable Zalgo corruption slider, live animated preview, 27 strike/mirror/wide styles, and a platform character-limit checker. No sign-up needed.">
+<meta name="keywords" content="glitch text generator, zalgo text generator, corrupted text, cursed text generator, glitch text copy paste, weird text generator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/glitch-text-generator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Glitch Text Generator - Zalgo & Corrupted Text Online">
+<meta property="og:description" content="Free glitch text generator with an adjustable Zalgo slider, live animated preview, and 27 strike/mirror/wide styles. No sign-up needed.">
+<meta property="og:url" content="https://cozyleaf.in/glitch-text-generator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Glitch Text Generator - Cozyleaf">
+<meta name="twitter:description" content="Free glitch text generator with an adjustable Zalgo slider and 27 corrupted/strike/mirror text styles. No sign-up needed.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Glitch Text Generator",
+  "url": "https://cozyleaf.in/glitch-text-generator.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online glitch text generator with an adjustable Zalgo corruption slider, live animated preview, and 27 strike, mirror and wide-spaced text styles, plus a platform character-limit checker."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is glitch or Zalgo text?","acceptedAnswer":{"@type":"Answer","text":"Glitch text, often called Zalgo or cursed text, is built by stacking Unicode combining marks on top of ordinary letters. Piling several onto every character makes the text look like it is corrupting or breaking apart, even though it is still standard Unicode text."}},
+    {"@type":"Question","name":"Will glitch text work on Instagram, Discord and TikTok?","acceptedAnswer":{"@type":"Answer","text":"Yes. These are standard Unicode characters, so they display correctly anywhere that supports Unicode text. Very heavy Zalgo text may get visually trimmed on some platforms, though the underlying text is unaffected."}},
+    {"@type":"Question","name":"Why do some upside-down letters look different from the original?","acceptedAnswer":{"@type":"Answer","text":"Unicode does not have a true rotated glyph for every letter, so the upside-down style uses the closest visual look-alike character available. A few letters, like l or o, do not have a distinct flipped form, so they stay the same."}},
+    {"@type":"Question","name":"Does anything get uploaded when I type on this page?","acceptedAnswer":{"@type":"Answer","text":"No. Every transformation runs locally in your browser, your text is never sent to a server, and saved favorites are stored only in your browser's local storage."}},
+    {"@type":"Question","name":"Is this glitch text generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* Page-specific only — colors, header, .wrap/.card/h1 sizing all
+     come from style.css so this page matches every other page. */
+
+  /* live glitch preview */
+  .glitch-preview{
+    position:relative;margin-top:14px;padding:34px 12px;text-align:center;
+    overflow:hidden;border-radius:var(--radius);background:var(--header);
+  }
+  .glitch-preview::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 3px);
+  }
+  .glitch-preview .gp-text{
+    position:relative;display:inline-block;max-width:100%;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;
+    font-size:clamp(22px,7vw,40px);letter-spacing:.01em;word-break:break-word;
+  }
+  .glitch-preview .gp-text::before,.glitch-preview .gp-text::after{
+    content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
+    background:var(--header);overflow:hidden;
+  }
+  .glitch-preview .gp-text::before{left:3px;color:#ff3d68;animation:gtGlitch1 3.4s infinite linear alternate-reverse;}
+  .glitch-preview .gp-text::after{left:-3px;color:#33e6ff;animation:gtGlitch2 2.6s infinite linear alternate-reverse;}
+  .glitch-preview.static .gp-text::before,.glitch-preview.static .gp-text::after{animation:none;opacity:.5;}
+  @keyframes gtGlitch1{
+    0%{clip-path:inset(8% 0 78% 0);transform:translate(-2px,-1px);}
+    20%{clip-path:inset(58% 0 4% 0);transform:translate(2px,1px);}
+    40%{clip-path:inset(24% 0 60% 0);transform:translate(-1px,2px);}
+    60%{clip-path:inset(70% 0 8% 0);transform:translate(2px,-2px);}
+    80%{clip-path:inset(40% 0 40% 0);transform:translate(-2px,1px);}
+    100%{clip-path:inset(5% 0 80% 0);transform:translate(1px,-1px);}
+  }
+  @keyframes gtGlitch2{
+    0%{clip-path:inset(70% 0 6% 0);transform:translate(2px,1px);}
+    25%{clip-path:inset(15% 0 68% 0);transform:translate(-2px,-1px);}
+    50%{clip-path:inset(45% 0 35% 0);transform:translate(1px,2px);}
+    75%{clip-path:inset(5% 0 82% 0);transform:translate(-1px,-2px);}
+    100%{clip-path:inset(60% 0 15% 0);transform:translate(2px,1px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .glitch-preview .gp-text::before,.glitch-preview .gp-text::after{animation:none;opacity:.5;}
+  }
+
+  .gt-length-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;}
+  .gt-chip{font-size:11px;padding:6px 10px;border-radius:100px;background:var(--hover);color:var(--ink-soft);font-weight:600;}
+  .gt-chip.over{background:#FDEBEA;color:#C0392B;}
+
+  .gt-toggle{display:flex;gap:6px;margin-top:12px;}
+  .gt-toggle button{
+    flex:1;padding:9px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
+    color:var(--ink-soft);font-size:12.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;
+  }
+  .gt-toggle button.active{background:var(--cta);border-color:var(--cta);color:#fff;}
+
+  .gt-presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .chip-btn{
+    border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
+    font-size:12.5px;font-weight:700;padding:8px 13px;border-radius:100px;cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .chip-btn:hover{border-color:var(--cta);color:var(--cta-dark);}
+
+  .gt-sliders{display:flex;flex-direction:column;gap:16px;margin:16px 0 14px;}
+  .gt-sliders .row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-soft);
+    font-weight:600;margin-bottom:7px;text-transform:uppercase;letter-spacing:.03em;}
+  .gt-sliders .row span{color:var(--cta-dark);font-family:'IBM Plex Mono',monospace;}
+  .gt-sliders input[type=range]{width:100%;accent-color:var(--cta);}
+
+  .gt-result{
+    background:var(--hover);border-radius:var(--radius);padding:16px;
+    font-size:17px;line-height:2.1;word-break:break-word;color:var(--ink);min-height:56px;
+  }
+  .gt-result-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .btn-outline{
+    border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:9px 14px;border-radius:10px;
+    cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s;
+  }
+  .btn-outline:hover{border-color:var(--cta);color:var(--cta-dark);}
+
+  .gt-style-list{display:flex;flex-direction:column;}
+  .gt-style-row{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:13px 2px;border-bottom:1px solid var(--line);
+  }
+  .gt-style-row:last-child{border-bottom:none;}
+  .gt-style-row .gt-out{font-size:16px;color:var(--ink);word-break:break-word;flex:1;line-height:1.5;}
+  .gt-style-row .gt-label{display:block;font-size:11px;color:var(--ink-soft);margin-top:3px;font-weight:600;}
+  .gt-style-row .gt-actions{display:flex;gap:6px;flex-shrink:0;}
+
+  .gt-icon-btn{
+    width:34px;height:34px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
+    display:grid;place-items:center;cursor:pointer;font-size:15px;flex-shrink:0;
+  }
+  .gt-icon-btn:hover{border-color:var(--cta);}
+  .gt-icon-btn.saved{background:var(--cta);border-color:var(--cta);color:#fff;}
+
+  .gt-fav-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:11px 2px;border-bottom:1px solid var(--line);font-size:14.5px;
+  }
+  .gt-fav-row:last-child{border-bottom:none;}
+  .gt-fav-row .gt-out{flex:1;word-break:break-word;}
+
+  .gt-toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);
+    background:var(--header);color:#fff;padding:10px 18px;border-radius:100px;font-size:13px;font-weight:600;
+    opacity:0;transition:.2s;pointer-events:none;z-index:250;
+  }
+  .gt-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .more-tools{margin:20px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{
+    display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;
+    background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:13px;font-weight:600;transition:.15s;
+  }
+  .tool-grid a:hover{border-color:var(--cta);background:var(--hover);}
+  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
+  .more-toggle{width:100%;padding:12px;border-radius:12px;border:1.5px dashed var(--line);background:var(--hover);color:var(--cta-dark);font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;}
+  .more-toggle:hover{border-color:var(--cta);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);color:var(--cta-dark);}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Name Generator Tools</div>
+  <h1>Glitch Text Generator</h1>
+  <p class="hero-p">Corrupt your text with an adjustable Zalgo slider, strike it through, flip it upside down, or spread it out — with a live animated preview and a character-limit checker for Instagram, X, Discord and more.</p>
+
+  <div class="card">
+    <div class="card-head"><span class="bar"></span><h2>Live Preview</h2></div>
+    <p class="card-sub">Type below — watch it glitch in real time.</p>
+    <input type="text" id="gtInput" value="Cozyleaf" placeholder="Type something glitchy…" maxlength="200">
+    <div class="glitch-preview" id="gtPreview"><span class="gp-text" id="gtPreviewText">Cozyleaf</span></div>
+    <div class="gt-length-row" id="gtLengthRow"></div>
+    <div class="gt-toggle">
+      <button id="gtMotionOn" class="active">Animated</button>
+      <button id="gtMotionOff">Static</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="bar"></span><h2>Zalgo / Corrupted Text</h2></div>
+    <p class="card-sub">Tune exactly how corrupted it looks, or tap a preset.</p>
+    <div class="gt-presets" id="gtPresets"></div>
+    <div class="gt-sliders">
+      <div>
+        <div class="row"><span>Marks above</span><span id="gtUpVal">6</span></div>
+        <input type="range" id="gtUp" min="0" max="14" value="6">
+      </div>
+      <div>
+        <div class="row"><span>Marks through</span><span id="gtMidVal">2</span></div>
+        <input type="range" id="gtMid" min="0" max="6" value="2">
+      </div>
+      <div>
+        <div class="row"><span>Marks below</span><span id="gtDownVal">6</span></div>
+        <input type="range" id="gtDown" min="0" max="14" value="6">
+      </div>
+    </div>
+    <div class="gt-result" id="gtZalgoOut"></div>
+    <div class="gt-result-actions">
+      <button class="btn-outline" id="gtReroll">&#8635; Reroll</button>
+      <button class="btn-outline" id="gtZalgoCopy">Copy</button>
+      <button class="btn-outline" id="gtZalgoSave">&#9734; Save</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="bar"></span><h2>Combo Glitch</h2></div>
+    <p class="card-sub">Zalgo layered on top of another style — uses the intensity set above.</p>
+    <div class="gt-style-list" id="gtComboList"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="bar"></span><h2>Strike &amp; Cross-out</h2></div>
+    <p class="card-sub">Nine variants — strikethrough, slash, X-cross, underline and combos.</p>
+    <div class="gt-style-list" id="gtStrikeList"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="bar"></span><h2>Mirror &amp; Lettering</h2></div>
+    <p class="card-sub">Upside down, reversed, small caps, superscript, circled, squared and cursed homoglyphs.</p>
+    <div class="gt-style-list" id="gtMirrorList"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="bar"></span><h2>Wide &amp; Spaced</h2></div>
+    <p class="card-sub">Full-width "aesthetic" characters and spaced-out text.</p>
+    <div class="gt-style-list" id="gtWideList"></div>
+  </div>
+
+  <div class="card" id="gtFavCard" style="display:none;">
+    <div class="card-head"><span class="bar"></span><h2>Saved</h2></div>
+    <p class="card-sub">Stored only in your browser — never uploaded anywhere.</p>
+    <div id="gtFavList"></div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>What is glitch or Zalgo text?</h2>
+    <p>Glitch text — often called "Zalgo text" or "cursed text" — is built by stacking Unicode combining marks (the small accents normally used above or below a single letter) on top of ordinary characters. Piling several of them onto every letter makes the text look like it's corrupting or breaking apart. Nothing is actually broken: it's still standard Unicode text, just layered very densely.</p>
+
+    <h2>Why does it look different on different apps?</h2>
+    <p>Every app renders combining marks slightly differently — some cap how many marks they'll stack per character, some clip or trim excess marks, and older systems may render them inconsistently. Heavy Zalgo text can look spectacular in one app and slightly tamer in another; the "Marks above / through / below" sliders let you dial the intensity down if a platform is cutting it off.</p>
+
+    <h2>Is it safe to use in bios and usernames?</h2>
+    <p>Yes — it's plain text under the hood, just with extra Unicode characters attached, so it copies and pastes like any other text. The length checker above shows how many characters your result actually uses against common platform limits, since heavily stacked Zalgo text can use up your character budget faster than it looks.</p>
+
+    <h2>27 styles across five categories</h2>
+    <p>Beyond adjustable Zalgo, this generator includes nine strike and cross-out variants (readable, single-mark styles good for a "redacted" look), eight mirror and lettering styles (upside down, reversed, small caps, superscript, subscript, circled, squared and cursed Cyrillic look-alikes), two wide/spaced styles for a retro "aesthetic" look, and two Combo Glitch styles that layer Zalgo on top of strikethrough or upside-down text using whatever intensity you've dialled in above.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What is glitch or Zalgo text?</strong> Glitch text, often called Zalgo or cursed text, is built by stacking Unicode combining marks on top of ordinary letters, making the text look like it's corrupting or breaking apart.</p>
+    <p><strong>Will glitch text work on Instagram, Discord and TikTok?</strong> Yes — these are standard Unicode characters, so they display correctly anywhere that supports Unicode text. Very heavy Zalgo text may get visually trimmed on some platforms.</p>
+    <p><strong>Why do some upside-down letters look different from the original?</strong> Unicode doesn't have a true rotated glyph for every letter, so the closest look-alike character is used. A few letters, like "l" or "o", stay the same.</p>
+    <p><strong>Does anything get uploaded when I type here?</strong> No — every transformation runs locally in your browser. Your text is never sent to a server, and saved favorites are stored only in your browser's local storage.</p>
+    <p><strong>Is this glitch text generator free?</strong> Yes, it is completely free with no sign-up required, and runs instantly in your browser.</p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'glitch-text-generator.html';
+  var CURRENT_CAT = 'Name Generator Tools';
+
+  function buildMoreTools(){
+    var tools = window.COZYLEAF_TOOLS || [];
+    var icons = window.COZYLEAF_ICONS || {};
+    var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+    var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+    var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+    var grid = document.getElementById('categoryGrid');
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+
+    var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+    var listEl = document.getElementById('allToolsList');
+    listEl.innerHTML = otherCats.map(function(cat){
+      var hex = catHex[cat] || '#9AA0AC';
+      var catTools = tools.filter(function(t){ return t.cat === cat; });
+      if(!catTools.length) return '';
+      var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+      var rows = catTools.map(function(t){
+        var ic = icons[t.url] || '🔧';
+        return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+      }).join('');
+      return head + rows;
+    }).join('');
+
+    document.getElementById('moreToggle').addEventListener('click', function(){
+      listEl.classList.toggle('open');
+      this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+    });
+  }
+  buildMoreTools();
+});
+</script>
+
+<script>
+(function(){
+  /* ---- Zalgo (combining-mark corruption) ---- */
+  var ZALGO_UP = ["\u030d","\u030e","\u0304","\u0305","\u033f","\u0311","\u0306","\u0310","\u0352","\u0357","\u0351","\u0307","\u0308","\u030a","\u0342","\u0343","\u0344","\u034a","\u034b","\u034c","\u0303","\u0302","\u030c","\u0350","\u0300","\u0301","\u030b","\u030f","\u0312","\u0313","\u0314","\u033d","\u0309","\u0363","\u0364","\u0365","\u0366","\u0367","\u0368","\u0369","\u036a","\u036b","\u036c","\u036d","\u036e","\u036f","\u033e","\u035b","\u0346","\u031a"];
+  var ZALGO_DOWN = ["\u0316","\u0317","\u0318","\u0319","\u031c","\u031d","\u031e","\u031f","\u0320","\u0324","\u0325","\u0326","\u0329","\u032a","\u032b","\u032c","\u032d","\u032e","\u032f","\u0330","\u0331","\u0332","\u0333","\u0339","\u033a","\u033b","\u033c","\u0347","\u0348","\u0349","\u034d","\u034e","\u0353","\u0354","\u0355","\u0356","\u0359","\u035a","\u0323"];
+  var ZALGO_MID = ["\u0315","\u031b","\u0340","\u0341","\u0358","\u0321","\u0322","\u0327","\u0328","\u0334","\u0335","\u0336","\u034f","\u035c","\u035d","\u035e","\u035f","\u0360","\u0362","\u0338","\u0337","\u0361","\u0489"];
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function zalgo(text, up, mid, down){
+    var out='';
+    for(var i=0;i<text.length;i++){
+      var ch = text[i];
+      out += ch;
+      if(ch===' ' || ch==='\n') continue;
+      for(var a=0;a<up;a++) out += pick(ZALGO_UP);
+      for(var b=0;b<mid;b++) out += pick(ZALGO_MID);
+      for(var c=0;c<down;c++) out += pick(ZALGO_DOWN);
+    }
+    return out;
+  }
+  var ZALGO_PRESETS = [
+    {label:'Mild',    up:2,  mid:0, down:2 },
+    {label:'Medium',  up:5,  mid:1, down:5 },
+    {label:'Heavy',   up:9,  mid:3, down:9 },
+    {label:'Nuclear', up:14, mid:6, down:14},
+    {label:'Ghostly (up-only)',   up:10, mid:0, down:0 },
+    {label:'Sinking (down-only)', up:0,  mid:0, down:10}
+  ];
+
+  /* ---- Strike / cross-out ---- */
+  function applyMark(text, code){
+    var out='';
+    for(var i=0;i<text.length;i++){ out+=text[i]; if(text[i]!==' ') out+=code; }
+    return out;
+  }
+  var STRIKE_STYLES = [
+    {label:'Strikethrough', fn:function(t){return applyMark(t,'\u0336');}},
+    {label:'Double Strike', fn:function(t){return applyMark(applyMark(t,'\u0336'),'\u0335');}},
+    {label:'Slash', fn:function(t){return applyMark(t,'\u0337');}},
+    {label:'X-Cross', fn:function(t){return applyMark(t,'\u033d');}},
+    {label:'Underline', fn:function(t){return applyMark(t,'\u0332');}},
+    {label:'Double Underline', fn:function(t){return applyMark(t,'\u0333');}},
+    {label:'Wavy Strike', fn:function(t){return applyMark(t,'\u0334');}},
+    {label:'Dotted Underline', fn:function(t){return applyMark(t,'\u0324');}},
+    {label:'Strike + Underline', fn:function(t){return applyMark(applyMark(t,'\u0336'),'\u0332');}}
+  ];
+
+  /* ---- Mirror / lettering ---- */
+  var UPSIDE_MAP = {a:'ɐ',b:'q',c:'ɔ',d:'p',e:'ǝ',f:'ɟ',g:'ƃ',h:'ɥ',i:'ᴉ',j:'ɾ',k:'ʞ',l:'l',m:'ɯ',n:'u',o:'o',p:'d',q:'b',r:'ɹ',s:'s',t:'ʇ',u:'n',v:'ʌ',w:'ʍ',x:'x',y:'ʎ',z:'z',
+    A:'∀',B:'B',C:'Ɔ',D:'D',E:'Ǝ',F:'Ⅎ',G:'⅁',H:'H',I:'I',J:'ſ',K:'ʞ',L:'˥',M:'W',N:'N',O:'O',P:'Ԁ',Q:'Q',R:'ᴚ',S:'S',T:'⊥',U:'∩',V:'Λ',W:'M',X:'X',Y:'⅄',Z:'Z',
+    '0':'0','1':'⇂','2':'ᄅ','3':'Ɛ','4':'ㄣ','5':'5','6':'9','7':'ㄥ','8':'8','9':'6',
+    '.':'˙',',':"'",'?':'¿','!':'¡'};
+  function upsideDown(text){
+    var arr = text.split('').reverse();
+    for(var i=0;i<arr.length;i++){ if(UPSIDE_MAP[arr[i]]!==undefined) arr[i]=UPSIDE_MAP[arr[i]]; }
+    return arr.join('');
+  }
+  function reversedText(text){ return text.split('').reverse().join(''); }
+
+  var SMALLCAPS_MAP = {a:'ᴀ',b:'ʙ',c:'ᴄ',d:'ᴅ',e:'ᴇ',f:'ꜰ',g:'ɢ',h:'ʜ',i:'ɪ',j:'ᴊ',k:'ᴋ',l:'ʟ',m:'ᴍ',n:'ɴ',o:'ᴏ',p:'ᴘ',q:'ǫ',r:'ʀ',s:'s',t:'ᴛ',u:'ᴜ',v:'ᴠ',w:'ᴡ',x:'x',y:'ʏ',z:'ᴢ'};
+  function mapChars(text, map){
+    var out='';
+    for(var i=0;i<text.length;i++){
+      var lower = text[i].toLowerCase();
+      out += (map[lower] !== undefined ? map[lower] : text[i]);
+    }
+    return out;
+  }
+  function smallCaps(text){ return mapChars(text, SMALLCAPS_MAP); }
+
+  var SUPER_MAP = {a:'ᵃ',b:'ᵇ',c:'ᶜ',d:'ᵈ',e:'ᵉ',f:'ᶠ',g:'ᵍ',h:'ʰ',i:'ⁱ',j:'ʲ',k:'ᵏ',l:'ˡ',m:'ᵐ',n:'ⁿ',o:'ᵒ',p:'ᵖ',q:'q',r:'ʳ',s:'ˢ',t:'ᵗ',u:'ᵘ',v:'ᵛ',w:'ʷ',x:'ˣ',y:'ʸ',z:'ᶻ','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+  function superscript(text){ return mapChars(text, SUPER_MAP); }
+
+  var SUB_MAP = {a:'ₐ',e:'ₑ',h:'ₕ',i:'ᵢ',j:'ⱼ',k:'ₖ',l:'ₗ',m:'ₘ',n:'ₙ',o:'ₒ',p:'ₚ',r:'ᵣ',s:'ₛ',t:'ₜ',u:'ᵤ',v:'ᵥ',x:'ₓ','0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉'};
+  function subscript(text){ return mapChars(text, SUB_MAP); }
+
+  function circled(text){
+    var out='';
+    for(var i=0;i<text.length;i++){
+      var ch = text[i];
+      if(/[a-z]/.test(ch)) out += String.fromCodePoint(0x24D0 + (ch.charCodeAt(0)-97));
+      else if(/[A-Z]/.test(ch)) out += String.fromCodePoint(0x24B6 + (ch.charCodeAt(0)-65));
+      else if(/[1-9]/.test(ch)) out += String.fromCodePoint(0x2460 + (ch.charCodeAt(0)-49));
+      else if(ch==='0') out += '\u24EA';
+      else out += ch;
+    }
+    return out;
+  }
+  function squared(text){
+    var out='';
+    for(var i=0;i<text.length;i++){
+      var up = text[i].toUpperCase();
+      if(/[A-Z]/.test(up)) out += String.fromCodePoint(0x1F130 + (up.charCodeAt(0)-65));
+      else out += text[i];
+    }
+    return out;
+  }
+  var HOMO_MAP2 = {a:'а',e:'е',o:'о',p:'р',c:'с',x:'х',y:'у',i:'і',A:'А',E:'Е',O:'О',P:'Р',C:'С',X:'Х',Y:'У',H:'Н',K:'К',M:'М',T:'Т',B:'В'};
+  function cursedHomoglyph(text){
+    var out='';
+    for(var i=0;i<text.length;i++){ out += (HOMO_MAP2[text[i]] || text[i]); }
+    return out;
+  }
+
+  var MIRROR_STYLES = [
+    {label:'Upside Down', fn:upsideDown},
+    {label:'Reversed', fn:reversedText},
+    {label:'Small Caps', fn:smallCaps},
+    {label:'Superscript', fn:superscript},
+    {label:'Subscript', fn:subscript},
+    {label:'Circled', fn:circled},
+    {label:'Squared', fn:squared},
+    {label:'Cursed Homoglyph', fn:cursedHomoglyph}
+  ];
+
+  /* ---- Wide / spaced ---- */
+  function fullwidth(text){
+    var out='';
+    for(var i=0;i<text.length;i++){
+      var code = text.charCodeAt(i);
+      if(code===32) out += '\u3000';
+      else if(code>=33 && code<=126) out += String.fromCharCode(code-33+0xFF01);
+      else out += text[i];
+    }
+    return out;
+  }
+  function spacedOut(text){ return text.split('').join(' '); }
+  var WIDE_STYLES = [
+    {label:'Full-width', fn:fullwidth},
+    {label:'Spaced Out', fn:spacedOut}
+  ];
+
+  var PLATFORM_LIMITS = [
+    {name:'Instagram bio', limit:150},
+    {name:'X / Twitter post', limit:280},
+    {name:'Discord nickname', limit:32},
+    {name:'TikTok bio', limit:80},
+    {name:'Facebook name', limit:50}
+  ];
+
+  function loadFavs(){ try{return JSON.parse(localStorage.getItem('cz_glitch_favs')||'[]');}catch(e){return [];} }
+  function saveFavs(f){ localStorage.setItem('cz_glitch_favs', JSON.stringify(f)); }
+
+  function toast(msg){
+    var t = document.querySelector('.gt-toast');
+    if(!t){ t=document.createElement('div'); t.className='gt-toast'; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },1600);
+  }
+  function copyText(txt){ navigator.clipboard.writeText(txt).then(function(){ toast('Copied'); }); }
+
+  var input = document.getElementById('gtInput');
+  var previewBox = document.getElementById('gtPreview');
+  var previewText = document.getElementById('gtPreviewText');
+  var lengthRow = document.getElementById('gtLengthRow');
+  var presetRow = document.getElementById('gtPresets');
+  var upSlider = document.getElementById('gtUp');
+  var midSlider = document.getElementById('gtMid');
+  var downSlider = document.getElementById('gtDown');
+  var upVal = document.getElementById('gtUpVal');
+  var midVal = document.getElementById('gtMidVal');
+  var downVal = document.getElementById('gtDownVal');
+  var zalgoOut = document.getElementById('gtZalgoOut');
+  var rerollBtn = document.getElementById('gtReroll');
+  var zalgoCopyBtn = document.getElementById('gtZalgoCopy');
+  var zalgoSaveBtn = document.getElementById('gtZalgoSave');
+  var strikeList = document.getElementById('gtStrikeList');
+  var mirrorList = document.getElementById('gtMirrorList');
+  var wideList = document.getElementById('gtWideList');
+  var comboList = document.getElementById('gtComboList');
+  var motionOn = document.getElementById('gtMotionOn');
+  var motionOff = document.getElementById('gtMotionOff');
+  var favCard = document.getElementById('gtFavCard');
+  var favList = document.getElementById('gtFavList');
+
+  function currentText(){ return input.value || ''; }
+
+  function renderLength(){
+    var n = currentText().length;
+    lengthRow.innerHTML = PLATFORM_LIMITS.map(function(p){
+      var over = n > p.limit;
+      return '<span class="gt-chip'+(over?' over':'')+'">'+p.name+': '+n+'/'+p.limit+'</span>';
+    }).join('');
+  }
+
+  function renderPreview(){
+    var t = currentText() || ' ';
+    previewText.textContent = t;
+    previewText.setAttribute('data-text', t);
+  }
+
+  function renderZalgo(){
+    var t = currentText();
+    var out = t ? zalgo(t, +upSlider.value, +midSlider.value, +downSlider.value) : '';
+    zalgoOut.textContent = out || 'Type something above to corrupt it…';
+    zalgoOut.dataset.value = out;
+    renderCombo();
+  }
+
+  function renderCombo(){
+    var t = currentText();
+    var up = +upSlider.value, mid = +midSlider.value, down = +downSlider.value;
+    var combos = [
+      {label:'Zalgo + Strikethrough', fn:function(){ return t ? applyMark(zalgo(t,up,mid,down),'\u0336') : ''; }},
+      {label:'Zalgo + Upside Down',   fn:function(){ return t ? zalgo(upsideDown(t),up,mid,down) : ''; }}
+    ];
+    comboList.innerHTML = '';
+    combos.forEach(function(s){
+      var out = s.fn();
+      var row = document.createElement('div');
+      row.className = 'gt-style-row';
+      row.innerHTML =
+        '<div><div class="gt-out">'+(out || '&nbsp;')+'</div><span class="gt-label">'+s.label+'</span></div>'+
+        '<div class="gt-actions">'+
+          '<button class="gt-icon-btn" data-act="copy" title="Copy">⧉</button>'+
+          '<button class="gt-icon-btn" data-act="save" title="Save to favorites">☆</button>'+
+        '</div>';
+      row.querySelector('[data-act="copy"]').addEventListener('click', function(){ if(out) copyText(out); });
+      row.querySelector('[data-act="save"]').addEventListener('click', function(e){
+        if(!out) return;
+        var f = loadFavs(); f.push({label:s.label, text:out}); saveFavs(f);
+        e.currentTarget.classList.add('saved'); e.currentTarget.textContent='★';
+        renderFavs();
+      });
+      comboList.appendChild(row);
+    });
+  }
+
+  function renderStyleList(container, styles){
+    var t = currentText();
+    container.innerHTML = '';
+    styles.forEach(function(s){
+      var out = t ? s.fn(t) : '';
+      var row = document.createElement('div');
+      row.className = 'gt-style-row';
+      row.innerHTML =
+        '<div><div class="gt-out">'+(out || '&nbsp;')+'</div><span class="gt-label">'+s.label+'</span></div>'+
+        '<div class="gt-actions">'+
+          '<button class="gt-icon-btn" data-act="copy" title="Copy">⧉</button>'+
+          '<button class="gt-icon-btn" data-act="save" title="Save to favorites">☆</button>'+
+        '</div>';
+      row.querySelector('[data-act="copy"]').addEventListener('click', function(){ if(out) copyText(out); });
+      row.querySelector('[data-act="save"]').addEventListener('click', function(e){
+        if(!out) return;
+        var f = loadFavs(); f.push({label:s.label, text:out}); saveFavs(f);
+        e.currentTarget.classList.add('saved'); e.currentTarget.textContent='★';
+        renderFavs();
+      });
+      container.appendChild(row);
+    });
+  }
+
+  function renderFavs(){
+    var favs = loadFavs();
+    if(favs.length===0){ favCard.style.display='none'; return; }
+    favCard.style.display='';
+    favList.innerHTML = favs.map(function(f,i){
+      return '<div class="gt-fav-row">'+
+        '<div><div class="gt-out">'+f.text+'</div><span class="gt-label">'+f.label+'</span></div>'+
+        '<div class="gt-actions">'+
+          '<button class="gt-icon-btn" data-i="'+i+'" data-act="copy" title="Copy">⧉</button>'+
+          '<button class="gt-icon-btn" data-i="'+i+'" data-act="del" title="Remove">✕</button>'+
+        '</div></div>';
+    }).join('');
+    favList.querySelectorAll('[data-act="copy"]').forEach(function(b){ b.addEventListener('click', function(){ copyText(favs[+b.dataset.i].text); }); });
+    favList.querySelectorAll('[data-act="del"]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var f=loadFavs(); f.splice(+b.dataset.i,1); saveFavs(f); renderFavs();
+      });
+    });
+  }
+
+  function renderAll(){
+    renderLength();
+    renderPreview();
+    renderZalgo();
+    renderStyleList(strikeList, STRIKE_STYLES);
+    renderStyleList(mirrorList, MIRROR_STYLES);
+    renderStyleList(wideList, WIDE_STYLES);
+  }
+
+  input.addEventListener('input', renderAll);
+  [upSlider, midSlider, downSlider].forEach(function(s){
+    s.addEventListener('input', function(){
+      upVal.textContent = upSlider.value;
+      midVal.textContent = midSlider.value;
+      downVal.textContent = downSlider.value;
+      renderZalgo();
+    });
+  });
+  rerollBtn.addEventListener('click', renderZalgo);
+  zalgoCopyBtn.addEventListener('click', function(){ if(zalgoOut.dataset.value) copyText(zalgoOut.dataset.value); });
+  zalgoSaveBtn.addEventListener('click', function(){
+    if(!zalgoOut.dataset.value) return;
+    var f = loadFavs(); f.push({label:'Zalgo', text:zalgoOut.dataset.value}); saveFavs(f);
+    renderFavs(); toast('Saved');
+  });
+  motionOn.addEventListener('click', function(){
+    previewBox.classList.remove('static');
+    motionOn.classList.add('active'); motionOff.classList.remove('active');
+  });
+  motionOff.addEventListener('click', function(){
+    previewBox.classList.add('static');
+    motionOff.classList.add('active'); motionOn.classList.remove('active');
+  });
+
+  presetRow.innerHTML = ZALGO_PRESETS.map(function(p,i){ return '<button class="chip-btn" data-i="'+i+'">'+p.label+'</button>'; }).join('');
+  presetRow.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var p = ZALGO_PRESETS[+btn.dataset.i];
+      upSlider.value = p.up; midSlider.value = p.mid; downSlider.value = p.down;
+      upVal.textContent = p.up; midVal.textContent = p.mid; downVal.textContent = p.down;
+      renderZalgo();
+    });
+  });
+
+  upVal.textContent = upSlider.value;
+  midVal.textContent = midSlider.value;
+  downVal.textContent = downSlider.value;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    motionOff.click();
+  }
+  renderAll();
+  renderFavs();
+})();
+</script>
+</body>
+</html>
