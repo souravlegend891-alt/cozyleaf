@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v11-2026-08-29 (adds CPS Test)
+   VERSION: cozyleaf-v12-2026-08-30 (adds Glitch Text Generator)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -20,6 +20,7 @@
     {name:"Kaomoji Generator",     cat:"Text Tools",           url:"kaomoji.html"},
     {name:"CPS Test",              cat:"Text Tools",           url:"cps-test.html"},
     {name:"Stylish Name Generator",cat:"Name Generator Tools", url:"name-style.html"},
+    {name:"Glitch Text Generator", cat:"Name Generator Tools", url:"glitch-text-generator.html"},
     {name:"GMT to IST Converter",  cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
     {name:"PST to IST Converter",  cat:"World Time Zone Converter", url:"pst-to-ist.html"},
     {name:"EST to IST Converter",  cat:"World Time Zone Converter", url:"est-to-ist.html"},
@@ -57,6 +58,7 @@
     "kaomoji.html":"🙂",
     "cps-test.html":"🖱️",
     "name-style.html":"✨",
+    "glitch-text-generator.html":"👾",
     "gmt-to-ist.html":"🕐",
     "pst-to-ist.html":"🕐",
     "est-to-ist.html":"🕐",
