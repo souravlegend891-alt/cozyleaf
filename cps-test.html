@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPS Test — Clicks Per Second Speed Test (Multi-Touch) | Cozyleaf</title>
+<meta name="description" content="Free CPS test — measure your clicks per second with real multi-touch tracking, per-second breakdown chart, and personal best history. 1 to 100 second tests. No sign-up needed.">
+<meta name="keywords" content="cps test, click speed test, clicks per second, mouse click test, jitter click test, butterfly click test, cps tester">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/cps-test.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="CPS Test — Clicks Per Second Speed Test">
+<meta property="og:description" content="Measure your clicks per second with real multi-touch tracking and a per-second breakdown chart. Free and instant.">
+<meta property="og:url" content="https://cozyleaf.in/cps-test.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CPS Test | Cozyleaf">
+<meta name="twitter:description" content="Free click speed test with multi-touch tracking and history. No sign-up needed.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf CPS Test",
+  "url": "https://cozyleaf.in/cps-test.html",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online clicks-per-second (CPS) test with real multi-touch tracking, a per-second click breakdown, and local test history."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is a CPS test?","acceptedAnswer":{"@type":"Answer","text":"A CPS test measures how many times you can click a mouse button or tap a screen per second over a set duration. CPS stands for clicks per second — total clicks divided by the length of the round."}},
+    {"@type":"Question","name":"What is a good CPS score?","acceptedAnswer":{"@type":"Answer","text":"Most people using a single finger and regular clicking land between 4 and 7 CPS. Scores above 10 CPS usually involve a specific technique like jitter or butterfly clicking rather than a single relaxed finger."}},
+    {"@type":"Question","name":"What's the difference between jitter clicking and butterfly clicking?","acceptedAnswer":{"@type":"Answer","text":"Jitter clicking tenses the forearm and wrist to create a rapid vibration that registers as many quick clicks with one finger. Butterfly clicking alternates two fingers rapidly on the same button, which can push scores even higher since each finger clicks independently."}},
+    {"@type":"Question","name":"Does this CPS test support multi-touch on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. This test tracks each finger as a separate touch point, so tapping with multiple fingers at once genuinely counts every simultaneous tap rather than merging them into one click."}},
+    {"@type":"Question","name":"Is my test history uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Test history and personal bests are saved locally in your browser's storage only. Nothing is sent to any server, and clearing history removes it completely."}},
+    {"@type":"Question","name":"Why do longer tests show a lower CPS?","acceptedAnswer":{"@type":"Answer","text":"CPS is a rate, not a fixed speed — sustained clicking is far harder than a short burst, so scores from 30 or 60 second tests are almost always lower than 1 or 5 second tests. Scores from different durations aren't directly comparable."}},
+    {"@type":"Question","name":"Is this CPS test free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free with no account or sign-up required, and everything runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* Page-specific only — colors/size/header come from style.css.
+     Accent uses its own pink hue (same pattern as Love Calculator using
+     its own accent within the Calculators category) while this page
+     itself belongs to the existing Text Tools category. */
+  :root{ --c-cps: #FF3D68; }
+
+  .stat-row{display:flex;justify-content:center;gap:8px;margin:14px 0 4px;flex-wrap:wrap;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#FFEAF0;border:1px solid #FFD0DC;color:var(--c-cps);padding:6px 12px;border-radius:999px;}
+
+  .dur-row{display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none;}
+  .dur-row::-webkit-scrollbar{display:none;}
+  .dur-chip{flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;
+    padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:#FBFAF7;
+    color:var(--ink-soft);cursor:pointer;white-space:nowrap;}
+  .dur-chip.active{background:var(--c-cps);border-color:var(--c-cps);color:#fff;}
+  .custom-dur{display:none;margin-top:10px;}
+  .custom-dur.show{display:flex;gap:8px;align-items:center;}
+  .custom-dur input{flex:1;}
+
+  .pad-wrap{margin-top:18px;position:relative;}
+  #clickPad{
+    width:100%;aspect-ratio:1.5/1;border-radius:18px;border:2px solid var(--line);
+    background:linear-gradient(160deg,#FFF5F8,#FFEAF0);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;position:relative;overflow:hidden;
+  }
+  #clickPad.active{background:linear-gradient(160deg,#FFE1EA,#FFD0DC);border-color:var(--c-cps);}
+  #padLabel{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--ink);text-align:center;padding:0 20px;}
+  #padSub{font-size:12.5px;color:var(--ink-soft);margin-top:4px;}
+  .ripple{position:absolute;border-radius:50%;background:rgba(255,61,104,.35);
+    transform:translate(-50%,-50%);pointer-events:none;animation:rippleAnim .5s ease-out forwards;}
+  @keyframes rippleAnim{from{width:10px;height:10px;opacity:.9;}to{width:110px;height:110px;opacity:0;}}
+  @media (prefers-reduced-motion:reduce){ .ripple{animation:none;display:none;} }
+
+  .live-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px;}
+  .live-stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;}
+  .live-stat .lv-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--ink);}
+  .live-stat .lv-lbl{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+
+  #resultsCard{display:none;margin-top:16px;}
+  .result-hero{background:linear-gradient(135deg,var(--c-cps),#D6285A);color:#fff;border-radius:16px;
+    padding:22px 20px;text-align:center;}
+  .result-hero .r-num{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;line-height:1;}
+  .result-hero .r-lbl{font-size:12.5px;opacity:.9;margin-top:4px;}
+  .rank-badge{display:inline-block;margin-top:10px;padding:6px 16px;border-radius:999px;background:rgba(255,255,255,.2);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+  .best-flag{margin-top:8px;font-size:12.5px;font-weight:700;color:#FFE27A;}
+
+  .result-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .rmeta{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+  .rmeta .rm-lbl{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+  .rmeta .rm-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-top:2px;}
+
+  .breakdown-chart{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;}
+  .bc-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+  .bc-bars{display:flex;align-items:flex-end;gap:3px;height:70px;}
+  .bc-bar{flex:1;background:linear-gradient(180deg,var(--c-cps),#D6285A);border-radius:3px 3px 0 0;min-height:3px;transition:height .4s ease;}
+  .bc-labels{display:flex;gap:3px;margin-top:4px;}
+  .bc-labels span{flex:1;text-align:center;font-size:9px;color:var(--ink-soft);}
+
+  .result-actions{display:flex;gap:10px;margin-top:14px;}
+  .result-actions button{flex:1;padding:13px;border-radius:12px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:none;}
+  .btn-again{background:var(--hover);color:var(--ink);border:1.5px solid var(--line) !important;}
+  .btn-copyres{background:var(--c-cps);color:#fff;}
+
+  .history-section{margin-top:22px;}
+  .history-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .history-head h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);}
+  .history-actions{display:flex;gap:8px;}
+  .hist-btn{font-size:11.5px;font-weight:600;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+  .hist-table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .hist-table th{padding:8px 6px;text-align:left;color:var(--ink-soft);font-weight:600;font-size:10.5px;text-transform:uppercase;background:#FBFAF7;border-bottom:1px solid var(--line);}
+  .hist-table td{padding:9px 6px;border-bottom:1px solid var(--line);color:var(--ink);}
+  .hist-table tr:last-child td{border-bottom:none;}
+  .hist-empty{text-align:center;padding:20px;color:var(--ink-soft);font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-cps);background:#FFF5F8;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-cps);color:var(--c-cps);}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+  .seo-content li{font-size:13.5px;line-height:1.7;margin-bottom:6px;color:#4A4E56;}
+
+  .step-card{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;}
+  .step-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--c-cps);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+  .step-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:2px;}
+  .step-desc{font-size:13px;line-height:1.6;color:#4A4E56;}
+
+  .tech-table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13px;}
+  .tech-table th{padding:8px 8px;text-align:left;color:var(--ink-soft);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);}
+  .tech-table td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:#4A4E56;}
+  .tech-table td:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+
+  .faq-item{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px;overflow:hidden;}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:14px 16px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .faq-q .chev{flex-shrink:0;color:var(--c-cps);transition:transform .2s;font-size:13px;}
+  .faq-q.open .chev{transform:rotate(180deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{font-size:13.5px;line-height:1.7;color:#4A4E56;padding:0 16px 14px;margin:0;}
+
+  .trust-note{font-size:12px;color:var(--ink-soft);background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:6px;line-height:1.6;}
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Text Tools</div>
+  <h1>CPS Test — Clicks Per Second Speed Test</h1>
+  <p class="hero-p">Test your clicking or tapping speed with real multi-touch tracking, a per-second breakdown, and a private local history. Pick a duration and start clicking.</p>
+  <div class="stat-row">
+    <span class="stat-pill">1–100 sec tests</span>
+    <span class="stat-pill">True multi-touch</span>
+    <span class="stat-pill">No signup</span>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="bar" style="background:var(--c-cps)"></div><h2>Choose duration</h2></div>
+    <div class="dur-row" id="durRow"></div>
+    <div class="custom-dur" id="customDurWrap">
+      <input type="number" id="customDurInput" min="1" max="300" placeholder="Custom seconds (1-300)">
+      <button class="btn-primary" id="applyCustomDur" style="margin-top:0;width:auto;padding:11px 16px;">Set</button>
+    </div>
+
+    <div class="pad-wrap">
+      <div id="clickPad">
+        <div id="padLabel">Tap or click here to start</div>
+        <div id="padSub">Timer starts on your first click — use as many fingers as you like</div>
+      </div>
+    </div>
+
+    <div class="live-stats">
+      <div class="live-stat"><div class="lv-num" id="lvTime">0.0</div><div class="lv-lbl">Seconds Left</div></div>
+      <div class="live-stat"><div class="lv-num" id="lvClicks">0</div><div class="lv-lbl">Clicks</div></div>
+      <div class="live-stat"><div class="lv-num" id="lvCps">0.0</div><div class="lv-lbl">Live CPS</div></div>
+    </div>
+
+    <div id="resultsCard">
+      <div class="result-hero">
+        <div class="r-num" id="resCps">0.0</div>
+        <div class="r-lbl">CPS · <span id="resClicks">0</span> clicks in <span id="resDuration">0</span>s</div>
+        <div class="rank-badge" id="resRank">—</div>
+        <div class="best-flag" id="resBestFlag" style="display:none;">🏆 New personal best for this duration!</div>
+      </div>
+      <div class="result-meta">
+        <div class="rmeta"><div class="rm-lbl">Clicks per minute</div><div class="rm-val" id="resCpm">—</div></div>
+        <div class="rmeta"><div class="rm-lbl">Personal best (this duration)</div><div class="rm-val" id="resBest">—</div></div>
+      </div>
+      <div class="breakdown-chart">
+        <div class="bc-title">Clicks per second</div>
+        <div class="bc-bars" id="bcBars"></div>
+        <div class="bc-labels" id="bcLabels"></div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-again" id="btnAgain">Try Again</button>
+        <button class="btn-copyres" id="btnCopyRes">Copy Result</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="history-section">
+    <div class="history-head">
+      <h2>Your Test History</h2>
+      <div class="history-actions">
+        <button class="hist-btn" id="exportCsvBtn">Export CSV</button>
+        <button class="hist-btn" id="clearHistBtn">Clear</button>
+      </div>
+    </div>
+    <div id="historyWrap"></div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>What Is a CPS Test?</h2>
+    <p>A CPS test measures how many times you can click a mouse button or tap a screen in a set amount of time. CPS stands for clicks per second — your total clicks divided by the length of the round. It started as a benchmark in the Minecraft PvP community, where faster clicking meant more hits landed per second, and has since grown into a general reflex and dexterity challenge people use to compare speed and technique.</p>
+
+    <h2>How This Test Counts Clicks</h2>
+    <p>This test uses pointer-down events, so every press registers the instant your finger or mouse button makes contact — not when it releases. That matters for rapid-fire techniques, since it means release speed never costs you a click. On a touchscreen, each finger is tracked as its own separate touch point, so tapping with two or three fingers at once genuinely counts every simultaneous tap. Many click tests only listen for a single generic "click" event, which can under-count true multi-touch tapping — this one doesn't.</p>
+
+    <h2>Click Techniques Explained</h2>
+    <table class="tech-table">
+      <tr><th>Technique</th><th>How it works</th><th>Typical CPS range</th></tr>
+      <tr><td>Regular clicking</td><td>One finger, relaxed natural pace</td><td>~4–7 CPS</td></tr>
+      <tr><td>Jitter clicking</td><td>Tensing the forearm to vibrate one finger rapidly</td><td>~9–14 CPS</td></tr>
+      <tr><td>Butterfly clicking</td><td>Alternating two fingers rapidly on one button</td><td>~15–25 CPS</td></tr>
+      <tr><td>Drag clicking</td><td>Dragging a finger across certain mouse buttons to trigger rapid double-firing</td><td>Varies by mouse hardware</td></tr>
+    </table>
+
+    <h2>How to Take the Test</h2>
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div><div class="step-title">Pick a duration</div><div class="step-desc">1 or 5 seconds rewards burst speed, 10 seconds is the most commonly referenced benchmark, and 30–60+ seconds tests endurance. You can also set a custom duration up to 300 seconds.</div></div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div><div class="step-title">Tap the pad to begin</div><div class="step-desc">The timer starts on your very first click or tap — nothing is lost waiting for you to react beforehand.</div></div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div><div class="step-title">Click or tap as fast as you can</div><div class="step-desc">Watch the live clicks and CPS counter update in real time. On mobile, use as many fingers as you like — every one is tracked individually.</div></div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div><div class="step-title">Review your breakdown</div><div class="step-desc">When time runs out, see your final CPS, clicks per minute, rank, and a per-second bar chart showing exactly when you clicked fastest.</div></div>
+    </div>
+
+    <h2>Understanding Your Results</h2>
+    <p>CPS is a rate, not a fixed speed — doubling the round length rarely doubles your total clicks, because sustained clicking is far harder to maintain than a short burst. This is why 60-second CPS scores are almost always lower than 1-second scores, and why scores from different durations aren't directly comparable to each other. The per-second breakdown chart on your results is useful here: it often shows a fast opening second or two, followed by a natural slowdown as fatigue sets in.</p>
+
+    <h2>Your Privacy During This Test</h2>
+    <p class="trust-note">Everything in this test — the countdown, your click count, your personal bests, and your test history — is calculated and stored entirely in your own browser's local storage. Nothing is ever sent to a server, and no account or login is required. Clearing your history removes it completely and permanently.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">What is a CPS test?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>A CPS test measures how many times you can click a mouse button or tap a screen per second over a set duration. CPS stands for clicks per second — total clicks divided by the length of the round.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What is a good CPS score?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Most people using a single finger and regular clicking land between 4 and 7 CPS. Scores above 10 CPS usually involve a specific technique like jitter or butterfly clicking rather than a single relaxed finger.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's the difference between jitter and butterfly clicking?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Jitter clicking tenses the forearm and wrist to create a rapid vibration that registers as many quick clicks with one finger. Butterfly clicking alternates two fingers rapidly on the same button, which can push scores even higher since each finger clicks independently.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Does this test support multi-touch on mobile?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Yes. This test tracks each finger as a separate touch point, so tapping with multiple fingers at once genuinely counts every simultaneous tap rather than merging them into one click.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my test history uploaded anywhere?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>No. Test history and personal bests are saved locally in your browser's storage only. Nothing is sent to any server, and clearing history removes it completely.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Why do longer tests show a lower CPS?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>CPS is a rate, not a fixed speed — sustained clicking is far harder than a short burst, so scores from 30 or 60 second tests are almost always lower than 1 or 5 second tests. Scores from different durations aren't directly comparable.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is this CPS test free to use?<span class="chev">▾</span></button>
+        <div class="faq-a"><p>Yes, completely free with no account or sign-up required, and everything runs instantly in your browser.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'cps-test.html';
+  var CURRENT_CAT = 'Text Tools';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
+
+<script>
+(function(){
+  const DURATIONS = [1,5,10,15,30,60,100];
+  let duration = 10;
+  let testActive = false;
+  let startTime = 0;
+  let clickCount = 0;
+  let activePointers = new Set();
+  let secondBuckets = [];
+  let tickTimer = null;
+
+  const pad = document.getElementById('clickPad');
+  const padLabel = document.getElementById('padLabel');
+  const padSub = document.getElementById('padSub');
+  const lvTime = document.getElementById('lvTime');
+  const lvClicks = document.getElementById('lvClicks');
+  const lvCps = document.getElementById('lvCps');
+  const durRow = document.getElementById('durRow');
+  const customWrap = document.getElementById('customDurWrap');
+  const resultsCard = document.getElementById('resultsCard');
+
+  function buildDurChips(){
+    durRow.innerHTML = '';
+    DURATIONS.forEach(d=>{
+      const chip = document.createElement('button');
+      chip.className = 'dur-chip' + (d===duration ? ' active' : '');
+      chip.textContent = d + 's';
+      chip.onclick = ()=>{ if(testActive) return; setDuration(d); };
+      durRow.appendChild(chip);
+    });
+    const customChip = document.createElement('button');
+    customChip.className = 'dur-chip';
+    customChip.textContent = 'Custom';
+    customChip.onclick = ()=>{ if(testActive) return; customWrap.classList.toggle('show'); };
+    durRow.appendChild(customChip);
+  }
+  function setDuration(d){
+    duration = d;
+    buildDurChips();
+    customWrap.classList.remove('show');
+    resetPad();
+  }
+  document.getElementById('applyCustomDur').onclick = ()=>{
+    const v = parseInt(document.getElementById('customDurInput').value);
+    if(v && v>0 && v<=300){ setDuration(v); }
+  };
+
+  function resetPad(){
+    testActive = false;
+    clickCount = 0;
+    activePointers.clear();
+    secondBuckets = new Array(duration).fill(0);
+    clearInterval(tickTimer);
+    pad.classList.remove('active');
+    padLabel.textContent = 'Tap or click here to start';
+    padSub.textContent = 'Timer starts on your first click — use as many fingers as you like';
+    lvTime.textContent = duration.toFixed(1);
+    lvClicks.textContent = '0';
+    lvCps.textContent = '0.0';
+    resultsCard.style.display = 'none';
+  }
+
+  function startTest(){
+    testActive = true;
+    startTime = performance.now();
+    pad.classList.add('active');
+    padLabel.textContent = 'Keep going!';
+    padSub.textContent = '';
+    tickTimer = setInterval(updateTick, 100);
+  }
+
+  function updateTick(){
+    const elapsed = (performance.now() - startTime) / 1000;
+    const left = Math.max(0, duration - elapsed);
+    lvTime.textContent = left.toFixed(1);
+    lvClicks.textContent = clickCount;
+    const cps = elapsed > 0 ? (clickCount / Math.min(elapsed, duration)) : 0;
+    lvCps.textContent = cps.toFixed(1);
+    if(elapsed >= duration){
+      finishTest();
+    }
+  }
+
+  function registerClick(x, y){
+    if(!testActive){
+      startTest();
+    }
+    clickCount++;
+    const elapsed = (performance.now() - startTime) / 1000;
+    const bucket = Math.min(duration - 1, Math.floor(elapsed));
+    if(bucket >= 0 && bucket < secondBuckets.length) secondBuckets[bucket]++;
+    spawnRipple(x, y);
+  }
+
+  function spawnRipple(x, y){
+    const rect = pad.getBoundingClientRect();
+    const r = document.createElement('div');
+    r.className = 'ripple';
+    r.style.left = (x - rect.left) + 'px';
+    r.style.top = (y - rect.top) + 'px';
+    pad.appendChild(r);
+    setTimeout(()=> r.remove(), 500);
+  }
+
+  // Pointer Events unify mouse + touch and fire once per distinct finger,
+  // giving genuine multi-touch counting instead of merging simultaneous taps.
+  pad.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    if(activePointers.has(e.pointerId)) return;
+    activePointers.add(e.pointerId);
+    registerClick(e.clientX, e.clientY);
+  });
+  pad.addEventListener('pointerup', function(e){ activePointers.delete(e.pointerId); });
+  pad.addEventListener('pointercancel', function(e){ activePointers.delete(e.pointerId); });
+  pad.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+  function rankFor(cps){
+    if(cps < 2) return "Just Warming Up";
+    if(cps < 4) return "Getting There";
+    if(cps < 6) return "Solid Clicker";
+    if(cps < 8) return "Quick Fingers";
+    if(cps < 10) return "Speed Demon";
+    if(cps < 13) return "Lightning Hands";
+    return "Inhuman";
+  }
+
+  function bestKey(){ return 'cozyleaf_cps_best_' + duration; }
+  function getBest(){
+    try{ return parseFloat(localStorage.getItem(bestKey())) || 0; }catch(e){ return 0; }
+  }
+  function setBest(v){
+    try{ localStorage.setItem(bestKey(), v); }catch(e){}
+  }
+
+  function finishTest(){
+    testActive = false;
+    clearInterval(tickTimer);
+    pad.classList.remove('active');
+    padLabel.textContent = 'Time\'s up! See your results below';
+    padSub.textContent = 'Tap "Try Again" to run another test';
+
+    const cps = clickCount / duration;
+    const cpm = Math.round(cps * 60);
+    const prevBest = getBest();
+    const isNewBest = cps > prevBest;
+    if(isNewBest) setBest(cps.toFixed(2));
+
+    document.getElementById('resCps').textContent = cps.toFixed(2);
+    document.getElementById('resClicks').textContent = clickCount;
+    document.getElementById('resDuration').textContent = duration;
+    document.getElementById('resRank').textContent = rankFor(cps);
+    document.getElementById('resCpm').textContent = cpm;
+    document.getElementById('resBest').textContent = (isNewBest ? cps : Math.max(cps, prevBest)).toFixed(2) + ' CPS';
+    document.getElementById('resBestFlag').style.display = isNewBest ? 'block' : 'none';
+
+    renderBreakdown();
+    saveHistory(cps, cpm);
+    renderHistory();
+    resultsCard.style.display = 'block';
+    resultsCard.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function renderBreakdown(){
+    const barsEl = document.getElementById('bcBars');
+    const labelsEl = document.getElementById('bcLabels');
+    const max = Math.max(1, ...secondBuckets);
+    // For long durations, collapse to at most ~20 bars by grouping seconds.
+    const groupSize = Math.ceil(duration / 20);
+    const grouped = [];
+    for(let i=0;i<secondBuckets.length;i+=groupSize){
+      grouped.push(secondBuckets.slice(i,i+groupSize).reduce((a,b)=>a+b,0));
+    }
+    const gmax = Math.max(1, ...grouped);
+    barsEl.innerHTML = grouped.map(v=>{
+      const h = Math.max(3, Math.round((v/gmax)*70));
+      return `<div class="bc-bar" style="height:${h}px" title="${v} clicks"></div>`;
+    }).join('');
+    labelsEl.innerHTML = grouped.map((_,i)=>{
+      const startSec = i*groupSize + 1;
+      return `<span>${startSec}s</span>`;
+    }).join('');
+  }
+
+  function historyKey(){ return 'cozyleaf_cps_history'; }
+  function loadHistory(){
+    try{ return JSON.parse(localStorage.getItem(historyKey())) || []; }catch(e){ return []; }
+  }
+  function saveHistory(cps, cpm){
+    try{
+      const hist = loadHistory();
+      hist.unshift({
+        date: new Date().toLocaleString(),
+        duration: duration,
+        clicks: clickCount,
+        cps: cps.toFixed(2),
+        cpm: cpm
+      });
+      localStorage.setItem(historyKey(), JSON.stringify(hist.slice(0,20)));
+    }catch(e){}
+  }
+  function renderHistory(){
+    const hist = loadHistory();
+    const wrap = document.getElementById('historyWrap');
+    if(!hist.length){
+      wrap.innerHTML = '<div class="hist-empty">No tests yet — your results will appear here after your first test.</div>';
+      return;
+    }
+    const rows = hist.slice(0,10).map(h=>`
+      <tr><td>${h.date}</td><td>${h.duration}s</td><td>${h.clicks}</td><td>${h.cps}</td><td>${h.cpm}</td></tr>
+    `).join('');
+    wrap.innerHTML = `
+      <table class="hist-table">
+        <tr><th>Date</th><th>Duration</th><th>Clicks</th><th>CPS</th><th>CPM</th></tr>
+        ${rows}
+      </table>`;
+  }
+
+  document.getElementById('exportCsvBtn').onclick = ()=>{
+    const hist = loadHistory();
+    if(!hist.length) return;
+    let csv = 'Date,Duration (s),Clicks,CPS,CPM\n';
+    hist.forEach(h=>{ csv += `"${h.date}",${h.duration},${h.clicks},${h.cps},${h.cpm}\n`; });
+    const blob = new Blob([csv], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cozyleaf-cps-history.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  document.getElementById('clearHistBtn').onclick = ()=>{
+    try{ localStorage.removeItem(historyKey()); }catch(e){}
+    renderHistory();
+  };
+
+  document.getElementById('btnAgain').onclick = resetPad;
+
+  document.getElementById('btnCopyRes').onclick = ()=>{
+    const cps = document.getElementById('resCps').textContent;
+    const clicks = document.getElementById('resClicks').textContent;
+    const dur = document.getElementById('resDuration').textContent;
+    const rank = document.getElementById('resRank').textContent;
+    const text = `I scored ${cps} CPS (${clicks} clicks in ${dur}s) — rank: ${rank}. Tested on Cozyleaf's CPS Test.`;
+    const btn = document.getElementById('btnCopyRes');
+    const done = (ok)=>{
+      btn.textContent = ok ? 'Copied ✓' : 'Copy failed';
+      setTimeout(()=>{ btn.textContent = 'Copy Result'; }, 1400);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>done(false));
+    } else {
+      done(false);
+    }
+  };
+
+  buildDurChips();
+  resetPad();
+  renderHistory();
+
+  // --- FAQ accordion ---
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const item = this.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      const isOpen = this.classList.contains('open');
+      document.querySelectorAll('.faq-q.open').forEach(openBtn=>{
+        if(openBtn !== this){
+          openBtn.classList.remove('open');
+          openBtn.closest('.faq-item').querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        this.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        this.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
