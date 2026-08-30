@@ -61,6 +61,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cozyleaf.in/cps-test.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cozyleaf.in/glitch-text-generator.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cozyleaf.in/name-style.html</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
