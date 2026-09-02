@@ -65,16 +65,18 @@
     {"@type":"ListItem","position":5,"name":"Love Calculator","url":"https://cozyleaf.in/love-calculator.html"},
     {"@type":"ListItem","position":6,"name":"GPA / CGPA Calculator","url":"https://cozyleaf.in/gpa-cgpa-calculator.html"},
     {"@type":"ListItem","position":7,"name":"Dog Food Calculator","url":"https://cozyleaf.in/dog-food-calculator.html"},
-    {"@type":"ListItem","position":8,"name":"Typing Speed Test","url":"https://cozyleaf.in/typing-speed-test.html"},
-    {"@type":"ListItem","position":9,"name":"Kaomoji Generator","url":"https://cozyleaf.in/kaomoji.html"},
-    {"@type":"ListItem","position":10,"name":"CPS Test","url":"https://cozyleaf.in/cps-test.html"},
-    {"@type":"ListItem","position":11,"name":"Stylish Name Generator","url":"https://cozyleaf.in/name-style.html"},
-    {"@type":"ListItem","position":12,"name":"Glitch Text Generator","url":"https://cozyleaf.in/glitch-text-generator.html"},
-    {"@type":"ListItem","position":13,"name":"GMT to IST Converter","url":"https://cozyleaf.in/gmt-to-ist.html"},
-    {"@type":"ListItem","position":14,"name":"PST to IST Converter","url":"https://cozyleaf.in/pst-to-ist.html"},
-    {"@type":"ListItem","position":15,"name":"EST to IST Converter","url":"https://cozyleaf.in/est-to-ist.html"},
-    {"@type":"ListItem","position":16,"name":"CST to EST Converter","url":"https://cozyleaf.in/cst-to-est.html"},
-    {"@type":"ListItem","position":17,"name":"IST to EST Converter","url":"https://cozyleaf.in/ist-to-est.html"}
+    {"@type":"ListItem","position":8,"name":"eDPI Calculator","url":"https://cozyleaf.in/edpi-calculator.html"},
+    {"@type":"ListItem","position":9,"name":"Typing Speed Test","url":"https://cozyleaf.in/typing-speed-test.html"},
+    {"@type":"ListItem","position":10,"name":"Kaomoji Generator","url":"https://cozyleaf.in/kaomoji.html"},
+    {"@type":"ListItem","position":11,"name":"CPS Test","url":"https://cozyleaf.in/cps-test.html"},
+    {"@type":"ListItem","position":12,"name":"Stylish Name Generator","url":"https://cozyleaf.in/name-style.html"},
+    {"@type":"ListItem","position":13,"name":"Glitch Text Generator","url":"https://cozyleaf.in/glitch-text-generator.html"},
+    {"@type":"ListItem","position":14,"name":"GMT to IST Converter","url":"https://cozyleaf.in/gmt-to-ist.html"},
+    {"@type":"ListItem","position":15,"name":"PST to IST Converter","url":"https://cozyleaf.in/pst-to-ist.html"},
+    {"@type":"ListItem","position":16,"name":"EST to IST Converter","url":"https://cozyleaf.in/est-to-ist.html"},
+    {"@type":"ListItem","position":17,"name":"CST to EST Converter","url":"https://cozyleaf.in/cst-to-est.html"},
+    {"@type":"ListItem","position":18,"name":"IST to EST Converter","url":"https://cozyleaf.in/ist-to-est.html"},
+    {"@type":"ListItem","position":19,"name":"World Time Converter","url":"https://cozyleaf.in/world-time-converter.html"}
   ]
 }
 </script>
@@ -141,7 +143,7 @@
 <section class="hero">
 <span class="eyebrow">Cozyleaf.in — Free tools that actually work</span>
   <h1>Free Image, PDF, Calculator & Text Tools — All in One Place</h1>
-  <p>Cozyleaf brings together the calculators and converters people search for most — BMI, calorie, BMR, and GPA calculators, an image to JPG converter, a typing speed test, a CPS test, a kaomoji generator, a glitch text generator, and more. No sign-up, no download, and no watermark — every tool runs instantly in your browser on any device.</p>
+  <p>Cozyleaf brings together the calculators and converters people search for most — BMI, calorie, BMR, GPA and eDPI calculators, an image to JPG converter, a typing speed test, a CPS test, a kaomoji generator, a glitch text generator, and a world time zone converter with meeting planner. No sign-up, no download, and no watermark — every tool runs instantly in your browser on any device.</p>
 </section>
 
 <nav class="jumpnav" id="jumpnav"></nav>
@@ -172,17 +174,18 @@ const MAIN_TOOLS = [
   {name:"Love Calculator", cat:"Calculators", formats:"", usage:200000, url:"love-calculator.html"},
   {name:"GPA / CGPA Calculator", cat:"Calculators", formats:"", usage:50000, url:"gpa-cgpa-calculator.html"},
   {name:"Dog Food Calculator", cat:"Calculators", formats:"", usage:20000, url:"dog-food-calculator.html"},
+  {name:"eDPI Calculator", cat:"Calculators", formats:"", usage:60000, url:"edpi-calculator.html"},
   {name:"Typing Speed Test", cat:"Text Tools", formats:"", usage:3000000, url:"typing-speed-test.html" },
   {name:"Kaomoji Generator", cat:"Text Tools", formats:"", usage:150000, url:"kaomoji.html"},
   {name:"CPS Test", cat:"Text Tools", formats:"", usage:200000, url:"cps-test.html"},
   {name:"Stylish Name Generator", cat:"Name Generator Tools", formats:"", usage:1000000, url:"name-style.html"},
   {name:"Glitch Text Generator", cat:"Name Generator Tools", formats:"", usage:80000, url:"glitch-text-generator.html"},
-  {name:"World Time Zone Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"world-time-converter.html"},
   {name:"GMT to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"gmt-to-ist.html"},
   {name:"PST to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"pst-to-ist.html"},
   {name:"EST to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"est-to-ist.html"},
   {name:"CST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"cst-to-est.html"},
-  {name:"IST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"ist-to-est.html"}
+  {name:"IST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"ist-to-est.html"},
+  {name:"World Time Converter", cat:"World Time Zone Converter", formats:"", usage:40000, url:"world-time-converter.html"}
 ];
 
 const CATEGORY_META = {
