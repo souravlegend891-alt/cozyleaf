@@ -28,7 +28,6 @@
     {name:"CST to EST Converter",  cat:"World Time Zone Converter", url:"cst-to-est.html"},
     {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"},
     {name:"World Time Converter",  cat:"World Time Zone Converter", url:"world-time-converter.html"}
-    {name:"Timex Activity & Step Tracker", cat:"Activity & Fitness Tools", url:"step-tracker.html"},
   ];
 
   // Policy / trust pages — AdSense reviewers specifically check that these
@@ -40,12 +39,11 @@
     {name:"Terms of Service", url:"terms.html"}
   ];
 
-  const CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Activity & Fitness Tools","Image Tools"];
+  const CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Image Tools"];
   const CATEGORY_HEX = {
     "Image Tools":"#FF6B4A","Calculators":"#2EC4B6",
     "Text Tools":"#8676FF","Name Generator Tools":"#8676FF",
     "World Time Zone Converter":"#0077B6"
-    "Activity & Fitness Tools":"#FF5D8F"
   };
 
   // Expose so individual tool pages can build "More Tools" sections
@@ -70,7 +68,6 @@
     "cst-to-est.html":"🕐",
     "ist-to-est.html":"🕐",
     "world-time-converter.html":"🌍"
-    "step-tracker.html":"👣",
   };
   window.COZYLEAF_TOOLS = MAIN_TOOLS;
   window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
