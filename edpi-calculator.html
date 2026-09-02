@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eDPI Calculator — Sensitivity, cm/360° & Cross-Game Matching | Cozyleaf</title>
+<meta name="description" content="Free eDPI calculator — find your effective DPI, cm/360°, and match your sensitivity across games with fully editable, community-sourced yaw profiles. No sign-up needed.">
+<meta name="keywords" content="edpi calculator, sensitivity calculator, cm/360 calculator, mouse sensitivity converter, valorant sensitivity, cs2 sensitivity, cross game sensitivity matcher">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/edpi-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="eDPI Calculator — Sensitivity, cm/360° & Cross-Game Matching">
+<meta property="og:description" content="Find your effective DPI, cm/360°, and match sensitivity across games with editable yaw profiles. Free and instant.">
+<meta property="og:url" content="https://cozyleaf.in/edpi-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="eDPI Calculator | Cozyleaf">
+<meta name="twitter:description" content="Free eDPI, cm/360°, and cross-game sensitivity matcher with editable game profiles.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf eDPI Calculator",
+  "url": "https://cozyleaf.in/edpi-calculator.html",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online eDPI calculator that finds effective DPI, cm/360 degrees, and matches mouse sensitivity across games using editable, community-sourced yaw values."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is eDPI?","acceptedAnswer":{"@type":"Answer","text":"eDPI, or effective DPI, is your mouse DPI multiplied by your in-game sensitivity setting. It gives a single number that reflects your true cursor speed, since two people with different DPI and sensitivity values can still end up with the same effective speed."}},
+    {"@type":"Question","name":"What does cm/360 mean?","acceptedAnswer":{"@type":"Answer","text":"cm/360 is the physical distance your mouse needs to travel across the mousepad to turn a full 360 degrees in-game. It's considered the most reliable number for muscle memory, since it stays consistent even when switching between games with different sensitivity scaling."}},
+    {"@type":"Question","name":"What is yaw and why does it vary by game?","acceptedAnswer":{"@type":"Answer","text":"Yaw is how many degrees the in-game view rotates per mouse count at a sensitivity of 1.0. Each game engine defines this value differently, which is why the same DPI and sensitivity number produces a different actual turn speed from one game to another."}},
+    {"@type":"Question","name":"Why does this calculator let me edit the yaw value?","acceptedAnswer":{"@type":"Answer","text":"Community-sourced yaw values can drift out of date after game updates, and some titles have per-season adjustments. Editing the yaw constant lets the calculator stay accurate even if a value changes or if you've measured your own through a turn test."}},
+    {"@type":"Question","name":"Is this eDPI calculator free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no account or sign-up required, and runs instantly in your browser."}},
+    {"@type":"Question","name":"Does this store or upload my sensitivity settings?","acceptedAnswer":{"@type":"Answer","text":"No — everything is calculated and held only in this page's memory while it's open. Nothing is sent to any server, and the compare table clears when you leave the page."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* Page-specific only — colors/size/header come from style.css.
+     This tool's own accent reuses the site's Calculators teal, the
+     same way BMI/BMR/Dog Food Calculator do. */
+  :root{ --c-edpi: var(--c-calc, #2EC4B6); }
+
+  .stat-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#E4F7F5;border:1px solid #C9EDE9;color:#1F9E93;padding:6px 12px;border-radius:999px;}
+
+  .edpi-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .field{margin-bottom:14px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-size:11px;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:6px;text-transform:uppercase;font-weight:600;}
+  input[type=number], select{
+    width:100%;background:#fff;border:1.5px solid var(--line);color:var(--ink);
+    padding:11px 12px;font-family:'IBM Plex Mono',monospace;font-size:14.5px;border-radius:10px;
+  }
+  input[type=number]:focus, select:focus{outline:2px solid var(--c-edpi);outline-offset:1px;border-color:var(--c-edpi);}
+
+  .readout{background:#F0FBFA;border:1px solid #C9EDE9;border-radius:14px;padding:20px;text-align:center;margin-bottom:14px;}
+  .readout .label{font-size:10.5px;letter-spacing:.06em;color:#1F9E93;text-transform:uppercase;margin-bottom:8px;font-weight:700;}
+  .readout .value{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;color:var(--ink);line-height:1;}
+  .readout .unit{font-size:11.5px;color:var(--ink-soft);margin-top:6px;}
+
+  .subreadouts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .mini{background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;}
+  .mini .l{font-size:9.5px;letter-spacing:.05em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:4px;font-weight:600;}
+  .mini .v{font-size:18px;color:var(--ink);font-weight:700;font-family:'Space Grotesk',sans-serif;}
+
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-top:14px;border-left:3px solid var(--c-edpi);padding-left:10px;}
+
+  .profile-block{border-top:1px dashed var(--line);padding-top:14px;margin-top:14px;}
+  .profile-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;}
+  .profile-header span{font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em;text-transform:uppercase;font-weight:600;}
+
+  button{background:var(--c-edpi);color:#fff;border:none;padding:9px 14px;font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;cursor:pointer;border-radius:9px;}
+  button.ghost{background:none;color:var(--ink-soft);border:1.5px solid var(--line);}
+  button:hover{filter:brightness(1.05);}
+  button.ghost:hover{border-color:var(--c-edpi);color:#1F9E93;}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px;}
+  th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+  th{color:var(--ink-soft);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;}
+  td.num{color:#1F9E93;font-weight:700;}
+  .del{cursor:pointer;color:#C0392B;font-size:13px;}
+
+  .convert-grid{display:grid;grid-template-columns:1fr;gap:12px;align-items:start;}
+  .arrow{font-size:18px;color:var(--ink-soft);text-align:center;transform:rotate(90deg);padding:2px 0;}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-edpi);background:#F0FBFA;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-edpi);color:#1F9E93;}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
+  <h1>eDPI Calculator</h1>
+  <p class="hero-p">Effective DPI (mouse DPI × in-game sensitivity), cm/360° conversion, and cross-game sensitivity matching — with fully editable game profiles instead of hardcoded, outdated constants.</p>
+
+  <div class="stat-row">
+    <span class="stat-pill">11 game profiles</span>
+    <span class="stat-pill">Editable yaw</span>
+    <span class="stat-pill">No signup</span>
+  </div>
+
+  <div class="edpi-grid">
+    <!-- Inputs -->
+    <div class="card">
+      <div class="card-head"><div class="bar"></div><h2>Your Setup</h2></div>
+      <div class="row2">
+        <div class="field">
+          <label for="dpi">Mouse DPI</label>
+          <input type="number" id="dpi" value="800" min="1">
+        </div>
+        <div class="field">
+          <label for="sens">In-Game Sensitivity</label>
+          <input type="number" id="sens" value="0.35" step="0.001" min="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="game">Game Profile (for cm/360°)</label>
+        <select id="game"></select>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="fov">Field of View (°) <span style="opacity:.6">optional</span></label>
+          <input type="number" id="fov" value="103">
+        </div>
+        <div class="field">
+          <label for="mondist">Monitor distance (cm)</label>
+          <input type="number" id="mondist" value="70">
+        </div>
+      </div>
+
+      <div class="profile-block">
+        <div class="profile-header">
+          <span>Custom Profile — Yaw (°/count)</span>
+          <button class="ghost" id="editYaw">Edit constant</button>
+        </div>
+        <div class="field" id="yawFieldWrap" style="display:none;">
+          <input type="number" id="yawInput" step="0.0001">
+          <p class="note">Yaw is the degrees the view turns per mouse count at sens = 1.0. Community values are pre-filled per game but vary by title version — override here if you've measured your own, e.g. via a strafe/turn test.</p>
+        </div>
+      </div>
+
+      <div class="note" id="gameNote"></div>
+    </div>
+
+    <!-- Readouts -->
+    <div class="card">
+      <div class="card-head"><div class="bar"></div><h2>Result</h2></div>
+      <div class="readout">
+        <div class="label">Effective DPI</div>
+        <div class="value" id="edpiVal">0</div>
+        <div class="unit">DPI × sensitivity</div>
+      </div>
+      <div class="subreadouts">
+        <div class="mini"><div class="l">cm / 360°</div><div class="v" id="cm360">—</div></div>
+        <div class="mini"><div class="l">Inches / 360°</div><div class="v" id="in360">—</div></div>
+        <div class="mini"><div class="l">Counts / 360°</div><div class="v" id="counts360">—</div></div>
+        <div class="mini"><div class="l">Range Tier</div><div class="v" id="tier" style="font-size:14px;">—</div></div>
+      </div>
+      <div class="note">Tiering (Low &lt;400 · Mid 400–800 · High 800–1600 · Very High &gt;1600) reflects broad competitive-FPS convention, not a rule — comfortable eDPI depends on grip, mousepad size, and playstyle.</div>
+
+      <div class="profile-block">
+        <div class="profile-header">
+          <span>Compare Setups</span>
+          <button id="addRow">+ Save current</button>
+        </div>
+        <table id="compareTable">
+          <thead><tr><th>Game</th><th>DPI</th><th>Sens</th><th>eDPI</th><th>cm/360</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sensitivity matcher -->
+  <div class="card" style="margin-top:16px;">
+    <div class="card-head"><div class="bar"></div><h2>Match Sensitivity Across Games</h2></div>
+    <p class="card-sub">Keep the same physical cm/360° when switching games — the number that actually matters for muscle memory.</p>
+    <div class="convert-grid">
+      <div>
+        <label class="small">From game</label>
+        <select id="fromGame"></select>
+        <div class="field" style="margin-top:8px;">
+          <label class="small">DPI (from)</label>
+          <input type="number" id="fromDpi" value="800">
+        </div>
+        <div class="field">
+          <label class="small">Sensitivity (from)</label>
+          <input type="number" id="fromSens" value="0.35" step="0.001">
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <label class="small">To game</label>
+        <select id="toGame"></select>
+        <div class="field" style="margin-top:8px;">
+          <label class="small">DPI (to)</label>
+          <input type="number" id="toDpi" value="800">
+        </div>
+        <div class="field">
+          <label class="small">Sensitivity (to) — calculated</label>
+          <input type="number" id="toSens" readonly style="color:#1F9E93;font-weight:700;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>What Is eDPI?</h2>
+    <p>Effective DPI (eDPI) is your mouse DPI multiplied by your in-game sensitivity setting. It condenses two separate numbers into one that reflects how fast your cursor or crosshair actually moves — two players with completely different DPI and sensitivity values can land on the exact same eDPI, and their aim will feel identical in terms of raw speed.</p>
+
+    <h2>cm/360° — The Number That Actually Matters</h2>
+    <p>While eDPI is useful for comparing raw speed, cm/360° measures something more concrete: how far your mouse physically travels across the mousepad to spin a full 360 degrees in-game. This is the number competitive players rely on for muscle memory, because it stays consistent even when moving between games that scale sensitivity completely differently under the hood.</p>
+
+    <h2>Why Yaw Values Differ Between Games</h2>
+    <p>Every game engine defines "yaw" — how many degrees the camera turns per mouse count at sensitivity 1.0 — using its own internal formula. That's why identical DPI and sensitivity numbers produce a noticeably different turn speed in, say, Valorant versus CS2. This calculator ships with community-sourced yaw values for common titles, but includes an editable override, since yaw can shift after game updates or vary slightly by season — measuring your own via a turn test and entering it here keeps the numbers accurate for you specifically.</p>
+
+    <h2>Matching Sensitivity When Switching Games</h2>
+    <p>The sensitivity matcher below solves a common problem: keeping your physical aim consistent when you pick up a new game. Enter your current setup's game, DPI, and sensitivity, choose the game you're switching to along with its DPI, and the calculator solves for the sensitivity value that preserves your exact cm/360° — so your hand doesn't have to relearn a new turn speed from scratch.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What is eDPI?</strong> eDPI, or effective DPI, is your mouse DPI multiplied by your in-game sensitivity setting. It gives a single number that reflects your true cursor speed, since two people with different DPI and sensitivity values can still end up with the same effective speed.</p>
+    <p><strong>What does cm/360 mean?</strong> cm/360 is the physical distance your mouse needs to travel across the mousepad to turn a full 360 degrees in-game. It's considered the most reliable number for muscle memory, since it stays consistent even when switching between games with different sensitivity scaling.</p>
+    <p><strong>What is yaw and why does it vary by game?</strong> Yaw is how many degrees the in-game view rotates per mouse count at a sensitivity of 1.0. Each game engine defines this value differently, which is why the same DPI and sensitivity number produces a different actual turn speed from one game to another.</p>
+    <p><strong>Why does this calculator let me edit the yaw value?</strong> Community-sourced yaw values can drift out of date after game updates, and some titles have per-season adjustments. Editing the yaw constant lets the calculator stay accurate even if a value changes or if you've measured your own through a turn test.</p>
+    <p><strong>Is this eDPI calculator free to use?</strong> Yes, it is completely free with no account or sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload my sensitivity settings?</strong> No — everything is calculated and held only in this page's memory while it's open. Nothing is sent to any server, and the compare table clears when you leave the page.</p>
+
+    <p class="disclaimer">
+      <strong>Note:</strong> Yaw values are community-sourced reference constants and may vary slightly by game version or patch. For competitive use, consider verifying with an in-game turn test before relying on the exact numbers here.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'edpi-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
+
+<script>
+/* ⚠️ Everything from this line down is the ORIGINAL tool logic, unchanged. */
+// Yaw = degrees rotated per count at sensitivity 1.0. Community reference values — verify before competitive use.
+const GAMES = [
+  {name:"Custom", yaw:0.022},
+  {name:"Valorant", yaw:0.07},
+  {name:"CS2 / CS:GO", yaw:0.022},
+  {name:"Overwatch 2", yaw:0.0066},
+  {name:"Apex Legends", yaw:0.022},
+  {name:"Call of Duty (MW/Warzone)", yaw:0.0066},
+  {name:"Fortnite", yaw:0.05555},
+  {name:"Rainbow Six Siege", yaw:0.00587},
+  {name:"Rust", yaw:0.022},
+  {name:"PUBG", yaw:0.0154},
+  {name:"Escape from Tarkov", yaw:0.022},
+];
+
+function populateSelect(sel){
+  sel.innerHTML = GAMES.map((g,i)=>`<option value="${i}">${g.name}</option>`).join('');
+}
+const gameSel = document.getElementById('game');
+const fromGameSel = document.getElementById('fromGame');
+const toGameSel = document.getElementById('toGame');
+[gameSel, fromGameSel, toGameSel].forEach(populateSelect);
+toGameSel.selectedIndex = 1;
+
+let customYaw = null;
+
+function currentYaw(){
+  const idx = +gameSel.value;
+  if(customYaw!==null) return customYaw;
+  return GAMES[idx].yaw;
+}
+
+function fmt(n, d=2){
+  if(!isFinite(n)) return "—";
+  return n.toLocaleString(undefined,{maximumFractionDigits:d});
+}
+
+function tierLabel(edpi){
+  if(edpi<400) return "Low";
+  if(edpi<800) return "Mid";
+  if(edpi<1600) return "High";
+  return "Very High";
+}
+
+function recalc(){
+  const dpi = parseFloat(document.getElementById('dpi').value)||0;
+  const sens = parseFloat(document.getElementById('sens').value)||0;
+  const edpi = dpi*sens;
+  document.getElementById('edpiVal').textContent = fmt(edpi,0);
+  document.getElementById('tier').textContent = tierLabel(edpi);
+
+  const yaw = currentYaw();
+  // degrees per inch = yaw * dpi ; inches per 360 = 360/(yaw*sens*dpi)
+  const degPerCount = yaw*sens;
+  const countsFor360 = degPerCount>0 ? 360/degPerCount : Infinity;
+  const inchesFor360 = dpi>0 ? countsFor360/dpi : Infinity;
+  const cmFor360 = inchesFor360*2.54;
+
+  document.getElementById('cm360').textContent = fmt(cmFor360,1);
+  document.getElementById('in360').textContent = fmt(inchesFor360,1);
+  document.getElementById('counts360').textContent = fmt(countsFor360,0);
+
+  const g = GAMES[+gameSel.value];
+  document.getElementById('gameNote').textContent =
+    `Using yaw ${customYaw!==null? customYaw : g.yaw}°/count for "${g.name}"${customYaw!==null?' (custom override)':' (reference value)'}.`;
+
+  recalcMatch();
+}
+
+document.getElementById('editYaw').addEventListener('click', ()=>{
+  const wrap = document.getElementById('yawFieldWrap');
+  const visible = wrap.style.display !== 'none';
+  wrap.style.display = visible? 'none':'block';
+  if(!visible){
+    document.getElementById('yawInput').value = GAMES[+gameSel.value].yaw;
+  }
+});
+document.getElementById('yawInput').addEventListener('input', (e)=>{
+  customYaw = parseFloat(e.target.value);
+  if(isNaN(customYaw)) customYaw = null;
+  recalc();
+});
+gameSel.addEventListener('change', ()=>{ customYaw=null; document.getElementById('yawFieldWrap').style.display='none'; recalc(); });
+
+function recalcMatch(){
+  const fromYaw = GAMES[+fromGameSel.value].yaw;
+  const toYaw = GAMES[+toGameSel.value].yaw;
+  const fromDpi = parseFloat(document.getElementById('fromDpi').value)||0;
+  const fromSens = parseFloat(document.getElementById('fromSens').value)||0;
+  const toDpi = parseFloat(document.getElementById('toDpi').value)||0;
+
+  // same cm/360: fromYaw*fromSens*fromDpi = toYaw*toSens*toDpi
+  const targetProduct = fromYaw*fromSens*fromDpi;
+  const toSens = (toYaw*toDpi)>0 ? targetProduct/(toYaw*toDpi) : 0;
+  document.getElementById('toSens').value = toSens? toSens.toFixed(4) : '';
+}
+
+['dpi','sens','fov','mondist'].forEach(id=>document.getElementById(id).addEventListener('input',recalc));
+['fromDpi','fromSens','toDpi'].forEach(id=>document.getElementById(id).addEventListener('input',recalcMatch));
+fromGameSel.addEventListener('change',recalcMatch);
+toGameSel.addEventListener('change',recalcMatch);
+
+// Compare table
+document.getElementById('addRow').addEventListener('click', ()=>{
+  const dpi = parseFloat(document.getElementById('dpi').value)||0;
+  const sens = parseFloat(document.getElementById('sens').value)||0;
+  const edpi = dpi*sens;
+  const cm = document.getElementById('cm360').textContent;
+  const g = GAMES[+gameSel.value].name;
+  const tbody = document.querySelector('#compareTable tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${g}</td><td>${dpi}</td><td>${sens}</td><td class="num">${fmt(edpi,0)}</td><td>${cm}</td><td class="del">✕</td>`;
+  tr.querySelector('.del').addEventListener('click', ()=>tr.remove());
+  tbody.appendChild(tr);
+});
+
+recalc();
+</script>
+</body>
+</html>
+
+
