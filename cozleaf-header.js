@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v12-2026-08-30 (adds Glitch Text Generator)
+   VERSION: cozyleaf-v13-2026-08-30 (adds World Time Converter, eDPI Calculator)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -16,17 +16,18 @@
     {name:"Love Calculator",       cat:"Calculators",          url:"love-calculator.html"},
     {name:"GPA / CGPA Calculator", cat:"Calculators",          url:"gpa-cgpa-calculator.html"},
     {name:"Dog Food Calculator",   cat:"Calculators",          url:"dog-food-calculator.html"},
+    {name:"eDPI Calculator",       cat:"Calculators",          url:"edpi-calculator.html"},
     {name:"Typing Speed Test",     cat:"Text Tools",           url:"typing-speed-test.html"},
     {name:"Kaomoji Generator",     cat:"Text Tools",           url:"kaomoji.html"},
     {name:"CPS Test",              cat:"Text Tools",           url:"cps-test.html"},
     {name:"Stylish Name Generator",cat:"Name Generator Tools", url:"name-style.html"},
     {name:"Glitch Text Generator", cat:"Name Generator Tools", url:"glitch-text-generator.html"},
-    {name:"World Time Zone Converter", cat:"World Time Zone Converter", url:"world-time-converter.html"},
     {name:"GMT to IST Converter",  cat:"World Time Zone Converter", url:"gmt-to-ist.html"},
     {name:"PST to IST Converter",  cat:"World Time Zone Converter", url:"pst-to-ist.html"},
     {name:"EST to IST Converter",  cat:"World Time Zone Converter", url:"est-to-ist.html"},
     {name:"CST to EST Converter",  cat:"World Time Zone Converter", url:"cst-to-est.html"},
-    {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"}
+    {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"},
+    {name:"World Time Converter",  cat:"World Time Zone Converter", url:"world-time-converter.html"}
   ];
 
   // Policy / trust pages — AdSense reviewers specifically check that these
@@ -55,17 +56,18 @@
     "love-calculator.html":"💕",
     "gpa-cgpa-calculator.html":"🎓",
     "dog-food-calculator.html":"🐶",
+    "edpi-calculator.html":"🎯",
     "typing-speed-test.html":"⌨️",
     "kaomoji.html":"🙂",
     "cps-test.html":"🖱️",
     "name-style.html":"✨",
     "glitch-text-generator.html":"👾",
-    "world-time-converter.html":"🌍",
     "gmt-to-ist.html":"🕐",
     "pst-to-ist.html":"🕐",
     "est-to-ist.html":"🕐",
     "cst-to-est.html":"🕐",
-    "ist-to-est.html":"🕐"
+    "ist-to-est.html":"🕐",
+    "world-time-converter.html":"🌍"
   };
   window.COZYLEAF_TOOLS = MAIN_TOOLS;
   window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
