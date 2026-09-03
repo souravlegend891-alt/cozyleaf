@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clothing Size Calculator — Tops, Bottoms, Dresses & Shoes | Cozyleaf</title>
+<meta name="description" content="Free clothing size calculator — get a recommended size for tops, bottoms, dresses and shoes from your own body measurements, in cm or inches. No sign-up needed.">
+<meta name="keywords" content="clothing size calculator, size converter, what size am i, dress size calculator, shoe size converter, us uk eu size chart">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/clothing-size-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Clothing Size Calculator — Tops, Bottoms, Dresses & Shoes">
+<meta property="og:description" content="Get a recommended clothing size from your own measurements, in cm or inches. Free and instant.">
+<meta property="og:url" content="https://cozyleaf.in/clothing-size-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Clothing Size Calculator | Cozyleaf">
+<meta name="twitter:description" content="Free size calculator for tops, bottoms, dresses and shoes, based on your measurements.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Clothing Size Calculator",
+  "url": "https://cozyleaf.in/clothing-size-calculator.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool that recommends a clothing size for tops, bottoms, dresses and shoes from body measurements, in centimeters or inches."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How accurate is a size calculator like this?","acceptedAnswer":{"@type":"Answer","text":"It's a reliable starting point based on standard international size ranges, but brand cuts vary meaningfully — a size M in one brand's athletic fit can measure differently from a size M in a relaxed or suiting fit. Check the brand's own chart when precision matters."}},
+    {"@type":"Question","name":"Why does the dress size default to the largest matching measurement?","acceptedAnswer":{"@type":"Answer","text":"When bust, waist, and hip measurements fall into different size ranges, sizing up to the largest match is generally more comfortable, since a dress can usually be taken in at the smaller points but not let out much at a smaller size."}},
+    {"@type":"Question","name":"How should I measure my foot for shoe sizing?","acceptedAnswer":{"@type":"Answer","text":"Measure from the heel to the tip of the longest toe while standing, ideally in the evening when feet are slightly more swollen from the day — this gives a truer real-world size than measuring first thing in the morning."}},
+    {"@type":"Question","name":"Why do men's and women's bottoms use different size formats?","acceptedAnswer":{"@type":"Answer","text":"Men's bottoms are conventionally sized by waist measurement in inches (like 32 or 34), while women's bottoms commonly use a numeric US size (like 6 or 8) that doesn't map directly to a single measurement — this calculator follows each convention separately."}},
+    {"@type":"Question","name":"Is this clothing size calculator free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no account or sign-up required, and runs instantly in your browser."}},
+    {"@type":"Question","name":"Does this store or upload my measurements?","acceptedAnswer":{"@type":"Answer","text":"No — everything is calculated locally in your browser. Nothing is sent to any server."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* Page-specific only — colors/size/header come from style.css.
+     Accent reuses the site's Calculators teal, same as BMI/eDPI. */
+  :root{ --c-size: var(--c-calc, #2EC4B6); }
+
+  .stat-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#E4F7F5;border:1px solid #C9EDE9;color:#1F9E93;padding:6px 12px;border-radius:999px;}
+
+  .tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+  .tab{padding:9px 15px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:600;cursor:pointer;border-radius:999px;color:var(--ink-soft);}
+  .tab.active{background:var(--c-size);color:#fff;border-color:var(--c-size);}
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .size-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+
+  label{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-bottom:6px;text-transform:uppercase;font-weight:600;}
+  .field{margin-bottom:14px;}
+  select, input[type=number]{
+    width:100%;background:#fff;border:1.5px solid var(--line);color:var(--ink);
+    padding:10px 12px;font-family:'Inter',sans-serif;font-size:14.5px;border-radius:10px;
+  }
+  select:focus, input:focus{outline:2px solid var(--c-size);outline-offset:1px;border-color:var(--c-size);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .unit-toggle{display:flex;gap:6px;margin-bottom:14px;}
+  .unit-toggle button{flex:1;padding:9px;border:1.5px solid var(--line);background:#fff;border-radius:9px;font-size:12.5px;cursor:pointer;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .unit-toggle button.active{background:var(--c-size);color:#fff;border-color:var(--c-size);}
+
+  .result{background:#F0FBFA;border:1px solid #C9EDE9;border-radius:14px;padding:18px;text-align:center;margin-bottom:14px;}
+  .result .l{font-size:11px;color:#1F9E93;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;font-weight:700;}
+  .result .v{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:var(--ink);}
+  .result .fit{font-size:12px;color:#1F9E93;margin-top:4px;font-weight:600;}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:center;}
+  th{color:var(--ink-soft);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;background:#FBFAF7;font-weight:600;}
+  td:first-child, th:first-child{text-align:left;}
+  tr.match{background:#F0FBFA;}
+  tr.match td:first-child{font-weight:700;color:#1F9E93;}
+
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;border-left:3px solid var(--c-size);padding-left:10px;margin-top:14px;}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-size);background:#F0FBFA;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-size);color:#1F9E93;}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
+  <h1>Clothing Size Calculator</h1>
+  <p class="hero-p">Convert sizes across US, UK, EU and Asia, or get a recommended size directly from your own body measurements — for tops, bottoms, dresses and shoes.</p>
+
+  <div class="stat-row">
+    <span class="stat-pill">4 categories</span>
+    <span class="stat-pill">cm / inches</span>
+    <span class="stat-pill">No signup</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="tops">Tops</div>
+    <div class="tab" data-tab="bottoms">Bottoms</div>
+    <div class="tab" data-tab="dresses">Dresses</div>
+    <div class="tab" data-tab="shoes">Shoes</div>
+  </div>
+
+  <!-- TOPS -->
+  <div class="panel active" id="panel-tops">
+    <div class="size-grid">
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Your Measurements</h2></div>
+        <div class="unit-toggle">
+          <button class="active" data-unit="cm" data-group="tops">cm</button>
+          <button data-unit="in" data-group="tops">inches</button>
+        </div>
+        <div class="field">
+          <label>Gender fit</label>
+          <select id="topsGender"><option value="men">Men's</option><option value="women">Women's</option></select>
+        </div>
+        <div class="field"><label>Chest / Bust</label><input type="number" id="topsChest" value="96"></div>
+        <div class="field"><label>Waist</label><input type="number" id="topsWaist" value="82"></div>
+        <div class="field"><label>Shoulder to shoulder (optional)</label><input type="number" id="topsShoulder" placeholder="e.g. 45"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Recommended Size</h2></div>
+        <div class="result">
+          <div class="l">Best match</div>
+          <div class="v" id="topsResult">M</div>
+          <div class="fit" id="topsFitNote">Regular fit</div>
+        </div>
+        <div id="topsTableWrap"></div>
+        <p class="note">Based on standard international chest/bust ranges. Brand cuts vary — check the brand's own chart if precision matters (e.g. suiting vs. athletic fit).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOMS -->
+  <div class="panel" id="panel-bottoms">
+    <div class="size-grid">
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Your Measurements</h2></div>
+        <div class="unit-toggle">
+          <button class="active" data-unit="cm" data-group="bottoms">cm</button>
+          <button data-unit="in" data-group="bottoms">inches</button>
+        </div>
+        <div class="field">
+          <label>Gender fit</label>
+          <select id="bottomsGender"><option value="men">Men's</option><option value="women">Women's</option></select>
+        </div>
+        <div class="field"><label>Waist</label><input type="number" id="bottomsWaist" value="84"></div>
+        <div class="field"><label>Hips</label><input type="number" id="bottomsHips" value="98"></div>
+        <div class="field"><label>Inseam length (optional)</label><input type="number" id="bottomsInseam" placeholder="e.g. 81"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Recommended Size</h2></div>
+        <div class="result">
+          <div class="l">Best match</div>
+          <div class="v" id="bottomsResult">32</div>
+          <div class="fit" id="bottomsFitNote">Waist-based (men's) sizing</div>
+        </div>
+        <div id="bottomsTableWrap"></div>
+        <p class="note">Men's sizing shown as waist inches (e.g. 32, 34); women's shown as numeric US size (e.g. 6, 8). Rise style and stretch fabric shift real-world fit.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRESSES -->
+  <div class="panel" id="panel-dresses">
+    <div class="size-grid">
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Your Measurements</h2></div>
+        <div class="unit-toggle">
+          <button class="active" data-unit="cm" data-group="dresses">cm</button>
+          <button data-unit="in" data-group="dresses">inches</button>
+        </div>
+        <div class="field"><label>Bust</label><input type="number" id="dressBust" value="90"></div>
+        <div class="field"><label>Waist</label><input type="number" id="dressWaist" value="72"></div>
+        <div class="field"><label>Hips</label><input type="number" id="dressHips" value="98"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Recommended Size</h2></div>
+        <div class="result">
+          <div class="l">Best match</div>
+          <div class="v" id="dressResult">M</div>
+          <div class="fit" id="dressFitNote">Based on largest matching measurement</div>
+        </div>
+        <div id="dressTableWrap"></div>
+        <p class="note">When measurements span two sizes, this defaults to the larger for comfort — take in at the smaller points if needed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOES -->
+  <div class="panel" id="panel-shoes">
+    <div class="size-grid">
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Foot Measurement</h2></div>
+        <div class="field">
+          <label>Gender fit</label>
+          <select id="shoeGender"><option value="men">Men's</option><option value="women">Women's</option></select>
+        </div>
+        <div class="field"><label>Foot length (cm)</label><input type="number" id="footLength" value="26" step="0.1"></div>
+        <p class="note">Measure heel to longest toe, standing, in the evening when feet are slightly swollen — the truer real-world size.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="bar"></div><h2>Size Across Regions</h2></div>
+        <div id="shoeTableWrap"></div>
+        <p class="note">Shoe size formulas vary meaningfully by brand and last shape — treat this as a starting point, especially for running or performance shoes.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>How This Size Calculator Works</h2>
+    <p>Each tab uses its own reference chart built from standard international measurement ranges — chest and bust circumference for tops, waist for bottoms, a combination of bust/waist/hip for dresses, and foot length for shoes. Enter your measurements in centimeters or inches, and the closest matching size highlights instantly in the table.</p>
+
+    <h2>Why Brand Sizing Still Varies</h2>
+    <p>No universal size chart perfectly predicts fit across every brand, because cut, fabric stretch, and target fit (slim, regular, relaxed, athletic) all shift the real-world measurements behind a labeled size. This calculator gives a reliable starting point based on your actual body measurements — treat it as a strong first estimate, and check a specific brand's own chart when a purchase really needs to fit precisely.</p>
+
+    <h2>Dresses — Why the Larger Match Wins</h2>
+    <p>Bust, waist, and hip rarely fall into exactly the same size range for every body. When they span two sizes, this calculator recommends the larger of the three matches, since a dress can usually be taken in at the smaller measurement points by a tailor, but sizing down and hoping for stretch is a much less reliable fix.</p>
+
+    <h2>Getting an Accurate Shoe Measurement</h2>
+    <p>Foot length is best measured standing (not sitting), from the heel to the tip of the longest toe, and ideally in the evening — feet swell slightly over the course of a day, so an evening measurement reflects real-world sizing more closely than a first-thing-in-the-morning one.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>How accurate is a size calculator like this?</strong> It's a reliable starting point based on standard international size ranges, but brand cuts vary meaningfully — a size M in one brand's athletic fit can measure differently from a size M in a relaxed or suiting fit. Check the brand's own chart when precision matters.</p>
+    <p><strong>Why does the dress size default to the largest matching measurement?</strong> When bust, waist, and hip measurements fall into different size ranges, sizing up to the largest match is generally more comfortable, since a dress can usually be taken in at the smaller points but not let out much at a smaller size.</p>
+    <p><strong>How should I measure my foot for shoe sizing?</strong> Measure from the heel to the tip of the longest toe while standing, ideally in the evening when feet are slightly more swollen from the day — this gives a truer real-world size than measuring first thing in the morning.</p>
+    <p><strong>Why do men's and women's bottoms use different size formats?</strong> Men's bottoms are conventionally sized by waist measurement in inches (like 32 or 34), while women's bottoms commonly use a numeric US size (like 6 or 8) that doesn't map directly to a single measurement — this calculator follows each convention separately.</p>
+    <p><strong>Is this clothing size calculator free to use?</strong> Yes, it is completely free with no account or sign-up required, and runs instantly in your browser.</p>
+    <p><strong>Does this store or upload my measurements?</strong> No — everything is calculated locally in your browser. Nothing is sent to any server.</p>
+
+    <p class="disclaimer">
+      <strong>Note:</strong> This tool provides general sizing guidance based on standard measurement ranges — always sanity-check against a brand's own size chart when it's available, especially for a purchase that needs to fit precisely.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'clothing-size-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
+
+<script>
+/* ⚠️ Everything from this line down is the ORIGINAL tool logic, unchanged. */
+// Tabs
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Unit toggles (per group) - convert stored cm values on display, but we compute always in cm internally
+const unitState = {tops:'cm', bottoms:'cm', dresses:'cm'};
+document.querySelectorAll('.unit-toggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const group = btn.dataset.group;
+    document.querySelectorAll(`.unit-toggle button[data-group="${group}"]`).forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const newUnit = btn.dataset.unit;
+    if(unitState[group]!==newUnit){
+      convertGroupInputs(group, unitState[group], newUnit);
+      unitState[group]=newUnit;
+    }
+    calc();
+  });
+});
+function convertGroupInputs(group, from, to){
+  const ids = {
+    tops:['topsChest','topsWaist','topsShoulder'],
+    bottoms:['bottomsWaist','bottomsHips','bottomsInseam'],
+    dresses:['dressBust','dressWaist','dressHips'],
+  }[group];
+  ids.forEach(id=>{
+    const el = document.getElementById(id);
+    const v = parseFloat(el.value);
+    if(isNaN(v)) return;
+    if(from==='cm' && to==='in') el.value = (v/2.54).toFixed(1);
+    if(from==='in' && to==='cm') el.value = (v*2.54).toFixed(1);
+  });
+}
+function toCm(val, group){ return unitState[group]==='in' ? val*2.54 : val; }
+
+// --- TOPS chart (chest circumference cm) ---
+const TOPS_MEN = [
+  {size:'XS', min:78, max:86},{size:'S', min:87, max:94},{size:'M', min:95, max:102},
+  {size:'L', min:103, max:110},{size:'XL', min:111, max:118},{size:'XXL', min:119, max:128},
+];
+const TOPS_WOMEN = [
+  {size:'XS', min:76, max:82},{size:'S', min:83, max:88},{size:'M', min:89, max:94},
+  {size:'L', min:95, max:102},{size:'XL', min:103, max:110},{size:'XXL', min:111, max:120},
+];
+function matchRange(list, val){
+  for(const r of list){ if(val>=r.min && val<=r.max) return r.size; }
+  if(val < list[0].min) return list[0].size;
+  return list[list.length-1].size;
+}
+function renderTable(container, list, val, labelKey='size'){
+  let rows = list.map(r=>{
+    const isMatch = val>=r.min && val<=r.max;
+    return `<tr class="${isMatch?'match':''}"><td>${r[labelKey]}</td><td>${r.min}–${r.max} cm</td></tr>`;
+  }).join('');
+  container.innerHTML = `<table><thead><tr><th>Size</th><th>Range</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function calcTops(){
+  const chestCm = toCm(parseFloat(document.getElementById('topsChest').value)||0, 'tops');
+  const gender = document.getElementById('topsGender').value;
+  const list = gender==='men'? TOPS_MEN : TOPS_WOMEN;
+  const size = matchRange(list, chestCm);
+  document.getElementById('topsResult').textContent = size;
+  document.getElementById('topsFitNote').textContent = gender==='men'?"Men's regular fit":"Women's regular fit";
+  renderTable(document.getElementById('topsTableWrap'), list, chestCm);
+}
+
+// --- BOTTOMS ---
+const BOTTOMS_MEN = [ // waist inches
+  {size:'28', min:71, max:73},{size:'30', min:74, max:78},{size:'32', min:79, max:83},
+  {size:'34', min:84, max:88},{size:'36', min:89, max:93},{size:'38', min:94, max:98},
+  {size:'40', min:99, max:104},
+];
+const BOTTOMS_WOMEN = [ // US numeric, waist cm
+  {size:'2', min:61, max:63},{size:'4', min:64, max:66},{size:'6', min:67, max:70},
+  {size:'8', min:71, max:74},{size:'10', min:75, max:79},{size:'12', min:80, max:84},
+  {size:'14', min:85, max:90},
+];
+function calcBottoms(){
+  const waistCm = toCm(parseFloat(document.getElementById('bottomsWaist').value)||0, 'bottoms');
+  const gender = document.getElementById('bottomsGender').value;
+  const list = gender==='men'? BOTTOMS_MEN : BOTTOMS_WOMEN;
+  const size = matchRange(list, waistCm);
+  document.getElementById('bottomsResult').textContent = size;
+  document.getElementById('bottomsFitNote').textContent = gender==='men'? 'Waist-based (men\'s) sizing' : 'US numeric (women\'s) sizing';
+  renderTable(document.getElementById('bottomsTableWrap'), list, waistCm);
+}
+
+// --- DRESSES (women's, bust/waist/hip -> size) ---
+const DRESSES = [
+  {size:'XS', bustMin:80,bustMax:84, waistMin:61,waistMax:65, hipMin:87,hipMax:91},
+  {size:'S', bustMin:85,bustMax:89, waistMin:66,waistMax:70, hipMin:92,hipMax:96},
+  {size:'M', bustMin:90,bustMax:94, waistMin:71,waistMax:75, hipMin:97,hipMax:101},
+  {size:'L', bustMin:95,bustMax:100, waistMin:76,waistMax:82, hipMin:102,hipMax:108},
+  {size:'XL', bustMin:101,bustMax:108, waistMin:83,waistMax:90, hipMin:109,hipMax:116},
+];
+function sizeIndexFor(val, minKey, maxKey){
+  for(let i=0;i<DRESSES.length;i++){
+    if(val>=DRESSES[i][minKey] && val<=DRESSES[i][maxKey]) return i;
+  }
+  return val < DRESSES[0][minKey] ? 0 : DRESSES.length-1;
+}
+function calcDresses(){
+  const bust = toCm(parseFloat(document.getElementById('dressBust').value)||0,'dresses');
+  const waist = toCm(parseFloat(document.getElementById('dressWaist').value)||0,'dresses');
+  const hips = toCm(parseFloat(document.getElementById('dressHips').value)||0,'dresses');
+  const idx = Math.max(
+    sizeIndexFor(bust,'bustMin','bustMax'),
+    sizeIndexFor(waist,'waistMin','waistMax'),
+    sizeIndexFor(hips,'hipMin','hipMax')
+  );
+  const row = DRESSES[idx];
+  document.getElementById('dressResult').textContent = row.size;
+  document.getElementById('dressFitNote').textContent = 'Largest of bust / waist / hip match';
+  let rows = DRESSES.map((r,i)=>`<tr class="${i===idx?'match':''}"><td>${r.size}</td><td>${r.bustMin}–${r.bustMax}</td><td>${r.waistMin}–${r.waistMax}</td><td>${r.hipMin}–${r.hipMax}</td></tr>`).join('');
+  document.getElementById('dressTableWrap').innerHTML = `<table><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+// --- SHOES ---
+// foot length cm -> US/UK/EU (approx formulas, men's and women's differ)
+function calcShoes(){
+  const len = parseFloat(document.getElementById('footLength').value)||0;
+  const gender = document.getElementById('shoeGender').value;
+  const rows = [];
+  // generate a small table around the computed size
+  const usBase = gender==='men' ? (len*3.28084*12 - 24)/ (1/3) : 0; // placeholder unused
+  // Use known reference points instead of a rough single formula:
+  // EU size ≈ (foot length cm * 1.5) + 2 (rough universal approximation), adjusted per gender offset
+  const eu = Math.round((len*1.5 + (gender==='men'?2:1.5))*2)/2;
+  const us = gender==='men' ? Math.round((eu-31)*2)/2 : Math.round((eu-30.5)*2)/2;
+  const uk = gender==='men' ? Math.round((us-0.5)*2)/2 : Math.round((us-1.5)*2)/2;
+
+  document.getElementById('shoeTableWrap').innerHTML = `
+    <table>
+      <thead><tr><th>Region</th><th>Size</th></tr></thead>
+      <tbody>
+        <tr class="match"><td>Foot length</td><td>${len.toFixed(1)} cm</td></tr>
+        <tr><td>US</td><td>${us}</td></tr>
+        <tr><td>UK</td><td>${uk}</td></tr>
+        <tr><td>EU</td><td>${eu}</td></tr>
+      </tbody>
+    </table>`;
+}
+
+function calc(){
+  calcTops(); calcBottoms(); calcDresses(); calcShoes();
+}
+['topsChest','topsWaist','topsShoulder','topsGender'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+['bottomsWaist','bottomsHips','bottomsInseam','bottomsGender'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+['dressBust','dressWaist','dressHips'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+['footLength','shoeGender'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+document.getElementById('topsGender').addEventListener('change',calc);
+document.getElementById('bottomsGender').addEventListener('change',calc);
+document.getElementById('shoeGender').addEventListener('change',calc);
+
+calc();
+</script>
+</body>
+</html>
