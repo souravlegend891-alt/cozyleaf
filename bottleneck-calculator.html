@@ -1,1 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bottleneck Calculator — CPU / GPU Pairing Estimator | Cozyleaf</title>
+<meta name="description" content="Free bottleneck calculator — estimate whether your CPU or GPU limits performance at your resolution and workload, using editable relative benchmark tiers. No sign-up needed.">
+<meta name="keywords" content="bottleneck calculator, cpu gpu bottleneck, pc bottleneck checker, cpu bound gpu bound, gaming pc pairing calculator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://cozyleaf.in/bottleneck-calculator.html">
+<meta name="theme-color" content="#1B1D29">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cozyleaf">
+<meta property="og:title" content="Bottleneck Calculator — CPU / GPU Pairing Estimator">
+<meta property="og:description" content="Estimate whether your CPU or GPU is the limiting factor for your build, resolution, and workload. Free and instant.">
+<meta property="og:url" content="https://cozyleaf.in/bottleneck-calculator.html">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bottleneck Calculator | Cozyleaf">
+<meta name="twitter:description" content="Free CPU/GPU bottleneck estimator with editable benchmark scores.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cozyleaf Bottleneck Calculator",
+  "url": "https://cozyleaf.in/bottleneck-calculator.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool that estimates whether a CPU or GPU is the limiting component for a given resolution and workload, using editable relative benchmark tiers."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What does it mean for a PC to be bottlenecked?","acceptedAnswer":{"@type":"Answer","text":"A bottleneck happens when one component — usually the CPU or GPU — limits how much performance the other component could otherwise deliver. A powerful GPU paired with a weak CPU may sit idle waiting for the CPU to prepare each frame, and vice versa."}},
+    {"@type":"Question","name":"Is being GPU-bound always a bad thing?","acceptedAnswer":{"@type":"Answer","text":"No — being GPU-bound is common and often desirable. It means the CPU has headroom rather than being wasted, and a future GPU upgrade will scale performance more directly, since the GPU is the part actually limiting frame rate."}},
+    {"@type":"Question","name":"Why does resolution change which component matters more?","acceptedAnswer":{"@type":"Answer","text":"At lower resolutions like 1080p, the GPU renders each frame faster, which shifts more of the workload's time budget onto the CPU preparing frames. At 4K, the GPU has far more pixels to render, so it becomes the dominant factor and the CPU's relative importance drops."}},
+    {"@type":"Question","name":"Why do esports and simulation games lean more CPU-heavy?","acceptedAnswer":{"@type":"Answer","text":"Competitive titles often run at very high frame rates with relatively simple visuals, so the CPU has to keep up with rapid frame preparation. Simulation and strategy games track large numbers of units, physics calculations, or AI logic, which is also primarily CPU work."}},
+    {"@type":"Question","name":"Can I use my own benchmark scores instead of the preset list?","acceptedAnswer":{"@type":"Answer","text":"Yes — both the CPU and GPU score fields are fully editable. Overwrite them with your own PassMark, Cinebench, 3DMark, or TimeSpy percentile for a more personalized estimate than the preset relative tiers."}},
+    {"@type":"Question","name":"Is this bottleneck calculator free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no account or sign-up required, and runs instantly in your browser."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* Page-specific only — colors/size/header come from style.css.
+     Accent reuses the site's Calculators teal, same as BMI/eDPI/Clothing Size. */
+  :root{ --c-btl: var(--c-calc, #2EC4B6); }
+
+  .stat-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#E4F7F5;border:1px solid #C9EDE9;color:#1F9E93;padding:6px 12px;border-radius:999px;}
+
+  .dot-part{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .dot-part.cpu{background:#4CA8FF;}
+  .dot-part.gpu{background:#2EC4B6;}
+
+  label{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-bottom:6px;text-transform:uppercase;font-weight:600;}
+  .field{margin-bottom:14px;}
+  select, input[type=number]{
+    width:100%;background:#fff;border:1.5px solid var(--line);color:var(--ink);
+    padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:14px;border-radius:10px;
+  }
+  select:focus,input:focus{outline:2px solid var(--c-btl);outline-offset:1px;border-color:var(--c-btl);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .score-hint{font-size:11px;color:var(--ink-soft);margin-top:5px;line-height:1.5;}
+
+  .bar-outer{height:32px;background:#FBFAF7;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;position:relative;margin:14px 0 6px;}
+  .bar-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#fff;transition:width .4s ease;}
+  .bar-cpu{background:linear-gradient(90deg,#4CA8FF,#2A6BD6);}
+  .bar-gpu{background:linear-gradient(90deg,#2EC4B6,#1F9E93);}
+  .bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin-bottom:18px;}
+
+  .verdict{display:flex;align-items:center;gap:14px;padding:16px;background:#FBFAF7;border:1px solid var(--line);border-radius:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .verdict .badge{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;padding:7px 14px;border-radius:10px;flex-shrink:0;}
+  .badge.balanced{background:#E4F7F5;color:#1F9E93;}
+  .badge.gpu-bound{background:#FFF3E0;color:#B9800F;}
+  .badge.cpu-bound{background:#EAF6FB;color:#0077B6;}
+  .verdict .desc{font-size:13px;color:var(--ink-soft);line-height:1.55;flex:1;min-width:200px;}
+
+  .subgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px;}
+  .mini{background:#FBFAF7;border:1px solid var(--line);padding:12px;text-align:center;border-radius:10px;}
+  .mini .l{font-size:9.5px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;font-weight:600;}
+  .mini .v{font-size:17px;font-weight:700;color:var(--ink);font-family:'Space Grotesk',sans-serif;}
+
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.6;border-left:3px solid var(--c-btl);padding-left:10px;margin-top:14px;}
+
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
+
+  .more-tools{margin:24px 0 8px;}
+  .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
+  .tool-grid a:hover{border-color:var(--c-btl);background:#F0FBFA;}
+  .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .more-toggle:hover{border-color:var(--c-btl);color:#1F9E93;}
+  .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .all-tools-list.open{display:block;}
+  .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .all-tools-cat .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .all-tools-list a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+  .all-tools-list a:last-child{border-bottom:none;}
+  .all-tools-list a:hover{background:var(--hover);}
+
+  .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<script src="cozleaf-header.js" defer></script>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Calculators</div>
+  <h1>Bottleneck Calculator</h1>
+  <p class="hero-p">Estimate whether your CPU or GPU limits performance at a given resolution, using relative benchmark tiers rather than a hidden black-box lookup — pick a listed part or type in your own benchmark score for accuracy.</p>
+
+  <div class="stat-row">
+    <span class="stat-pill">Editable scores</span>
+    <span class="stat-pill">3 resolutions</span>
+    <span class="stat-pill">No signup</span>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="bar"></div><h2><span class="dot-part cpu"></span> Processor</h2></div>
+    <div class="field">
+      <label>CPU</label>
+      <select id="cpuSelect"></select>
+    </div>
+    <div class="field">
+      <label>Relative CPU Score (editable)</label>
+      <input type="number" id="cpuScore" min="1" max="100">
+      <div class="score-hint">100 = fastest consumer CPU in this list. Overwrite with your own PassMark/Cinebench multi-core percentile if you have it.</div>
+    </div>
+    <div class="field">
+      <label>Cores / Threads</label>
+      <div class="row2">
+        <input type="number" id="cores" value="8" min="1">
+        <input type="number" id="threads" value="16" min="1">
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar"></div><h2><span class="dot-part gpu"></span> Graphics Card</h2></div>
+    <div class="field">
+      <label>GPU</label>
+      <select id="gpuSelect"></select>
+    </div>
+    <div class="field">
+      <label>Relative GPU Score (editable)</label>
+      <input type="number" id="gpuScore" min="1" max="100">
+      <div class="score-hint">100 = fastest consumer GPU in this list. Overwrite with your own 3DMark/TimeSpy percentile if you have it.</div>
+    </div>
+    <div class="field">
+      <label>Target Resolution</label>
+      <select id="resolution">
+        <option value="1080">1920 × 1080</option>
+        <option value="1440" selected>2560 × 1440</option>
+        <option value="2160">3840 × 2160 (4K)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Workload Type</label>
+      <select id="workload">
+        <option value="esports">Competitive / esports title (CPU-heavy)</option>
+        <option value="aaa" selected>AAA single-player (balanced)</option>
+        <option value="simcity">Simulation / strategy (CPU-heavy)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar"></div><h2>Estimated Load Balance</h2></div>
+    <div class="bar-outer">
+      <div class="bar-seg bar-cpu" id="cpuBar" style="width:50%">CPU</div>
+      <div class="bar-seg bar-gpu" id="gpuBar" style="width:50%">GPU</div>
+    </div>
+    <div class="bar-labels"><span id="cpuPct">CPU load 50%</span><span id="gpuPct">GPU load 50%</span></div>
+
+    <div class="verdict">
+      <div class="badge balanced" id="badge">BALANCED</div>
+      <div class="desc" id="verdictText">Your components are well matched for this resolution and workload.</div>
+    </div>
+
+    <div class="subgrid">
+      <div class="mini"><div class="l">Bottleneck Severity</div><div class="v" id="severity">—</div></div>
+      <div class="mini"><div class="l">Limiting Part</div><div class="v" id="limitPart">—</div></div>
+      <div class="mini"><div class="l">Est. FPS Headroom Lost</div><div class="v" id="headroom">—</div></div>
+    </div>
+    <div class="note">This models relative tier gaps, resolution scaling, and workload CPU-dependency into a single estimate — it is directional guidance for upgrade planning, not a substitute for an in-game benchmark of your exact title.</div>
+  </div>
+
+  <nav class="more-tools" aria-label="Other tools">
+    <h2>Related Tools</h2>
+    <div class="tool-grid" id="categoryGrid"></div>
+    <button class="more-toggle" id="moreToggle">+ More tools</button>
+    <div class="all-tools-list" id="allToolsList"></div>
+  </nav>
+
+  <section class="seo-content">
+    <h2>What Is a Bottleneck?</h2>
+    <p>A bottleneck happens when one component — usually the CPU or GPU — limits how much performance the other component could otherwise deliver. A powerful GPU paired with a weak CPU may sit idle part of the time, waiting for the CPU to finish preparing each frame's instructions before it can render it. The reverse happens too: a strong CPU can't push more frames than a weaker GPU is able to draw.</p>
+
+    <h2>Why Resolution Shifts the Balance</h2>
+    <p>At 1080p, the GPU renders each frame relatively quickly, which shifts more of the total frame time onto the CPU's frame-preparation work — this is why CPU bottlenecks show up more often at lower resolutions. At 4K, the GPU has roughly four times the pixels of 1080p to render, so it becomes the dominant factor in frame time, and the CPU's relative importance drops. This calculator's resolution setting adjusts that balance accordingly.</p>
+
+    <h2>Why Workload Type Matters</h2>
+    <p>Competitive and esports titles are often built to run at very high frame rates on relatively simple scenes, which puts sustained pressure on the CPU to keep preparing frames fast enough. Simulation and strategy games track large numbers of units, AI decisions, and physics calculations — also fundamentally CPU work — which is why both categories lean more CPU-heavy in this calculator's workload setting, compared to a balanced AAA single-player title.</p>
+
+    <h2>Reading the Verdict</h2>
+    <p>A "Balanced" result means neither part is meaningfully holding the other back for your chosen resolution and workload. A "CPU-bound" result suggests your GPU has headroom it isn't fully using — a faster CPU would let more of that headroom show up as higher frame rates. A "GPU-bound" result is common and often perfectly fine: it means your CPU isn't the limiting factor, and a future GPU upgrade will scale performance more directly.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>What does it mean for a PC to be bottlenecked?</strong> A bottleneck happens when one component — usually the CPU or GPU — limits how much performance the other component could otherwise deliver. A powerful GPU paired with a weak CPU may sit idle waiting for the CPU to prepare each frame, and vice versa.</p>
+    <p><strong>Is being GPU-bound always a bad thing?</strong> No — being GPU-bound is common and often desirable. It means the CPU has headroom rather than being wasted, and a future GPU upgrade will scale performance more directly, since the GPU is the part actually limiting frame rate.</p>
+    <p><strong>Why does resolution change which component matters more?</strong> At lower resolutions like 1080p, the GPU renders each frame faster, which shifts more of the workload's time budget onto the CPU preparing frames. At 4K, the GPU has far more pixels to render, so it becomes the dominant factor and the CPU's relative importance drops.</p>
+    <p><strong>Why do esports and simulation games lean more CPU-heavy?</strong> Competitive titles often run at very high frame rates with relatively simple visuals, so the CPU has to keep up with rapid frame preparation. Simulation and strategy games track large numbers of units, physics calculations, or AI logic, which is also primarily CPU work.</p>
+    <p><strong>Can I use my own benchmark scores instead of the preset list?</strong> Yes — both the CPU and GPU score fields are fully editable. Overwrite them with your own PassMark, Cinebench, 3DMark, or TimeSpy percentile for a more personalized estimate than the preset relative tiers.</p>
+    <p><strong>Is this bottleneck calculator free to use?</strong> Yes, it is completely free with no account or sign-up required, and runs instantly in your browser.</p>
+
+    <p class="disclaimer">
+      <strong>Note:</strong> Reference scores are approximate relative tier placements for guidance only, not official vendor benchmark data. Treat results as directional guidance for upgrade planning rather than a guaranteed prediction for any specific game.
+    </p>
+  </section>
+
+  <footer style="margin:20px 0 30px;text-align:center;">
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px;">
+      <a href="index.html" style="color:var(--ink-soft);text-decoration:none;">All Tools</a>
+      <a href="about.html" style="color:var(--ink-soft);text-decoration:none;">About</a>
+      <a href="contact.html" style="color:var(--ink-soft);text-decoration:none;">Contact</a>
+      <a href="privacy-policy.html" style="color:var(--ink-soft);text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--ink-soft);text-decoration:none;">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var CURRENT_URL = 'bottleneck-calculator.html';
+  var CURRENT_CAT = 'Calculators';
+
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
+    }).join('');
+  } else {
+    grid.style.display = 'none';
+  }
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
+});
+</script>
+
+<script>
+/* ⚠️ Everything from this line down is the ORIGINAL tool logic, unchanged. */
+// Approximate relative performance tiers (1-100, editable by user). Rough single list guidance, not vendor benchmark data.
+const CPUS = [
+  {name:"Intel Core i3-12100F", score:38},
+  {name:"AMD Ryzen 5 5600", score:52},
+  {name:"Intel Core i5-12400F", score:55},
+  {name:"AMD Ryzen 5 7600", score:62},
+  {name:"Intel Core i5-13600K", score:74},
+  {name:"AMD Ryzen 7 7700X", score:76},
+  {name:"Intel Core i7-13700K", score:83},
+  {name:"AMD Ryzen 7 7800X3D", score:88},
+  {name:"Intel Core i9-13900K", score:92},
+  {name:"AMD Ryzen 9 7950X3D", score:95},
+  {name:"AMD Ryzen 9 9950X3D", score:100},
+  {name:"Custom / Other", score:60},
+];
+const GPUS = [
+  {name:"NVIDIA RTX 3050", score:28},
+  {name:"NVIDIA RTX 4060", score:40},
+  {name:"AMD RX 7600", score:39},
+  {name:"NVIDIA RTX 4060 Ti", score:48},
+  {name:"AMD RX 7700 XT", score:52},
+  {name:"NVIDIA RTX 4070", score:58},
+  {name:"AMD RX 7800 XT", score:60},
+  {name:"NVIDIA RTX 4070 Ti Super", score:70},
+  {name:"AMD RX 7900 XTX", score:75},
+  {name:"NVIDIA RTX 4080 Super", score:80},
+  {name:"NVIDIA RTX 4090", score:96},
+  {name:"NVIDIA RTX 5090", score:100},
+  {name:"Custom / Other", score:60},
+];
+
+function fill(sel, arr){
+  sel.innerHTML = arr.map((x,i)=>`<option value="${i}">${x.name}</option>`).join('');
+}
+const cpuSel = document.getElementById('cpuSelect');
+const gpuSel = document.getElementById('gpuSelect');
+fill(cpuSel, CPUS); fill(gpuSel, GPUS);
+cpuSel.selectedIndex = 4; gpuSel.selectedIndex = 5;
+
+const cpuScoreInput = document.getElementById('cpuScore');
+const gpuScoreInput = document.getElementById('gpuScore');
+cpuScoreInput.value = CPUS[cpuSel.selectedIndex].score;
+gpuScoreInput.value = GPUS[gpuSel.selectedIndex].score;
+
+cpuSel.addEventListener('change', ()=>{cpuScoreInput.value = CPUS[cpuSel.selectedIndex].score; calc();});
+gpuSel.addEventListener('change', ()=>{gpuScoreInput.value = GPUS[gpuSel.selectedIndex].score; calc();});
+
+['cpuScore','gpuScore','cores','threads','resolution','workload'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calc);
+  document.getElementById(id).addEventListener('change', calc);
+});
+
+function calc(){
+  const cpuScore = parseFloat(cpuScoreInput.value)||1;
+  const gpuScore = parseFloat(gpuScoreInput.value)||1;
+  const res = document.getElementById('resolution').value;
+  const workload = document.getElementById('workload').value;
+
+  // Resolution shifts weight toward GPU as resolution increases
+  const resWeight = {1080: 0.62, 1440: 0.50, 2160: 0.35}[res]; // fraction of "CPU importance" at this res
+  // Workload adjusts CPU dependency
+  const workloadAdj = {esports: 1.25, aaa: 1.0, simcity: 1.2}[workload];
+
+  const cpuDemand = cpuWeightForResWorkload(resWeight, workloadAdj);
+  // effective capability ratio
+  const cpuCapacity = cpuScore;
+  const gpuCapacity = gpuScore;
+
+  // Normalize: compute "effective load" each part carries relative to its own capacity
+  const cpuLoadShare = cpuDemand;
+  const gpuLoadShare = 1 - cpuDemand;
+
+  const cpuStrain = cpuLoadShare / (cpuCapacity/100);
+  const gpuStrain = gpuLoadShare / (gpuCapacity/100);
+
+  const total = cpuStrain + gpuStrain;
+  const cpuPctVal = Math.round((cpuStrain/total)*100);
+  const gpuPctVal = 100 - cpuPctVal;
+
+  document.getElementById('cpuBar').style.width = cpuPctVal+'%';
+  document.getElementById('gpuBar').style.width = gpuPctVal+'%';
+  document.getElementById('cpuPct').textContent = `CPU load ${cpuPctVal}%`;
+  document.getElementById('gpuPct').textContent = `GPU load ${gpuPctVal}%`;
+
+  const diff = Math.abs(cpuPctVal-50);
+  const badge = document.getElementById('badge');
+  const verdictText = document.getElementById('verdictText');
+  const severity = document.getElementById('severity');
+  const limitPart = document.getElementById('limitPart');
+  const headroom = document.getElementById('headroom');
+
+  let sevLabel, sevPct;
+  if(diff<6){sevLabel='None';}
+  else if(diff<15){sevLabel='Mild';}
+  else if(diff<28){sevLabel='Moderate';}
+  else{sevLabel='Severe';}
+  sevPct = Math.min(diff*1.6, 45);
+
+  severity.textContent = sevLabel;
+  headroom.textContent = diff<6 ? '~0%' : `~${Math.round(sevPct)}%`;
+
+  if(diff<6){
+    badge.className='badge balanced'; badge.textContent='BALANCED';
+    verdictText.textContent = 'Your CPU and GPU are well matched for this resolution and workload — neither is meaningfully holding the other back.';
+    limitPart.textContent = '—';
+  } else if(cpuPctVal>gpuPctVal){
+    badge.className='badge cpu-bound'; badge.textContent='CPU-BOUND';
+    verdictText.textContent = `Your CPU is the limiting factor. The GPU could likely push more frames if paired with a stronger CPU, especially in ${workload==='esports'?'CPU-heavy competitive titles':'CPU-heavy scenes'}.`;
+    limitPart.textContent = 'CPU';
+  } else {
+    badge.className='badge gpu-bound'; badge.textContent='GPU-BOUND';
+    verdictText.textContent = `Your GPU is the limiting factor. This is common and often fine — it means you're not wasting CPU headroom, and a GPU upgrade would scale performance directly.`;
+    limitPart.textContent = 'GPU';
+  }
+}
+
+function cpuWeightForResWorkload(resWeight, workloadAdj){
+  let w = resWeight*workloadAdj;
+  return Math.max(0.15, Math.min(0.85, w));
+}
+
+calc();
+</script>
+</body>
+</html>
 
