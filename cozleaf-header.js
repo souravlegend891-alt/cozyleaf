@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v13-2026-08-30 (adds World Time Converter, eDPI Calculator)
+   VERSION: cozyleaf-v14-2026-08-30 (adds Clothing Size Calculator, Bottleneck Calculator)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -17,6 +17,8 @@
     {name:"GPA / CGPA Calculator", cat:"Calculators",          url:"gpa-cgpa-calculator.html"},
     {name:"Dog Food Calculator",   cat:"Calculators",          url:"dog-food-calculator.html"},
     {name:"eDPI Calculator",       cat:"Calculators",          url:"edpi-calculator.html"},
+    {name:"Clothing Size Calculator", cat:"Calculators",       url:"clothing-size-calculator.html"},
+    {name:"Bottleneck Calculator", cat:"Calculators",          url:"bottleneck-calculator.html"},
     {name:"Typing Speed Test",     cat:"Text Tools",           url:"typing-speed-test.html"},
     {name:"Kaomoji Generator",     cat:"Text Tools",           url:"kaomoji.html"},
     {name:"CPS Test",              cat:"Text Tools",           url:"cps-test.html"},
@@ -57,6 +59,8 @@
     "gpa-cgpa-calculator.html":"🎓",
     "dog-food-calculator.html":"🐶",
     "edpi-calculator.html":"🎯",
+    "clothing-size-calculator.html":"👕",
+    "bottleneck-calculator.html":"⚙️",
     "typing-speed-test.html":"⌨️",
     "kaomoji.html":"🙂",
     "cps-test.html":"🖱️",
