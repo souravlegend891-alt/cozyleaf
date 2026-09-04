@@ -2,36 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-<title>Timex Activity & Step Tracker - Free Online Pedometer | Cozyleaf</title>
-<meta name="description" content="Free Timex Activity & Step Tracker — live phone-sensor step counting, daily goals, streaks, achievements, distance and calorie estimates, and a 7-day trend chart. No sign-up, all data stays on your device.">
-<meta name="keywords" content="step tracker, activity tracker online, free pedometer, step counter website, daily step goal tracker, walking tracker">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step Tracker — Real Motion-Sensor Activity Tracker | Cozyleaf</title>
+<meta name="description" content="Free step and activity tracker that counts real steps using your phone's motion sensor — no app install needed. Tracks distance, calories, streaks, and weekly history, all stored privately in your browser.">
+<meta name="keywords" content="step tracker, activity tracker, pedometer online, browser step counter, walking calorie calculator, free pedometer no app">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://cozyleaf.in/step-tracker.html">
 <meta name="theme-color" content="#1B1D29">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cozyleaf">
-<meta property="og:title" content="Timex Activity & Step Tracker - Free Online Pedometer">
-<meta property="og:description" content="Live phone-sensor step counting, daily goals, streaks, achievements, and trend charts — free, no sign-up, all data stays on your device.">
+<meta property="og:title" content="Step Tracker — Real Motion-Sensor Activity Tracker">
+<meta property="og:description" content="Count real steps using your phone's motion sensor, right in your browser — no app install. Free, private, instant.">
 <meta property="og:url" content="https://cozyleaf.in/step-tracker.html">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Timex Activity & Step Tracker | Cozyleaf">
-<meta name="twitter:description" content="Free online step tracker with live phone-sensor counting, goals, streaks and achievements.">
+<meta name="twitter:title" content="Step Tracker | Cozyleaf">
+<meta name="twitter:description" content="Free browser-based step tracker using your phone's real motion sensor. No app install needed.">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Cozyleaf Timex Activity & Step Tracker",
+  "name": "Cozyleaf Step Tracker",
   "url": "https://cozyleaf.in/step-tracker.html",
   "applicationCategory": "HealthApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Free online activity and step tracker with live phone-sensor step counting, daily goals, streaks, achievements, distance and calorie estimates, and a 7-day trend chart. All data is stored locally in the browser."
+  "description": "Free browser-based step and activity tracker that uses a phone's motion sensor to detect real steps, with distance, calorie, streak, and weekly history tracking, all stored locally with no account or app install."
 }
 </script>
 <script type="application/ld+json">
@@ -39,11 +38,13 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"How does live step tracking work in a browser?","acceptedAnswer":{"@type":"Answer","text":"It uses your phone's built-in motion sensor through the browser's DeviceMotion API. While tracking is running and the page stays open, each detected step is added to today's total. It works best on phones carried in a pocket or hand while walking."}},
-    {"@type":"Question","name":"Is my step data uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Every count, goal, and log is stored only in your browser's local storage on your own device. Nothing is sent to a server, and clearing your browser data will remove it."}},
-    {"@type":"Question","name":"Can I log steps manually?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the manual log form to add or correct steps for any date, which is useful for days you tracked with another device or forgot to run live tracking."}},
-    {"@type":"Question","name":"How are distance and calories calculated?","acceptedAnswer":{"@type":"Answer","text":"Distance is estimated from your steps multiplied by your stride length, which you can set directly or estimate from your height. Calories are a rough estimate based on your weight and distance walked, and should be treated as an approximation, not medical advice."}},
-    {"@type":"Question","name":"Is this step tracker free?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is completely free with no sign-up required, and runs instantly in your browser."}}
+    {"@type":"Question","name":"How does this step tracker count steps without an app?","acceptedAnswer":{"@type":"Answer","text":"It uses your phone's built-in motion sensor through the browser's DeviceMotion API, the same kind of sensor a native pedometer app reads from. Each footstep creates a small spike in acceleration, and the tracker detects these spikes in real time while the page is open."}},
+    {"@type":"Question","name":"Why does it ask for motion permission?","acceptedAnswer":{"@type":"Answer","text":"iOS requires an explicit tap-triggered permission prompt before any website can read motion sensor data, as a privacy protection. Android browsers generally allow motion access without a separate prompt. Either way, the readings never leave your device."}},
+    {"@type":"Question","name":"Does this work in the background like a phone's built-in step counter?","acceptedAnswer":{"@type":"Answer","text":"No — browser motion tracking only works while this page is open and active on screen. Unlike a phone's native step counter, it can't keep counting once you switch apps or lock your screen. Use manual entry to add steps from your phone's built-in counter for the rest of the day."}},
+    {"@type":"Question","name":"How accurate is browser-based step detection?","acceptedAnswer":{"@type":"Answer","text":"It's reasonably accurate for a phone held or in a pocket during normal walking, using a threshold-based peak detection method. Accuracy drops with very slow walking, an unusually loose pocket, or a phone lying flat on a surface — treat it as a solid estimate rather than a clinical-grade count."}},
+    {"@type":"Question","name":"How is distance calculated from steps?","acceptedAnswer":{"@type":"Answer","text":"Distance uses your stride length, estimated from your height with a standard walking-stride formula, multiplied by your step count. You can override the estimated stride length directly if you know your own more precisely."}},
+    {"@type":"Question","name":"How are calories estimated?","acceptedAnswer":{"@type":"Answer","text":"Step-based calories use a walking-distance formula based on your body weight. Logged activities like running or cycling use standard MET (metabolic equivalent) values combined with your weight and the duration you enter."}},
+    {"@type":"Question","name":"Is my step and activity data uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Every reading, calculation, and history entry is stored only in your browser's local storage. Nothing is sent to a server, and no account or sign-up is required."}}
   ]
 }
 </script>
@@ -54,120 +55,109 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-  /* Page-specific only — colors, header, .wrap/.card/h1 sizing all
-     come from style.css. Local accent for this new category. */
-  :root{
-    --acc:#FF5D8F;
-    --acc-dark:#D63C6E;
-    --acc-soft:#FFE9F1;
-  }
+  /* Page-specific only — colors/size/header come from style.css.
+     This is a brand-new "Health & Fitness Tools" category, so its own
+     accent (green) is defined here with a safe fallback; the site-wide
+     drawer/menu color for this category should be added to
+     cozleaf-header.js's CATEGORY_HEX. */
+  :root{ --c-fit: #22B573; }
 
-  .eyebrow{color:var(--acc-dark);}
-  .eyebrow .dot{background:var(--acc);}
+  .stat-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;}
+  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:#E6F7EF;border:1px solid #C7ECDA;color:#1A9463;padding:6px 12px;border-radius:999px;}
 
-  .stat-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
-  .stat-pill{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:var(--acc-soft);border:1px solid #FFD1E1;color:var(--acc-dark);padding:6px 12px;border-radius:999px;}
-
-  /* Today card */
-  .ring-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:6px;}
-  .ring-svg{width:172px;height:172px;flex-shrink:0;}
+  /* Tracker card */
+  .tracker-top{display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 0 4px;}
+  .ring-wrap{position:relative;width:180px;height:180px;}
+  .ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg);}
   .ring-track{fill:none;stroke:var(--line);stroke-width:12;}
-  .ring-fill{fill:none;stroke:var(--acc);stroke-width:12;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .5s cubic-bezier(.22,1,.36,1);}
-  .ring-center{font-family:'Space Grotesk',sans-serif;}
-  .ring-steps{font-size:30px;font-weight:700;color:var(--ink);}
-  .ring-goal{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  .ring-fill{fill:none;stroke:var(--c-fit);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset .5s ease;}
+  .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .ring-steps{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--ink);line-height:1;}
+  .ring-label{font-size:11px;color:var(--ink-soft);margin-top:4px;}
+  .ring-goal{font-size:11px;color:#1A9463;margin-top:2px;font-weight:600;}
 
-  .mini-stats{flex:1;min-width:150px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-  .mini-stat{background:var(--hover);border-radius:10px;padding:10px 8px;text-align:center;}
-  .mini-stat .v{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:16px;color:var(--ink);}
-  .mini-stat .k{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
+  .status-line{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);margin:10px 0 14px;text-align:center;justify-content:center;}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--ink-soft);flex-shrink:0;}
+  .status-dot.live{background:var(--c-fit);animation:pulseDot 1.4s infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.35;}}
+  @media (prefers-reduced-motion:reduce){ .status-dot.live{animation:none;} }
 
-  .track-btn{
-    width:100%;padding:16px;border:none;border-radius:14px;color:#fff;
-    font-family:'Space Grotesk',sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;
-    margin-top:16px;background:linear-gradient(135deg,var(--acc),var(--acc-dark));
-    box-shadow:0 6px 16px rgba(214,60,110,.28);display:flex;align-items:center;justify-content:center;gap:8px;
-  }
-  .track-btn.active{background:linear-gradient(135deg,#2EC4B6,#159C8F);box-shadow:0 6px 16px rgba(21,156,143,.28);}
-  .track-btn .dot-pulse{width:9px;height:9px;border-radius:50%;background:#fff;display:none;}
-  .track-btn.active .dot-pulse{display:block;animation:pulse 1s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
-  .track-hint{font-size:12px;color:var(--ink-soft);margin-top:10px;text-align:center;line-height:1.5;}
+  .tracker-actions{display:flex;gap:10px;width:100%;margin-top:4px;}
+  .tracker-actions button{flex:1;}
+  .btn-track{background:var(--c-fit);color:#fff;border:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-track.stop{background:#C0392B;}
+  .btn-track:disabled{opacity:.6;}
 
-  .manual-adjust{display:flex;align-items:center;gap:10px;margin-top:16px;justify-content:center;}
-  .adj-btn{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:18px;font-weight:700;color:var(--ink-soft);cursor:pointer;}
-  .adj-btn:hover{border-color:var(--acc);color:var(--acc-dark);}
-  .adj-input{width:110px;text-align:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:15px;}
+  .manual-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .manual-btn{flex:1;min-width:80px;padding:10px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-size:12.5px;font-weight:600;cursor:pointer;font-family:'IBM Plex Mono',monospace;}
+  .manual-btn:hover{border-color:var(--c-fit);color:#1A9463;}
+  .manual-custom{display:flex;gap:8px;margin-top:8px;}
+  .manual-custom input{flex:1;}
 
-  /* Profile / goal card */
-  .field-row{display:flex;gap:10px;}
-  .field-row .field{flex:1;}
+  /* Setup */
+  .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .field{margin-bottom:14px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-size:11px;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:6px;text-transform:uppercase;font-weight:600;}
+  input[type=number]{width:100%;background:#fff;border:1.5px solid var(--line);color:var(--ink);padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:14.5px;border-radius:10px;}
+  input[type=number]:focus{outline:2px solid var(--c-fit);outline-offset:1px;border-color:var(--c-fit);}
+  select{width:100%;background:#fff;border:1.5px solid var(--line);color:var(--ink);padding:10px 12px;font-family:'Inter',sans-serif;font-size:14px;border-radius:10px;}
+  select:focus{outline:2px solid var(--c-fit);outline-offset:1px;border-color:var(--c-fit);}
 
-  /* History chart */
-  .chart-wrap{margin-top:6px;}
-  .chart-svg{width:100%;height:150px;}
-  .chart-bar{fill:var(--acc-soft);}
-  .chart-bar.hit{fill:var(--acc);}
-  .chart-bar.today{stroke:var(--acc-dark);stroke-width:2;}
-  .chart-label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;fill:var(--ink-soft);}
-  .chart-goal-line{stroke:#2EC4B6;stroke-width:1.5;stroke-dasharray:4 3;}
-  .legend-row{display:flex;gap:14px;margin-top:8px;font-size:11px;color:var(--ink-soft);flex-wrap:wrap;}
-  .legend-row span{display:inline-flex;align-items:center;gap:5px;}
-  .legend-dot{width:9px;height:9px;border-radius:3px;display:inline-block;}
+  /* Today stats */
+  .today-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .today-metric{background:#F5FBF8;border:1px solid #D9F0E4;border-radius:12px;padding:13px;text-align:center;}
+  .today-metric .tm-label{font-size:10.5px;color:#1A9463;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:4px;}
+  .today-metric .tm-value{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--ink);}
+  .today-metric .tm-unit{font-size:10.5px;color:var(--ink-soft);}
 
-  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;}
-  .stat-grid .cell{background:var(--hover);border-radius:10px;padding:11px 6px;text-align:center;}
-  .stat-grid .cell .v{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:16px;color:var(--ink);}
-  .stat-grid .cell .k{font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px;}
+  /* Weekly chart */
+  .week-bars{display:flex;align-items:flex-end;gap:8px;height:100px;margin-top:8px;}
+  .week-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .week-bar{width:100%;background:linear-gradient(180deg,var(--c-fit),#1A9463);border-radius:6px 6px 2px 2px;min-height:3px;transition:height .4s ease;}
+  .week-bar.today{background:linear-gradient(180deg,#F4A527,#C98317);}
+  .week-bar-lbl{font-size:10px;color:var(--ink-soft);font-weight:600;}
+  .week-bar-val{font-size:9px;color:var(--ink-soft);}
 
-  /* Badges */
-  .badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-  .badge{
-    background:var(--hover);border:1.5px solid var(--line);border-radius:12px;
-    padding:14px 6px;text-align:center;opacity:.4;filter:grayscale(1);transition:.2s;
-  }
-  .badge.unlocked{opacity:1;filter:none;background:var(--acc-soft);border-color:#FFD1E1;}
-  .badge .ic{font-size:24px;}
-  .badge .name{font-size:10px;font-weight:700;color:var(--ink);margin-top:6px;line-height:1.3;}
+  /* Streak / badges */
+  .streak-box{display:flex;align-items:center;gap:14px;background:#F5FBF8;border:1px solid #D9F0E4;border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+  .streak-num{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:#1A9463;line-height:1;}
+  .streak-text{font-size:12.5px;color:var(--ink-soft);line-height:1.4;}
+  .badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .badge-card{border:1.5px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:#fff;opacity:.4;}
+  .badge-card.unlocked{opacity:1;border-color:#C7ECDA;background:#F5FBF8;}
+  .badge-icon{font-size:22px;margin-bottom:4px;}
+  .badge-name{font-size:11.5px;font-weight:700;color:var(--ink);}
+  .badge-desc{font-size:10px;color:var(--ink-soft);margin-top:2px;line-height:1.4;}
 
-  /* Log table */
-  .log-form{display:flex;gap:10px;align-items:end;margin-bottom:16px;flex-wrap:wrap;}
-  .log-form .field{flex:1;min-width:120px;}
-  .log-form .btn-add{
-    padding:12px 18px;border-radius:10px;border:none;background:var(--acc);color:#fff;
-    font-weight:700;font-size:13.5px;cursor:pointer;flex-shrink:0;
-  }
-  .log-table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  .log-table th{text-align:left;color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:8px 6px;border-bottom:1.5px solid var(--line);}
-  .log-table td{padding:9px 6px;border-bottom:1px solid var(--line);color:var(--ink);}
-  .log-table .del-btn{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:14px;}
-  .log-table .del-btn:hover{color:#C0392B;}
-  .log-empty{color:var(--ink-soft);font-size:13px;text-align:center;padding:16px 0;}
+  /* Log activity */
+  .activity-log-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:6px;}
+  .activity-log-row .field{flex:1;min-width:140px;margin-bottom:0;}
+  .btn-add-activity{background:var(--c-fit);color:#fff;border:none;padding:11px 16px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
 
-  .data-actions{display:flex;gap:10px;flex-wrap:wrap;}
-  .btn-outline{
-    border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:10px 15px;border-radius:10px;
-    cursor:pointer;transition:.15s;
-  }
-  .btn-outline:hover{border-color:var(--acc);color:var(--acc-dark);}
-  .btn-outline.danger:hover{border-color:#C0392B;color:#C0392B;}
+  /* History */
+  .hist-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .hist-table th{padding:8px 6px;text-align:left;color:var(--ink-soft);font-weight:600;font-size:10.5px;text-transform:uppercase;background:#FBFAF7;border-bottom:1px solid var(--line);}
+  .hist-table td{padding:9px 6px;border-bottom:1px solid var(--line);color:var(--ink);}
+  .hist-table tr:last-child td{border-bottom:none;}
+  .hist-actions{display:flex;gap:8px;margin-top:10px;}
+  .hist-btn{font-size:11.5px;font-weight:600;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+  .hist-empty{text-align:center;padding:18px;color:var(--ink-soft);font-size:12.5px;}
 
-  #stToast{
-    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);
-    background:var(--header);color:#fff;padding:10px 18px;border-radius:100px;font-size:13px;font-weight:600;
-    opacity:0;transition:.2s;pointer-events:none;z-index:250;
-  }
-  #stToast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .seo-content{color:#4A4E56;margin-top:8px;}
+  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
+  .seo-content h2:first-child{margin-top:0;}
+  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
 
-  .more-tools{margin:20px 0 8px;}
+  .trust-note{font-size:12px;color:var(--ink-soft);background:#FBFAF7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:6px;line-height:1.6;}
+
+  .more-tools{margin:24px 0 8px;}
   .more-tools h2{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--ink);margin-bottom:10px;}
   .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   .tool-grid a{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;transition:.15s;}
-  .tool-grid a:hover{border-color:var(--acc);background:var(--acc-soft);}
-  .tool-grid a .ic{font-size:15px;flex-shrink:0;}
+  .tool-grid a:hover{border-color:var(--c-fit);background:#F5FBF8;}
   .more-toggle{width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px dashed var(--line);background:none;color:var(--ink-soft);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-  .more-toggle:hover{border-color:var(--acc);color:var(--acc-dark);}
+  .more-toggle:hover{border-color:var(--c-fit);color:#1A9463;}
   .all-tools-list{display:none;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
   .all-tools-list.open{display:block;}
   .all-tools-cat{padding:12px 14px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
@@ -176,118 +166,132 @@
   .all-tools-list a:last-child{border-bottom:none;}
   .all-tools-list a:hover{background:var(--hover);}
 
-  .seo-content{color:#4A4E56;margin-top:8px;}
-  .seo-content h2{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:20px 0 8px;}
-  .seo-content p{font-size:13.5px;line-height:1.7;margin-bottom:8px;}
   .disclaimer{margin-top:16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-soft);}
-
-  @media(max-width:380px){
-    .badge-grid{grid-template-columns:repeat(2,1fr);}
-    .stat-grid{grid-template-columns:repeat(2,1fr);}
-  }
 </style>
 </head>
 <body>
 <script src="cozleaf-header.js" defer></script>
 
 <div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>Activity &amp; Fitness Tools</div>
-  <h1>Timex Activity &amp; Step Tracker</h1>
-  <p class="hero-p">Track your steps live using your phone's motion sensor, log past days manually, hit daily goals, build streaks, and unlock achievements — everything stays on your device, nothing is uploaded.</p>
+  <div class="eyebrow"><span class="dot" style="background:var(--c-fit);"></span>Health &amp; Fitness Tools</div>
+  <h1>Step Tracker</h1>
+  <p class="hero-p">Counts real steps using your phone's motion sensor — right in your browser, no app install. Tracks distance, calories, streaks, and weekly history, stored privately on your device.</p>
 
   <div class="stat-row">
-    <span class="stat-pill" id="pillStreak">🔥 0 day streak</span>
-    <span class="stat-pill" id="pillTotal">👣 0 total steps</span>
+    <span class="stat-pill">Real motion sensor</span>
+    <span class="stat-pill">No app install</span>
+    <span class="stat-pill">100% private</span>
   </div>
 
-  <!-- TODAY -->
+  <!-- LIVE TRACKER -->
   <div class="card">
-    <div class="card-head"><span class="bar" style="background:var(--acc);"></span><h2>Today</h2></div>
-    <p class="card-sub" id="todayDateLabel">—</p>
-
-    <div class="ring-wrap">
-      <svg class="ring-svg" viewBox="0 0 160 160">
-        <circle class="ring-track" cx="80" cy="80" r="68"></circle>
-        <circle class="ring-fill" id="ringFill" cx="80" cy="80" r="68" stroke-dasharray="427.3" stroke-dashoffset="427.3"></circle>
-        <text x="80" y="76" text-anchor="middle" class="ring-center ring-steps" id="ringSteps">0</text>
-        <text x="80" y="96" text-anchor="middle" class="ring-center ring-goal" id="ringGoalText">of 10,000</text>
-      </svg>
-      <div class="mini-stats">
-        <div class="mini-stat"><div class="v" id="miniDistance">0.0 km</div><div class="k">Distance</div></div>
-        <div class="mini-stat"><div class="v" id="miniCalories">0</div><div class="k">Calories</div></div>
-        <div class="mini-stat"><div class="v" id="miniGoalPct">0%</div><div class="k">Of goal</div></div>
-        <div class="mini-stat"><div class="v" id="miniActive">0 min</div><div class="k">Active now</div></div>
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>Today's Tracker</h2></div>
+    <div class="tracker-top">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 140 140">
+          <circle class="ring-track" cx="70" cy="70" r="58"></circle>
+          <circle class="ring-fill" id="ringFill" cx="70" cy="70" r="58" stroke-dasharray="364.4" stroke-dashoffset="364.4"></circle>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-steps" id="ringSteps">0</div>
+          <div class="ring-label">steps today</div>
+          <div class="ring-goal" id="ringGoalText">Goal: 8,000</div>
+        </div>
+      </div>
+      <div class="status-line">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Not tracking — tap Start to enable motion sensor</span>
+      </div>
+      <div class="tracker-actions">
+        <button class="btn-track" id="trackBtn">▶ Start Tracking</button>
+      </div>
+      <div class="manual-row">
+        <button class="manual-btn" data-add="10">+10 steps</button>
+        <button class="manual-btn" data-add="100">+100 steps</button>
+        <button class="manual-btn" data-add="1000">+1,000 steps</button>
+      </div>
+      <div class="manual-custom">
+        <input type="number" id="manualInput" placeholder="Custom step count" min="1">
+        <button class="btn-add-activity" id="manualAddBtn">Add</button>
       </div>
     </div>
+  </div>
 
-    <button class="track-btn" id="trackBtn"><span class="dot-pulse"></span><span id="trackBtnLabel">▶ Start live tracking</span></button>
-    <div class="track-hint" id="trackHint">Uses your phone's motion sensor to count steps while this page is open. Works best carried in hand or pocket while walking.</div>
+  <!-- SETUP -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>Your Profile</h2></div>
+    <p class="card-sub">Used to estimate stride length, distance and calories accurately.</p>
+    <div class="row3">
+      <div class="field"><label>Height (cm)</label><input type="number" id="heightInput" value="170" min="100" max="230"></div>
+      <div class="field"><label>Weight (kg)</label><input type="number" id="weightInput" value="65" min="20" max="250"></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label>Stride length (cm)</label><input type="number" id="strideInput" min="30" max="120"></div>
+      <div class="field"><label>Daily step goal</label><input type="number" id="goalInput" value="8000" min="1000" step="500"></div>
+    </div>
+    <p class="note" style="font-size:12px;color:var(--ink-soft);">Stride length auto-estimates from height (updates when height changes) — override it here if you know your own more precisely.</p>
+  </div>
 
-    <div class="manual-adjust">
-      <button class="adj-btn" id="stepMinus">−100</button>
-      <input type="number" class="adj-input mono" id="manualStepsInput" value="0" min="0">
-      <button class="adj-btn" id="stepPlus">+100</button>
+  <!-- TODAY STATS -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>Today's Stats</h2></div>
+    <div class="today-grid">
+      <div class="today-metric"><div class="tm-label">Distance</div><div class="tm-value" id="todayDistance">0.00</div><div class="tm-unit">km</div></div>
+      <div class="today-metric"><div class="tm-label">Calories</div><div class="tm-value" id="todayCalories">0</div><div class="tm-unit">kcal</div></div>
+      <div class="today-metric"><div class="tm-label">Active time</div><div class="tm-value" id="todayActiveTime">0</div><div class="tm-unit">min (est.)</div></div>
+      <div class="today-metric"><div class="tm-label">Goal progress</div><div class="tm-value" id="todayProgress">0%</div><div class="tm-unit">of daily goal</div></div>
     </div>
   </div>
 
-  <!-- GOAL / PROFILE -->
-  <div class="card">
-    <div class="card-head"><span class="bar" style="background:var(--acc);"></span><h2>Goal &amp; Profile</h2></div>
-    <p class="card-sub">Used to calculate distance, calories, and your progress ring.</p>
-    <div class="field-row">
-      <div class="field"><label class="small">Daily step goal</label><input type="number" id="goalInput" value="10000" min="1000" step="500"></div>
-      <div class="field"><label class="small">Height (cm)</label><input type="number" id="heightInput" placeholder="e.g. 170"></div>
-    </div>
-    <div class="field-row" style="margin-top:10px;">
-      <div class="field"><label class="small">Stride length (cm)</label><input type="number" id="strideInput" placeholder="auto from height"></div>
-      <div class="field"><label class="small">Weight (kg)</label><input type="number" id="weightInput" placeholder="e.g. 65"></div>
-    </div>
-    <button class="btn-primary" id="saveProfileBtn" style="margin-top:14px;">Save settings</button>
+  <!-- WEEKLY CHART -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>This Week</h2></div>
+    <div class="week-bars" id="weekBars"></div>
   </div>
 
-  <!-- HISTORY / TRENDS -->
-  <div class="card">
-    <div class="card-head"><span class="bar" style="background:var(--acc);"></span><h2>7-Day Trend</h2></div>
-    <p class="card-sub">Teal dashed line marks your goal.</p>
-    <div class="chart-wrap"><svg class="chart-svg" id="chartSvg" viewBox="0 0 320 150"></svg></div>
-    <div class="legend-row">
-      <span><span class="legend-dot" style="background:var(--acc-soft);border:1px solid #FFD1E1;"></span>Below goal</span>
-      <span><span class="legend-dot" style="background:var(--acc);"></span>Goal met</span>
+  <!-- STREAK + BADGES -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>Streak &amp; Achievements</h2></div>
+    <div class="streak-box">
+      <div class="streak-num" id="streakNum">0</div>
+      <div class="streak-text">day streak of hitting your daily step goal — keep it going!</div>
     </div>
-    <div class="stat-grid">
-      <div class="cell"><div class="v" id="statWeekAvg">0</div><div class="k">7-day avg</div></div>
-      <div class="cell"><div class="v" id="statBestDay">0</div><div class="k">Best day</div></div>
-      <div class="cell"><div class="v" id="statDaysLogged">0</div><div class="k">Days logged</div></div>
-    </div>
-  </div>
-
-  <!-- ACHIEVEMENTS -->
-  <div class="card">
-    <div class="card-head"><span class="bar" style="background:var(--acc);"></span><h2>Achievements</h2></div>
-    <p class="card-sub">Unlock badges as you build the habit.</p>
     <div class="badge-grid" id="badgeGrid"></div>
   </div>
 
-  <!-- MANUAL LOG -->
-  <div class="card">
-    <div class="card-head"><span class="bar" style="background:var(--acc);"></span><h2>Manual Log</h2></div>
-    <p class="card-sub">Add or correct steps for any date.</p>
-    <div class="log-form">
-      <div class="field"><label class="small">Date</label><input type="date" id="logDate"></div>
-      <div class="field"><label class="small">Steps</label><input type="number" id="logSteps" min="0" placeholder="e.g. 8500"></div>
-      <button class="btn-add" id="logSaveBtn">Save</button>
+  <!-- LOG OTHER ACTIVITY -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>Log Other Activity</h2></div>
+    <p class="card-sub">Running, cycling, gym and more — added on top of today's step-based calories.</p>
+    <div class="activity-log-row">
+      <div class="field">
+        <label>Activity</label>
+        <select id="activityType">
+          <option value="4">Brisk walk (extra, MET 4.0)</option>
+          <option value="9.8">Running, 8 km/h (MET 9.8)</option>
+          <option value="7.5">Cycling, moderate (MET 7.5)</option>
+          <option value="6">Swimming, casual (MET 6.0)</option>
+          <option value="3">Yoga (MET 3.0)</option>
+          <option value="5">Gym / weight training (MET 5.0)</option>
+          <option value="6.5">Hiking (MET 6.5)</option>
+          <option value="7">Dancing (MET 7.0)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Duration (min)</label>
+        <input type="number" id="activityDuration" value="30" min="1" max="600">
+      </div>
+      <button class="btn-add-activity" id="addActivityBtn">+ Add</button>
     </div>
-    <div id="logTableWrap"></div>
   </div>
 
-  <!-- DATA -->
-  <div class="card">
-    <div class="card-head"><span class="bar" style="background:var(--acc);"></span><h2>Your Data</h2></div>
-    <p class="card-sub">Stored only in this browser, on this device.</p>
-    <div class="data-actions">
-      <button class="btn-outline" id="exportCsvBtn">Export CSV</button>
-      <button class="btn-outline" id="exportJsonBtn">Export JSON</button>
-      <button class="btn-outline danger" id="clearDataBtn">Clear all data</button>
+  <!-- HISTORY -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head"><div class="bar" style="background:var(--c-fit)"></div><h2>History</h2></div>
+    <div id="historyWrap"></div>
+    <div class="hist-actions">
+      <button class="hist-btn" id="exportCsvBtn">Export CSV</button>
+      <button class="hist-btn" id="clearHistBtn">Clear All Data</button>
     </div>
   </div>
 
@@ -299,26 +303,35 @@
   </nav>
 
   <section class="seo-content">
-    <h2>Free Online Step Tracker — Live Pedometer in Your Browser</h2>
-    <p>Timex Activity &amp; Step Tracker counts your steps using your phone's built-in motion sensor while this page is open, or lets you log steps manually for any day. Set a daily goal, watch your progress ring fill up, track distance and estimated calories, and build a streak — all without an account, an app install, or any data leaving your device.</p>
+    <h2>How This Step Tracker Works</h2>
+    <p>Most "online" step counters just ask you to type in a number. This one is different — it reads your phone's real motion sensor directly through the browser's DeviceMotion API, the same underlying sensor data a native pedometer app uses, and detects each footstep in real time as a small spike in acceleration. No app store, no install, no account — just open this page on your phone and tap Start.</p>
 
-    <h2>How does live step tracking work?</h2>
-    <p>Modern phone browsers can read the device's accelerometer through the DeviceMotion API. This tracker watches the pattern of acceleration as you walk and counts each step using a peak-detection algorithm — the same basic idea most phone pedometer apps use. Tracking only runs while this tab is open and active, and it asks for motion-sensor permission first on iOS devices.</p>
+    <h2>The Motion Permission Prompt</h2>
+    <p>On iPhones running iOS 13 or later, Safari requires an explicit tap-triggered permission prompt before any website can read motion sensor data — this is a deliberate privacy protection built into iOS, not something this site can skip. Android browsers generally allow motion access without a separate prompt. Either way, the readings are processed entirely on your device and never transmitted anywhere.</p>
 
-    <h2>How are distance and calories estimated?</h2>
-    <p>Distance is calculated as your step count multiplied by your stride length. If you don't set a stride length directly, it's estimated from your height using a standard walking-stride formula. Calories are a rough estimate based on your weight and the distance covered — useful as a general guide, not a precise medical measurement.</p>
+    <h2>Why It Only Tracks While the Page Is Open</h2>
+    <p>Unlike your phone's built-in step counter, which runs as a background system service, browser-based motion tracking only works while this page is open and on screen — that's a fundamental limitation of how browsers sandbox web pages for battery and privacy reasons, not a bug. For steps taken earlier in the day or while your phone was locked, use the manual add buttons to top up your count from your phone's native step counter.</p>
 
-    <h2>Streaks and achievements</h2>
-    <p>Every day you meet your step goal extends your streak, shown at the top of the page. Badges unlock automatically as you hit milestones — your first logged day, single-day step counts, streak lengths, and lifetime totals — giving you a reason to come back and keep the habit going.</p>
+    <h2>Distance, Calories, and Stride Length</h2>
+    <p>Distance is calculated from your step count multiplied by your stride length, which is auto-estimated from your height using a standard walking-stride formula — you can override it directly if you've measured your own stride more precisely. Step-based calories use a walking-distance-and-weight formula, while logged activities like running or cycling use standard MET (metabolic equivalent) values combined with your weight and the duration you log, added on top of your step-based total for the day.</p>
+
+    <h2>Streaks, Badges, and Weekly History</h2>
+    <p>Hitting your daily step goal builds a streak, tracked automatically day to day. Milestone badges unlock as you hit step and consistency thresholds — a lightweight way to stay motivated without needing a subscription or a native app. The weekly chart and full history table make it easy to spot patterns, and everything can be exported as a CSV file whenever you want your own copy of the data.</p>
+
+    <p class="trust-note">Every step count, activity log, streak, and badge is calculated and stored entirely in your own browser's local storage — nothing is ever uploaded to a server, and no account or sign-up is required. Clearing your data removes it completely and permanently.</p>
 
     <h2>Frequently Asked Questions</h2>
-    <p><strong>How does live step tracking work in a browser?</strong> It uses your phone's motion sensor through the DeviceMotion API. While tracking runs and the page stays open, each detected step adds to today's total.</p>
-    <p><strong>Is my step data uploaded anywhere?</strong> No — everything is stored only in your browser's local storage on your device. Nothing is sent to a server.</p>
-    <p><strong>Can I log steps manually?</strong> Yes, use the Manual Log form to add or correct steps for any date.</p>
-    <p><strong>How are distance and calories calculated?</strong> Distance uses your stride length; calories are estimated from your weight and distance walked. Treat both as approximations.</p>
-    <p><strong>Is this step tracker free?</strong> Yes, completely free, no sign-up required, and it runs instantly in your browser.</p>
+    <p><strong>How does this step tracker count steps without an app?</strong> It uses your phone's built-in motion sensor through the browser's DeviceMotion API, the same kind of sensor a native pedometer app reads from. Each footstep creates a small spike in acceleration, and the tracker detects these spikes in real time while the page is open.</p>
+    <p><strong>Why does it ask for motion permission?</strong> iOS requires an explicit tap-triggered permission prompt before any website can read motion sensor data, as a privacy protection. Android browsers generally allow motion access without a separate prompt. Either way, the readings never leave your device.</p>
+    <p><strong>Does this work in the background like a phone's built-in step counter?</strong> No — browser motion tracking only works while this page is open and active on screen. Unlike a phone's native step counter, it can't keep counting once you switch apps or lock your screen. Use manual entry to add steps from your phone's built-in counter for the rest of the day.</p>
+    <p><strong>How accurate is browser-based step detection?</strong> It's reasonably accurate for a phone held or in a pocket during normal walking, using a threshold-based peak detection method. Accuracy drops with very slow walking, an unusually loose pocket, or a phone lying flat on a surface — treat it as a solid estimate rather than a clinical-grade count.</p>
+    <p><strong>How is distance calculated from steps?</strong> Distance uses your stride length, estimated from your height with a standard walking-stride formula, multiplied by your step count. You can override the estimated stride length directly if you know your own more precisely.</p>
+    <p><strong>How are calories estimated?</strong> Step-based calories use a walking-distance formula based on your body weight. Logged activities like running or cycling use standard MET (metabolic equivalent) values combined with your weight and the duration you enter.</p>
+    <p><strong>Is my step and activity data uploaded anywhere?</strong> No. Every reading, calculation, and history entry is stored only in your browser's local storage. Nothing is sent to a server, and no account or sign-up is required.</p>
 
-    <p class="disclaimer"><strong>Disclaimer:</strong> Step counts, distance, and calorie estimates are approximate and depend on device sensors and the settings you provide. This tool is not a medical device and is not a substitute for professional health advice.</p>
+    <p class="disclaimer">
+      <strong>Health disclaimer:</strong> This tool provides general activity estimates for personal motivation and tracking, not medical-grade measurement. It is not a substitute for professional medical advice — consult a healthcare provider for guidance specific to your fitness or health goals.
+    </p>
   </section>
 
   <footer style="margin:20px 0 30px;text-align:center;">
@@ -332,356 +345,366 @@
   </footer>
 </div>
 
-<div id="stToast"></div>
-
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   var CURRENT_URL = 'step-tracker.html';
-  var CURRENT_CAT = 'Activity & Fitness Tools';
+  var CURRENT_CAT = 'Health & Fitness Tools';
 
-  function buildMoreTools(){
-    var tools = window.COZYLEAF_TOOLS || [];
-    var icons = window.COZYLEAF_ICONS || {};
-    var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
-    var catHex = window.COZYLEAF_CATEGORY_HEX || {};
+  var tools = window.COZYLEAF_TOOLS || [];
+  var icons = window.COZYLEAF_ICONS || {};
+  var catOrder = window.COZYLEAF_CATEGORY_ORDER || [];
+  var catHex = window.COZYLEAF_CATEGORY_HEX || {};
 
-    var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
-    var grid = document.getElementById('categoryGrid');
-    if(sameCat.length){
-      grid.innerHTML = sameCat.map(function(t){
-        var ic = icons[t.url] || '🔧';
-        return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
-      }).join('');
-    } else {
-      grid.style.display = 'none';
-    }
-
-    var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
-    var listEl = document.getElementById('allToolsList');
-    listEl.innerHTML = otherCats.map(function(cat){
-      var hex = catHex[cat] || '#9AA0AC';
-      var catTools = tools.filter(function(t){ return t.cat === cat; });
-      if(!catTools.length) return '';
-      var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
-      var rows = catTools.map(function(t){
-        var ic = icons[t.url] || '🔧';
-        return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
-      }).join('');
-      return head + rows;
+  var sameCat = tools.filter(function(t){ return t.cat === CURRENT_CAT && t.url !== CURRENT_URL; });
+  var grid = document.getElementById('categoryGrid');
+  if(sameCat.length){
+    grid.innerHTML = sameCat.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span class="ic">'+ic+'</span>'+t.name+'</a>';
     }).join('');
-
-    document.getElementById('moreToggle').addEventListener('click', function(){
-      listEl.classList.toggle('open');
-      this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
-    });
+  } else {
+    grid.style.display = 'none';
   }
-  buildMoreTools();
+
+  var otherCats = catOrder.filter(function(c){ return c !== CURRENT_CAT; });
+  var listEl = document.getElementById('allToolsList');
+  listEl.innerHTML = otherCats.map(function(cat){
+    var hex = catHex[cat] || '#9AA0AC';
+    var catTools = tools.filter(function(t){ return t.cat === cat; });
+    if(!catTools.length) return '';
+    var head = '<div class="all-tools-cat"><span class="chip-dot" style="background:'+hex+'"></span>'+cat+'</div>';
+    var rows = catTools.map(function(t){
+      var ic = icons[t.url] || '🔧';
+      return '<a href="'+t.url+'"><span>'+ic+' '+t.name+'</span><span>→</span></a>';
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  document.getElementById('moreToggle').addEventListener('click', function(){
+    listEl.classList.toggle('open');
+    this.textContent = listEl.classList.contains('open') ? '− Show less' : '+ More tools';
+  });
 });
 </script>
 
 <script>
 (function(){
-  var RING_CIRC = 2 * Math.PI * 68;
+  const RING_CIRCUMFERENCE = 2 * Math.PI * 58; // ≈364.4
 
-  var BADGES = [
-    {id:'first-day',  ic:'👟', name:'First Steps',        test:function(d){ return d.daysLogged >= 1; }},
-    {id:'5k-day',      ic:'⭐', name:'5,000 in a Day',     test:function(d){ return d.bestDay >= 5000; }},
-    {id:'10k-day',     ic:'🏅', name:'10,000 in a Day',    test:function(d){ return d.bestDay >= 10000; }},
-    {id:'20k-day',     ic:'🏆', name:'20,000 in a Day',    test:function(d){ return d.bestDay >= 20000; }},
-    {id:'streak-3',    ic:'🔥', name:'3-Day Streak',       test:function(d){ return d.streak >= 3; }},
-    {id:'streak-7',    ic:'🔥', name:'7-Day Streak',       test:function(d){ return d.streak >= 7; }},
-    {id:'streak-30',   ic:'👑', name:'30-Day Streak',      test:function(d){ return d.streak >= 30; }},
-    {id:'total-100k',  ic:'💯', name:'100,000 Total',      test:function(d){ return d.total >= 100000; }},
-    {id:'total-1m',    ic:'🚀', name:'1,000,000 Total',    test:function(d){ return d.total >= 1000000; }}
-  ];
-
-  function pad(n){ return String(n).padStart(2,'0'); }
-  function todayStr(){
-    var d = new Date();
-    return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  /* ---------------- Storage helpers ---------------- */
+  function todayKey(){
+    const d = new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
   }
-  function dateStr(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
-  function fmtNum(n){ return Math.round(n).toLocaleString('en-US'); }
-
-  function loadLog(){ try{ return JSON.parse(localStorage.getItem('cz_steps_log')||'{}'); }catch(e){ return {}; } }
-  function saveLog(log){ localStorage.setItem('cz_steps_log', JSON.stringify(log)); }
   function loadProfile(){
-    try{ return JSON.parse(localStorage.getItem('cz_steps_profile')||'{}'); }catch(e){ return {}; }
+    try{ return JSON.parse(localStorage.getItem('cz_step_profile')) || {}; }catch(e){ return {}; }
   }
-  function saveProfile(p){ localStorage.setItem('cz_steps_profile', JSON.stringify(p)); }
-  function loadBadges(){ try{ return JSON.parse(localStorage.getItem('cz_steps_badges')||'[]'); }catch(e){ return []; } }
-  function saveBadges(b){ localStorage.setItem('cz_steps_badges', JSON.stringify(b)); }
-
-  function toast(msg){
-    var t = document.getElementById('stToast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(function(){ t.classList.remove('show'); }, 1700);
+  function saveProfile(p){ try{ localStorage.setItem('cz_step_profile', JSON.stringify(p)); }catch(e){} }
+  function loadDaily(){
+    try{ return JSON.parse(localStorage.getItem('cz_step_daily')) || {}; }catch(e){ return {}; }
   }
-
-  var log = loadLog();
-  var profile = Object.assign({ goal:10000, heightCm:null, strideCm:null, weightKg:null }, loadProfile());
-  var unlockedBadges = loadBadges();
-
-  document.getElementById('goalInput').value = profile.goal;
-  if(profile.heightCm) document.getElementById('heightInput').value = profile.heightCm;
-  if(profile.strideCm) document.getElementById('strideInput').value = profile.strideCm;
-  if(profile.weightKg) document.getElementById('weightInput').value = profile.weightKg;
-
-  function effectiveStrideCm(){
-    if(profile.strideCm) return profile.strideCm;
-    if(profile.heightCm) return profile.heightCm * 0.415;
-    return 76.2;
+  function saveDaily(d){ try{ localStorage.setItem('cz_step_daily', JSON.stringify(d)); }catch(e){} }
+  function loadBadges(){
+    try{ return JSON.parse(localStorage.getItem('cz_step_badges')) || []; }catch(e){ return []; }
   }
-  function effectiveWeightKg(){ return profile.weightKg || 68; }
+  function saveBadges(b){ try{ localStorage.setItem('cz_step_badges', JSON.stringify(b)); }catch(e){} }
 
-  function todaySteps(){ return log[todayStr()] || 0; }
-  function setTodaySteps(n){
-    n = Math.max(0, Math.round(n));
-    log[todayStr()] = n;
-    saveLog(log);
-    renderAll();
+  /* ---------------- Profile ---------------- */
+  const heightInput = document.getElementById('heightInput');
+  const weightInput = document.getElementById('weightInput');
+  const strideInput = document.getElementById('strideInput');
+  const goalInput = document.getElementById('goalInput');
+
+  let profile = Object.assign({height:170, weight:65, stride:null, goal:8000}, loadProfile());
+  heightInput.value = profile.height;
+  weightInput.value = profile.weight;
+  goalInput.value = profile.goal;
+  strideInput.value = profile.stride || estimateStride(profile.height);
+
+  function estimateStride(heightCm){
+    // Standard walking-stride approximation: stride length ≈ height * 0.415, in cm
+    return Math.round(heightCm * 0.415);
   }
 
-  function computeStats(){
-    var dates = Object.keys(log);
-    var total = 0, best = 0, daysLogged = dates.length;
-    dates.forEach(function(d){ total += log[d]; if(log[d] > best) best = log[d]; });
-
-    // 7-day window ending today
-    var week = [];
-    for(var i=6;i>=0;i--){
-      var d = new Date(); d.setDate(d.getDate()-i);
-      var key = dateStr(d);
-      week.push({ date:key, label:d.toLocaleDateString('en-US',{weekday:'short'}), steps: log[key]||0, isToday: key===todayStr() });
-    }
-    var weekTotal = week.reduce(function(s,w){ return s + w.steps; },0);
-    var weekAvg = Math.round(weekTotal/7);
-
-    // streak: consecutive days ending today (or yesterday if today not yet met) meeting goal
-    var streak = 0;
-    var cursor = new Date();
-    var startedToday = (log[todayStr()]||0) >= profile.goal;
-    if(!startedToday) cursor.setDate(cursor.getDate()-1);
-    while(true){
-      var key = dateStr(cursor);
-      if((log[key]||0) >= profile.goal){ streak++; cursor.setDate(cursor.getDate()-1); }
-      else break;
-    }
-
-    return { total:total, best:best, daysLogged:daysLogged, week:week, weekAvg:weekAvg, streak:streak };
-  }
-
-  function renderRing(steps){
-    var pct = Math.min(1, steps / profile.goal);
-    var offset = RING_CIRC * (1 - pct);
-    document.getElementById('ringFill').style.strokeDashoffset = offset;
-    document.getElementById('ringSteps').textContent = fmtNum(steps);
-    document.getElementById('ringGoalText').textContent = 'of ' + fmtNum(profile.goal);
-    document.getElementById('miniGoalPct').textContent = Math.round(pct*100) + '%';
-  }
-
-  function renderMini(steps){
-    var strideM = effectiveStrideCm()/100;
-    var distKm = (steps * strideM)/1000;
-    var kcal = distKm * effectiveWeightKg() * 0.9;
-    document.getElementById('miniDistance').textContent = distKm.toFixed(2) + ' km';
-    document.getElementById('miniCalories').textContent = fmtNum(kcal);
-  }
-
-  function renderChart(stats){
-    var svg = document.getElementById('chartSvg');
-    var w = 320, h = 150, padB = 20, padT = 10, chartH = h - padB - padT;
-    var maxVal = Math.max(profile.goal, stats.best, 1) * 1.1;
-    var barW = (w / 7) * 0.55;
-    var gap = (w / 7);
-    var goalY = padT + chartH * (1 - Math.min(1, profile.goal/maxVal));
-
-    var bars = stats.week.map(function(day, i){
-      var barH = chartH * (day.steps/maxVal);
-      var x = i*gap + (gap-barW)/2;
-      var y = padT + chartH - barH;
-      var cls = 'chart-bar' + (day.steps >= profile.goal ? ' hit' : '') + (day.isToday ? ' today' : '');
-      return '<rect class="'+cls+'" x="'+x+'" y="'+y+'" width="'+barW+'" height="'+Math.max(barH,1)+'" rx="4"></rect>'+
-             '<text class="chart-label" x="'+(x+barW/2)+'" y="'+(h-4)+'" text-anchor="middle">'+day.label+'</text>';
-    }).join('');
-
-    svg.innerHTML =
-      '<line class="chart-goal-line" x1="0" y1="'+goalY+'" x2="'+w+'" y2="'+goalY+'"></line>' + bars;
-  }
-
-  function renderStatGrid(stats){
-    document.getElementById('statWeekAvg').textContent = fmtNum(stats.weekAvg);
-    document.getElementById('statBestDay').textContent = fmtNum(stats.best);
-    document.getElementById('statDaysLogged').textContent = stats.daysLogged;
-    document.getElementById('pillStreak').textContent = '🔥 ' + stats.streak + ' day streak';
-    document.getElementById('pillTotal').textContent = '👣 ' + fmtNum(stats.total) + ' total steps';
-  }
-
-  function renderBadges(stats){
-    var grid = document.getElementById('badgeGrid');
-    grid.innerHTML = BADGES.map(function(b){
-      var unlocked = unlockedBadges.indexOf(b.id) > -1;
-      if(!unlocked && b.test(stats)){ unlocked = true; unlockedBadges.push(b.id); }
-      return '<div class="badge'+(unlocked?' unlocked':'')+'"><div class="ic">'+b.ic+'</div><div class="name">'+b.name+'</div></div>';
-    }).join('');
-    saveBadges(unlockedBadges);
-  }
-
-  function renderLogTable(){
-    var wrap = document.getElementById('logTableWrap');
-    var dates = Object.keys(log).sort().reverse().slice(0,30);
-    if(!dates.length){ wrap.innerHTML = '<div class="log-empty">No days logged yet — start tracking or add one above.</div>'; return; }
-    var rows = dates.map(function(d){
-      return '<tr><td>'+d+'</td><td class="mono">'+fmtNum(log[d])+'</td><td><button class="del-btn" data-date="'+d+'" title="Delete">✕</button></td></tr>';
-    }).join('');
-    wrap.innerHTML = '<table class="log-table"><thead><tr><th>Date</th><th>Steps</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
-    wrap.querySelectorAll('.del-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        delete log[btn.dataset.date];
-        saveLog(log);
-        renderAll();
-      });
-    });
-  }
-
-  function renderAll(){
-    var steps = todaySteps();
-    document.getElementById('todayDateLabel').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-    document.getElementById('manualStepsInput').value = steps;
-    renderRing(steps);
-    renderMini(steps);
-    var stats = computeStats();
-    renderChart(stats);
-    renderStatGrid(stats);
-    renderBadges(stats);
-    renderLogTable();
-  }
-
-  /* ---- manual +/- and direct input ---- */
-  document.getElementById('stepPlus').addEventListener('click', function(){ setTodaySteps(todaySteps()+100); });
-  document.getElementById('stepMinus').addEventListener('click', function(){ setTodaySteps(todaySteps()-100); });
-  document.getElementById('manualStepsInput').addEventListener('change', function(e){ setTodaySteps(parseInt(e.target.value,10)||0); });
-
-  /* ---- profile ---- */
-  document.getElementById('saveProfileBtn').addEventListener('click', function(){
-    profile.goal = parseInt(document.getElementById('goalInput').value,10) || 10000;
-    var h = parseFloat(document.getElementById('heightInput').value);
-    var s = parseFloat(document.getElementById('strideInput').value);
-    var w = parseFloat(document.getElementById('weightInput').value);
-    profile.heightCm = h || null;
-    profile.strideCm = s || null;
-    profile.weightKg = w || null;
+  function persistProfile(){
+    profile = {
+      height: parseFloat(heightInput.value)||170,
+      weight: parseFloat(weightInput.value)||65,
+      stride: parseFloat(strideInput.value) || estimateStride(parseFloat(heightInput.value)||170),
+      goal: parseInt(goalInput.value)||8000
+    };
     saveProfile(profile);
     renderAll();
-    toast('Settings saved');
-  });
-
-  /* ---- manual log form ---- */
-  document.getElementById('logDate').value = todayStr();
-  document.getElementById('logSaveBtn').addEventListener('click', function(){
-    var d = document.getElementById('logDate').value;
-    var s = parseInt(document.getElementById('logSteps').value,10);
-    if(!d || isNaN(s) || s < 0){ toast('Enter a valid date and step count'); return; }
-    log[d] = s;
-    saveLog(log);
-    document.getElementById('logSteps').value = '';
-    renderAll();
-    toast('Saved');
-  });
-
-  /* ---- export / clear ---- */
-  function download(filename, content, mime){
-    var blob = new Blob([content], {type:mime});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = filename;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
   }
-  document.getElementById('exportCsvBtn').addEventListener('click', function(){
-    var rows = ['date,steps'].concat(Object.keys(log).sort().map(function(d){ return d+','+log[d]; }));
-    download('step-tracker-log.csv', rows.join('\n'), 'text/csv');
+  heightInput.addEventListener('input', ()=>{
+    if(!strideInput.dataset.userEdited){
+      strideInput.value = estimateStride(parseFloat(heightInput.value)||170);
+    }
+    persistProfile();
   });
-  document.getElementById('exportJsonBtn').addEventListener('click', function(){
-    download('step-tracker-log.json', JSON.stringify(log,null,2), 'application/json');
-  });
-  document.getElementById('clearDataBtn').addEventListener('click', function(){
-    if(!confirm('This will permanently delete all your step data, settings, and badges from this browser. Continue?')) return;
-    localStorage.removeItem('cz_steps_log');
-    localStorage.removeItem('cz_steps_profile');
-    localStorage.removeItem('cz_steps_badges');
-    log = {}; profile = { goal:10000, heightCm:null, strideCm:null, weightKg:null }; unlockedBadges = [];
-    document.getElementById('goalInput').value = 10000;
-    document.getElementById('heightInput').value = '';
-    document.getElementById('strideInput').value = '';
-    document.getElementById('weightInput').value = '';
+  strideInput.addEventListener('input', ()=>{ strideInput.dataset.userEdited = '1'; persistProfile(); });
+  weightInput.addEventListener('input', persistProfile);
+  goalInput.addEventListener('input', persistProfile);
+
+  /* ---------------- Daily data ---------------- */
+  let daily = loadDaily();
+  function ensureToday(){
+    const key = todayKey();
+    if(!daily[key]) daily[key] = {steps:0, activityCalories:0, activities:[]};
+    return daily[key];
+  }
+  function addSteps(n){
+    const entry = ensureToday();
+    entry.steps += n;
+    daily[todayKey()] = entry;
+    saveDaily(daily);
+    checkBadges();
     renderAll();
-    toast('All data cleared');
+  }
+  function addActivityEntry(metValue, minutes, label){
+    const entry = ensureToday();
+    const kcal = Math.round(metValue * profile.weight * (minutes/60));
+    entry.activityCalories += kcal;
+    entry.activities.push({label, minutes, kcal});
+    daily[todayKey()] = entry;
+    saveDaily(daily);
+    checkBadges();
+    renderAll();
+    return kcal;
+  }
+
+  /* ---------------- Manual controls ---------------- */
+  document.querySelectorAll('.manual-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> addSteps(parseInt(btn.dataset.add)) );
+  });
+  document.getElementById('manualAddBtn').addEventListener('click', ()=>{
+    const v = parseInt(document.getElementById('manualInput').value);
+    if(v && v>0){ addSteps(v); document.getElementById('manualInput').value=''; }
   });
 
-  /* ---- live tracking via DeviceMotion ---- */
-  var tracking = false;
-  var lastMag = 0, lastStepTime = 0, smoothed = 0;
-  var THRESH = 1.2, MIN_STEP_MS = 280;
-  var sessionSteps = 0, sessionStart = null, activeTimer = null;
+  document.getElementById('addActivityBtn').addEventListener('click', ()=>{
+    const sel = document.getElementById('activityType');
+    const met = parseFloat(sel.value);
+    const label = sel.options[sel.selectedIndex].textContent.split(' (')[0];
+    const minutes = parseInt(document.getElementById('activityDuration').value)||0;
+    if(minutes>0){ addActivityEntry(met, minutes, label); }
+  });
+
+  /* ---------------- Motion-based step detection ---------------- */
+  const trackBtn = document.getElementById('trackBtn');
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  let tracking = false;
+  let lastStepTime = 0;
+  let overThreshold = false;
+  const STEP_THRESHOLD = 11.5;   // m/s^2, approx acceleration-magnitude peak for a footstep
+  const RESET_THRESHOLD = 10.0;  // must dip below this before the next peak counts
+  const MIN_STEP_INTERVAL = 300; // ms — refractory period so one footstep isn't double-counted
 
   function handleMotion(e){
-    var a = e.accelerationIncludingGravity || e.acceleration;
-    if(!a || a.x===null) return;
-    var mag = Math.sqrt((a.x||0)*(a.x||0) + (a.y||0)*(a.y||0) + (a.z||0)*(a.z||0));
-    smoothed = smoothed*0.8 + mag*0.2;
-    var delta = mag - smoothed;
-    var now = Date.now();
-    if(delta > THRESH && (now - lastStepTime) > MIN_STEP_MS){
+    const acc = e.accelerationIncludingGravity;
+    if(!acc || acc.x===null) return;
+    const mag = Math.sqrt((acc.x||0)**2 + (acc.y||0)**2 + (acc.z||0)**2);
+    const now = Date.now();
+    if(mag > STEP_THRESHOLD && !overThreshold && (now - lastStepTime) > MIN_STEP_INTERVAL){
+      overThreshold = true;
       lastStepTime = now;
-      sessionSteps++;
-      setTodaySteps(todaySteps()+1);
+      addSteps(1);
+    } else if(mag < RESET_THRESHOLD){
+      overThreshold = false;
     }
-    lastMag = mag;
   }
 
-  function startTracking(){
-    function begin(){
-      tracking = true;
-      sessionSteps = 0; sessionStart = Date.now();
-      window.addEventListener('devicemotion', handleMotion);
-      var btn = document.getElementById('trackBtn');
-      btn.classList.add('active');
-      document.getElementById('trackBtnLabel').textContent = '■ Stop tracking';
-      document.getElementById('trackHint').textContent = 'Live tracking is running — keep this tab open and your phone with you while you walk.';
-      activeTimer = setInterval(function(){
-        var mins = Math.floor((Date.now()-sessionStart)/60000);
-        document.getElementById('miniActive').textContent = mins + ' min';
-      }, 1000);
+  async function requestMotionPermission(){
+    if(typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+      try{
+        const res = await DeviceMotionEvent.requestPermission();
+        return res === 'granted';
+      }catch(e){ return false; }
     }
-    if(typeof DeviceMotionEvent === 'undefined'){
-      toast('Motion sensor not available on this device — use manual log instead');
+    return typeof DeviceMotionEvent !== 'undefined';
+  }
+
+  trackBtn.addEventListener('click', async ()=>{
+    if(tracking){
+      window.removeEventListener('devicemotion', handleMotion);
+      tracking = false;
+      trackBtn.textContent = '▶ Start Tracking';
+      trackBtn.classList.remove('stop');
+      statusDot.classList.remove('live');
+      statusText.textContent = 'Paused — tap Start to resume';
       return;
     }
-    if(typeof DeviceMotionEvent.requestPermission === 'function'){
-      DeviceMotionEvent.requestPermission().then(function(state){
-        if(state === 'granted') begin();
-        else toast('Motion permission denied — use manual log instead');
-      }).catch(function(){ toast('Could not request motion permission'); });
-    } else {
-      begin();
+    trackBtn.disabled = true;
+    const granted = await requestMotionPermission();
+    trackBtn.disabled = false;
+    if(!granted){
+      statusText.textContent = 'Motion access unavailable — use the manual add buttons below instead';
+      statusDot.classList.remove('live');
+      return;
     }
-  }
-  function stopTracking(){
-    tracking = false;
-    window.removeEventListener('devicemotion', handleMotion);
-    clearInterval(activeTimer);
-    var btn = document.getElementById('trackBtn');
-    btn.classList.remove('active');
-    document.getElementById('trackBtnLabel').textContent = '▶ Start live tracking';
-    document.getElementById('trackHint').textContent = 'Uses your phone\'s motion sensor to count steps while this page is open. Works best carried in hand or pocket while walking.';
-    toast('Added ' + sessionSteps + ' steps this session');
-  }
-  document.getElementById('trackBtn').addEventListener('click', function(){
-    if(tracking) stopTracking(); else startTracking();
+    window.addEventListener('devicemotion', handleMotion);
+    tracking = true;
+    trackBtn.textContent = '⏸ Pause Tracking';
+    trackBtn.classList.add('stop');
+    statusDot.classList.add('live');
+    statusText.textContent = 'Motion sensor active — keep this page open while you walk';
   });
-  window.addEventListener('beforeunload', function(){ if(tracking) window.removeEventListener('devicemotion', handleMotion); });
 
+  /* ---------------- Badges ---------------- */
+  const BADGES = [
+    {id:'first', icon:'🥾', name:'First Steps', desc:'Log any steps', check: d => Object.values(d).some(x=>x.steps>0)},
+    {id:'5k', icon:'🔥', name:'5K Day', desc:'5,000 steps in one day', check: d => Object.values(d).some(x=>x.steps>=5000)},
+    {id:'10k', icon:'⭐', name:'10K Day', desc:'10,000 steps in one day', check: d => Object.values(d).some(x=>x.steps>=10000)},
+    {id:'streak3', icon:'🔥', name:'3-Day Streak', desc:'Hit your goal 3 days running', check: () => computeStreak() >= 3},
+    {id:'streak7', icon:'🏆', name:'7-Day Streak', desc:'Hit your goal 7 days running', check: () => computeStreak() >= 7},
+    {id:'logger30', icon:'📅', name:'30-Day Logger', desc:'Log steps on 30 different days', check: d => Object.keys(d).filter(k=>d[k].steps>0).length >= 30},
+  ];
+  function checkBadges(){
+    let unlocked = loadBadges();
+    let changed = false;
+    BADGES.forEach(b=>{
+      if(!unlocked.includes(b.id) && b.check(daily)){
+        unlocked.push(b.id); changed = true;
+      }
+    });
+    if(changed) saveBadges(unlocked);
+  }
+  function renderBadges(){
+    const unlocked = loadBadges();
+    const grid = document.getElementById('badgeGrid');
+    grid.innerHTML = BADGES.map(b=>{
+      const isUnlocked = unlocked.includes(b.id);
+      return `<div class="badge-card ${isUnlocked?'unlocked':''}">
+        <div class="badge-icon">${b.icon}</div>
+        <div class="badge-name">${b.name}</div>
+        <div class="badge-desc">${b.desc}</div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ---------------- Streak ---------------- */
+  function computeStreak(){
+    let streak = 0;
+    let d = new Date();
+    while(true){
+      const key = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+      const entry = daily[key];
+      if(entry && entry.steps >= profile.goal){
+        streak++;
+        d.setDate(d.getDate()-1);
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
+
+  /* ---------------- Rendering ---------------- */
+  function renderRing(){
+    const today = ensureToday();
+    const pct = Math.min(1, today.steps / profile.goal);
+    const offset = RING_CIRCUMFERENCE * (1 - pct);
+    document.getElementById('ringFill').style.strokeDashoffset = offset;
+    document.getElementById('ringSteps').textContent = today.steps.toLocaleString();
+    document.getElementById('ringGoalText').textContent = 'Goal: ' + profile.goal.toLocaleString();
+  }
+
+  function renderTodayStats(){
+    const today = ensureToday();
+    const strideM = (profile.stride || estimateStride(profile.height)) / 100;
+    const distanceKm = (today.steps * strideM) / 1000;
+    const stepCalories = Math.round(distanceKm * profile.weight * 0.5); // ~0.5 kcal per kg per km walked
+    const totalCalories = stepCalories + (today.activityCalories||0);
+    const activeMinutes = Math.round(today.steps / 110); // ~110 steps/min average walking cadence
+
+    document.getElementById('todayDistance').textContent = distanceKm.toFixed(2);
+    document.getElementById('todayCalories').textContent = totalCalories.toLocaleString();
+    document.getElementById('todayActiveTime').textContent = activeMinutes;
+    document.getElementById('todayProgress').textContent = Math.round(Math.min(100,(today.steps/profile.goal)*100)) + '%';
+  }
+
+  function renderWeek(){
+    const container = document.getElementById('weekBars');
+    const days = [];
+    for(let i=6;i>=0;i--){
+      const d = new Date();
+      d.setDate(d.getDate()-i);
+      const key = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+      const steps = (daily[key] && daily[key].steps) || 0;
+      days.push({key, steps, label: d.toLocaleDateString(undefined,{weekday:'short'}), isToday: i===0});
+    }
+    const max = Math.max(profile.goal, ...days.map(d=>d.steps), 1);
+    container.innerHTML = days.map(d=>{
+      const h = Math.max(3, Math.round((d.steps/max)*100));
+      return `<div class="week-bar-col">
+        <div class="week-bar-val">${d.steps? (d.steps>=1000? (d.steps/1000).toFixed(1)+'k' : d.steps) : ''}</div>
+        <div class="week-bar ${d.isToday?'today':''}" style="height:${h}px"></div>
+        <div class="week-bar-lbl">${d.label}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderStreak(){
+    document.getElementById('streakNum').textContent = computeStreak();
+  }
+
+  function renderHistory(){
+    const keys = Object.keys(daily).sort().reverse().slice(0,14);
+    const wrap = document.getElementById('historyWrap');
+    if(!keys.length){
+      wrap.innerHTML = '<div class="hist-empty">No history yet — start tracking or add steps above.</div>';
+      return;
+    }
+    const strideM = (profile.stride || estimateStride(profile.height)) / 100;
+    const rows = keys.map(k=>{
+      const e = daily[k];
+      const distKm = ((e.steps * strideM)/1000).toFixed(2);
+      const cal = Math.round((e.steps * strideM/1000) * profile.weight * 0.5) + (e.activityCalories||0);
+      const met = e.steps >= profile.goal ? '✅' : '—';
+      return `<tr><td>${k}</td><td>${e.steps.toLocaleString()}</td><td>${distKm} km</td><td>${cal} kcal</td><td>${met}</td></tr>`;
+    }).join('');
+    wrap.innerHTML = `<table class="hist-table">
+      <tr><th>Date</th><th>Steps</th><th>Distance</th><th>Calories</th><th>Goal</th></tr>
+      ${rows}
+    </table>`;
+  }
+
+  document.getElementById('exportCsvBtn').addEventListener('click', ()=>{
+    const keys = Object.keys(daily).sort();
+    if(!keys.length) return;
+    const strideM = (profile.stride || estimateStride(profile.height)) / 100;
+    let csv = 'Date,Steps,Distance (km),Calories (kcal),Goal Met\n';
+    keys.forEach(k=>{
+      const e = daily[k];
+      const distKm = ((e.steps * strideM)/1000).toFixed(2);
+      const cal = Math.round((e.steps * strideM/1000) * profile.weight * 0.5) + (e.activityCalories||0);
+      csv += `${k},${e.steps},${distKm},${cal},${e.steps>=profile.goal?'Yes':'No'}\n`;
+    });
+    const blob = new Blob([csv], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'cozyleaf-step-history.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('clearHistBtn').addEventListener('click', ()=>{
+    if(!confirm('Clear all step and activity history? This cannot be undone.')) return;
+    daily = {};
+    saveDaily(daily);
+    saveBadges([]);
+    renderAll();
+  });
+
+  function renderAll(){
+    renderRing();
+    renderTodayStats();
+    renderWeek();
+    renderStreak();
+    renderBadges();
+    renderHistory();
+  }
+
+  checkBadges();
   renderAll();
 })();
 </script>
