@@ -78,7 +78,8 @@
     {"@type":"ListItem","position":18,"name":"EST to IST Converter","url":"https://cozyleaf.in/est-to-ist.html"},
     {"@type":"ListItem","position":19,"name":"CST to EST Converter","url":"https://cozyleaf.in/cst-to-est.html"},
     {"@type":"ListItem","position":20,"name":"IST to EST Converter","url":"https://cozyleaf.in/ist-to-est.html"},
-    {"@type":"ListItem","position":21,"name":"World Time Converter","url":"https://cozyleaf.in/world-time-converter.html"}
+    {"@type":"ListItem","position":21,"name":"World Time Converter","url":"https://cozyleaf.in/world-time-converter.html"},
+    {"@type":"ListItem","position":22,"name":"Step Tracker","url":"https://cozyleaf.in/step-tracker.html"}
   ]
 }
 </script>
@@ -145,7 +146,7 @@
 <section class="hero">
 <span class="eyebrow">Cozyleaf.in — Free tools that actually work</span>
   <h1>Free Image, PDF, Calculator & Text Tools — All in One Place</h1>
-  <p>Cozyleaf brings together the calculators and converters people search for most — BMI, calorie, BMR, GPA, eDPI, clothing size, and bottleneck calculators, an image to JPG converter, a typing speed test, a CPS test, a kaomoji generator, a glitch text generator, and a world time zone converter with meeting planner. No sign-up, no download, and no watermark — every tool runs instantly in your browser on any device.</p>
+  <p>Cozyleaf brings together the calculators and converters people search for most — BMI, calorie, BMR, GPA, eDPI, clothing size, and bottleneck calculators, an image to JPG converter, a typing speed test, a CPS test, a kaomoji generator, a glitch text generator, a world time zone converter with meeting planner, and a motion-sensor step tracker. No sign-up, no download, and no watermark — every tool runs instantly in your browser on any device.</p>
 </section>
 
 <nav class="jumpnav" id="jumpnav"></nav>
@@ -189,7 +190,8 @@ const MAIN_TOOLS = [
   {name:"EST to IST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"est-to-ist.html"},
   {name:"CST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"cst-to-est.html"},
   {name:"IST to EST Converter", cat:"World Time Zone Converter", formats:"", usage:0, url:"ist-to-est.html"},
-  {name:"World Time Converter", cat:"World Time Zone Converter", formats:"", usage:40000, url:"world-time-converter.html"}
+  {name:"World Time Converter", cat:"World Time Zone Converter", formats:"", usage:40000, url:"world-time-converter.html"},
+  {name:"Step Tracker", cat:"Health & Fitness Tools", formats:"", usage:100000, url:"step-tracker.html"}
 ];
 
 const CATEGORY_META = {
@@ -199,6 +201,7 @@ const CATEGORY_META = {
   "Text Tools": "var(--c-fun)",
   "Name Generator Tools": "var(--c-fun)",
   "World Time Zone Converter": "#0077B6",
+  "Health & Fitness Tools": "#22B573",
   "Document & Translate": "var(--c-doc)",
   "Document & PDF Tools": "var(--c-doc)",
   "QR & Barcode Tools": "var(--c-qr)"
@@ -211,6 +214,7 @@ const CATEGORY_HEX = {
   "Text Tools": "#8676FF",
   "Name Generator Tools": "#8676FF",
   "World Time Zone Converter": "#0077B6",
+  "Health & Fitness Tools": "#22B573",
   "Document & Translate": "#4CA8FF",
   "Document & PDF Tools": "#4CA8FF",
   "QR & Barcode Tools": "#9AA0AC"
@@ -232,7 +236,8 @@ const CATEGORY_ORDER = [
   "Name Generator Tools",
   "Calculators",
   "World Time Zone Converter",
-  "Image Tools"
+  "Image Tools",
+  "Health & Fitness Tools"
 ];
 const MAIN_CATS_ORDER = [...new Set(MAIN_TOOLS.map(t=>t.cat))]
   .sort((a,b)=>{
@@ -287,3 +292,4 @@ document.getElementById('footerAll').onclick = (e)=>{
 </script>
 </body>
 </html>
+
