@@ -1,6 +1,6 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v14-2026-08-30 (adds Clothing Size Calculator, Bottleneck Calculator)
+   VERSION: cozyleaf-v15-2026-08-30 (adds Step Tracker, new Health & Fitness Tools category)
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
@@ -29,7 +29,8 @@
     {name:"EST to IST Converter",  cat:"World Time Zone Converter", url:"est-to-ist.html"},
     {name:"CST to EST Converter",  cat:"World Time Zone Converter", url:"cst-to-est.html"},
     {name:"IST to EST Converter",  cat:"World Time Zone Converter", url:"ist-to-est.html"},
-    {name:"World Time Converter",  cat:"World Time Zone Converter", url:"world-time-converter.html"}
+    {name:"World Time Converter",  cat:"World Time Zone Converter", url:"world-time-converter.html"},
+    {name:"Step Tracker",          cat:"Health & Fitness Tools", url:"step-tracker.html"}
   ];
 
   // Policy / trust pages — AdSense reviewers specifically check that these
@@ -41,11 +42,11 @@
     {name:"Terms of Service", url:"terms.html"}
   ];
 
-  const CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Image Tools"];
+  const CATEGORY_ORDER = ["Text Tools","Name Generator Tools","Calculators","World Time Zone Converter","Image Tools","Health & Fitness Tools"];
   const CATEGORY_HEX = {
     "Image Tools":"#FF6B4A","Calculators":"#2EC4B6",
     "Text Tools":"#8676FF","Name Generator Tools":"#8676FF",
-    "World Time Zone Converter":"#0077B6"
+    "World Time Zone Converter":"#0077B6","Health & Fitness Tools":"#22B573"
   };
 
   // Expose so individual tool pages can build "More Tools" sections
@@ -71,7 +72,8 @@
     "est-to-ist.html":"🕐",
     "cst-to-est.html":"🕐",
     "ist-to-est.html":"🕐",
-    "world-time-converter.html":"🌍"
+    "world-time-converter.html":"🌍",
+    "step-tracker.html":"👣"
   };
   window.COZYLEAF_TOOLS = MAIN_TOOLS;
   window.COZYLEAF_CATEGORY_ORDER = CATEGORY_ORDER;
