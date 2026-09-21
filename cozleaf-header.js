@@ -6,6 +6,19 @@
    placed right after the opening <body> tag.
    Update MAIN_TOOLS here once and it updates everywhere.
    ========================================================== */
+
+// Google Analytics (GA4)
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-G0N45N33HR');
+(function(){
+  var gaScript = document.createElement('script');
+  gaScript.async = true;
+  gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-G0N45N33HR";
+  document.head.appendChild(gaScript);
+})();
+
 (function(){
 
   const MAIN_TOOLS = [
