@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dog Food Calculator — Daily Portion &amp; Calorie Calculator | Cozyleaf</title>
 <meta name="description" content="Free dog food calculator based on the vet RER formula. Get your dog's daily calorie target, cups/cans per day, per-meal portion and treat allowance — factors in life stage, activity and body condition.">
-<meta name="keywords" content="dog food calculator, dog calorie calculator, how much to feed my dog, dog portion calculator, RER calculator dog, puppy feeding calculator, dog food amount calculator">
+<meta name="keywords" content="dog food calculator, dog calorie calculator, how much to feed my dog, dog portion calculator, RER calculator dog, puppy feeding calculator, dog food amount calculator, raw dog food calculator">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://cozyleaf.in/dog-food-calculator.html">
 <meta name="theme-color" content="#1B1D29">
@@ -47,7 +47,8 @@
     {"@type":"Question","name":"Can I mix wet and dry food?","acceptedAnswer":{"@type":"Answer","text":"Yes. Run the calculation separately for each food's calories per serving, then split the total daily calorie target between them in whatever ratio you prefer — for example, calculate the portion as if feeding only dry food, then swap a set number of daily calories for wet food instead."}},
     {"@type":"Question","name":"How often should I recalculate my dog's portion?","acceptedAnswer":{"@type":"Answer","text":"Recalculate whenever your dog's weight changes by more than a few percent, their activity level changes, they're spayed or neutered, or roughly every few months for a growing puppy, since RER changes as body weight changes."}},
     {"@type":"Question","name":"Why does my dog still seem hungry on this amount?","acceptedAnswer":{"@type":"Answer","text":"Some dogs eat quickly and feel hungry from habit rather than actual energy need. Splitting the same daily total into more, smaller meals, adding fiber-rich low-calorie vegetables as filler, or slow-feeder bowls can help before increasing total calories — check body condition score first."}},
-    {"@type":"Question","name":"Does breed affect the daily calorie target?","acceptedAnswer":{"@type":"Answer","text":"Breed itself isn't a direct input in the RER formula, but breed-typical traits matter — very lean, high-drive breeds often sit toward the higher activity multipliers, while breeds prone to weight gain often do better started at the lower end and adjusted based on body condition score."}}
+    {"@type":"Question","name":"Does breed affect the daily calorie target?","acceptedAnswer":{"@type":"Answer","text":"Breed itself isn't a direct input in the RER formula, but breed-typical traits matter — very lean, high-drive breeds often sit toward the higher activity multipliers, while breeds prone to weight gain often do better started at the lower end and adjusted based on body condition score."}},
+    {"@type":"Question","name":"How is a raw dog food calculator different from this one?","acceptedAnswer":{"@type":"Answer","text":"A raw dog food calculator uses the same RER-based daily calorie target, but portions are usually given as a percentage of body weight (commonly 2–3% for adults) instead of cups or cans, since raw diets are measured by weight rather than by a packaged serving size. You can use the daily calorie target from this calculator and divide it by the calories per gram of your specific raw food to get the same result."}}
   ]
 }
 </script>
@@ -147,7 +148,7 @@
     <svg class="paw-icon" viewBox="0 0 24 24"><path d="M12 15c-3 0-6 2.5-6 5.5 0 1.5 1.2 2.5 2.7 2.5 1.4 0 2-.8 3.3-.8s1.9.8 3.3.8c1.5 0 2.7-1 2.7-2.5 0-3-3-5.5-6-5.5zM5 12.5c1.4 0 2.5-1.4 2.5-3S6.4 6.5 5 6.5 2.5 7.9 2.5 9.5 3.6 12.5 5 12.5zm14 0c1.4 0 2.5-1.4 2.5-3s-1.1-3-2.5-3-2.5 1.4-2.5 3 1.1 3 2.5 3zM9 8c1.4 0 2.5-1.6 2.5-3.5S10.4 1 9 1 6.5 2.6 6.5 4.5 7.6 8 9 8zm6 0c1.4 0 2.5-1.6 2.5-3.5S16.4 1 15 1s-2.5 1.6-2.5 3.5S13.6 8 15 8z"/></svg>
     Bowl Math — Dog Food Calculator
   </div>
-  <h1>How much should <span style="color:var(--c-calc)">your dog</span> actually eat?</h1>
+  <h1>Dog Food Calculator — How much should <span style="color:var(--c-calc)">your dog</span> actually eat?</h1>
   <p class="hero-p">A vet-formula portion calculator — built on resting energy requirement (RER), not just a flat lookup table. Factors in life stage, body condition, and spay/neuter status.</p>
 
   <!-- Step 1: Weight -->
@@ -249,7 +250,7 @@
   <!-- Results -->
   <div class="card" id="results">
     <div class="bowl-wrap">
-      <svg class="bowl-svg" viewBox="0 0 100 100">
+      <svg class="bowl-svg" viewBox="0 0 100 100" role="img" aria-label="Dog food bowl showing fill level for the calculated daily portion">
         <ellipse cx="50" cy="72" rx="38" ry="10" fill="var(--line)"/>
         <path d="M14 45 Q14 78 50 78 Q86 78 86 45 Z" fill="var(--hover)" stroke="var(--line)" stroke-width="2"/>
         <clipPath id="bowlClip"><path d="M14 45 Q14 78 50 78 Q86 78 86 45 Z"/></clipPath>
@@ -312,6 +313,9 @@
     <h2>Feeding Wet Food, Dry Food, or a Mix</h2>
     <p>The daily calorie target works the same way regardless of food type — what changes is the calories-per-serving number you enter. Dry kibble is calorie-dense, so portions look small; wet food has a much lower calorie density per can due to its water content, so portions look larger for the same number of calories. To feed a mix, calculate the portion for each food separately using its own calorie density, then divide the daily calorie target between the two in whatever split works for your dog — many owners feed a base of dry food with a portion of wet mixed in for palatability, without exceeding the combined daily total.</p>
 
+    <h2>Using This as a Raw Dog Food Calculator</h2>
+    <p>Raw feeding is usually measured differently — as a percentage of body weight (commonly around 2–3% daily for an adult dog) rather than cups or cans, since raw diets don't come in standardized packaged servings. You can still use the same daily calorie target from this calculator: just divide it by the calories per gram of your specific raw food (check the packaging or supplier data) to get the daily weight in grams, then split that across meals the same way as any other feeding plan.</p>
+
     <h2>Signs the Portion May Need Adjusting</h2>
     <p>This calculator gives a starting point, not a fixed number carved in stone — a dog's real-world calorie needs shift with metabolism, season, and life changes. Ribs that are difficult to feel under a layer of fat, or a waist that's no longer visible from above, usually mean it's time to dial the portion back. On the other end, ribs that are sharply visible with no fat cover, or a dog that seems constantly hungry and losing weight, usually means the portion is running low. Re-checking body condition every couple of weeks after any change is the most reliable way to know whether the target needs adjusting, rather than relying on weight alone.</p>
 
@@ -329,6 +333,7 @@
     <p><strong>How often should I recalculate my dog's portion?</strong> Recalculate when weight changes by more than a few percent, activity level changes, after spaying or neutering, or every few months for a growing puppy, since RER changes as body weight changes.</p>
     <p><strong>Why does my dog still seem hungry on this amount?</strong> Some dogs eat quickly and feel hungry from habit rather than genuine energy need. Try splitting the same total into more meals or adding low-calorie fiber before increasing total calories — check body condition score first.</p>
     <p><strong>Does breed affect the daily calorie target?</strong> Breed isn't a direct input in the formula, but breed-typical activity and body type often guide which activity multiplier and body condition adjustments fit best.</p>
+    <p><strong>How is a raw dog food calculator different from this one?</strong> A raw feeding plan is usually expressed as a percentage of body weight rather than cups or cans. You can still use this calculator's daily calorie target and convert it using your raw food's calories per gram to get the same result in grams.</p>
 
     <p class="disclaimer">
       <strong>Disclaimer:</strong> This tool provides a general estimate only and is not a substitute for professional veterinary advice. Always consult a veterinarian for guidance specific to your dog's health, breed, and medical history.
