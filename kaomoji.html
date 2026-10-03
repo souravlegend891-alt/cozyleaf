@@ -52,7 +52,12 @@
 .chip .n{opacity:.55;font-size:10px;}
 .chip.active{background:var(--c-kao);border-color:var(--c-kao);color:#fff;font-weight:600;}
 .chip.active .n{opacity:.8;}
-#results{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+#results{margin-top:16px;}
+#results section{margin-top:22px;}
+#results section:first-child{margin-top:0;}
+.kgroup-title{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);margin:0 0 10px;}
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.kgrid .result-card{opacity:1;animation:none;}
 .result-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 12px 10px;text-align:center;opacity:0;animation:cardIn .35s cubic-bezier(.2,.8,.2,1) forwards;}
 @keyframes cardIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 @media (prefers-reduced-motion:reduce){.result-card{animation:none;opacity:1;}}
@@ -122,10 +127,257 @@
     <div class="chip-row" id="chipRow"></div>
   </div>
 
-  <div id="results"></div>
-  <div class="load-more-wrap">
-    <button class="btn loadmore" id="loadMoreBtn">Show more kaomoji</button>
-  </div>
+  <div id="results">
+<section id="cute"><h2 class="kgroup-title">Cute Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Puppy Eyes</div><div class="result-text">(◕ᴥ◕)</div><button class="btn copy" data-text="(%E2%97%95%E1%B4%A5%E2%97%95)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Kitty Face</div><div class="result-text">(=･ᴥ･=)</div><button class="btn copy" data-text="(%3D%EF%BD%A5%E1%B4%A5%EF%BD%A5%3D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bear Face</div><div class="result-text">ʕ•ᴥ•ʔ</div><button class="btn copy" data-text="%CA%95%E2%80%A2%E1%B4%A5%E2%80%A2%CA%94">Copy</button></div>
+<div class="result-card"><div class="result-tag">Soft Smile</div><div class="result-text">(◍•ᴗ•◍)</div><button class="btn copy" data-text="(%E2%97%8D%E2%80%A2%E1%B4%97%E2%80%A2%E2%97%8D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sweet Face</div><div class="result-text">(｡◕‿◕｡)</div><button class="btn copy" data-text="(%EF%BD%A1%E2%97%95%E2%80%BF%E2%97%95%EF%BD%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bouncy Cute</div><div class="result-text">٩(◕‿◕｡)۶</div><button class="btn copy" data-text="%D9%A9(%E2%97%95%E2%80%BF%E2%97%95%EF%BD%A1)%DB%B6">Copy</button></div>
+<div class="result-card"><div class="result-tag">Squish</div><div class="result-text">(๑&gt;ᴗ&lt;๑)</div><button class="btn copy" data-text="(%E0%B9%91%3E%E1%B4%97%3C%E0%B9%91)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Fighting Cute</div><div class="result-text">(๑˃̵ᴗ˂̵)و</div><button class="btn copy" data-text="(%E0%B9%91%CB%83%CC%B5%E1%B4%97%CB%82%CC%B5)%D9%88">Copy</button></div>
+<div class="result-card"><div class="result-tag">Tiny Smile</div><div class="result-text">(｡♥‿♥｡)</div><button class="btn copy" data-text="(%EF%BD%A1%E2%99%A5%E2%80%BF%E2%99%A5%EF%BD%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Chubby Cheeks</div><div class="result-text">(◠‿◠)</div><button class="btn copy" data-text="(%E2%97%A0%E2%80%BF%E2%97%A0)">Copy</button></div>
+</div></section>
+<section id="heart"><h2 class="kgroup-title">Heart Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Heart Eyes</div><div class="result-text">(♡ω♡)</div><button class="btn copy" data-text="(%E2%99%A1%CF%89%E2%99%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Heart Hug</div><div class="result-text">(づ￣ ³￣)づ♡</div><button class="btn copy" data-text="(%E3%81%A5%EF%BF%A3%20%C2%B3%EF%BF%A3)%E3%81%A5%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Floating Heart</div><div class="result-text">(っ˘з(˘⌣˘ )</div><button class="btn copy" data-text="(%E3%81%A3%CB%98%D0%B7(%CB%98%E2%8C%A3%CB%98%20)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Double Heart</div><div class="result-text">♡(ŐωŐ人)</div><button class="btn copy" data-text="%E2%99%A1(%C5%90%CF%89%C5%90%E4%BA%BA)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Small Heart Face</div><div class="result-text">(*♡∀♡)</div><button class="btn copy" data-text="(*%E2%99%A1%E2%88%80%E2%99%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sending Love</div><div class="result-text">(っ´ω`c)♡</div><button class="btn copy" data-text="(%E3%81%A3%C2%B4%CF%89%60c)%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sweet Heart</div><div class="result-text">(๑˃ᴗ˂)ﻭ♡</div><button class="btn copy" data-text="(%E0%B9%91%CB%83%E1%B4%97%CB%82)%EF%BB%AD%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Heart Wave</div><div class="result-text">(´,,•ω•,,)♡</div><button class="btn copy" data-text="(%C2%B4%2C%2C%E2%80%A2%CF%89%E2%80%A2%2C%2C)%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Heart Blush</div><div class="result-text">(´• ω •`) ♡</div><button class="btn copy" data-text="(%C2%B4%E2%80%A2%20%CF%89%20%E2%80%A2%60)%20%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Heart Hold</div><div class="result-text">(´∩｡• ᵕ •｡∩`)♡</div><button class="btn copy" data-text="(%C2%B4%E2%88%A9%EF%BD%A1%E2%80%A2%20%E1%B5%95%20%E2%80%A2%EF%BD%A1%E2%88%A9%60)%E2%99%A1">Copy</button></div>
+</div></section>
+<section id="cat"><h2 class="kgroup-title">Cat Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Classic Cat</div><div class="result-text">(=^･ω･^=)</div><button class="btn copy" data-text="(%3D%5E%EF%BD%A5%CF%89%EF%BD%A5%5E%3D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Happy Cat</div><div class="result-text">(^・x・^)</div><button class="btn copy" data-text="(%5E%E3%83%BBx%E3%83%BB%5E)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sleepy Cat</div><div class="result-text">(=㉨=)</div><button class="btn copy" data-text="(%3D%E3%89%A8%3D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Curious Cat</div><div class="result-text">ฅ^•ﻌ•^ฅ</div><button class="btn copy" data-text="%E0%B8%85%5E%E2%80%A2%EF%BB%8C%E2%80%A2%5E%E0%B8%85">Copy</button></div>
+<div class="result-card"><div class="result-tag">Playful Cat</div><div class="result-text">(=^‥^=)</div><button class="btn copy" data-text="(%3D%5E%E2%80%A5%5E%3D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Content Cat</div><div class="result-text">(^ᆺ^)</div><button class="btn copy" data-text="(%5E%E1%86%BA%5E)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Tiny Cat</div><div class="result-text">(=^･ｪ･^=)</div><button class="btn copy" data-text="(%3D%5E%EF%BD%A5%EF%BD%AA%EF%BD%A5%5E%3D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Round Eyes Cat</div><div class="result-text">(^=◕ᴥ◕=^)</div><button class="btn copy" data-text="(%5E%3D%E2%97%95%E1%B4%A5%E2%97%95%3D%5E)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sparkle Cat</div><div class="result-text">(=ↀωↀ=)✧</div><button class="btn copy" data-text="(%3D%E2%86%80%CF%89%E2%86%80%3D)%E2%9C%A7">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cheerful Cat</div><div class="result-text">ଲ(ⓛ ω ⓛ)ଲ</div><button class="btn copy" data-text="%E0%AC%B2(%E2%93%9B%20%CF%89%20%E2%93%9B)%E0%AC%B2">Copy</button></div>
+</div></section>
+<section id="bunny"><h2 class="kgroup-title">Bunny Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Bunny Face</div><div class="result-text">(⁎˃ᆺ˂)</div><button class="btn copy" data-text="(%E2%81%8E%CB%83%E1%86%BA%CB%82)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Soft Bunny</div><div class="result-text">(๑•ㅁ•๑)</div><button class="btn copy" data-text="(%E0%B9%91%E2%80%A2%E3%85%81%E2%80%A2%E0%B9%91)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Shy Bunny</div><div class="result-text">(๑•́ ₃ •̀๑)</div><button class="btn copy" data-text="(%E0%B9%91%E2%80%A2%CC%81%20%E2%82%83%20%E2%80%A2%CC%80%E0%B9%91)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bouncy Bunny</div><div class="result-text">U•ᴥ•U</div><button class="btn copy" data-text="U%E2%80%A2%E1%B4%A5%E2%80%A2U">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sleepy Bunny</div><div class="result-text">(-ㅅ-)</div><button class="btn copy" data-text="(-%E3%85%85-)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bunny Ears</div><div class="result-text">(\_/) (•ᴗ•)</div><button class="btn copy" data-text="(%5C_%2F)%20(%E2%80%A2%E1%B4%97%E2%80%A2)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cuddly Bunny</div><div class="result-text">(\__/) (•ㅅ•)</div><button class="btn copy" data-text="(%5C__%2F)%20(%E2%80%A2%E3%85%85%E2%80%A2)">Copy</button></div>
+</div></section>
+<section id="flower"><h2 class="kgroup-title">Flower Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Blooming</div><div class="result-text">(✿◠‿◠)</div><button class="btn copy" data-text="(%E2%9C%BF%E2%97%A0%E2%80%BF%E2%97%A0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Flower Crown</div><div class="result-text">(◕‿◕✿)</div><button class="btn copy" data-text="(%E2%97%95%E2%80%BF%E2%97%95%E2%9C%BF)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Gentle Bloom</div><div class="result-text">✿(◠‿◠)</div><button class="btn copy" data-text="%E2%9C%BF(%E2%97%A0%E2%80%BF%E2%97%A0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Spring Smile</div><div class="result-text">(*✿ϖ✿)</div><button class="btn copy" data-text="(*%E2%9C%BF%CF%96%E2%9C%BF)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Flower Wink</div><div class="result-text">(◕‿◕)✿</div><button class="btn copy" data-text="(%E2%97%95%E2%80%BF%E2%97%95)%E2%9C%BF">Copy</button></div>
+<div class="result-card"><div class="result-tag">Petal Smile</div><div class="result-text">(◕ᴗ◕✿)</div><button class="btn copy" data-text="(%E2%97%95%E1%B4%97%E2%97%95%E2%9C%BF)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Flower Love</div><div class="result-text">(✿ ♡‿♡)</div><button class="btn copy" data-text="(%E2%9C%BF%20%E2%99%A1%E2%80%BF%E2%99%A1)">Copy</button></div>
+</div></section>
+<section id="happy"><h2 class="kgroup-title">Happy Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Big Smile</div><div class="result-text">(^▽^)</div><button class="btn copy" data-text="(%5E%E2%96%BD%5E)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cheerful</div><div class="result-text">(´▽`)</div><button class="btn copy" data-text="(%C2%B4%E2%96%BD%60)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bright Eyes</div><div class="result-text">(◕‿◕)</div><button class="btn copy" data-text="(%E2%97%95%E2%80%BF%E2%97%95)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Joyful Jump</div><div class="result-text">ヽ(^o^)丿</div><button class="btn copy" data-text="%E3%83%BD(%5Eo%5E)%E4%B8%BF">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sparkling</div><div class="result-text">(*^▽^*)</div><button class="btn copy" data-text="(*%5E%E2%96%BD%5E*)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Warm Smile</div><div class="result-text">(⌒▽⌒)</div><button class="btn copy" data-text="(%E2%8C%92%E2%96%BD%E2%8C%92)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Content</div><div class="result-text">(´ω`)</div><button class="btn copy" data-text="(%C2%B4%CF%89%60)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Overjoyed</div><div class="result-text">(≧▽≦)</div><button class="btn copy" data-text="(%E2%89%A7%E2%96%BD%E2%89%A6)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Gentle Grin</div><div class="result-text">(*´▽`*)</div><button class="btn copy" data-text="(*%C2%B4%E2%96%BD%60*)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sunny Mood</div><div class="result-text">٩(◕‿◕)۶</div><button class="btn copy" data-text="%D9%A9(%E2%97%95%E2%80%BF%E2%97%95)%DB%B6">Copy</button></div>
+</div></section>
+<section id="sad"><h2 class="kgroup-title">Sad Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Tears</div><div class="result-text">(T_T)</div><button class="btn copy" data-text="(T_T)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Quiet Tears</div><div class="result-text">(;_;)</div><button class="btn copy" data-text="(%3B_%3B)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Overflowing</div><div class="result-text">(╥﹏╥)</div><button class="btn copy" data-text="(%E2%95%A5%EF%B9%8F%E2%95%A5)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Heartbroken</div><div class="result-text">(´；ω；`)</div><button class="btn copy" data-text="(%C2%B4%EF%BC%9B%CF%89%EF%BC%9B%60)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Curled Up</div><div class="result-text">(っ˘̩╭╮˘̩)っ</div><button class="btn copy" data-text="(%E3%81%A3%CB%98%CC%A9%E2%95%AD%E2%95%AE%CB%98%CC%A9)%E3%81%A3">Copy</button></div>
+<div class="result-card"><div class="result-tag">Down Look</div><div class="result-text">(ノ_&lt;。)</div><button class="btn copy" data-text="(%E3%83%8E_%3C%E3%80%82)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Soft Cry</div><div class="result-text">(´;ω;`)</div><button class="btn copy" data-text="(%C2%B4%3B%CF%89%3B%60)">Copy</button></div>
+<div class="result-card"><div class="result-tag">River Eyes</div><div class="result-text">(πーπ)</div><button class="btn copy" data-text="(%CF%80%E3%83%BC%CF%80)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Fading</div><div class="result-text">・゚・(つω`)・゚・</div><button class="btn copy" data-text="%E3%83%BB%E3%82%9A%E3%83%BB(%E3%81%A4%CF%89%60)%E3%83%BB%E3%82%9A%E3%83%BB">Copy</button></div>
+<div class="result-card"><div class="result-tag">Gloomy</div><div class="result-text">(-_-;)</div><button class="btn copy" data-text="(-_-%3B)">Copy</button></div>
+</div></section>
+<section id="love"><h2 class="kgroup-title">Love Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Loving Eyes</div><div class="result-text">(♡μ_μ)</div><button class="btn copy" data-text="(%E2%99%A1%CE%BC_%CE%BC)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Heart Eyes</div><div class="result-text">(♥ω♥)</div><button class="btn copy" data-text="(%E2%99%A5%CF%89%E2%99%A5)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Shy Love</div><div class="result-text">(ノ´з`)ノ</div><button class="btn copy" data-text="(%E3%83%8E%C2%B4%D0%B7%60)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Full Heart</div><div class="result-text">(´∀`)♡</div><button class="btn copy" data-text="(%C2%B4%E2%88%80%60)%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Warm Hug Heart</div><div class="result-text">(๑♡⌓♡๑)</div><button class="btn copy" data-text="(%E0%B9%91%E2%99%A1%E2%8C%93%E2%99%A1%E0%B9%91)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Blushing Love</div><div class="result-text">♡(。-ω-)</div><button class="btn copy" data-text="%E2%99%A1(%E3%80%82-%CF%89-)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sweet Love</div><div class="result-text">(´ ▽ ` ).｡o♡</div><button class="btn copy" data-text="(%C2%B4%20%E2%96%BD%20%60%20).%EF%BD%A1o%E2%99%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Small Heart</div><div class="result-text">( ˘ ³˘)♥</div><button class="btn copy" data-text="(%20%CB%98%20%C2%B3%CB%98)%E2%99%A5">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bring It In</div><div class="result-text">(づ ●─● )づ</div><button class="btn copy" data-text="(%E3%81%A5%20%E2%97%8F%E2%94%80%E2%97%8F%20)%E3%81%A5">Copy</button></div>
+<div class="result-card"><div class="result-tag">Crush</div><div class="result-text">(*¯︶¯*)</div><button class="btn copy" data-text="(*%C2%AF%EF%B8%B6%C2%AF*)">Copy</button></div>
+</div></section>
+<section id="angry"><h2 class="kgroup-title">Angry Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Furious</div><div class="result-text">(╬ Ò﹏Ó)</div><button class="btn copy" data-text="(%E2%95%AC%20%C3%92%EF%B9%8F%C3%93)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Grumpy</div><div class="result-text">(`皿´)</div><button class="btn copy" data-text="(%60%E7%9A%BF%C2%B4)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Rage</div><div class="result-text">ヽ(`Д´)ノ</div><button class="btn copy" data-text="%E3%83%BD(%60%D0%94%C2%B4)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Side Eye</div><div class="result-text">(≖͞_≖̥)</div><button class="btn copy" data-text="(%E2%89%96%CD%9E_%E2%89%96%CC%A5)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Stern</div><div class="result-text">( `н´ )</div><button class="btn copy" data-text="(%20%60%D0%BD%C2%B4%20)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Fuming</div><div class="result-text">Σ(▼□▼メ)</div><button class="btn copy" data-text="%CE%A3(%E2%96%BC%E2%96%A1%E2%96%BC%E3%83%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Boiling</div><div class="result-text">(╬ ಠ益ಠ)</div><button class="btn copy" data-text="(%E2%95%AC%20%E0%B2%A0%E7%9B%8A%E0%B2%A0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Ready to Fight</div><div class="result-text">٩(╬ʘ益ʘ╬)۶</div><button class="btn copy" data-text="%D9%A9(%E2%95%AC%CA%98%E7%9B%8A%CA%98%E2%95%AC)%DB%B6">Copy</button></div>
+<div class="result-card"><div class="result-tag">Annoyed</div><div class="result-text">(≧д≦ヾ)</div><button class="btn copy" data-text="(%E2%89%A7%D0%B4%E2%89%A6%E3%83%BE)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cross</div><div class="result-text">(－‸ლ)</div><button class="btn copy" data-text="(%EF%BC%8D%E2%80%B8%E1%83%9A)">Copy</button></div>
+</div></section>
+<section id="shrug"><h2 class="kgroup-title">Shrug Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Classic Shrug</div><div class="result-text">¯\_(ツ)_/¯</div><button class="btn copy" data-text="%C2%AF%5C_(%E3%83%84)_%2F%C2%AF">Copy</button></div>
+<div class="result-card"><div class="result-tag">Confused Shrug</div><div class="result-text">¯\(°_o)/¯</div><button class="btn copy" data-text="%C2%AF%5C(%C2%B0_o)%2F%C2%AF">Copy</button></div>
+<div class="result-card"><div class="result-tag">Tired Shrug</div><div class="result-text">┐(´д｀)┌</div><button class="btn copy" data-text="%E2%94%90(%C2%B4%D0%B4%EF%BD%80)%E2%94%8C">Copy</button></div>
+<div class="result-card"><div class="result-tag">Whatever Shrug</div><div class="result-text">┐(´～｀)┌</div><button class="btn copy" data-text="%E2%94%90(%C2%B4%EF%BD%9E%EF%BD%80)%E2%94%8C">Copy</button></div>
+<div class="result-card"><div class="result-tag">Small Shrug</div><div class="result-text">¯\(ツ)/¯</div><button class="btn copy" data-text="%C2%AF%5C(%E3%83%84)%2F%C2%AF">Copy</button></div>
+<div class="result-card"><div class="result-tag">Not My Problem</div><div class="result-text">┐(￣ヘ￣;)┌</div><button class="btn copy" data-text="%E2%94%90(%EF%BF%A3%E3%83%98%EF%BF%A3%3B)%E2%94%8C">Copy</button></div>
+<div class="result-card"><div class="result-tag">I Dunno</div><div class="result-text">╮(￣ω￣)╭</div><button class="btn copy" data-text="%E2%95%AE(%EF%BF%A3%CF%89%EF%BF%A3)%E2%95%AD">Copy</button></div>
+<div class="result-card"><div class="result-tag">Meh Shrug</div><div class="result-text">┐(-。-;)┌</div><button class="btn copy" data-text="%E2%94%90(-%E3%80%82-%3B)%E2%94%8C">Copy</button></div>
+</div></section>
+<section id="table-flip"><h2 class="kgroup-title">Table Flip Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Classic Flip</div><div class="result-text">(╯°□°）╯︵ ┻━┻</div><button class="btn copy" data-text="(%E2%95%AF%C2%B0%E2%96%A1%C2%B0%EF%BC%89%E2%95%AF%EF%B8%B5%20%E2%94%BB%E2%94%81%E2%94%BB">Copy</button></div>
+<div class="result-card"><div class="result-tag">Angry Flip</div><div class="result-text">(ノಠ益ಠ)ノ彡┻━┻</div><button class="btn copy" data-text="(%E3%83%8E%E0%B2%A0%E7%9B%8A%E0%B2%A0)%E3%83%8E%E5%BD%A1%E2%94%BB%E2%94%81%E2%94%BB">Copy</button></div>
+<div class="result-card"><div class="result-tag">Fix the Table</div><div class="result-text">┬─┬ノ( º _ ºノ)</div><button class="btn copy" data-text="%E2%94%AC%E2%94%80%E2%94%AC%E3%83%8E(%20%C2%BA%20_%20%C2%BA%E3%83%8E)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Small Flip</div><div class="result-text">(╯'□')╯ ┻━┻</div><button class="btn copy" data-text="(%E2%95%AF'%E2%96%A1')%E2%95%AF%20%E2%94%BB%E2%94%81%E2%94%BB">Copy</button></div>
+<div class="result-card"><div class="result-tag">Double Flip</div><div class="result-text">(ﾉ益)ﾉ┻━┻</div><button class="btn copy" data-text="(%EF%BE%89%E7%9B%8A)%EF%BE%89%E2%94%BB%E2%94%81%E2%94%BB">Copy</button></div>
+<div class="result-card"><div class="result-tag">Calm Restore</div><div class="result-text">┬─┬ ノ( ゜-゜ノ)</div><button class="btn copy" data-text="%E2%94%AC%E2%94%80%E2%94%AC%20%E3%83%8E(%20%E3%82%9C-%E3%82%9C%E3%83%8E)">Copy</button></div>
+</div></section>
+<section id="laughing"><h2 class="kgroup-title">Laughing Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Big Laugh</div><div class="result-text">(≧∇≦)/</div><button class="btn copy" data-text="(%E2%89%A7%E2%88%87%E2%89%A6)%2F">Copy</button></div>
+<div class="result-card"><div class="result-tag">Bursting</div><div class="result-text">ヽ(*⌒▽⌒*)ﾉ</div><button class="btn copy" data-text="%E3%83%BD(*%E2%8C%92%E2%96%BD%E2%8C%92*)%EF%BE%89">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cracking Up</div><div class="result-text">ｗ(ﾟｏﾟ)ｗ</div><button class="btn copy" data-text="%EF%BD%97(%EF%BE%9F%EF%BD%8F%EF%BE%9F)%EF%BD%97">Copy</button></div>
+<div class="result-card"><div class="result-tag">Giggling</div><div class="result-text">( ´ ▽ ` )ﾉ</div><button class="btn copy" data-text="(%20%C2%B4%20%E2%96%BD%20%60%20)%EF%BE%89">Copy</button></div>
+<div class="result-card"><div class="result-tag">Chuckle</div><div class="result-text">(*≧艸≦)</div><button class="btn copy" data-text="(*%E2%89%A7%E8%89%B8%E2%89%A6)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Roaring</div><div class="result-text">｡ﾟ( ﾟ^∀^ﾟ)ﾟ｡</div><button class="btn copy" data-text="%EF%BD%A1%EF%BE%9F(%20%EF%BE%9F%5E%E2%88%80%5E%EF%BE%9F)%EF%BE%9F%EF%BD%A1">Copy</button></div>
+</div></section>
+<section id="crying"><h2 class="kgroup-title">Crying Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Sobbing</div><div class="result-text">(╥_╥)</div><button class="btn copy" data-text="(%E2%95%A5_%E2%95%A5)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Waterfall</div><div class="result-text">(ಥ﹏ಥ)</div><button class="btn copy" data-text="(%E0%B2%A5%EF%B9%8F%E0%B2%A5)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Happy Tears</div><div class="result-text">(T▽T)</div><button class="btn copy" data-text="(T%E2%96%BDT)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Silent Cry</div><div class="result-text">(இ﹏இ`｡)</div><button class="btn copy" data-text="(%E0%AE%87%EF%B9%8F%E0%AE%87%60%EF%BD%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Streaming</div><div class="result-text">(TдT)</div><button class="btn copy" data-text="(T%D0%B4T)">Copy</button></div>
+</div></section>
+<section id="surprised"><h2 class="kgroup-title">Surprised Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Wide Eyes</div><div class="result-text">(⊙_⊙)</div><button class="btn copy" data-text="(%E2%8A%99_%E2%8A%99)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Shocked</div><div class="result-text">(°o°)</div><button class="btn copy" data-text="(%C2%B0o%C2%B0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Startled</div><div class="result-text">Σ(ﾟДﾟ)</div><button class="btn copy" data-text="%CE%A3(%EF%BE%9F%D0%94%EF%BE%9F)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Blinking Fast</div><div class="result-text">(⊙_⊙;)</div><button class="btn copy" data-text="(%E2%8A%99_%E2%8A%99%3B)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Gasp</div><div class="result-text">Σ(°Δ°)</div><button class="btn copy" data-text="%CE%A3(%C2%B0%CE%94%C2%B0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Whoa</div><div class="result-text">(ﾟдﾟ)</div><button class="btn copy" data-text="(%EF%BE%9F%D0%B4%EF%BE%9F)">Copy</button></div>
+</div></section>
+<section id="sleepy"><h2 class="kgroup-title">Sleepy Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Dozing Off</div><div class="result-text">(-_-)zzz</div><button class="btn copy" data-text="(-_-)zzz">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cozy Nap</div><div class="result-text">(｡-ω-)zzz</div><button class="btn copy" data-text="(%EF%BD%A1-%CF%89-)zzz">Copy</button></div>
+<div class="result-card"><div class="result-tag">Drowsy</div><div class="result-text">(=_=)</div><button class="btn copy" data-text="(%3D_%3D)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Peaceful Sleep</div><div class="result-text">( ˘ω˘ )スヤァ</div><button class="btn copy" data-text="(%20%CB%98%CF%89%CB%98%20)%E3%82%B9%E3%83%A4%E3%82%A1">Copy</button></div>
+<div class="result-card"><div class="result-tag">Yawning</div><div class="result-text">(￣o￣) zzZ</div><button class="btn copy" data-text="(%EF%BF%A3o%EF%BF%A3)%20zzZ">Copy</button></div>
+</div></section>
+<section id="confused"><h2 class="kgroup-title">Confused Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Head Tilt</div><div class="result-text">(・_・ヾ)</div><button class="btn copy" data-text="(%E3%83%BB_%E3%83%BB%E3%83%BE)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Puzzled</div><div class="result-text">(・・?)</div><button class="btn copy" data-text="(%E3%83%BB%E3%83%BB%3F)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Lost</div><div class="result-text">ლ(・﹏・ლ)</div><button class="btn copy" data-text="%E1%83%9A(%E3%83%BB%EF%B9%8F%E3%83%BB%E1%83%9A)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Doubting</div><div class="result-text">(￢_￢;)</div><button class="btn copy" data-text="(%EF%BF%A2_%EF%BF%A2%3B)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Not Sure</div><div class="result-text">(・∀・;)</div><button class="btn copy" data-text="(%E3%83%BB%E2%88%80%E3%83%BB%3B)">Copy</button></div>
+</div></section>
+<section id="embarrassed"><h2 class="kgroup-title">Embarrassed Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Blushing</div><div class="result-text">(⁄ ⁄•⁄ω⁄•⁄ ⁄)</div><button class="btn copy" data-text="(%E2%81%84%20%E2%81%84%E2%80%A2%E2%81%84%CF%89%E2%81%84%E2%80%A2%E2%81%84%20%E2%81%84)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Shy Smile</div><div class="result-text">(*/ω\*)</div><button class="btn copy" data-text="(*%2F%CF%89%5C*)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Hiding Face</div><div class="result-text">(ノ▽ノ)</div><button class="btn copy" data-text="(%E3%83%8E%E2%96%BD%E3%83%8E)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Flustered</div><div class="result-text">(///ω///)</div><button class="btn copy" data-text="(%2F%2F%2F%CF%89%2F%2F%2F)">Copy</button></div>
+</div></section>
+<section id="excited"><h2 class="kgroup-title">Excited Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Thrilled</div><div class="result-text">ヽ(=^･ω･^=)丿</div><button class="btn copy" data-text="%E3%83%BD(%3D%5E%EF%BD%A5%CF%89%EF%BD%A5%5E%3D)%E4%B8%BF">Copy</button></div>
+<div class="result-card"><div class="result-tag">Woohoo</div><div class="result-text">ヽ(◕‿◕)ノ</div><button class="btn copy" data-text="%E3%83%BD(%E2%97%95%E2%80%BF%E2%97%95)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Pumped</div><div class="result-text">\(^ᴗ^)/</div><button class="btn copy" data-text="%5C(%5E%E1%B4%97%5E)%2F">Copy</button></div>
+<div class="result-card"><div class="result-tag">Jumping</div><div class="result-text">ヽ(★ω★)ノ</div><button class="btn copy" data-text="%E3%83%BD(%E2%98%85%CF%89%E2%98%85)%E3%83%8E">Copy</button></div>
+</div></section>
+<section id="greeting"><h2 class="kgroup-title">Greeting Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Wave Hello</div><div class="result-text">(^-^)/</div><button class="btn copy" data-text="(%5E-%5E)%2F">Copy</button></div>
+<div class="result-card"><div class="result-tag">Friendly Wave</div><div class="result-text">(´▽`)ﾉ</div><button class="btn copy" data-text="(%C2%B4%E2%96%BD%60)%EF%BE%89">Copy</button></div>
+<div class="result-card"><div class="result-tag">Cheerful Wave</div><div class="result-text">ヾ(＾-＾)ノ</div><button class="btn copy" data-text="%E3%83%BE(%EF%BC%BE-%EF%BC%BE)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Goodbye</div><div class="result-text">(=ﾟωﾟ)ﾉ</div><button class="btn copy" data-text="(%3D%EF%BE%9F%CF%89%EF%BE%9F)%EF%BE%89">Copy</button></div>
+</div></section>
+<section id="dance"><h2 class="kgroup-title">Dance Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Happy Dance</div><div class="result-text">ヽ(^o^)ノ</div><button class="btn copy" data-text="%E3%83%BD(%5Eo%5E)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Groove</div><div class="result-text">┏(・o・)┛♪</div><button class="btn copy" data-text="%E2%94%8F(%E3%83%BBo%E3%83%BB)%E2%94%9B%E2%99%AA">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sway</div><div class="result-text">└(￣▽￣└)</div><button class="btn copy" data-text="%E2%94%94(%EF%BF%A3%E2%96%BD%EF%BF%A3%E2%94%94)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Party Move</div><div class="result-text">ᕕ(⌐■_■)ᕗ</div><button class="btn copy" data-text="%E1%95%95(%E2%8C%90%E2%96%A0_%E2%96%A0)%E1%95%97">Copy</button></div>
+</div></section>
+<section id="flirty"><h2 class="kgroup-title">Flirty Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Wink</div><div class="result-text">(^_-)</div><button class="btn copy" data-text="(%5E_-)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sweet Wink</div><div class="result-text">(｡•́‿•̀｡)</div><button class="btn copy" data-text="(%EF%BD%A1%E2%80%A2%CC%81%E2%80%BF%E2%80%A2%CC%80%EF%BD%A1)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Charming</div><div class="result-text">(｡•̀ᴗ-)✧</div><button class="btn copy" data-text="(%EF%BD%A1%E2%80%A2%CC%80%E1%B4%97-)%E2%9C%A7">Copy</button></div>
+<div class="result-card"><div class="result-tag">Coy</div><div class="result-text">( ｡ˇ ‿ˇ｡)</div><button class="btn copy" data-text="(%20%EF%BD%A1%CB%87%20%E2%80%BF%CB%87%EF%BD%A1)">Copy</button></div>
+</div></section>
+<section id="scared"><h2 class="kgroup-title">Scared Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Terrified</div><div class="result-text">(((( ；ﾟДﾟ))))</div><button class="btn copy" data-text="((((%20%EF%BC%9B%EF%BE%9F%D0%94%EF%BE%9F))))">Copy</button></div>
+<div class="result-card"><div class="result-tag">Startled Fear</div><div class="result-text">Σ(oﾟ□ﾟo)</div><button class="btn copy" data-text="%CE%A3(o%EF%BE%9F%E2%96%A1%EF%BE%9Fo)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Nervous</div><div class="result-text">(((( ;°Д°))))</div><button class="btn copy" data-text="((((%20%3B%C2%B0%D0%94%C2%B0))))">Copy</button></div>
+</div></section>
+<section id="cool"><h2 class="kgroup-title">Cool Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Sunglasses</div><div class="result-text">(⌐■_■)</div><button class="btn copy" data-text="(%E2%8C%90%E2%96%A0_%E2%96%A0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Chill</div><div class="result-text">( ・_・)ノ</div><button class="btn copy" data-text="(%20%E3%83%BB_%E3%83%BB)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Smooth</div><div class="result-text">(¬‿¬)</div><button class="btn copy" data-text="(%C2%AC%E2%80%BF%C2%AC)">Copy</button></div>
+</div></section>
+<section id="disapproval"><h2 class="kgroup-title">Disapproval Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Side Glance</div><div class="result-text">ಠ_ಠ</div><button class="btn copy" data-text="%E0%B2%A0_%E0%B2%A0">Copy</button></div>
+<div class="result-card"><div class="result-tag">Unimpressed</div><div class="result-text">(¬_¬)</div><button class="btn copy" data-text="(%C2%AC_%C2%AC)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Sigh</div><div class="result-text">ヽ(´ー`)ノ</div><button class="btn copy" data-text="%E3%83%BD(%C2%B4%E3%83%BC%60)%E3%83%8E">Copy</button></div>
+<div class="result-card"><div class="result-tag">Really?</div><div class="result-text">(￣ヘ￣)</div><button class="btn copy" data-text="(%EF%BF%A3%E3%83%98%EF%BF%A3)">Copy</button></div>
+</div></section>
+<section id="sparkle"><h2 class="kgroup-title">Sparkle Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Glowing</div><div class="result-text">(✧ω✧)</div><button class="btn copy" data-text="(%E2%9C%A7%CF%89%E2%9C%A7)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Star Sparkle</div><div class="result-text">☆*:.｡.o(≧▽≦)o.｡.:*☆</div><button class="btn copy" data-text="%E2%98%86*%3A.%EF%BD%A1.o(%E2%89%A7%E2%96%BD%E2%89%A6)o.%EF%BD%A1.%3A*%E2%98%86">Copy</button></div>
+<div class="result-card"><div class="result-tag">Twinkle</div><div class="result-text">✧◝(⁰▿⁰)◜✧</div><button class="btn copy" data-text="%E2%9C%A7%E2%97%9D(%E2%81%B0%E2%96%BF%E2%81%B0)%E2%97%9C%E2%9C%A7">Copy</button></div>
+<div class="result-card"><div class="result-tag">Radiant</div><div class="result-text">(*✧×✧*)</div><button class="btn copy" data-text="(*%E2%9C%A7%C3%97%E2%9C%A7*)">Copy</button></div>
+</div></section>
+<section id="animals"><h2 class="kgroup-title">Animals Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Bear</div><div class="result-text">ʕ·ᴥ·ʔ</div><button class="btn copy" data-text="%CA%95%C2%B7%E1%B4%A5%C2%B7%CA%94">Copy</button></div>
+<div class="result-card"><div class="result-tag">Dog</div><div class="result-text">U ´꓃ ` U</div><button class="btn copy" data-text="U%20%C2%B4%EA%93%83%20%60%20U">Copy</button></div>
+</div></section>
+<section id="music"><h2 class="kgroup-title">Music Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Humming</div><div class="result-text">♪(┌・∀・)┌</div><button class="btn copy" data-text="%E2%99%AA(%E2%94%8C%E3%83%BB%E2%88%80%E3%83%BB)%E2%94%8C">Copy</button></div>
+<div class="result-card"><div class="result-tag">Dancing to Music</div><div class="result-text">ヽ(^o^)ノ♪</div><button class="btn copy" data-text="%E3%83%BD(%5Eo%5E)%E3%83%8E%E2%99%AA">Copy</button></div>
+<div class="result-card"><div class="result-tag">Singing</div><div class="result-text">(๑′ᴗ‵๑)♪</div><button class="btn copy" data-text="(%E0%B9%91%E2%80%B2%E1%B4%97%E2%80%B5%E0%B9%91)%E2%99%AA">Copy</button></div>
+</div></section>
+<section id="party"><h2 class="kgroup-title">Party Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Celebration</div><div class="result-text">\(^o^)/</div><button class="btn copy" data-text="%5C(%5Eo%5E)%2F">Copy</button></div>
+<div class="result-card"><div class="result-tag">Woo Party</div><div class="result-text">ヽ(´▽`)/</div><button class="btn copy" data-text="%E3%83%BD(%C2%B4%E2%96%BD%60)%2F">Copy</button></div>
+<div class="result-card"><div class="result-tag">Confetti Mood</div><div class="result-text">☆〜(ゝ。∂)</div><button class="btn copy" data-text="%E2%98%86%E3%80%9C(%E3%82%9D%E3%80%82%E2%88%82)">Copy</button></div>
+</div></section>
+<section id="determined"><h2 class="kgroup-title">Determined Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Fighting Spirit</div><div class="result-text">(๑•̀ㅂ•́)و✧</div><button class="btn copy" data-text="(%E0%B9%91%E2%80%A2%CC%80%E3%85%82%E2%80%A2%CC%81)%D9%88%E2%9C%A7">Copy</button></div>
+<div class="result-card"><div class="result-tag">Focused</div><div class="result-text">(ง •̀_•́)ง</div><button class="btn copy" data-text="(%E0%B8%87%20%E2%80%A2%CC%80_%E2%80%A2%CC%81)%E0%B8%87">Copy</button></div>
+<div class="result-card"><div class="result-tag">Never Give Up</div><div class="result-text">φ(・ω・ )</div><button class="btn copy" data-text="%CF%86(%E3%83%BB%CF%89%E3%83%BB%20)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Ready</div><div class="result-text">(ง'̀-'́)ง</div><button class="btn copy" data-text="(%E0%B8%87'%CC%80-'%CC%81)%E0%B8%87">Copy</button></div>
+</div></section>
+<section id="grateful"><h2 class="kgroup-title">Grateful Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Thank You</div><div class="result-text">(⁠人⁠•⁠͈⁠ᴗ⁠•⁠͈⁠)</div><button class="btn copy" data-text="(%E2%81%A0%E4%BA%BA%E2%81%A0%E2%80%A2%E2%81%A0%CD%88%E2%81%A0%E1%B4%97%E2%81%A0%E2%80%A2%E2%81%A0%CD%88%E2%81%A0)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Deep Bow</div><div class="result-text">m(_ _)m</div><button class="btn copy" data-text="m(_%20_)m">Copy</button></div>
+<div class="result-card"><div class="result-tag">Appreciation</div><div class="result-text">(´｡• ᵕ •｡`)</div><button class="btn copy" data-text="(%C2%B4%EF%BD%A1%E2%80%A2%20%E1%B5%95%20%E2%80%A2%EF%BD%A1%60)">Copy</button></div>
+</div></section>
+<section id="proud"><h2 class="kgroup-title">Proud Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Smug</div><div class="result-text">(￣ω￣)</div><button class="btn copy" data-text="(%EF%BF%A3%CF%89%EF%BF%A3)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Victory</div><div class="result-text">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div><button class="btn copy" data-text="(%EF%BE%89%E2%97%95%E3%83%AE%E2%97%95)%EF%BE%89*%3A%EF%BD%A5%EF%BE%9F%E2%9C%A7">Copy</button></div>
+<div class="result-card"><div class="result-tag">Nailed It</div><div class="result-text">(⌐■_■)b</div><button class="btn copy" data-text="(%E2%8C%90%E2%96%A0_%E2%96%A0)b">Copy</button></div>
+</div></section>
+<section id="hug"><h2 class="kgroup-title">Hug Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Open Arms</div><div class="result-text">(つ≧▽≦)つ</div><button class="btn copy" data-text="(%E3%81%A4%E2%89%A7%E2%96%BD%E2%89%A6)%E3%81%A4">Copy</button></div>
+<div class="result-card"><div class="result-tag">Big Hug</div><div class="result-text">(づ￣ 3￣)づ</div><button class="btn copy" data-text="(%E3%81%A5%EF%BF%A3%203%EF%BF%A3)%E3%81%A5">Copy</button></div>
+<div class="result-card"><div class="result-tag">Warm Hug</div><div class="result-text">(っ´▽`)っ</div><button class="btn copy" data-text="(%E3%81%A3%C2%B4%E2%96%BD%60)%E3%81%A3">Copy</button></div>
+</div></section>
+<section id="bored"><h2 class="kgroup-title">Bored Kaomoji</h2><div class="kgrid">
+<div class="result-card"><div class="result-tag">Nothing to Do</div><div class="result-text">(´-ω-`)</div><button class="btn copy" data-text="(%C2%B4-%CF%89-%60)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Blank Stare</div><div class="result-text">(-.-)</div><button class="btn copy" data-text="(-.-)">Copy</button></div>
+<div class="result-card"><div class="result-tag">Whatever Mood</div><div class="result-text">(￣～￣;)</div><button class="btn copy" data-text="(%EF%BF%A3%EF%BD%9E%EF%BF%A3%3B)">Copy</button></div>
+</div></section>
+</div>
 
   <nav class="more-tools" aria-label="Other tools">
     <h2>Related Tools</h2>
@@ -534,26 +786,26 @@ function render(){
   results.innerHTML = "";
   if(!filtered.length){
     results.innerHTML = `<div class="empty-note">No kaomoji match that search. Try a different mood word.</div>`;
-    document.getElementById('loadMoreBtn').style.display = 'none';
     return;
   }
-  filtered.slice(0, visibleCount).forEach((s, i)=>{
-    const card = document.createElement('div');
-    card.className = 'result-card';
-    card.style.animationDelay = `${Math.min(i,16) * 35}ms`;
-    card.innerHTML = `
-      <div class="result-tag">${esc(s.tag)}</div>
-      <div class="result-text">${esc(s.text)}</div>
-      <button class="btn copy" data-text="${encodeURIComponent(s.text)}">Copy</button>`;
-    results.appendChild(card);
+  categories.forEach(cat=>{
+    if(cat === "All") return;
+    const rows = filtered.filter(s=>s.cat===cat);
+    if(!rows.length) return;
+    const sec = document.createElement('section');
+    sec.id = cat.toLowerCase().replace(/\s+/g,'-');
+    sec.innerHTML = `<h2 class="kgroup-title">${esc(cat)} Kaomoji</h2>`;
+    const grid = document.createElement('div');
+    grid.className = 'kgrid';
+    rows.forEach(s=>{
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      card.innerHTML = `<div class="result-tag">${esc(s.tag)}</div><div class="result-text">${esc(s.text)}</div><button class="btn copy" data-text="${encodeURIComponent(s.text)}">Copy</button>`;
+      grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+    results.appendChild(sec);
   });
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-  if(visibleCount < filtered.length){
-    loadMoreBtn.style.display = 'flex';
-    loadMoreBtn.textContent = `Show more kaomoji (${filtered.length - visibleCount} left)`;
-  } else {
-    loadMoreBtn.style.display = 'none';
-  }
 }
 
 function buildChips(){
@@ -570,7 +822,6 @@ function buildChips(){
 }
 
 document.getElementById('searchInput').addEventListener('input', ()=>{ visibleCount = PAGE_SIZE; render(); });
-document.getElementById('loadMoreBtn').addEventListener('click', ()=>{ visibleCount += PAGE_SIZE; render(); });
 
 function copyToClipboard(text, btn){
   const done = (ok)=>{
@@ -603,7 +854,6 @@ document.getElementById('results').addEventListener('click', (e)=>{
 });
 
 buildChips();
-render();
 
 document.querySelectorAll('.faq-q').forEach(btn=>{
   btn.addEventListener('click', function(){
