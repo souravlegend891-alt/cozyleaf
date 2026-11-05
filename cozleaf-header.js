@@ -1,9 +1,11 @@
 /* ==========================================================
    Cozyleaf Shared Header
-   VERSION: cozyleaf-v15-2026-08-30 (adds Step Tracker, new Health & Fitness Tools category)
+   VERSION: cozyleaf-v16-2026-11-05
    Include on every page with:
    <script src="cozleaf-header.js" defer></script>
    placed right after the opening <body> tag.
+   Requires style.css on the page (reserves the header's space
+   so the page does not jump when the header appears).
    Update MAIN_TOOLS here once and it updates everywhere.
    ========================================================== */
 
@@ -107,8 +109,9 @@ gtag('config', 'G-G0N45N33HR');
     #czHeader .cz-logo svg{display:block;}
     #czSearchOverlay{position:fixed;top:0;left:0;right:0;background:#1B1D29;z-index:210;
       padding:12px 14px;display:flex;align-items:center;gap:10px;
-      transform:translateY(-100%);transition:transform .2s ease;}
-    #czSearchOverlay.show{transform:translateY(0);}
+      transform:translateY(-100%);visibility:hidden;
+      transition:transform .2s ease,visibility 0s linear .2s;}
+    #czSearchOverlay.show{transform:translateY(0);visibility:visible;transition-delay:0s;}
     #czSearchOverlay input{flex:1;padding:11px 16px;border-radius:10px;border:none;
       background:rgba(255,255,255,0.08);color:#fff;font-size:16px;font-family:'Inter',sans-serif;outline:none;}
     #czSearchOverlay input::placeholder{color:rgba(255,255,255,0.45);}
@@ -129,9 +132,10 @@ gtag('config', 'G-G0N45N33HR');
       pointer-events:none;transition:.2s;}
     #czOverlay.show{opacity:1;pointer-events:auto;}
     #czDrawer{position:fixed;top:0;left:0;height:100%;width:320px;max-width:88vw;background:#1B1D29;
-      color:#fff;z-index:230;transform:translateX(-105%);transition:.25s ease;display:flex;flex-direction:column;
+      color:#fff;z-index:230;transform:translateX(-105%);visibility:hidden;
+      transition:transform .25s ease,visibility 0s linear .25s;display:flex;flex-direction:column;
       font-family:'Space Grotesk','Inter',sans-serif;}
-    #czDrawer.show{transform:translateX(0);}
+    #czDrawer.show{transform:translateX(0);visibility:visible;transition-delay:0s;}
     #czDrawer .cz-drawer-head{padding:20px;display:flex;align-items:center;justify-content:space-between;
       border-bottom:1px solid rgba(255,255,255,.08);}
     #czDrawer .cz-drawer-head h2{font-size:18px;font-weight:600;margin:0;}
@@ -149,7 +153,10 @@ gtag('config', 'G-G0N45N33HR');
     #czDrawer .cz-drawer-info a:hover{color:#fff;}
   `;
 
-  function slug(str){ return str.toLowerCase().replace(/[^a-z0-9]+/g,'-'); }
+  function esc(str){
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+              .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
 
   function buildDrawerHTML(){
     const cats = [...new Set(MAIN_TOOLS.map(t=>t.cat))]
@@ -173,12 +180,11 @@ gtag('config', 'G-G0N45N33HR');
   }
 
   function ensureFontLoaded(){
-    // If a page's own <head> forgot to include the Space Grotesk font (or it
-    // loads late), the logo briefly renders in a fallback font that has
-    // different letter widths — this is what looks like the logo "resizing"
-    // or "shaking" when moving between pages. Loading it here guarantees
-    // every page using this shared header gets the same font, every time.
+    // Guarantees Space Grotesk is present on every page so the logo never
+    // renders in a fallback font. Skipped when the page already loads it,
+    // so the font stylesheet is never requested twice.
     if(document.getElementById('cz-font-link')) return;
+    if(document.querySelector('link[href*="fonts.googleapis.com"][href*="Space+Grotesk"]')) return;
     const preconnect1 = document.createElement('link');
     preconnect1.rel = 'preconnect';
     preconnect1.href = 'https://fonts.googleapis.com';
@@ -189,13 +195,14 @@ gtag('config', 'G-G0N45N33HR');
     const fontLink = document.createElement('link');
     fontLink.id = 'cz-font-link';
     fontLink.rel = 'stylesheet';
-    fontLink.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap';
     document.head.appendChild(preconnect1);
     document.head.appendChild(preconnect2);
     document.head.appendChild(fontLink);
   }
 
   function inject(){
+    if(document.getElementById('czHeader')) return;
     ensureFontLoaded();
     const style = document.createElement('style');
     style.textContent = CSS;
@@ -205,8 +212,8 @@ gtag('config', 'G-G0N45N33HR');
     wrap.innerHTML = `
       <header id="czHeader">
         <div class="cz-side"><button class="cz-icon-btn" id="czDrawerBtn" aria-label="Browse all tools">☰</button></div>
-        <a class="cz-logo" href="index.html">
-          <svg width="147" height="46" viewBox="0 0 208 65" xmlns="http://www.w3.org/2000/svg">
+        <a class="cz-logo" href="./" aria-label="Cozyleaf home">
+          <svg width="147" height="46" viewBox="0 0 208 65" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <circle cx="8" cy="20" r="5.5" fill="#3FA875"/>
             <text x="21" y="34" font-family="'Space Grotesk',sans-serif" font-size="31" font-weight="700" letter-spacing="-0.5" fill="#FFFFFF">Cozyleaf.in</text>
             <path d="M21 46C58 60 143 60 185 42" stroke="#3FA875" stroke-width="2.6" fill="none" stroke-linecap="round"/>
@@ -217,17 +224,18 @@ gtag('config', 'G-G0N45N33HR');
         <div class="cz-side cz-right"><button class="cz-icon-btn" id="czSearchBtn" aria-label="Search tools">🔍</button></div>
       </header>
       <div id="czSearchOverlay">
-        <input id="czSearchInput" type="text" placeholder="Search any tool — bmi, gpa, typing..."/>
+        <input id="czSearchInput" type="text" placeholder="Search any tool — bmi, gpa, typing..." aria-label="Search tools"/>
         <button class="cz-close" id="czSearchClose" aria-label="Close search">×</button>
       </div>
       <div id="czSearchResults"></div>
       <div id="czOverlay"></div>
-      <aside id="czDrawer">
-        <div class="cz-drawer-head"><h2>All Tools</h2><button class="cz-close-x" id="czDrawerClose">×</button></div>
+      <aside id="czDrawer" aria-label="All tools">
+        <div class="cz-drawer-head"><h2>All Tools</h2><button class="cz-close-x" id="czDrawerClose" aria-label="Close menu">×</button></div>
         <div class="cz-drawer-body">${buildDrawerHTML()}</div>
       </aside>
     `;
     document.body.prepend(wrap);
+    document.body.classList.add('cz-ready');
 
     const drawer = document.getElementById('czDrawer');
     const overlay = document.getElementById('czOverlay');
@@ -251,13 +259,16 @@ gtag('config', 'G-G0N45N33HR');
       const matches = MAIN_TOOLS.filter(t=>t.name.toLowerCase().includes(q));
       results.innerHTML = matches.length
         ? matches.map(t=>`<a class="cz-sr-item" href="${t.url}"><span>${t.name}</span><span class="cz-sr-cat">${t.cat}</span></a>`).join('')
-        : `<div style="padding:20px 18px;color:#6B6F76;font-size:14.5px;">No tool found for "${q}"</div>`;
+        : `<div style="padding:20px 18px;color:#6B6F76;font-size:14.5px;">No tool found for "${esc(q)}"</div>`;
       results.classList.add('show');
     });
     document.addEventListener('click', e=>{
       if(!e.target.closest('#czSearchOverlay') && !e.target.closest('#czSearchBtn')){
         results.classList.remove('show');
       }
+    });
+    document.addEventListener('keydown', e=>{
+      if(e.key === 'Escape'){ closeDrawer(); closeSearch(); }
     });
   }
 
